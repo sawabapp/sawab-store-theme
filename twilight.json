@@ -106,6 +106,41 @@
             "value": true,
             "selected": false
         },
+
+        {
+            "type": "boolean",
+            "icon": "sicon-toggle-off",
+            "label": "تفعيل الشريط الإعلاني العلوي",
+            "description": "شريط رفيع يظهر أعلى المتجر لعرض رسالة تسويقية أو كود خصم",
+            "id": "announcement_bar_enabled",
+            "format": "switch",
+            "required": false,
+            "value": true,
+            "selected": true
+        },
+        
+        {
+            "type": "string",
+            "icon": "sicon-format-text-alt",
+            "label": "نص الشريط الإعلاني",
+            "multilanguage": true,
+            "id": "announcement_bar",
+            "value": "شحن مجاني للطلبات فوق 200 ريال · استخدم كود <strong>SWB</strong> لخصم إضافي",
+            "required": false,
+            "format": "text",
+            "description": "يمكنك استخدام HTML بسيط مثل <strong> لتنسيق جزء من النص",
+            "placeholder": "أدخل نص الشريط الإعلاني هنا...",
+            "minLength": 0,
+            "maxLength": 200,
+            "conditions": [
+                {
+                    "id": "announcement_bar_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ]
+        },
+        
         {
             "type": "boolean",
             "icon": "sicon-toggle-off",

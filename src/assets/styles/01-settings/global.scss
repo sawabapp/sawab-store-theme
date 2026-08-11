@@ -1,4 +1,3 @@
-
 // Colors
 $main-color: var(--color-primary);
 $infinte-color: var(--infinte-color);
@@ -6,23 +5,29 @@ $main-text-color: var(--main-text-color);
 
 :root {
   --infinte-color: #c9c9c9;
-  --main-text-color: #231f1e;
+  --main-text-color: #1c1b19;
   --main-text-color-dark: #2b2d34;
 
-  /* current */
-  --color-primary: #5cd5c4;
-  --color-primary: #414042;
-  --color-primary-d: #272628;
-  --color-primary-l: #676668;
-  --color-primary-reverse: #ff6767;
-  --color-text: #7c8082;
-  --bg-gray: #c6c7ce1a;
-  --color-grey: #f5f7f9;
-  --color-light-grey: #eeeeee;
+  /* Sawab brand palette */
+  --color-primary: #c62127;
+  --color-primary-d: #a01a1f;
+  --color-primary-l: #e35a5f;
+  --color-primary-reverse: #1c1b19;
+
+  --color-text: #5c564b;
+  --color-text-light: #8a8272;
+  --bg-gray: #e9e6e1;
+  --bg-cream: #fbfaf8;
+  --color-grey: #f5f1ea;
+  --color-light-grey: #eee7dd;
+  --color-border: #f2ecdf;
+  --color-whatsapp: #25d366;
+
   /* font-size */
   --font-sm: 0.8685714286rem;
-  /* font-family: ; */
-  --font-main: "DINNextLTArabic";
+  /* font-family */
+  --font-main: "IBM Plex Sans Arabic", sans-serif;
+  --font-display: "IBM Plex Sans Arabic", sans-serif;
 
   /* plugins */
   --mm-ocd-width: calc(100% - 51px);
