@@ -1,61 +1,3 @@
-.announcement-bar {
-  background: var(--color-primary);
-  color: #fff;
-  font-size: 13px;
-  text-align: center;
-  padding: 9px 0;
-  font-family: var(--font-main);
-}
-
-.site-header,
-.site-header * {
-  font-family: var(--font-main) !important;
-}
-
-.site-header {
-  background: #fff;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.site-header__row {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  padding: 16px 48px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.site-header__logo img {
-  height: 40px;
-  width: auto;
-  object-fit: contain;
-  display: block;
-}
-
-.site-header__mobile-toggle {
-  display: none;
-  font-size: 22px;
-  color: var(--main-text-color);
-}
-
-.site-header__search {
-  flex: 1;
-  display: flex;
-}
-
-.site-header__search salla-search {
-  flex: 1;
-  display: block;
-  --search-bg: #f5f1ea;
-  --search-border: 1.5px solid #e8e1d5;
-  --search-radius: 10px;
-  --search-height: 44px;
-  --search-color: #8a8272;
-  --search-font-size: 14px;
-  --search-icon-color: #8a8272;
-}
-
 .site-header__actions {
   display: flex;
   align-items: center;
@@ -65,14 +7,10 @@
   color: var(--main-text-color);
   flex-shrink: 0;
   white-space: nowrap;
+  height: 44px;
 }
 
-.site-header__link {
-  color: var(--main-text-color);
-  font-family: var(--font-main);
-  &:hover { color: var(--color-primary); }
-}
-
+// ===== السلة =====
 .site-header__cart {
   display: flex;
   align-items: center;
@@ -80,52 +18,113 @@
   background: var(--main-text-color);
   color: #fff;
   border-radius: 10px;
-  padding: 10px 16px;
+  padding: 0 16px;
   font-weight: 600;
   font-size: 14px;
-  font-family: var(--font-main);
   cursor: pointer;
   line-height: 1;
+  height: 44px;
+  box-sizing: border-box;
+
+  i {
+    color: #fff;
+    font-size: 16px;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    line-height: 1 !important;
+  }
 }
 
-.site-header__cart-price {
-  font-weight: 600;
-}
-
-.site-header__cart-badge {
-  background: var(--color-primary);
-  border-radius: 99px;
-  font-size: 11px;
-  padding: 1px 7px;
-  line-height: 1.4;
-}
-
-.site-nav {
-  background: #fff;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.site-nav__row {
+// إخفاء السعر فقط، وتنسيق العداد
+salla-cart-summary {
+  height: 44px;
   display: flex;
   align-items: center;
-  gap: 28px;
-  padding: 13px 48px;
-  max-width: 1400px;
-  margin: 0 auto;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--color-text);
-  overflow-x: auto;
-  font-family: var(--font-main);
+
+  .s-cart-summary-content {
+    display: none !important;
+  }
+
+  .s-cart-summary-count {
+    background: var(--color-primary) !important;
+    color: #fff !important;
+    border-radius: 99px !important;
+    font-size: 11px !important;
+    min-width: 18px !important;
+    height: 18px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 4px !important;
+  }
 }
 
-.site-nav__row a.active,
-.site-nav__row a:hover {
-  color: var(--color-primary);
+// ===== تربيع أيقونة المستخدم بنفس ارتفاع السلة =====
+salla-user-menu {
+  display: flex !important;
+  align-items: center;
+  height: 44px;
+
+  button,
+  [class*="trigger"] {
+    border-radius: 10px !important;
+    background: var(--color-grey) !important;
+    width: 44px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  img,
+  .avatar,
+  [class*="avatar"] {
+    border-radius: 10px !important;
+  }
+}
+
+// ===== صندوق البحث + الزر (بوردر موحّد شامل) =====
+.site-header__search {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  border: 1px solid #e8e1d5;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 44px;
+  box-sizing: border-box;
+
+  salla-search {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: #f5f1ea !important;
+  }
+
+  input {
+    background: #f5f1ea !important;
+    border: none !important;
+    height: 100% !important;
+  }
+}
+
+.site-header__search-btn {
+  background: var(--main-text-color);
+  color: #fff;
   font-weight: 600;
-}
-
-@media (max-width: 992px) {
-  .site-header__mobile-toggle { display: block; }
-  .site-nav { display: none; }
+  font-size: 14px;
+  padding: 0 22px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-main);
+  flex-shrink: 0;
+  height: 100%;
+  box-sizing: border-box;
 }

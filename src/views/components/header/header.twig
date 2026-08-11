@@ -31,23 +31,34 @@
 
     <div class="site-header__search">
       <salla-search data-testid="store-header-search" inline height="44"></salla-search>
+      <button type="button" class="site-header__search-btn" onclick="document.querySelector('salla-search input')?.closest('form')?.requestSubmit()">بحث</button>
     </div>
 
     <div class="site-header__actions">
-      <a class="site-header__link" href="{{ routes.track_order_url|default('#') }}">تتبع طلبك</a>
-
       <salla-user-menu data-testid="store-header-user-menu" avatar-only show-header show-trigger></salla-user-menu>
 
-      <salla-cart-summary data-testid="store-header-cart">
-  <div slot="icon" class="site-header__cart">
-    <span>السلة</span>
-    <i class="header-btn__icon icon sicon-shopping-bag"></i>
-  </div>
-</salla-cart-summary>
+      <salla-cart-summary data-testid="store-header-cart" show-cart-label="false">
+        <div slot="icon" class="site-header__cart">
+          <i class="header-btn__icon icon sicon-shopping-bag"></i>
+          <span>السلة</span>
+        </div>
+      </salla-cart-summary>
     </div>
 
   </div>
 </header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var tryFix = setInterval(function () {
+      var input = document.querySelector('.site-header__search salla-search input');
+      if (input) {
+        input.setAttribute('placeholder', 'ابحث عن خزان، سخان، فلتر، مضخة...');
+        clearInterval(tryFix);
+      }
+    }, 300);
+  });
+</script>
 
 <div id="mainnav" class="main-nav-container site-nav">
   <div class="site-nav__row">
