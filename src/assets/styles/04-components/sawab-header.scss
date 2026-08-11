@@ -1,0 +1,99 @@
+.announcement-bar {
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 13px;
+  text-align: center;
+  padding: 9px 12px;
+  line-height: 1.5;
+  font-family: var(--font-main);
+}
+
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid var(--color-border);
+  font-family: var(--font-main);
+}
+
+.site-header__row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 16px 48px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.site-header__logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.site-header__logo img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.site-header__search {
+  flex: 1;
+  display: flex;
+}
+
+.site-header__search salla-search {
+  flex: 1;
+  --search-bg: var(--color-grey);
+  --search-border: 1.5px solid #e8e1d5;
+  --search-radius: 10px 0 0 10px;
+  --search-color: var(--color-text-light);
+  --search-font-size: 14px;
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--main-text-color);
+  flex-shrink: 0;
+}
+
+.site-header__cart {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--main-text-color);
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.site-nav {
+  background: #fff;
+  border-bottom: 1px solid var(--color-border);
+  font-family: var(--font-main);
+}
+
+.site-nav__row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 13px 48px;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+  overflow-x: auto;
+}
+
+.site-nav__row a.active,
+.site-nav__row a:hover {
+  color: var(--color-primary);
+  font-weight: 600;
+}
