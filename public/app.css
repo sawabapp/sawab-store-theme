@@ -9229,17 +9229,19 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
   color: #fff;
   font-size: 13px;
   text-align: center;
-  padding: 9px 12px;
-  line-height: 1.5;
+  padding: 9px 0;
   font-family: "IBM Plex Sans Arabic", sans-serif;
   font-family: var(--font-main);
+}
+.site-header,
+.site-header * {
+  font-family: "IBM Plex Sans Arabic", sans-serif !important;
+  font-family: var(--font-main) !important;
 }
 .site-header {
   background: #fff;
   border-bottom: 1px solid #f2ecdf;
   border-bottom: 1px solid var(--color-border);
-  font-family: "IBM Plex Sans Arabic", sans-serif;
-  font-family: var(--font-main);
 }
 .site-header__row {
   display: flex;
@@ -9249,11 +9251,6 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
   max-width: 1400px;
   margin: 0 auto;
 }
-.site-header__logo {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
 .site-header__logo img {
   height: 40px;
   width: auto;
@@ -9261,17 +9258,26 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
      object-fit: contain;
   display: block;
 }
+.site-header__mobile-toggle {
+  display: none;
+  font-size: 22px;
+  color: #1c1b19;
+  color: var(--main-text-color);
+}
 .site-header__search {
   flex: 1;
   display: flex;
 }
 .site-header__search salla-search {
   flex: 1;
-  --search-bg: var(--color-grey);
+  display: block;
+  --search-bg: #f5f1ea;
   --search-border: 1.5px solid #e8e1d5;
-  --search-radius: 10px 0 0 10px;
-  --search-color: var(--color-text-light);
+  --search-radius: 10px;
+  --search-height: 44px;
+  --search-color: #8a8272;
   --search-font-size: 14px;
+  --search-icon-color: #8a8272;
 }
 .site-header__actions {
   display: flex;
@@ -9282,6 +9288,17 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
   color: #1c1b19;
   color: var(--main-text-color);
   flex-shrink: 0;
+  white-space: nowrap;
+}
+.site-header__link {
+  color: #1c1b19;
+  color: var(--main-text-color);
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-family: var(--font-main);
+}
+.site-header__link:hover {
+  color: #c62127;
+  color: var(--color-primary);
 }
 .site-header__cart {
   display: flex;
@@ -9294,14 +9311,26 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
   padding: 10px 16px;
   font-weight: 600;
   font-size: 14px;
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-family: var(--font-main);
   cursor: pointer;
+  line-height: 1;
+}
+.site-header__cart-price {
+  font-weight: 600;
+}
+.site-header__cart-badge {
+  background: #c62127;
+  background: var(--color-primary);
+  border-radius: 99px;
+  font-size: 11px;
+  padding: 1px 7px;
+  line-height: 1.4;
 }
 .site-nav {
   background: #fff;
   border-bottom: 1px solid #f2ecdf;
   border-bottom: 1px solid var(--color-border);
-  font-family: "IBM Plex Sans Arabic", sans-serif;
-  font-family: var(--font-main);
 }
 .site-nav__row {
   display: flex;
@@ -9315,12 +9344,22 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
   color: #5c564b;
   color: var(--color-text);
   overflow-x: auto;
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-family: var(--font-main);
 }
 .site-nav__row a.active,
 .site-nav__row a:hover {
   color: #c62127;
   color: var(--color-primary);
   font-weight: 600;
+}
+@media (max-width: 992px) {
+  .site-header__mobile-toggle {
+    display: block;
+  }
+  .site-nav {
+    display: none;
+  }
 }
 .before\:text-orange-300::before{
     content: var(--tw-content);
@@ -9870,9 +9909,6 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
 .ltr\:mr-3:where([dir="ltr"], [dir="ltr"] *){
     margin-right: 0.75rem;
 }
-.ltr\:mr-4:where([dir="ltr"], [dir="ltr"] *){
-    margin-right: 1rem;
-}
 .ltr\:mr-8:where([dir="ltr"], [dir="ltr"] *){
     margin-right: 2rem;
 }
@@ -9987,9 +10023,6 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
 }
 .rtl\:ml-3:where([dir="rtl"], [dir="rtl"] *){
     margin-left: 0.75rem;
-}
-.rtl\:ml-4:where([dir="rtl"], [dir="rtl"] *){
-    margin-left: 1rem;
 }
 .rtl\:ml-8:where([dir="rtl"], [dir="rtl"] *){
     margin-left: 2rem;

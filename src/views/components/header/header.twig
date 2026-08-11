@@ -5,16 +5,15 @@
 | cart.items_count   | int    |                                        |
 | cart.total         | string | Formatted total ex: "١٠٠ ر.س"        |
 #}
-{% set important_links = theme.settings.get('important_links') %}
 {% set announcement_bar = theme.settings.get('announcement_bar') %}
 {% set announcement_enabled = theme.settings.get('announcement_bar_enabled') %}
+{% set important_links = theme.settings.get('important_links') %}
 
 {% if announcement_enabled and announcement_bar %}
 <div class="announcement-bar">{{ announcement_bar|raw }}</div>
 {% endif %}
 
 <header data-testid="store-header" class="store-header site-header">
-
   <div class="site-header__row">
 
     <a data-testid="store-header-logo" class="site-header__logo" href="{{ store.url }}">
@@ -26,35 +25,35 @@
       {% endif %}
     </a>
 
-    <a data-testid="store-header-mobile-toggle" class="lg:hidden mburger mburger--collapse leading-none rtl:ml-4 ltr:mr-4" href="#mobile-menu" aria-label="القائمة">
-      <i class="sicon-menu text-primary text-2xl"></i>
+    <a data-testid="store-header-mobile-toggle" class="site-header__mobile-toggle lg:hidden mburger mburger--collapse leading-none" href="#mobile-menu" aria-label="القائمة">
+      <i class="sicon-menu"></i>
     </a>
 
     <div class="site-header__search">
-      <salla-search data-testid="store-header-search" inline oval height="44"></salla-search>
+      <salla-search data-testid="store-header-search" inline height="44"></salla-search>
     </div>
 
     <div class="site-header__actions">
-      {% if important_links %}
-        <salla-menu data-testid="store-header-topnav" source="footer" topnav></salla-menu>
-      {% endif %}
+      <a class="site-header__link" href="{{ routes.track_order_url|default('#') }}">تتبع طلبك</a>
 
       <salla-user-menu data-testid="store-header-user-menu" avatar-only show-header show-trigger></salla-user-menu>
 
       <salla-cart-summary data-testid="store-header-cart">
-        <div slot="icon" class="site-header__cart">
-          <span>السلة</span>
-          <i class="header-btn__icon icon sicon-shopping-bag"></i>
-        </div>
-      </salla-cart-summary>
+  <div slot="icon" class="site-header__cart">
+    <span>السلة</span>
+    <i class="header-btn__icon icon sicon-shopping-bag"></i>
+  </div>
+</salla-cart-summary>
     </div>
 
   </div>
-
 </header>
 
 <div id="mainnav" class="main-nav-container site-nav">
   <div class="site-nav__row">
+    {% if important_links %}
+      <salla-menu data-testid="store-header-topnav" source="footer" topnav></salla-menu>
+    {% endif %}
     <custom-main-menu></custom-main-menu>
   </div>
 </div>
