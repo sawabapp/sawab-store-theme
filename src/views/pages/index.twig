@@ -7,6 +7,9 @@
 #}
 {% extends "layouts.master" %}
 {% block content %}
+    {% if theme.settings.get('hero_section_enabled')|default(true) %}
+        {% component 'home.hero' %}
+    {% endif %}
     {% component home %}
 {% endblock %}
 {% block scripts %}
