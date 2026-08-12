@@ -9469,6 +9469,7 @@ salla-cart-summary .s-cart-summary-count {
   background: #fff;
   border-bottom: 1px solid #f2ecdf;
   border-bottom: 1px solid var(--color-border);
+  min-height: auto !important;
 }
 .site-nav__row {
   display: flex;
