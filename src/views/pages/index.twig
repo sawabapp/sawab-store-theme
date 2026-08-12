@@ -7,9 +7,7 @@
 #}
 {% extends "layouts.master" %}
 {% block content %}
-    {% if theme.settings.get('hero_section_enabled')|default(true) %}
-        {% component 'home.hero' %}
-    {% endif %}
+    {# TEMP DIAGNOSTIC: hero include disabled to isolate a blank-page report — see if home renders without it #}
     {% component home %}
 {% endblock %}
 {% block scripts %}

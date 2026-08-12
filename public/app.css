@@ -965,6 +965,9 @@ input:where([type='file']):focus{
 .top-full{
     top: 100%;
 }
+.isolate{
+    isolation: isolate;
+}
 .-z-1{
     z-index: -1;
 }
