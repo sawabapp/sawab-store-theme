@@ -9475,6 +9475,11 @@ salla-cart-summary .s-cart-summary-count {
     display: flex;
     align-items: center;
     gap: 8px;
+  }
+  [dir=rtl] .site-header__mobile-actions-group {
+    margin-right: auto;
+  }
+  [dir=ltr] .site-header__mobile-actions-group {
     margin-left: auto;
   }
   .site-header__search-mobile-icon {

@@ -263,7 +263,14 @@ salla-cart-summary {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-inline-start: auto;
+
+    [dir="rtl"] & {
+      margin-right: auto;
+    }
+
+    [dir="ltr"] & {
+      margin-left: auto;
+    }
   }
 
   .site-header__search-mobile-icon {
