@@ -7,13 +7,24 @@
 #}
 {% set announcement_bar = theme.settings.get('announcement_bar') %}
 {% set announcement_enabled = theme.settings.get('announcement_bar_enabled') %}
+{% set announcement_copy_enabled = theme.settings.get('announcement_copy_code_enabled') %}
+{% set announcement_copy_code = theme.settings.get('announcement_copy_code') %}
 {% set important_links = theme.settings.get('important_links') %}
 {% set logo_height_desktop = theme.settings.get('logo_height_desktop')|default(40) %}
 {% set logo_height_mobile = theme.settings.get('logo_height_mobile')|default(32) %}
 {% set sticky_header_enabled = theme.settings.get('sticky_header_enabled')|default(true) %}
 
 {% if announcement_enabled and announcement_bar %}
-<div class="announcement-bar">{{ announcement_bar|raw }}</div>
+<div class="announcement-bar">
+  <span class="announcement-bar__text">{{ announcement_bar|raw }}</span>
+  {% if announcement_copy_enabled and announcement_copy_code %}
+    <button type="button" class="announcement-bar__copy-btn" onclick="app.copyToClipboard(event)" data-content="{{ announcement_copy_code }}" aria-label="نسخ كود الخصم">
+      <i class="sicon-swap-fill"></i>
+      <span class="announcement-bar__copy-label">نسخ الكود</span>
+      <span class="announcement-bar__copy-label--copied">تم النسخ</span>
+    </button>
+  {% endif %}
+</div>
 {% endif %}
 
 <header data-testid="store-header" class="store-header site-header{{ sticky_header_enabled ? ' js-sticky-header' : '' }}" style="--logo-h-desktop: {{ logo_height_desktop }}px; --logo-h-mobile: {{ logo_height_mobile }}px;">

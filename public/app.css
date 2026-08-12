@@ -9228,10 +9228,59 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
   background: var(--color-primary);
   color: #fff;
   font-size: 13px;
-  text-align: center;
-  padding: 9px 0;
+  padding: 9px 12px;
   font-family: "IBM Plex Sans Arabic", sans-serif;
   font-family: var(--font-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  text-align: center;
+}
+.announcement-bar__copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  color: #fff;
+  border-radius: 999px;
+  padding: 3px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-family: var(--font-main);
+  cursor: pointer;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  transition: background-color 0.2s ease;
+}
+.announcement-bar__copy-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+.announcement-bar__copy-btn i {
+  font-size: 13px;
+}
+.announcement-bar__copy-btn .announcement-bar__copy-label--copied {
+  display: none;
+}
+.announcement-bar__copy-btn.copied {
+  background: #fff;
+  color: #c62127;
+  color: var(--color-primary);
+  border-color: #fff;
+}
+.announcement-bar__copy-btn.copied .announcement-bar__copy-label {
+  display: none;
+}
+.announcement-bar__copy-btn.copied .announcement-bar__copy-label--copied {
+  display: inline;
+}
+.announcement-bar__copy-btn.copied i:before {
+  content: "\ea9d";
 }
 .site-header,
 .site-header * {

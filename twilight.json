@@ -181,7 +181,51 @@
                 }
             ]
         },
-        
+
+        {
+            "type": "boolean",
+            "icon": "sicon-toggle-off",
+            "label": "تفعيل زر نسخ كود الخصم في الشريط الإعلاني",
+            "description": "يضيف زرًا صغيرًا بجانب نص الشريط الإعلاني ليتمكن الزائر من نسخ كود الخصم بضغطة واحدة",
+            "id": "announcement_copy_code_enabled",
+            "format": "switch",
+            "required": false,
+            "value": false,
+            "selected": false,
+            "conditions": [
+                {
+                    "id": "announcement_bar_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ]
+        },
+        {
+            "type": "string",
+            "icon": "sicon-tag",
+            "label": "كود الخصم القابل للنسخ",
+            "id": "announcement_copy_code",
+            "value": "SWB",
+            "required": false,
+            "format": "text",
+            "description": "الكود الذي يُنسخ تلقائيًا عند ضغط الزائر على زر النسخ",
+            "placeholder": "مثال: SWB",
+            "minLength": 0,
+            "maxLength": 30,
+            "conditions": [
+                {
+                    "id": "announcement_bar_enabled",
+                    "operation": "=",
+                    "value": true
+                },
+                {
+                    "id": "announcement_copy_code_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ]
+        },
+
         {
             "type": "boolean",
             "icon": "sicon-toggle-off",
