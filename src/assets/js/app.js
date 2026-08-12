@@ -22,6 +22,7 @@ class App extends AppHelpers {
     this.initiateModals();
     this.initiateCollapse();
     this.initiateHeaderSearch();
+    this.initiateStickyHeader();
     
     // Ensure #more-menu-dropdown exists before running changeMenuDirection
     const menuDirInterval = setInterval(() => {
@@ -232,6 +233,20 @@ isElementLoaded(selector){
     this.isElementLoaded('salla-search input.s-search-input').then(() => {
       document.querySelectorAll('salla-search input.s-search-input').forEach(watch);
     });
+  }
+
+  /**
+   * Toggles `.is-scrolled` on the sticky header (`.js-sticky-header`, only
+   * present when the "تثبيت الهيدر الرئيسي" theme setting is enabled) so
+   * the glass effect only shows once the page is actually scrolled.
+   */
+  initiateStickyHeader() {
+    const header = this.element('.site-header.js-sticky-header');
+    if (!header) return;
+
+    const applyState = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+    applyState();
+    window.addEventListener('scroll', applyState, { passive: true });
   }
 
   initiateDropdowns() {

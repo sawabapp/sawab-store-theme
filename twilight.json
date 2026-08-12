@@ -97,6 +97,17 @@
             "selected": true
         },
         {
+            "id": "sticky_header_enabled",
+            "label": "تثبيت الهيدر الرئيسي مع تأثير زجاجي عند التمرير",
+            "description": "يجعل الهيدر (الشعار وأيقونات البحث والحساب والسلة) ثابتًا أعلى الصفحة على الحاسوب والجوال، مع خلفية زجاجية شبه شفافة تظهر عند التمرير للأسفل",
+            "type": "boolean",
+            "icon": "sicon-toggle-off",
+            "format": "switch",
+            "required": false,
+            "value": true,
+            "selected": true
+        },
+        {
             "type": "boolean",
             "icon": "sicon-toggle-off",
             "label": "شريط علوي داكن",
