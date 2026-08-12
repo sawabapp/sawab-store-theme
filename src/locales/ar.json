@@ -1,7 +1,8 @@
 {
   "blocks": {
     "header": {
-      "cart": "السلة"
+      "cart": "السلة",
+      "search_placeholder": "ابحث عن خزان، فلتر، مضخة، غطاس"
     },
     "appBanner": {
       "download_now": "حمله الان"
