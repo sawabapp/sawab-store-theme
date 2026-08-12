@@ -208,6 +208,30 @@ isElementLoaded(selector){
       event.preventDefault();
       salla.event.emit('search::open');
     });
+    this.customizeSearchPlaceholder();
+  }
+
+  /**
+   * `<salla-search>` sets its input's placeholder from Salla's own hosted
+   * translation pack (blocks.header.search_placeholder), which theme-level
+   * locale overrides don't reach. Enforce our wording directly on the
+   * input(s) instead, and keep re-applying it since the component re-renders
+   * (and resets the attribute) whenever the user types.
+   */
+  customizeSearchPlaceholder() {
+    const placeholderText = 'ابحث عن خزان، فلتر، مضخة، غطاس';
+
+    const watch = input => {
+      const apply = () => {
+        if (input.placeholder !== placeholderText) input.placeholder = placeholderText;
+      };
+      apply();
+      new MutationObserver(apply).observe(input, { attributes: true, attributeFilter: ['placeholder'] });
+    };
+
+    this.isElementLoaded('salla-search input.s-search-input').then(() => {
+      document.querySelectorAll('salla-search input.s-search-input').forEach(watch);
+    });
   }
 
   initiateDropdowns() {
