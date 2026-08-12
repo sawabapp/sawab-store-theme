@@ -1,0 +1,300 @@
+.sawab-hero {
+  padding: 24px 48px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: var(--font-main);
+
+  * {
+    font-family: var(--font-main);
+  }
+}
+
+.sawab-hero__grid {
+  display: grid;
+  grid-template-columns: 2.1fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+// ===== البطاقة الرئيسية =====
+.sawab-hero__main {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  background: #f3ebe0;
+  border-radius: 24px;
+  padding: 40px;
+  overflow: hidden;
+}
+
+.sawab-hero__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sawab-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--main-text-color);
+  margin-bottom: 22px;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sawab-hero__title {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.35;
+  color: #1a1a1a;
+  margin: 0 0 6px;
+
+  &--line2 {
+    margin-bottom: 20px;
+  }
+}
+
+.sawab-hero__title-highlight {
+  color: var(--color-primary);
+}
+
+.sawab-hero__description {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--color-text-light, #6b6b6b);
+  max-width: 460px;
+  margin: 0 0 28px;
+}
+
+.sawab-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.sawab-hero__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 50px;
+  padding: 0 26px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  i {
+    font-size: 18px;
+  }
+}
+
+.sawab-hero__btn--whatsapp {
+  background: #25d366;
+  color: #fff;
+}
+
+.sawab-hero__btn--shop {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.sawab-hero__image {
+  flex-shrink: 0;
+  width: 42%;
+  max-width: 320px;
+  aspect-ratio: 1 / 1;
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+// ===== البطاقات الجانبية =====
+.sawab-hero__side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sawab-hero__card {
+  flex: 1;
+  background: #fff;
+  border: 1px solid var(--color-border, #e8e1d5);
+  border-radius: 18px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sawab-hero__card--dark {
+  background: #17181a;
+  border-color: #17181a;
+
+  .sawab-hero__card-title {
+    color: #fff;
+  }
+
+  .sawab-hero__card-text {
+    color: #c9c9c9;
+  }
+}
+
+.sawab-hero__card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sawab-hero__card-title--accent {
+  color: var(--color-primary);
+
+  i {
+    font-size: 16px;
+  }
+}
+
+.sawab-hero__card-text {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #6b6b6b;
+  margin: 0;
+}
+
+.sawab-hero__card--rating {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sawab-hero__rating-value {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #1a1a1a;
+
+  i {
+    color: #f5a623;
+    font-size: 16px;
+  }
+}
+
+.sawab-hero__reviews-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--main-text-color);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  i {
+    font-size: 12px;
+  }
+}
+
+// ===== الجوّال والأجهزة اللوحية =====
+@media (max-width: 1024px) {
+  .sawab-hero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sawab-hero__side {
+    flex-direction: row;
+  }
+
+  .sawab-hero__card--rating {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sawab-hero {
+    padding: 16px 16px 28px;
+  }
+
+  .sawab-hero__main {
+    flex-direction: column-reverse;
+    padding: 24px;
+    gap: 20px;
+    border-radius: 18px;
+  }
+
+  .sawab-hero__image {
+    width: 60%;
+    max-width: 220px;
+  }
+
+  .sawab-hero__title,
+  .sawab-hero__title--line2 {
+    font-size: 24px;
+  }
+
+  .sawab-hero__description {
+    max-width: none;
+  }
+
+  .sawab-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sawab-hero__btn {
+    width: 100%;
+  }
+
+  .sawab-hero__side {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .sawab-hero__main {
+    padding: 20px;
+  }
+
+  .sawab-hero__badge {
+    font-size: 12px;
+    padding: 6px 14px;
+  }
+
+  .sawab-hero__image {
+    width: 70%;
+  }
+}

@@ -1,0 +1,127 @@
+{#
+| Variable                        | Type    | Description                                             |
+|----------------------------------|---------|-----------------------------------------------------------|
+| component                        | object  | Contains merchant settings for fields from twilight.json |
+| component.badge_text             | ?string |                                                            |
+| component.title                  | ?string | السطر الأول من العنوان                                    |
+| component.title_highlight_prefix | ?string | بداية السطر الثاني (بدون تمييز)                            |
+| component.title_highlight        | ?string | نهاية السطر الثاني (بلون العلامة التجارية)                  |
+| component.description            | ?string |                                                            |
+| component.hero_image             | ?string |                                                            |
+| component.whatsapp_number        | ?string | أرقام فقط، مثال: 966500000000                              |
+| component.whatsapp_button_text   | ?string |                                                            |
+| component.shop_button_text       | ?string |                                                            |
+| component.shop_button_link       | ?string |                                                            |
+| component.delivery_title         | ?string |                                                            |
+| component.delivery_description   | ?string |                                                            |
+| component.warranty_title         | ?string |                                                            |
+| component.warranty_description   | ?string |                                                            |
+| component.rating_percentage      | ?string |                                                            |
+| component.rating_count_text      | ?string |                                                            |
+| component.reviews_link           | ?string |                                                            |
+| position                         | int     | Sorting number start from zero                             |
+#}
+<section data-testid="store-home-hero" class="s-block sawab-hero">
+  <div class="sawab-hero__grid">
+
+    <div class="sawab-hero__main">
+      <div class="sawab-hero__content">
+        {% if component.badge_text %}
+          <span class="sawab-hero__badge">{{ component.badge_text }}</span>
+        {% endif %}
+
+        {% if component.title %}
+          <h2 class="sawab-hero__title">{{ component.title }}</h2>
+        {% endif %}
+
+        {% if component.title_highlight_prefix or component.title_highlight %}
+          <p class="sawab-hero__title sawab-hero__title--line2">
+            {{ component.title_highlight_prefix }}
+            <span class="sawab-hero__title-highlight">{{ component.title_highlight }}</span>
+          </p>
+        {% endif %}
+
+        {% if component.description %}
+          <p class="sawab-hero__description">{{ component.description }}</p>
+        {% endif %}
+
+        <div class="sawab-hero__actions">
+          {% if component.whatsapp_number %}
+            <a
+              href="https://wa.me/{{ component.whatsapp_number }}"
+              target="_blank"
+              rel="noopener"
+              class="sawab-hero__btn sawab-hero__btn--whatsapp"
+            >
+              <i class="sicon-whatsapp"></i>
+              <span>{{ component.whatsapp_button_text|default('استشرنا واتساب') }}</span>
+            </a>
+          {% endif %}
+
+          {% if component.shop_button_text %}
+            <a
+              href="{{ component.shop_button_link|default(store.url) }}"
+              class="sawab-hero__btn sawab-hero__btn--shop"
+            >
+              <span>{{ component.shop_button_text }}</span>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if component.hero_image %}
+        <div class="sawab-hero__image">
+          <img
+            src="{{ component.hero_image|cdn(700) }}"
+            width="600"
+            height="600"
+            loading="eager"
+            fetchpriority="high"
+            alt="{{ component.title|default(store.name) }}"
+          >
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="sawab-hero__side">
+      {% if component.delivery_title or component.delivery_description %}
+        <div class="sawab-hero__card sawab-hero__card--dark">
+          <h3 class="sawab-hero__card-title">{{ component.delivery_title }}</h3>
+          <p class="sawab-hero__card-text">{{ component.delivery_description }}</p>
+        </div>
+      {% endif %}
+
+      {% if component.warranty_title or component.warranty_description %}
+        <div class="sawab-hero__card">
+          <h3 class="sawab-hero__card-title sawab-hero__card-title--accent">
+            <i class="sicon-star2"></i>
+            {{ component.warranty_title }}
+          </h3>
+          <p class="sawab-hero__card-text">{{ component.warranty_description }}</p>
+        </div>
+      {% endif %}
+
+      {% if component.rating_percentage or component.reviews_link %}
+        <div class="sawab-hero__card sawab-hero__card--rating">
+          <div class="sawab-hero__rating-main">
+            <div class="sawab-hero__rating-value">
+              <i class="sicon-star"></i>
+              <span>{{ component.rating_percentage }}</span>
+            </div>
+            {% if component.rating_count_text %}
+              <p class="sawab-hero__card-text">{{ component.rating_count_text }}</p>
+            {% endif %}
+          </div>
+
+          {% if component.reviews_link %}
+            <a href="{{ component.reviews_link }}" class="sawab-hero__reviews-link">
+              <span>آراء العملاء</span>
+              <i class="sicon-arrow-left"></i>
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+</section>
