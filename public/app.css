@@ -9474,7 +9474,7 @@ salla-cart-summary .s-cart-summary-count {
   display: flex;
   align-items: center;
   gap: 28px;
-  padding: 13px 48px;
+  padding: 12px 48px;
   max-width: 1400px;
   margin: 0 auto;
   font-size: 14px;
@@ -9484,6 +9484,15 @@ salla-cart-summary .s-cart-summary-count {
   overflow-x: auto;
   font-family: "IBM Plex Sans Arabic", sans-serif;
   font-family: var(--font-main);
+}
+.site-nav__row custom-main-menu {
+  display: flex;
+  align-items: center;
+  min-height: auto;
+}
+.site-nav__row .main-menu {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 .site-nav__row a.active,
 .site-nav__row a:hover {
