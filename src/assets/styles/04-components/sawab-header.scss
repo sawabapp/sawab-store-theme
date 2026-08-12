@@ -279,6 +279,14 @@ salla-cart-summary {
     margin: 0 !important;
     padding: 0 !important;
   }
+
+  // كل رابط رئيسي (li.root-level > a) بالثيم الأساسي له padding-bottom: 2rem
+  // بدون padding-top مقابل له (مساحة إضافية كانت مخصصة لتسهيل الوصول للقائمة
+  // المنسدلة عند التمرير)، وهذا سبب عدم تساوي المسافة أسفل الروابط.
+  .main-menu li.root-level > a {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
 }
 
 .site-nav__row a.active,

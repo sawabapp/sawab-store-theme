@@ -9494,6 +9494,10 @@ salla-cart-summary .s-cart-summary-count {
   margin: 0 !important;
   padding: 0 !important;
 }
+.site-nav__row .main-menu li.root-level > a {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
 .site-nav__row a.active,
 .site-nav__row a:hover {
   color: #c62127;
