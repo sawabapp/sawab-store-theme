@@ -72,6 +72,9 @@
 
 .site-header__search-mobile-icon {
   display: none;
+  appearance: none;
+  padding: 0;
+  line-height: 1;
 }
 
 .site-header__actions {

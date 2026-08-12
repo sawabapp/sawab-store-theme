@@ -21,6 +21,7 @@ class App extends AppHelpers {
     this.initiateDropdowns();
     this.initiateModals();
     this.initiateCollapse();
+    this.initiateHeaderSearch();
     
     // Ensure #more-menu-dropdown exists before running changeMenuDirection
     const menuDirInterval = setInterval(() => {
@@ -196,6 +197,17 @@ isElementLoaded(selector){
     let height = this.element('#mainnav .inner').clientHeight,
       header = this.element('#mainnav');
     header.style.height = height + 'px';
+  }
+
+  /**
+   * Buttons/icons that should open the theme's built-in search modal
+   * (rendered once in master.twig as `store-search-modal`).
+   */
+  initiateHeaderSearch() {
+    this.onClick('[data-open-search]', event => {
+      event.preventDefault();
+      salla.event.emit('search::open');
+    });
   }
 
   initiateDropdowns() {

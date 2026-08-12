@@ -9296,6 +9296,11 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
 }
 .site-header__search-mobile-icon {
   display: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  padding: 0;
+  line-height: 1;
 }
 .site-header__actions {
   display: flex;

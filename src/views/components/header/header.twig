@@ -33,13 +33,13 @@
 
     <div class="site-header__search">
       <salla-search data-testid="store-header-search" inline height="44"></salla-search>
-      <button type="button" class="site-header__search-btn">بحث</button>
+      <button type="button" class="site-header__search-btn" data-open-search>بحث</button>
     </div>
 
     <div class="site-header__mobile-actions-group">
-      <a href="#" class="site-header__search-mobile-icon" aria-label="بحث">
+      <button type="button" class="site-header__search-mobile-icon" aria-label="بحث" data-open-search>
         <i class="sicon-search"></i>
-      </a>
+      </button>
 
       <div class="site-header__actions">
         <a href="{{ routes.account_url|default('#') }}" class="site-header__account">
