@@ -43,6 +43,12 @@
       </button>
 
       <div class="site-header__actions">
+        {% if store.settings.is_multilingual or store.settings.currencies_enabled %}
+          <button type="button" class="site-header__lang" aria-label="اللغة والعملة" data-open-localization>
+            <i class="sicon-lang"></i>
+          </button>
+        {% endif %}
+
         <a href="{{ routes.account_url|default('#') }}" class="site-header__account">
           <salla-user-menu data-testid="store-header-user-menu" avatar-only show-header show-trigger></salla-user-menu>
           <span class="site-header__account-label">حسابي</span>

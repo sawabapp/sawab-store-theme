@@ -125,6 +125,9 @@
 <salla-offer-modal data-testid="store-offer-modal"></salla-offer-modal>
 <salla-search data-testid="store-search-modal"></salla-search>
 <salla-login-modal data-testid="store-login-modal"></salla-login-modal>
+{% if store.settings.is_multilingual or store.settings.currencies_enabled %}
+    <salla-localization-modal data-testid="store-header-localization"></salla-localization-modal>
+{% endif %}
 {% if store.scope %}
     <salla-scopes data-testid="store-scopes" selection="{{ store.scope.display_as == 'popup' ? 'mandatory' : 'optional' }}"></salla-scopes>
 {% endif %}

@@ -111,6 +111,24 @@
   height: 44px;
 }
 
+.site-header__lang {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--color-grey);
+  border: 1px solid #e8e1d5;
+  border-radius: 10px;
+  width: 44px;
+  height: 44px;
+  box-sizing: border-box;
+  cursor: pointer;
+  appearance: none;
+  padding: 0;
+  font-size: 18px;
+  color: var(--main-text-color);
+}
+
 .site-header__account {
   display: flex;
   align-items: center;
@@ -328,6 +346,11 @@ salla-cart-summary {
     width: 40px;
     height: 40px;
     justify-content: center;
+  }
+
+  .site-header__lang {
+    width: 40px;
+    height: 40px;
   }
 
   .site-header__cart {

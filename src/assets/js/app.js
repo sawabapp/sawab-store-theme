@@ -22,6 +22,7 @@ class App extends AppHelpers {
     this.initiateModals();
     this.initiateCollapse();
     this.initiateHeaderSearch();
+    this.initiateHeaderLocalization();
     this.initiateStickyHeader();
     
     // Ensure #more-menu-dropdown exists before running changeMenuDirection
@@ -232,6 +233,18 @@ isElementLoaded(selector){
 
     this.isElementLoaded('salla-search input.s-search-input').then(() => {
       document.querySelectorAll('salla-search input.s-search-input').forEach(watch);
+    });
+  }
+
+  /**
+   * The header's language/currency icon opens Salla's built-in
+   * localization modal (rendered once in master.twig as
+   * `store-header-localization`).
+   */
+  initiateHeaderLocalization() {
+    this.onClick('[data-open-localization]', event => {
+      event.preventDefault();
+      salla.event.emit('localization::open');
     });
   }
 
