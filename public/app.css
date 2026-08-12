@@ -9223,6 +9223,80 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
 }
+.announcement-bar {
+  background: #c62127;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 13px;
+  text-align: center;
+  padding: 9px 0;
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-family: var(--font-main);
+}
+.site-header,
+.site-header * {
+  font-family: "IBM Plex Sans Arabic", sans-serif !important;
+  font-family: var(--font-main) !important;
+}
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid #f2ecdf;
+  border-bottom: 1px solid var(--color-border);
+}
+.site-header__row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 16px 48px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.site-header__logo img {
+  width: auto;
+  -o-object-fit: contain;
+     object-fit: contain;
+  display: block;
+  height: 40px;
+  height: var(--logo-h-desktop, 40px);
+}
+.site-header__mobile-toggle {
+  display: none;
+  font-size: 22px;
+  color: #1c1b19;
+  color: var(--main-text-color);
+}
+.site-header__search {
+  flex: 1;
+  display: flex;
+  background: #f5f1ea;
+  border: 1px solid #e8e1d5;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.site-header__search salla-search {
+  flex: 1;
+  display: block;
+}
+.site-header__search-btn {
+  background: #1c1b19;
+  background: var(--main-text-color);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 0 22px;
+  border: none;
+  cursor: pointer;
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-family: var(--font-main);
+}
+.site-header__mobile-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.site-header__search-mobile-icon {
+  display: none;
+}
 .site-header__actions {
   display: flex;
   align-items: center;
@@ -9235,9 +9309,58 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
   white-space: nowrap;
   height: 44px;
 }
+.site-header__account {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: #f5f1ea;
+  background: var(--color-grey);
+  border: 1px solid #e8e1d5;
+  border-radius: 10px;
+  padding: 0 14px;
+  height: 44px;
+  box-sizing: border-box;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  overflow: hidden;
+}
+.site-header__account * {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+.site-header__account-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1c1b19;
+  color: var(--main-text-color);
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-family: var(--font-main);
+}
+salla-user-menu {
+  display: flex !important;
+  align-items: center;
+}
+salla-user-menu button,
+salla-user-menu [class*=trigger] {
+  background: transparent !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+}
+salla-user-menu img,
+salla-user-menu .avatar,
+salla-user-menu [class*=avatar] {
+  border-radius: 6px !important;
+  width: 22px !important;
+  height: 22px !important;
+}
 .site-header__cart {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 7px;
   background: #1c1b19;
   background: var(--main-text-color);
@@ -9249,6 +9372,7 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
   cursor: pointer;
   line-height: 1;
   height: 44px;
+  width: 100%;
   box-sizing: border-box;
 }
 .site-header__cart i {
@@ -9259,14 +9383,28 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
   border: none !important;
   border-radius: 0 !important;
   padding: 0 !important;
+  margin: 0 !important;
   width: auto !important;
   height: auto !important;
   line-height: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 salla-cart-summary {
   height: 44px;
-  display: flex;
-  align-items: center;
+  min-width: auto !important;
+  width: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+salla-cart-summary .s-cart-summary-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 salla-cart-summary .s-cart-summary-content {
   display: none !important;
@@ -9284,64 +9422,122 @@ salla-cart-summary .s-cart-summary-count {
   justify-content: center !important;
   padding: 0 4px !important;
 }
-salla-user-menu {
-  display: flex !important;
-  align-items: center;
-  height: 44px;
+.site-nav {
+  background: #fff;
+  border-bottom: 1px solid #f2ecdf;
+  border-bottom: 1px solid var(--color-border);
 }
-salla-user-menu button,
-salla-user-menu [class*=trigger] {
-  border-radius: 10px !important;
-  background: #f5f1ea !important;
-  background: var(--color-grey) !important;
-  width: 44px !important;
-  height: 44px !important;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-}
-salla-user-menu img,
-salla-user-menu .avatar,
-salla-user-menu [class*=avatar] {
-  border-radius: 10px !important;
-}
-.site-header__search {
-  flex: 1;
-  display: flex;
-  align-items: stretch;
-  position: relative;
-  border: 1px solid #e8e1d5;
-  border-radius: 10px;
-  overflow: hidden;
-  height: 44px;
-  box-sizing: border-box;
-}
-.site-header__search salla-search {
-  flex: 1;
+.site-nav__row {
   display: flex;
   align-items: center;
-  background: #f5f1ea !important;
-}
-.site-header__search input {
-  background: #f5f1ea !important;
-  border: none !important;
-  height: 100% !important;
-}
-.site-header__search-btn {
-  background: #1c1b19;
-  background: var(--main-text-color);
-  color: #fff;
-  font-weight: 600;
+  gap: 28px;
+  padding: 13px 48px;
+  max-width: 1400px;
+  margin: 0 auto;
   font-size: 14px;
-  padding: 0 22px;
-  border: none;
-  cursor: pointer;
+  font-weight: 500;
+  color: #5c564b;
+  color: var(--color-text);
+  overflow-x: auto;
   font-family: "IBM Plex Sans Arabic", sans-serif;
   font-family: var(--font-main);
-  flex-shrink: 0;
-  height: 100%;
-  box-sizing: border-box;
+}
+.site-nav__row a.active,
+.site-nav__row a:hover {
+  color: #c62127;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+@media (max-width: 768px) {
+  .site-header__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    position: relative;
+  }
+  .site-header__mobile-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    order: 1;
+  }
+  .site-header__logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    order: 2;
+  }
+  .site-header__logo img {
+    height: 32px;
+    height: var(--logo-h-mobile, 32px);
+  }
+  .site-header__search {
+    display: none;
+  }
+  .site-header__mobile-actions-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    order: 3;
+  }
+  .site-header__search-mobile-icon {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #f5f1ea;
+    background: var(--color-grey);
+    border: 1px solid #e8e1d5;
+    border-radius: 10px;
+    flex-shrink: 0;
+    font-size: 18px;
+    color: #1c1b19;
+    color: var(--main-text-color);
+  }
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+  }
+  .site-header__account-label {
+    display: none;
+  }
+  .site-header__account {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+  }
+  .site-header__cart {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .site-header__cart span {
+    display: none !important;
+  }
+  .site-header__cart i {
+    margin: 0 !important;
+  }
+  salla-cart-summary,
+  salla-user-menu {
+    height: 40px;
+  }
+  salla-cart-summary {
+    min-width: auto !important;
+    width: 40px !important;
+  }
+  .site-nav {
+    display: none;
+  }
 }
 .before\:text-orange-300::before{
     content: var(--tw-content);

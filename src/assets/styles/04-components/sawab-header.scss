@@ -1,3 +1,79 @@
+.announcement-bar {
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 13px;
+  text-align: center;
+  padding: 9px 0;
+  font-family: var(--font-main);
+}
+
+.site-header,
+.site-header * {
+  font-family: var(--font-main) !important;
+}
+
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 16px 48px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.site-header__logo img {
+  width: auto;
+  object-fit: contain;
+  display: block;
+  height: var(--logo-h-desktop, 40px);
+}
+
+.site-header__mobile-toggle {
+  display: none;
+  font-size: 22px;
+  color: var(--main-text-color);
+}
+
+.site-header__search {
+  flex: 1;
+  display: flex;
+  background: #f5f1ea;
+  border: 1px solid #e8e1d5;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.site-header__search salla-search {
+  flex: 1;
+  display: block;
+}
+
+.site-header__search-btn {
+  background: var(--main-text-color);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 0 22px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-main);
+}
+
+.site-header__mobile-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.site-header__search-mobile-icon {
+  display: none;
+}
+
 .site-header__actions {
   display: flex;
   align-items: center;
@@ -10,10 +86,60 @@
   height: 44px;
 }
 
-// ===== السلة =====
+.site-header__account {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--color-grey);
+  border: 1px solid #e8e1d5;
+  border-radius: 10px;
+  padding: 0 14px;
+  height: 44px;
+  box-sizing: border-box;
+  cursor: pointer;
+  text-decoration: none;
+  overflow: hidden;
+
+  * {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+}
+
+.site-header__account-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--main-text-color);
+  font-family: var(--font-main);
+}
+
+salla-user-menu {
+  display: flex !important;
+  align-items: center;
+
+  button,
+  [class*="trigger"] {
+    background: transparent !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+  }
+
+  img,
+  .avatar,
+  [class*="avatar"] {
+    border-radius: 6px !important;
+    width: 22px !important;
+    height: 22px !important;
+  }
+}
+
 .site-header__cart {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 7px;
   background: var(--main-text-color);
   color: #fff;
@@ -24,6 +150,7 @@
   cursor: pointer;
   line-height: 1;
   height: 44px;
+  width: 100%;
   box-sizing: border-box;
 
   i {
@@ -34,17 +161,31 @@
     border: none !important;
     border-radius: 0 !important;
     padding: 0 !important;
+    margin: 0 !important;
     width: auto !important;
     height: auto !important;
     line-height: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 }
 
-// إخفاء السعر فقط، وتنسيق العداد
 salla-cart-summary {
   height: 44px;
-  display: flex;
-  align-items: center;
+  min-width: auto !important;
+  width: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  .s-cart-summary-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
 
   .s-cart-summary-content {
     display: none !important;
@@ -64,67 +205,133 @@ salla-cart-summary {
   }
 }
 
-// ===== تربيع أيقونة المستخدم بنفس ارتفاع السلة =====
-salla-user-menu {
-  display: flex !important;
-  align-items: center;
-  height: 44px;
+.site-nav {
+  background: #fff;
+  border-bottom: 1px solid var(--color-border);
+}
 
-  button,
-  [class*="trigger"] {
-    border-radius: 10px !important;
-    background: var(--color-grey) !important;
-    width: 44px !important;
-    height: 44px !important;
+.site-nav__row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 13px 48px;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+  overflow-x: auto;
+  font-family: var(--font-main);
+}
+
+.site-nav__row a.active,
+.site-nav__row a:hover {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+// ===== نسخة الموبايل =====
+@media (max-width: 768px) {
+
+  .site-header__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    position: relative;
+  }
+
+  .site-header__mobile-toggle {
     display: flex !important;
     align-items: center;
     justify-content: center;
-    box-sizing: border-box;
+    order: 1;
   }
 
-  img,
-  .avatar,
-  [class*="avatar"] {
-    border-radius: 10px !important;
+  .site-header__logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    order: 2;
   }
-}
 
-// ===== صندوق البحث + الزر (بوردر موحّد شامل) =====
-.site-header__search {
-  flex: 1;
-  display: flex;
-  align-items: stretch;
-  position: relative;
-  border: 1px solid #e8e1d5;
-  border-radius: 10px;
-  overflow: hidden;
-  height: 44px;
-  box-sizing: border-box;
+  .site-header__logo img {
+    height: var(--logo-h-mobile, 32px);
+  }
 
-  salla-search {
-    flex: 1;
+  .site-header__search {
+    display: none;
+  }
+
+  .site-header__mobile-actions-group {
     display: flex;
     align-items: center;
-    background: #f5f1ea !important;
+    gap: 8px;
+    order: 3;
   }
 
-  input {
-    background: #f5f1ea !important;
-    border: none !important;
-    height: 100% !important;
+  .site-header__search-mobile-icon {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--color-grey);
+    border: 1px solid #e8e1d5;
+    border-radius: 10px;
+    flex-shrink: 0;
+    font-size: 18px;
+    color: var(--main-text-color);
   }
-}
 
-.site-header__search-btn {
-  background: var(--main-text-color);
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  padding: 0 22px;
-  border: none;
-  cursor: pointer;
-  font-family: var(--font-main);
-  flex-shrink: 0;
-  height: 100%;
-  box-sizing: border-box;
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+  }
+
+  .site-header__account-label {
+    display: none;
+  }
+
+  .site-header__account {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+  }
+
+  .site-header__cart {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      display: none !important;
+    }
+
+    i {
+      margin: 0 !important;
+    }
+  }
+
+  salla-cart-summary,
+  salla-user-menu {
+    height: 40px;
+  }
+
+  salla-cart-summary {
+    min-width: auto !important;
+    width: 40px !important;
+  }
+
+  .site-nav {
+    display: none;
+  }
 }
