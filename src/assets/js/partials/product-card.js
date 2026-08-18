@@ -18,6 +18,8 @@ class ProductCard extends HTMLElement {
   onReady(){
       this.fitImageHeight = salla.config.get('store.settings.product.fit_type');
       this.placeholder = salla.url.asset(salla.config.get('theme.settings.placeholder'));
+      // تُعرض ملاحظة "شامل الضريبة" أسفل السعر فقط عندما تكون الأسعار شاملةً للضريبة
+      this.taxIncluded = salla.config.get('store.settings.tax.taxable_prices_enabled');
       this.getProps()
 
 	  this.source = salla.config.get("page.slug");
@@ -100,7 +102,7 @@ class ProductCard extends HTMLElement {
       price = `<h4 class="s-product-card-price">${this.getPriceFormat(this.product?.price)}</h4>`
     }
 
-    return price;
+    return price + (this.taxIncluded ? `<span class="sawab-card__tax">شامل الضريبة</span>` : '');
   }
 
   getAddButtonLabel() {
@@ -232,6 +234,10 @@ class ProductCard extends HTMLElement {
             : ``}
 
           <div class="s-product-card-content-main ${this.isSpecial ? 's-product-card-content-extra-padding' : ''}">
+            ${this.product?.brand?.name && !this.minimal ?
+              `<div class="sawab-card__brand">${this.escapeHTML(this.product.brand.name)}</div>`
+              : ``}
+
             <h3 class="s-product-card-content-title">
               <a href="${this.product?.url}">${this.product?.name}</a>
             </h3>
