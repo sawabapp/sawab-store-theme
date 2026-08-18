@@ -74,6 +74,8 @@
         window.enable_more_menu = "{{ theme.settings.get('enable_more_menu', true) }}"
         window.enable_add_product_toast = "{{ theme.settings.get('enable_add_product_toast', true) }}"
         window.notify_when_available_in_card = "{{ theme.settings.get('notify_when_available_in_card', true) }}"
+        {# إعداد المتجر متاح في twig فقط، فنمرّره للجافاسكربت لتُعرض ملاحظة "شامل الضريبة" أسفل السعر #}
+        window.taxable_prices_enabled = {{ store.settings.tax.taxable_prices_enabled | json_encode }}
     </script>
     
     {% hook 'head:start' %}

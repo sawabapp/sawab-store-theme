@@ -2,6 +2,7 @@ import MobileMenu from 'mmenu-light';
 import Swal from 'sweetalert2';
 import Anime from './partials/anime';
 import initTootTip from './partials/tooltip';
+import initProductCardEnhancer from './partials/product-card-enhancer';
 import AppHelpers from "./app-helpers";
 
 class App extends AppHelpers {
@@ -34,6 +35,7 @@ class App extends AppHelpers {
     }, 100);
 
     initTootTip();
+    initProductCardEnhancer();
     this.loadModalImgOnclick();
 
     salla.comment.event.onAdded(() => window.location.reload());
