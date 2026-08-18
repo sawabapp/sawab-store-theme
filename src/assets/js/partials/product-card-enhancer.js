@@ -56,7 +56,10 @@ function addBrand(card, product) {
 }
 
 function addTaxNote(card) {
-  if (!window.taxable_prices_enabled) return;
+  // تُخفى الملاحظة فقط إذا صرّح المتجر أن أسعاره لا تشمل الضريبة، حتى لا
+  // ندّعي ما ليس صحيحًا. أما إذا كان الإعداد غير مضبوط أصلًا (كما في المتاجر
+  // التجريبية) فتُعرض، لأن الأسعار في متاجر السعودية شاملة للضريبة افتراضًا.
+  if (window.taxable_prices_enabled === false || window.taxable_prices_enabled === 'false') return;
   if (card.querySelector('.sawab-card__tax')) return;
 
   // السعر قد يكون سعرًا عاديًا أو مخفّضًا أو "يبدأ من"

@@ -18,8 +18,8 @@ class ProductCard extends HTMLElement {
   onReady(){
       this.fitImageHeight = salla.config.get('store.settings.product.fit_type');
       this.placeholder = salla.url.asset(salla.config.get('theme.settings.placeholder'));
-      // تُعرض ملاحظة "شامل الضريبة" أسفل السعر فقط عندما تكون الأسعار شاملةً للضريبة
-      this.taxIncluded = salla.config.get('store.settings.tax.taxable_prices_enabled');
+      // تُخفى ملاحظة "شامل الضريبة" فقط إذا صرّح المتجر أن أسعاره لا تشملها
+      this.taxIncluded = !(window.taxable_prices_enabled === false || window.taxable_prices_enabled === 'false');
       this.getProps()
 
 	  this.source = salla.config.get("page.slug");
