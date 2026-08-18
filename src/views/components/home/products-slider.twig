@@ -15,6 +15,7 @@
     <salla-products-slider
             data-testid="store-home-products-slider-widget"
             source="{{ products.source }}"
+            includes='["brand"]'
             limit="{{ limit }}"
             autoplay
             source-value="{{ products.source_value|json_encode }}"

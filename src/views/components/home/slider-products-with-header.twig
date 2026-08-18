@@ -27,7 +27,7 @@
         <salla-products-slider
             data-testid="store-home-slider-header-products"
             {% if component.products|length %}
-              source="selected" 
+              source="selected" includes='["brand"]'
               source-value="[{{ component.products|map((product) => product.id)|join(',') }}]" 
             {% endif %}
             {% if display_all != '' and  display_all != '#' %}

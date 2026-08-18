@@ -41,14 +41,14 @@
                 {% if is_slider %}
                     <salla-products-slider 
                       slider-id="section-{{ section.id }}-slider" 
-                      source="{{ section.products.source }}"
+                      source="{{ section.products.source }}" includes='["brand"]'
                       limit="{{ section.products.limit }}"
                       source-value="{{ section.products.source_value|json_encode }}"
                       >
                     </salla-products-slider>
                 {% else %}
                     <salla-products-list  
-                      source="{{ section.products.source }}"
+                      source="{{ section.products.source }}" includes='["brand"]'
                       limit="{{ section.products.limit }}"
                       source-value="{{ section.products.source_value|json_encode }}"
                       {{is_vertical ? '' : 'horizontal-cards'}}

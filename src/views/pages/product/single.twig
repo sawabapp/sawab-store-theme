@@ -459,7 +459,7 @@
 
     {# Similar Products Area #}
     <div class="container mb-5 sm:mb-8">
-        <salla-products-slider data-testid="store-product-related" source="related" source-value="{{product.id}}" block-title="{{trans('pages.products.similar_products')}}" display-all-url></salla-products-slider>
+        <salla-products-slider data-testid="store-product-related" source="related" source-value="{{product.id}}" includes='["brand"]' block-title="{{trans('pages.products.similar_products')}}" display-all-url></salla-products-slider>
     </div>
     
     {#

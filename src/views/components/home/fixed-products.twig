@@ -25,6 +25,7 @@
     <salla-products-list
       data-testid="store-home-fixed-products-list"
       source="{{ products.source }}"
+      includes='["brand"]'
       limit="{{ limit }}"
       source-value="{{ products.source_value|json_encode }}"
       class="{{is_vertical ? 'vertical-products' : 'horizontal-products'}}"
