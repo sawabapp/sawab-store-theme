@@ -60,7 +60,9 @@ class Product extends BasePage {
 
     registerEvents() {
       salla.event.on('product::price.updated.failed',()=>{
-        app.element('.price-wrapper').classList.add('hidden');
+        // الصفحة تحوي كتلتَي سعر (أعلى الصفحة وبجانب زر الإضافة)، و app.element
+        // يُرجع الأولى فقط — فنستهدفهما معاً حتى لا تبقى إحداهما ظاهرة بسعر قديم
+        document.querySelectorAll('.price-wrapper').forEach(el => el.classList.add('hidden'));
         const outOfStock = app.element('.out-of-stock');
         outOfStock.classList.remove('hidden');
         outOfStock.classList.remove('scale-pulse');
@@ -70,7 +72,7 @@ class Product extends BasePage {
       salla.product.event.onPriceUpdated((res) => {
 
         app.element('.out-of-stock').classList.add('hidden')
-        app.element('.price-wrapper').classList.remove('hidden')
+        document.querySelectorAll('.price-wrapper').forEach(el => el.classList.remove('hidden'));
 
         let data = res.data,
             is_on_sale = data.has_sale_price && data.regular_price > data.price;

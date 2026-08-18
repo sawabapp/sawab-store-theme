@@ -10099,6 +10099,165 @@ salla-cart-summary .s-cart-summary-count {
 .s-product-card-entry.s-product-card-vertical.s-product-card-out-of-stock .s-product-card-image img {
   opacity: 0.55;
 }
+.sawab-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.sawab-brand__logo {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #e8e1d5;
+  border-radius: 10px;
+  padding: 4px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+.sawab-brand__logo img {
+  max-width: 100%;
+  max-height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.sawab-brand__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.sawab-brand__name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1c1b19;
+  color: var(--main-text-color);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+.sawab-brand__name:hover {
+  color: #c62127;
+  color: var(--color-primary);
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+.sawab-brand__warranty {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #9a9a9a;
+}
+.sawab-brand__warranty i {
+  font-size: 13px;
+  color: #2e9e5b;
+}
+.sawab-stock {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(46, 158, 91, 0.1);
+  color: #2e9e5b;
+  font-size: 13px;
+  font-weight: 600;
+}
+.sawab-stock i {
+  font-size: 14px;
+}
+.sawab-price__discount {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 8px;
+  background: #c62127;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+salla-product-options .s-product-options-option-label {
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 10px;
+  display: block;
+}
+salla-product-options .s-product-options-grid-mode {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-gap: 10px;
+  gap: 10px;
+}
+salla-product-options .s-product-options-grid-mode input[type=radio],
+salla-product-options .s-product-options-grid-mode input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+salla-product-options .s-product-options-grid-mode label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 12px 14px;
+  min-height: 56px;
+  box-sizing: border-box;
+  border: 1.5px solid #e8e1d5;
+  border-radius: 12px;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1c1b19;
+  color: var(--main-text-color);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+salla-product-options .s-product-options-grid-mode label:hover {
+  border-color: #c62127;
+  border-color: var(--color-primary);
+}
+salla-product-options .s-product-options-grid-mode label p,
+salla-product-options .s-product-options-grid-mode .s-product-options-grid-mode-span p {
+  margin: 0;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #c62127;
+  color: var(--color-primary);
+}
+salla-product-options .s-product-options-grid-mode input:checked + label,
+salla-product-options .s-product-options-grid-mode input:checked ~ label {
+  border-color: #c62127;
+  border-color: var(--color-primary);
+  background: rgba(198, 33, 39, 0.04);
+}
+salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.sticky-product-bar__btn .s-button-element {
+  border-radius: 12px;
+  font-weight: 700;
+  height: 52px;
+}
+@media (max-width: 768px) {
+  .sawab-brand__logo {
+    width: 42px;
+    height: 42px;
+  }
+  salla-product-options .s-product-options-grid-mode {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  }
+}
 .before\:text-orange-300::before{
     content: var(--tw-content);
     --tw-text-opacity: 1;

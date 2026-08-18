@@ -198,13 +198,21 @@
                 {% hook 'product:single.description.start' %}
 
                 {% if product.brand.name %}
-                    <div class="product-brand mb-5 w-12">
-                        <a class="brand-logo" href="{{ product.brand.url }}" title="{{ product.brand.name }}">
-                            <img width="100%" height="100%" class="max-h-full object-contain"
-                                 src="{{ product.brand.logo }}"
-                                 title="{{ product.brand.name }}"
-                                 alt="{{ product.brand.name }}">
-                        </a>
+                    <div class="sawab-brand">
+                        {% if product.brand.logo %}
+                            <a class="sawab-brand__logo" href="{{ product.brand.url }}" title="{{ product.brand.name }}">
+                                <img width="48" height="48" loading="lazy"
+                                     src="{{ product.brand.logo }}"
+                                     alt="{{ product.brand.name }}">
+                            </a>
+                        {% endif %}
+                        <div class="sawab-brand__info">
+                            <a class="sawab-brand__name" href="{{ product.brand.url }}">{{ product.brand.name }}</a>
+                            <span class="sawab-brand__warranty">
+                                <i class="sicon-check-circle"></i>
+                                ضمان معتمد من الوكيل
+                            </span>
+                        </div>
                     </div>
                 {% endif %}
 
@@ -221,20 +229,31 @@
                                         reviews="{{ product.rating.count }}"></salla-rating-stars>
                 {% endif %}
 
+                {% if not product.is_out_of_stock and product.status == 'sale' %}
+                    <div class="sawab-stock">
+                        <i class="sicon-check-circle"></i>
+                        متوفر في المخزون
+                    </div>
+                {% endif %}
+
                 {% if product.is_taxable %}
                     <small class="color-grey">{{ trans('pages.products.tax_included') }}</small>
                 {% endif %}
-                {# Price #}
-                <div data-testid="store-product-price" class="flex whitespace-nowrap gap-4 items-center">
-                  <div class="{{ product.is_on_sale ? '' : 'hidden' }} space-x-2 rtl:space-x-reverse whitespace-nowrap">
-                      <p class="text-red-800 font-bold text-xl inline-block">{{product.sale_price|money}}</p>
-                      <span class="text-gray-500 line-through">{{product.regular_price|money}}</span>
+                {# Price — الكلاسات total-price/before-price/price_is_on_sale ضرورية
+                   ليحدّثها product.js عند اختيار خيار له سعر إضافي #}
+                <div data-testid="store-product-price" class="sawab-price price-wrapper flex whitespace-nowrap gap-4 items-center">
+                  <div class="price_is_on_sale {{ product.is_on_sale ? '' : 'hidden' }} space-x-2 rtl:space-x-reverse whitespace-nowrap">
+                      <p class="total-price text-red-800 font-bold text-xl inline-block">{{product.sale_price|money}}</p>
+                      <span class="before-price text-gray-500 line-through">{{product.regular_price|money}}</span>
+                      {% if product.discount_percentage %}
+                          <span class="sawab-price__discount">{{ product.discount_percentage }}-</span>
+                      {% endif %}
                   </div>
-                  <div class="gap-4 {{ product.is_on_sale ? 'hidden' : 'flex' }}">
-                      {% if product.starting_price %} 
+                  <div class="starting-or-normal-price gap-4 {{ product.is_on_sale ? 'hidden' : 'flex' }}">
+                      {% if product.starting_price %}
                           <span class="">{{ trans('pages.products.starting_price') }}</span>
-                      {% endif %} 
-                          <p class=" font-bold text-xl inline-block"> {{product.starting_price ? product.starting_price|money : product.price|money }}</p>
+                      {% endif %}
+                          <p class="total-price font-bold text-xl inline-block"> {{product.starting_price ? product.starting_price|money : product.price|money }}</p>
                   </div>
                 </div>
 
