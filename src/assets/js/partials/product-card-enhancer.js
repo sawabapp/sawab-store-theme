@@ -22,16 +22,17 @@ function escapeHTML(str = '') {
 }
 
 /**
- * بيانات المنتج متاحة على عنصر <salla-product-card> نفسه: خاصية productData
- * بعد ترطيب المكوّن (hydration)، وقبلها السمة product كنص JSON.
+ * المنفذ الوحيد لبيانات المنتج هو الخاصية العامة `product` على عنصر البطاقة.
+ * أما `productData` فهي حالة داخلية (@State) في مكوّن سلة ولا تُعرَض على
+ * عنصر DOM مطلقًا. وحين تمرّر القائمةُ المنتجَ ككائن تضبطه كخاصية لا كسمة،
+ * فلا يُجدي قراءة getAttribute وحده — لذا نجرّب المصادر الثلاثة بالترتيب.
  */
 function getProductData(card) {
   const host = card.closest('salla-product-card, custom-salla-product-card') || card;
 
-  if (host.productData) return host.productData;
-
-  const raw = host.getAttribute && host.getAttribute('product');
+  const raw = host.product || host.productData || (host.getAttribute && host.getAttribute('product'));
   if (!raw) return null;
+  if (typeof raw === 'object') return raw;
 
   try {
     return JSON.parse(raw);
@@ -40,8 +41,15 @@ function getProductData(card) {
   }
 }
 
+/** الماركة قد تأتي ككائن {name} أو كنص مباشر حسب مصدر البيانات */
+function getBrandName(product) {
+  const brand = product?.brand;
+  if (!brand) return '';
+  return typeof brand === 'string' ? brand : brand.name || '';
+}
+
 function addBrand(card, product) {
-  const brand = product?.brand?.name;
+  const brand = getBrandName(product);
   if (!brand) return;
   if (card.querySelector('.sawab-card__brand')) return;
 
