@@ -224,38 +224,119 @@
                     </h2>
                 {% endif %}
 
-                {% if product.rating %}
-                    <salla-rating-stars data-testid="store-product-rating" value="{{ product.rating.stars }}"
-                                        reviews="{{ product.rating.count }}"></salla-rating-stars>
-                {% endif %}
+                {# صف واحد: التقييم + التوافر — كما في التصميم المرجعي #}
+                {% if product.rating.count or (not product.is_out_of_stock and product.status == 'sale') %}
+                    <div class="sawab-meta">
+                        {% if product.rating.count %}
+                            <div class="sawab-rating">
+                                <salla-rating-stars data-testid="store-product-rating" value="{{ product.rating.stars }}"></salla-rating-stars>
+                                <span class="sawab-rating__value">{{ product.rating.stars }}</span>
+                                <span class="sawab-rating__count">({{ product.rating.count }} تقييم)</span>
+                            </div>
+                        {% endif %}
 
-                {% if not product.is_out_of_stock and product.status == 'sale' %}
-                    <div class="sawab-stock">
-                        <i class="sicon-check-circle"></i>
-                        متوفر في المخزون
+                        {% if not product.is_out_of_stock and product.status == 'sale' %}
+                            <span class="sawab-stock">
+                                <i class="sicon-check-circle"></i>
+                                متوفر في المخزون
+                            </span>
+                        {% endif %}
                     </div>
                 {% endif %}
 
-                {% if product.is_taxable %}
-                    <small class="color-grey">{{ trans('pages.products.tax_included') }}</small>
-                {% endif %}
-                {# Price — الكلاسات total-price/before-price/price_is_on_sale ضرورية
+                {# السعر — الكلاسات total-price/before-price/price_is_on_sale ضرورية
                    ليحدّثها product.js عند اختيار خيار له سعر إضافي #}
-                <div data-testid="store-product-price" class="sawab-price price-wrapper flex whitespace-nowrap gap-4 items-center">
-                  <div class="price_is_on_sale {{ product.is_on_sale ? '' : 'hidden' }} space-x-2 rtl:space-x-reverse whitespace-nowrap">
-                      <p class="total-price text-red-800 font-bold text-xl inline-block">{{product.sale_price|money}}</p>
-                      <span class="before-price text-gray-500 line-through">{{product.regular_price|money}}</span>
+                <div data-testid="store-product-price" class="sawab-price price-wrapper">
+                  <div class="price_is_on_sale flex items-center flex-wrap gap-3 {{ product.is_on_sale ? '' : 'hidden' }}">
+                      <p class="total-price sawab-price__now">{{product.sale_price|money}}</p>
+                      <span class="before-price sawab-price__was">{{product.regular_price|money}}</span>
                       {% if product.discount_percentage %}
-                          <span class="sawab-price__discount">{{ product.discount_percentage }}-</span>
+                          <span class="sawab-price__save">وفّر {{ product.discount_percentage }}</span>
                       {% endif %}
                   </div>
-                  <div class="starting-or-normal-price gap-4 {{ product.is_on_sale ? 'hidden' : 'flex' }}">
+                  <div class="starting-or-normal-price flex items-center flex-wrap gap-3 {{ product.is_on_sale ? 'hidden' : '' }}">
                       {% if product.starting_price %}
-                          <span class="">{{ trans('pages.products.starting_price') }}</span>
+                          <span class="starting-price-title">{{ trans('pages.products.starting_price') }}</span>
                       {% endif %}
-                          <p class="total-price font-bold text-xl inline-block"> {{product.starting_price ? product.starting_price|money : product.price|money }}</p>
+                          <p class="total-price sawab-price__now">{{product.starting_price ? product.starting_price|money : product.price|money }}</p>
                   </div>
                 </div>
+
+                {% if product.is_taxable %}
+                    <p class="sawab-price__note">{{ trans('pages.products.tax_included') }}</p>
+                {% endif %}
+
+                <form data-testid="store-product-form" class="form product-form" enctype="multipart/form-data" method="post"
+                      onsubmit="return salla.form.onSubmit('cart.addItem', event)" >
+                    <input type="hidden" name="id" value="{{ product.id }}">
+
+
+                    {% hook 'product:single.form.start' %}
+
+                    {% include 'pages.partials.product.options' %}
+
+                    {% hook 'product:single.form.end' %}
+
+                    {# السعر يظهر أعلى الصفحة وداخل زر الإضافة، فلا حاجة لكتلة سعر ثالثة هنا #}
+                    <div data-testid="store-product-out-of-stock" class="out-of-stock hidden text-base text-red-600 !opacity-50 font-bold mb-3">{{ trans('pages.products.out_of_stock')}}</div>
+                    {# Pre-order Campaign #}
+                    {% if product.has_preorder_campaign %}
+                        <section class="mt-5 p-5">
+                            <salla-count-down data-testid="store-product-preorder-countdown" pre-order='{{ product.preorder|json_encode}}' boxed labeled></salla-count-down>
+                        </section>
+                    {% endif %}
+
+                    <section class="sticky-product-bar sawab-actions">
+                        {# الكمية وزر الإضافة في صف واحد، والسعر داخل الزر #}
+                        {% if product.is_hidden_quantity or product.type == 'booking' %}
+                            <input type="hidden" value="1" name="quantity" aria-label="Quantity"/>
+                        {% endif %}
+
+                        <div class="sawab-buy-row">
+                            {% if not (product.is_hidden_quantity or product.type == 'booking') %}
+                                <div class="sticky-product-bar__quantity sawab-qty">
+                                    <salla-quantity-input data-testid="store-product-quantity" max="{{ product.max_quantity }}" value="1" name="quantity" aria-label="{{ trans('pages.products.quantity') }}"></salla-quantity-input>
+                                </div>
+                            {% endif %}
+
+                            <salla-add-product-button
+                                    data-testid="store-product-add-to-cart"
+                                    {{product.can_quick_buy ? 'quick-buy' : ''}}
+                                    {{theme.settings.get('sticky_add_to_cart') ? ' support-sticky-bar' : ''}}
+                                    {{product.is_require_shipping ? 'required-shipping' : ''}}
+                                    {{product.has_preorder_campaign ? 'has-pre-order' : ''}}
+                                    amount="{{ product.base_currency_price }}"
+                                    class="sawab-atc sticky-product-bar__btn"
+                                    product-status="{{ product.status }}"
+                                    product-type="{{ product.type }}"
+                                    product-id="{{ product.id }}"
+                                    loader-position="end"
+                                    type="submit"
+                                    width="wide"
+                                    {# Notify availability props#}
+                                    {% if product.notify_availability %}
+                                        {{ product.notify_availability.subscribed ? 'is-subscribed' : '' }}
+                                        channels="{{ product.notify_availability.channels|join(',') }}"
+                                        subscribed-options="{{ product.notify_availability.subscribed_options|json_encode }}"
+                                        {{ product.notify_availability.options ? 'notify-options-availability' : '' }}
+                                    {% endif %}>
+                                {#- سلة تقرأ هذا المحتوى كنص HTML وتعيد إدراجه داخل الزر، فيُحدَّث
+                                    السعر عبر .sawab-atc__price في product.js لا عبر app.totalPrice -#}
+                                {{ product.add_to_cart_label }}<span class="sawab-atc__sep">·</span><span class="sawab-atc__price">{{ product.is_on_sale ? product.sale_price|money : (product.starting_price ? product.starting_price|money : product.price|money) }}</span>
+                            </salla-add-product-button>
+                        </div>
+
+                        {% if product.status == 'sale' and not product.is_out_of_stock %}
+                            {# اشترِ الآن: يضيف للسلة ثم ينقل للدفع — نفس مسار سلة (product.js) #}
+                            <button type="button" class="sawab-buy-now" data-testid="store-product-buy-now">
+                                اشترِ الآن
+                            </button>
+                        {% endif %}
+                    </section>
+                    {% if product.is_giftable %}
+                        <salla-gifting data-testid="store-product-gifting" class="mt-5" widget-subtitle="{{ gifting_intro }}" product-id="{{ product.id }}" {{ product.is_require_shipping ? 'physical-products' : ''  }}></salla-gifting>
+                    {% endif %}
+                </form>
 
                 <div data-testid="store-product-description" class="product__description p-2 px-5 sm:p-1 leading-7 mb-3">
                     {% set product_desc = product.description|replace({"&nbsp;":"\n"}) %}
@@ -364,91 +445,7 @@
               {% endif %}
               {# End Digital Files Settings #}
 
-                <form data-testid="store-product-form" class="form product-form" enctype="multipart/form-data" method="post"
-                      onsubmit="return salla.form.onSubmit('cart.addItem', event)" >
-                    <input type="hidden" name="id" value="{{ product.id }}">
 
-
-                    {% hook 'product:single.form.start' %}
-
-                    {% include 'pages.partials.product.options' %}
-
-                    {% hook 'product:single.form.end' %}
-
-                    <section class="flex bg-white p-5 sm:pb-0 rounded-md rounded-b-none">
-                        <div class="center-between w-full">
-                            <label class="form-label">
-                                <b class="block">
-                                    {{ trans('pages.products.price') }}
-                                </b>
-                            </label>
-
-                            <div class="flex whitespace-nowrap price-wrapper gap-4 items-center">
-                              <div class="{{ product.is_on_sale ? '' : 'hidden' }} price_is_on_sale space-x-2 rtl:space-x-reverse whitespace-nowrap">
-                                <h2 class="total-price text-red-800 font-bold text-xl inline-block">{{product.sale_price|money}}</h2>
-                                <span class="before-price text-gray-500 line-through">{{product.regular_price|money}}</span>
-                              </div>
-                              <div class="starting-or-normal-price gap-4 {{ product.is_on_sale ? 'hidden' : 'flex' }}">
-                                {% if product.starting_price %} 
-                                  <span class="starting-price-title">{{ trans('pages.products.starting_price') }}</span>
-                                {% endif %} 
-                                <h2 class="total-price font-bold text-xl inline-block"> {{product.starting_price ? product.starting_price|money : product.price|money }}</h2>
-                              </div>
-                            </div>
-
-                            <div data-testid="store-product-out-of-stock" class="out-of-stock min-h-7 leading-7 hidden text-base text-red-600 !opacity-50 font-bold">{{ trans('pages.products.out_of_stock')}}</div>
-                        </div>
-                    </section>
-                    {# Pre-order Campaign #}
-                    {% if product.has_preorder_campaign %}
-                        <section class="mt-5 p-5">
-                            <salla-count-down data-testid="store-product-preorder-countdown" pre-order='{{ product.preorder|json_encode}}' boxed labeled></salla-count-down>
-                        </section>
-                    {% endif %}
-
-                    <section class="sticky-product-bar bg-white p-5 rounded-md rounded-b-none">
-                        {# Quantity #}
-                        {% if product.is_hidden_quantity or product.type == 'booking' %}
-                            <input type="hidden" value="1" name="quantity" aria-label="Quantity"/>
-                        {% else %}
-                            <div class="sticky-product-bar__quantity center-between mb-5">
-                                <label class="form-label font-bold">
-                                    {{ trans('pages.products.quantity') }}
-                                </label>
-                                <salla-quantity-input data-testid="store-product-quantity" max="{{ product.max_quantity }}" value="1" name="quantity" aria-label="Quantity"
-                                  class="border-gray-200 flex justify-end"></salla-quantity-input>
-                            </div>
-                        {% endif %}
-                        {# Add to cart #}
-                        <salla-add-product-button
-                                data-testid="store-product-add-to-cart"
-                                {{product.can_quick_buy ? 'quick-buy' : ''}}
-                                {{theme.settings.get('sticky_add_to_cart') ? ' support-sticky-bar' : ''}}
-                                {{product.is_require_shipping ? 'required-shipping' : ''}}
-                                {{product.has_preorder_campaign ? 'has-pre-order' : ''}}
-                                amount="{{ product.base_currency_price }}"
-                                class="mt-5 w-full sticky-product-bar__btn"
-                                product-status="{{ product.status }}"
-                                product-type="{{ product.type }}"
-                                product-id="{{ product.id }}"
-                                loader-position="end"
-                                type="submit"
-                                width="wide"
-                                {# Notify availability props#}
-                                {% if product.notify_availability %}
-                                    {{ product.notify_availability.subscribed ? 'is-subscribed' : '' }}
-                                    channels="{{ product.notify_availability.channels|join(',') }}"
-                                    subscribed-options="{{ product.notify_availability.subscribed_options|json_encode }}"
-                                    {{ product.notify_availability.options ? 'notify-options-availability' : '' }}
-                                {% endif %}>
-
-                            {{ product.add_to_cart_label }}
-                        </salla-add-product-button>
-                    </section>
-                    {% if product.is_giftable %}
-                        <salla-gifting data-testid="store-product-gifting" class="mt-5" widget-subtitle="{{ gifting_intro }}" product-id="{{ product.id }}" {{ product.is_require_shipping ? 'physical-products' : ''  }}></salla-gifting>
-                    {% endif %}
-                </form>
 
                 {% hook 'product:single.description.end' %}
                 <salla-quick-order data-testid="store-product-quick-order" class="mt-5 md:-mb-2 block"></salla-quick-order>

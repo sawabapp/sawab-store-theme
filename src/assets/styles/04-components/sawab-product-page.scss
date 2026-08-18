@@ -2,6 +2,31 @@
 
 $sawab-muted: #9a9a9a;
 $sawab-border: #e8e1d5;
+$sawab-cream: #f8f1e7;
+$sawab-save-bg: #f4ead9;
+$sawab-save-text: #8a6a3f;
+$sawab-green: #2e9e5b;
+
+// ----- معرض الصور: لوحة كريمية كما في التصميم -----
+// بلا حشوة داخلية: مكبّر الصورة (image-zoom) يحسب موضع العدسة من حدود الصورة
+// نفسها، وأي حشوة على الحاوية تزيح العدسة بمقدارها.
+.details-slider {
+  .magnify-wrapper,
+  .model-entry {
+    background: $sawab-cream;
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .magnify-wrapper img {
+    object-fit: contain;
+  }
+
+  .promotion-title {
+    border-radius: 10px;
+    margin: 0 16px !important;
+  }
+}
 
 // ----- الماركة + ضمان الوكيل -----
 .sawab-brand {
@@ -60,8 +85,38 @@ $sawab-border: #e8e1d5;
 
   i {
     font-size: 13px;
-    color: #2e9e5b;
+    color: $sawab-green;
   }
+}
+
+// ----- صف التقييم + التوافر -----
+.sawab-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-bottom: 14px;
+}
+
+.sawab-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  salla-rating-stars {
+    line-height: 1;
+  }
+}
+
+.sawab-rating__value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--main-text-color);
+}
+
+.sawab-rating__count {
+  font-size: 13px;
+  color: $sawab-muted;
 }
 
 // ----- متوفر في المخزون -----
@@ -69,11 +124,10 @@ $sawab-border: #e8e1d5;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 12px;
   padding: 5px 12px;
   border-radius: 999px;
   background: rgba(46, 158, 91, 0.1);
-  color: #2e9e5b;
+  color: $sawab-green;
   font-size: 13px;
   font-weight: 600;
 
@@ -82,24 +136,47 @@ $sawab-border: #e8e1d5;
   }
 }
 
-// ----- شارة نسبة الخصم -----
-.sawab-price__discount {
-  display: inline-block;
-  padding: 3px 10px;
+// ----- السعر -----
+// تخطيط الصف يبقى بكلاسات tailwind في القالب: product.js يظهر/يخفي الكتلتين
+// بكلاس hidden، وهو يأتي بعد flex في مخرجات tailwind فيفوز عليه.
+.sawab-price__now {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--main-text-color);
+}
+
+.sawab-price__was {
+  font-size: 15px;
+  color: $sawab-muted;
+  text-decoration: line-through;
+}
+
+.sawab-price__save {
+  padding: 4px 10px;
   border-radius: 8px;
-  background: var(--color-primary);
-  color: #fff;
+  background: $sawab-save-bg;
+  color: $sawab-save-text;
   font-size: 13px;
   font-weight: 700;
-  line-height: 1.6;
   white-space: nowrap;
 }
 
+.sawab-price__note {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: $sawab-muted;
+}
+
 // ----- خيارات المنتج على شكل بطاقات -----
-// عُرض الخيارات كأزرار عبر خاصية config في options.twig، فترسمها سلة داخل
-// .s-product-options-grid-mode. هنا نحوّل كل زر إلى بطاقة واضحة الحدود.
-// تحديث السعر عند الاختيار يعمل أصلاً عبر product.js (onPriceUpdated).
+// سلة ترسم لكل خيار: <label><input><div class="s-product-options-grid-mode-span">
+// فالبطاقة هي الـ div الداخلي، وبذلك يكفي input:checked + div لحالة الاختيار.
+// السعر الإضافي يُلحق كنص بين قوسين، و product.js يغلّفه بـ .sawab-option__price.
 salla-product-options {
+  display: block;
+  margin-top: 22px;
+
   .s-product-options-option-label {
     font-weight: 700;
     font-size: 15px;
@@ -112,6 +189,12 @@ salla-product-options {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 10px;
 
+    label {
+      display: block;
+      margin: 0;
+      cursor: pointer;
+    }
+
     input[type="radio"],
     input[type="checkbox"] {
       position: absolute;
@@ -119,44 +202,50 @@ salla-product-options {
       pointer-events: none;
     }
 
-    label {
+    .s-product-options-grid-mode-span {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
       gap: 4px;
-      margin: 0;
+      height: 100%;
       padding: 12px 14px;
-      min-height: 56px;
       box-sizing: border-box;
+      min-height: 62px;
       border: 1.5px solid $sawab-border;
       border-radius: 12px;
       background: #fff;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
+      line-height: 1.5;
+      text-align: center;
       color: var(--main-text-color);
-      cursor: pointer;
-      transition: border-color 0.2s ease, background-color 0.2s ease;
-
-      &:hover {
-        border-color: var(--color-primary);
-      }
+      transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
     }
 
-    // السعر الإضافي الذي تضعه سلة بين قوسين — مصغّر وبلون العلامة
-    label p,
+    label:hover .s-product-options-grid-mode-span {
+      border-color: var(--color-primary);
+    }
+
+    // السعر الإضافي — مصغّر وبلون العلامة
+    .sawab-option__price,
     .s-product-options-grid-mode-span p {
       margin: 0;
-      display: inline-block;
+      display: block;
       font-size: 12px;
       font-weight: 700;
       color: var(--color-primary);
     }
 
-    input:checked + label,
-    input:checked ~ label {
+    input:checked + .s-product-options-grid-mode-span {
       border-color: var(--color-primary);
-      background: rgba(198, 33, 39, 0.04);
+      background: var(--color-primary);
+      color: #fff;
+
+      .sawab-option__price,
+      p {
+        color: #fff;
+      }
     }
 
     .s-product-options-disabled {
@@ -166,12 +255,83 @@ salla-product-options {
   }
 }
 
-// ----- زر الإضافة للسلة -----
-.sticky-product-bar__btn {
+// ----- الكمية + زر الإضافة في صف واحد، ثم "اشترِ الآن" -----
+.sawab-actions {
+  padding: 0;
+  margin-top: 22px;
+}
+
+.sawab-buy-row {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.sawab-qty {
+  flex-shrink: 0;
+
+  salla-quantity-input,
+  .s-quantity-input-container {
+    height: 100%;
+  }
+
+  .s-quantity-input-container {
+    border: 1.5px solid $sawab-border;
+    border-radius: 12px;
+    background: #fff;
+    min-height: 52px;
+  }
+
+  .s-quantity-input-input {
+    width: 44px;
+    font-weight: 700;
+  }
+}
+
+.sawab-atc {
+  flex: 1;
+  min-width: 0;
+
   .s-button-element {
+    width: 100%;
+    min-height: 52px;
     border-radius: 12px;
     font-weight: 700;
-    height: 52px;
+    font-size: 15px;
+  }
+}
+
+.sawab-atc__sep {
+  margin: 0 6px;
+  opacity: 0.65;
+}
+
+.sawab-buy-now {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  margin-top: 12px;
+  padding: 0 16px;
+  border: 1.5px solid $sawab-border;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--main-text-color);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+
+  &:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  &.is-loading,
+  &:disabled {
+    opacity: 0.6;
+    cursor: wait;
   }
 }
 
@@ -179,6 +339,10 @@ salla-product-options {
   .sawab-brand__logo {
     width: 42px;
     height: 42px;
+  }
+
+  .sawab-price__now {
+    font-size: 26px;
   }
 
   salla-product-options .s-product-options-grid-mode {

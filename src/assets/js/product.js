@@ -15,6 +15,8 @@ class Product extends BasePage {
         });
 
         this.initProductOptionValidations();
+        this.initBuyNow();
+        this.initOptionCards();
 
         if(imageZoom){
             // call the function when the page is ready
@@ -29,6 +31,69 @@ class Product extends BasePage {
         // reportValidity() natively focuses/scrolls to the first empty required option mid-edit; read validity instead
         const isComplete = Array.from(this.elements).every(el => !el.willValidate || el.validity.valid);
         isComplete && salla.product.getPrice(new FormData(this));
+      });
+    }
+
+    initOptionCards() {
+      const options = document.querySelector('salla-product-options');
+
+      if (!options) {
+        return;
+      }
+
+      // سلة تلحق السعر الإضافي كنص بين قوسين بعد اسم الخيار داخل نفس العنصر
+      // (الـ<p> مخصص لخيارات الألوان فقط)، فنفصله ليأخذ حجمًا ولونًا مختلفين
+      const wrapPrices = () => {
+        options.querySelectorAll('.s-product-options-grid-mode-span').forEach(card => {
+          if (card.dataset.sawabPriceWrapped) {
+            return;
+          }
+
+          card.dataset.sawabPriceWrapped = '1';
+          const parts = card.innerHTML.trim().match(/^([\s\S]*\S)\s*(\([\s\S]*\))$/);
+
+          if (!parts) {
+            return;
+          }
+
+          card.innerHTML = `<span class="sawab-option__name">${parts[1]}</span>`
+            + `<span class="sawab-option__price">${parts[2]}</span>`;
+        });
+      };
+
+      wrapPrices();
+      // البطاقات تُرسم بعد ترطيب المكوّن، وتُعاد رسمها عند تغيّر التوافر
+      new MutationObserver(wrapPrices).observe(options, { childList: true, subtree: true });
+    }
+
+    initBuyNow() {
+      const form = document.querySelector('.product-form');
+
+      app.onClick('.sawab-buy-now', event => {
+        // reportValidity() here is intentional: the shopper asked to check out, so
+        // focusing/scrolling to the first missing option is the wanted behaviour
+        if (!form || !form.reportValidity()) {
+          salla.notify.error(salla.lang.get('common.messages.required_fields'));
+          return;
+        }
+
+        const btn = event.currentTarget;
+        const stopLoading = () => {
+          btn.classList.remove('is-loading');
+          btn.disabled = false;
+        };
+
+        // submit() only redirects for a signed-in shopper; release the button when
+        // it opens the login modal or fails instead of leaving it stuck
+        salla.event.once('login::open', stopLoading);
+        salla.event.once('cart::submit.failed', stopLoading);
+
+        btn.classList.add('is-loading');
+        btn.disabled = true;
+
+        salla.cart.addItem(new FormData(form))
+          .then(() => salla.cart.submit())
+          .catch(stopLoading);
       });
     }
 
@@ -83,6 +148,10 @@ class Product extends BasePage {
         app.totalPrice.forEach((el) => {el.innerHTML = salla.money(data.price)});
         app.beforePrice.forEach((el) => {el.innerHTML = salla.money(data.regular_price)});
         app.productSku.forEach((el) => {el.innerHTML = data.sku || ''});
+
+        // سلة تعيد إدراج محتوى زر الإضافة (setText) فتصبح العقد المحفوظة في
+        // app.totalPrice قديمة — نستعلم من جديد في كل تحديث
+        document.querySelectorAll('.sawab-atc__price').forEach((el) => {el.innerHTML = salla.money(data.price)});
 
         app.toggleClassIf('.price_is_on_sale','showed','hidden', ()=> is_on_sale)
         app.toggleClassIf('.starting-or-normal-price','hidden','showed', ()=> is_on_sale)
