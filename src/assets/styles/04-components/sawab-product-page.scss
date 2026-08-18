@@ -59,13 +59,15 @@ $sawab-green: #2e9e5b;
 .sawab-brand__info {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 0;
   min-width: 0;
 }
 
+// line-height الموروث من الثيم يفتح فراغًا بين الاسم والضمان، فنضبطه هنا
 .sawab-brand__name {
   font-size: 15px;
   font-weight: 700;
+  line-height: 1.9;
   color: var(--main-text-color);
   text-decoration: none;
 
@@ -81,6 +83,7 @@ $sawab-green: #2e9e5b;
   gap: 5px;
   font-size: 12px;
   font-weight: 500;
+  line-height: 1.3;
   color: $sawab-muted;
 
   i {
@@ -136,6 +139,26 @@ $sawab-green: #2e9e5b;
   }
 }
 
+// ----- عدد مرات الشراء -----
+.sawab-sold {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: $sawab-muted;
+
+  i {
+    font-size: 15px;
+    color: var(--color-primary);
+  }
+
+  span {
+    color: var(--main-text-color);
+  }
+}
+
 // ----- السعر -----
 // تخطيط الصف يبقى بكلاسات tailwind في القالب: product.js يظهر/يخفي الكتلتين
 // بكلاس hidden، وهو يأتي بعد flex في مخرجات tailwind فيفوز عليه.
@@ -144,7 +167,7 @@ $sawab-green: #2e9e5b;
   font-size: 30px;
   font-weight: 800;
   line-height: 1.2;
-  color: var(--main-text-color);
+  color: var(--color-primary);
 }
 
 .sawab-price__was {
@@ -164,7 +187,7 @@ $sawab-green: #2e9e5b;
 }
 
 .sawab-price__note {
-  margin: 8px 0 0;
+  margin: 4px 0 0;
   font-size: 13px;
   color: $sawab-muted;
 }
@@ -177,6 +200,16 @@ salla-product-options {
   display: block;
   margin-top: 22px;
 
+  // سلة تجعل مجموعة الخيار شبكة من ٣ أعمدة: العنوان عمود والبطاقات عمودان،
+  // فتبقى مساحة فارغة. نجعلها كتلة واحدة ليأخذ العنوان سطره والبطاقات العرض كله
+  .s-product-options-option:not(div.s-product-options-option-booking) {
+    display: block;
+  }
+
+  .s-product-options-option-content {
+    margin-top: 0;
+  }
+
   .s-product-options-option-label {
     font-weight: 700;
     font-size: 15px;
@@ -185,9 +218,11 @@ salla-product-options {
   }
 
   .s-product-options-grid-mode {
+    // ثلاث بطاقات في السطر كما في التصميم — auto-fill كان يمدّها بلا داعٍ
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 0;
 
     label {
       display: block;
@@ -207,17 +242,17 @@ salla-product-options {
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 4px;
+      gap: 2px;
       height: 100%;
-      padding: 12px 14px;
+      padding: 9px 10px;
       box-sizing: border-box;
-      min-height: 62px;
+      min-height: 0;
       border: 1.5px solid $sawab-border;
-      border-radius: 12px;
+      border-radius: 10px;
       background: #fff;
       font-size: 14px;
       font-weight: 700;
-      line-height: 1.5;
+      line-height: 1.35;
       text-align: center;
       color: var(--main-text-color);
       transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
@@ -227,7 +262,7 @@ salla-product-options {
       border-color: var(--color-primary);
     }
 
-    // السعر الإضافي — مصغّر وبلون العلامة
+    // سعر الخيار — مصغّر وبلون العلامة
     .sawab-option__price,
     .s-product-options-grid-mode-span p {
       margin: 0;
@@ -255,7 +290,11 @@ salla-product-options {
   }
 }
 
-// ----- الكمية + زر الإضافة في صف واحد، ثم "اشترِ الآن" -----
+// ----- الكمية + زرّا الإضافة و"اشترِ الآن" في صف واحد -----
+// سلة ترسم الزرين داخل .s-add-product-button-main (زر الإضافة + ودجت الدفع
+// السريع) وتعطي كلًا منهما 50%، فيبقى علينا توحيد الارتفاع والحواف.
+$sawab-btn-height: 52px;
+
 .sawab-actions {
   padding: 0;
   margin-top: 22px;
@@ -264,11 +303,12 @@ salla-product-options {
 .sawab-buy-row {
   display: flex;
   align-items: stretch;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
 .sawab-qty {
-  flex-shrink: 0;
+  flex: 0 0 auto;
 
   salla-quantity-input,
   .s-quantity-input-container {
@@ -279,7 +319,7 @@ salla-product-options {
     border: 1.5px solid $sawab-border;
     border-radius: 12px;
     background: #fff;
-    min-height: 52px;
+    min-height: $sawab-btn-height;
   }
 
   .s-quantity-input-input {
@@ -289,50 +329,52 @@ salla-product-options {
 }
 
 .sawab-atc {
-  flex: 1;
+  flex: 1 1 240px;
   min-width: 0;
+
+  // صف الزرين: عرض متساوٍ وارتفاع واحد
+  .s-add-product-button-main {
+    align-items: stretch;
+    gap: 12px;
+    column-gap: 12px;
+  }
+
+  .s-add-product-button-main > salla-button,
+  .s-add-product-button-main > .s-add-product-button-mini-checkout {
+    flex: 1 1 0;
+    width: auto !important;
+    min-width: 0;
+  }
 
   .s-button-element {
     width: 100%;
-    min-height: 52px;
+    height: 100%;
+    min-height: $sawab-btn-height;
     border-radius: 12px;
     font-weight: 700;
     font-size: 15px;
+  }
+
+  // ودجت الدفع السريع خارجية، فنمرّر لها ما تتيحه من متغيّرات + احتياط للزر
+  .s-add-product-button-mini-checkout {
+    --salla-fast-checkout-button-border-radius: 12px;
+    --salla-fast-checkout-button-width: 100%;
+    --salla-fast-checkout-button-height: #{$sawab-btn-height};
+
+    button,
+    a {
+      width: 100%;
+      min-height: $sawab-btn-height;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 15px;
+    }
   }
 }
 
 .sawab-atc__sep {
   margin: 0 6px;
   opacity: 0.65;
-}
-
-.sawab-buy-now {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 52px;
-  margin-top: 12px;
-  padding: 0 16px;
-  border: 1.5px solid $sawab-border;
-  border-radius: 12px;
-  background: #fff;
-  color: var(--main-text-color);
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
-
-  &:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-  }
-
-  &.is-loading,
-  &:disabled {
-    opacity: 0.6;
-    cursor: wait;
-  }
 }
 
 @media (max-width: 768px) {
@@ -344,8 +386,15 @@ salla-product-options {
   .sawab-price__now {
     font-size: 26px;
   }
+}
+
+@media (max-width: 480px) {
+  // الكمية في سطر، والزران في السطر التالي
+  .sawab-atc {
+    flex: 1 1 100%;
+  }
 
   salla-product-options .s-product-options-grid-mode {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

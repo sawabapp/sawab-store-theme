@@ -244,6 +244,14 @@
                     </div>
                 {% endif %}
 
+                {% if product.sold_quantity %}
+                    <div class="sawab-sold">
+                        <i class="sicon-fire"></i>
+                        {{ trans('pages.products.sold') }}
+                        <span>{{ pluralize('pages.products.sold_times', product.sold_quantity)|raw }}</span>
+                    </div>
+                {% endif %}
+
                 {# السعر — الكلاسات total-price/before-price/price_is_on_sale ضرورية
                    ليحدّثها product.js عند اختيار خيار له سعر إضافي #}
                 <div data-testid="store-product-price" class="sawab-price price-wrapper">
@@ -251,7 +259,8 @@
                       <p class="total-price sawab-price__now">{{product.sale_price|money}}</p>
                       <span class="before-price sawab-price__was">{{product.regular_price|money}}</span>
                       {% if product.discount_percentage %}
-                          <span class="sawab-price__save">وفّر {{ product.discount_percentage }}</span>
+                          {# سلة تُرجع النسبة بكسور طويلة مثل "10.45467%" — نقرّبها لعدد صحيح #}
+                          <span class="sawab-price__save">وفّر {{ product.discount_percentage|replace({'%': '', '٪': ''})|trim|round }}%</span>
                       {% endif %}
                   </div>
                   <div class="starting-or-normal-price flex items-center flex-wrap gap-3 {{ product.is_on_sale ? 'hidden' : '' }}">
@@ -262,7 +271,9 @@
                   </div>
                 </div>
 
-                {% if product.is_taxable %}
+                {# نفس قاعدة بطاقات المنتج: تُعرض الملاحظة إلا إذا صرّح المتجر أن
+                   الأسعار لا تشمل الضريبة — product.is_taxable يخفيها بلا داعٍ #}
+                {% if store.settings.tax.taxable_prices_enabled is not same as(false) %}
                     <p class="sawab-price__note">{{ trans('pages.products.tax_included') }}</p>
                 {% endif %}
 
@@ -325,13 +336,8 @@
                                 {{ product.add_to_cart_label }}<span class="sawab-atc__sep">·</span><span class="sawab-atc__price">{{ product.is_on_sale ? product.sale_price|money : (product.starting_price ? product.starting_price|money : product.price|money) }}</span>
                             </salla-add-product-button>
                         </div>
-
-                        {% if product.status == 'sale' and not product.is_out_of_stock %}
-                            {# اشترِ الآن: يضيف للسلة ثم ينقل للدفع — نفس مسار سلة (product.js) #}
-                            <button type="button" class="sawab-buy-now" data-testid="store-product-buy-now">
-                                اشترِ الآن
-                            </button>
-                        {% endif %}
+                        {# زر "اشترِ الآن" يأتي من سلة نفسها داخل salla-add-product-button
+                           عبر quick-buy (ودجت الدفع السريع)، فلا نبني زرًا ثانيًا #}
                     </section>
                     {% if product.is_giftable %}
                         <salla-gifting data-testid="store-product-gifting" class="mt-5" widget-subtitle="{{ gifting_intro }}" product-id="{{ product.id }}" {{ product.is_require_shipping ? 'physical-products' : ''  }}></salla-gifting>
@@ -383,21 +389,14 @@
                     </salla-button>
                 </div>
 
-                {% if product.sold_quantity or product.can_show_remained_quantity %}
+                {# عدد مرات الشراء انتقل لأعلى الصفحة تحت شارة التوافر #}
+                {% if product.can_show_remained_quantity %}
                     <div class="bg-white py-2.5 mb-5 rounded-md inline-flex text-sm">
-                        {% if product.sold_quantity %}
-                            <div class="px-4 !text-red-800">
-                                <i class="sicon-fire rtl:ml-1.5 ltr:mr-1.5"></i> {{ trans('pages.products.sold') }}
-                                <span>{{ pluralize('pages.products.sold_times', product.sold_quantity)|raw }}</span>
-                            </div>
-                        {% endif %}
-                        {% if product.can_show_remained_quantity %}
-                            <div class="px-4 rtl:even:border-r ltr:even:border-l even:border-gray-200">
-                                <i class="!text-red-800 sicon-box-bankers rtl:ml-1.5 ltr:mr-1.5"></i>
-                                {{ trans('pages.products.remained') }}
-                                <span>{{ product.quantity }}</span>
-                            </div>
-                        {% endif %}
+                        <div class="px-4">
+                            <i class="!text-red-800 sicon-box-bankers rtl:ml-1.5 ltr:mr-1.5"></i>
+                            {{ trans('pages.products.remained') }}
+                            <span>{{ product.quantity }}</span>
+                        </div>
                     </div>
                 {% endif %}
                 {% if product.sku %}

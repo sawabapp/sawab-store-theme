@@ -15,7 +15,6 @@ class Product extends BasePage {
         });
 
         this.initProductOptionValidations();
-        this.initBuyNow();
         this.initOptionCards();
 
         if(imageZoom){
@@ -34,6 +33,14 @@ class Product extends BasePage {
       });
     }
 
+    /**
+     * بطاقات الخيارات: سلة تكتب اسم الخيار ثم فرق السعر كنص بين قوسين
+     * "1500 لتر (+400 ر.س)"، والتصميم يطلب السعر الكامل للخيار بسطر منفصل.
+     * فرق السعر متاح في سمة options، والسعر الكامل = سعر المنتج + الفرق.
+     * وللمنتجات ذات المتغيّرات (فرق السعر صفر للجميع) نسأل نقطة سعر المنتج
+     * لكل خيار — مباشرةً لا عبر salla.product.getPrice، لأن الأخير يبثّ حدث
+     * تحديث السعر فيغيّر سعر أعلى الصفحة مع كل استعلام.
+     */
     initOptionCards() {
       const options = document.querySelector('salla-product-options');
 
@@ -41,60 +48,82 @@ class Product extends BasePage {
         return;
       }
 
-      // سلة تلحق السعر الإضافي كنص بين قوسين بعد اسم الخيار داخل نفس العنصر
-      // (الـ<p> مخصص لخيارات الألوان فقط)، فنفصله ليأخذ حجمًا ولونًا مختلفين
-      const wrapPrices = () => {
-        options.querySelectorAll('.s-product-options-grid-mode-span').forEach(card => {
-          if (card.dataset.sawabPriceWrapped) {
-            return;
-          }
+      const productId = options.getAttribute('product-id');
+      const basePrice = Number(options.dataset.basePrice);
+      let optionsData = [];
 
-          card.dataset.sawabPriceWrapped = '1';
-          const parts = card.innerHTML.trim().match(/^([\s\S]*\S)\s*(\([\s\S]*\))$/);
+      try {
+        optionsData = JSON.parse(options.getAttribute('options') || '[]');
+      } catch (e) {
+        optionsData = [];
+      }
 
-          if (!parts) {
-            return;
-          }
+      const additionalPrices = {};
+      let hasAdditionalPrice = false;
 
-          card.innerHTML = `<span class="sawab-option__name">${parts[1]}</span>`
-            + `<span class="sawab-option__price">${parts[2]}</span>`;
-        });
+      optionsData.forEach(option => (option.details || []).forEach(detail => {
+        additionalPrices[detail.id] = Number(detail.additional_price) || 0;
+        hasAdditionalPrice = hasAdditionalPrice || !!additionalPrices[detail.id];
+      }));
+
+      // الاستعلام لخيار واحد فقط يصلح حين لا توجد مجموعة خيارات أخرى مطلوبة
+      const soleOption = optionsData.length === 1 ? optionsData[0] : null;
+      const canCompute = Number.isFinite(basePrice) && hasAdditionalPrice;
+      const fetched = new Map();
+
+      const fetchPrice = (detailId) => {
+        if (fetched.has(detailId)) {
+          return fetched.get(detailId);
+        }
+
+        const payload = new FormData();
+        payload.append('id', productId);
+        payload.append(`options[${soleOption.id}]`, detailId);
+
+        const request = salla.api.request(`products/${productId}/price`, payload, 'post')
+          .then(res => Number(res?.data?.price))
+          .then(price => Number.isFinite(price) ? price : null)
+          .catch(() => null);
+
+        fetched.set(detailId, request);
+        return request;
       };
 
-      wrapPrices();
-      // البطاقات تُرسم بعد ترطيب المكوّن، وتُعاد رسمها عند تغيّر التوافر
-      new MutationObserver(wrapPrices).observe(options, { childList: true, subtree: true });
-    }
-
-    initBuyNow() {
-      const form = document.querySelector('.product-form');
-
-      app.onClick('.sawab-buy-now', event => {
-        // reportValidity() here is intentional: the shopper asked to check out, so
-        // focusing/scrolling to the first missing option is the wanted behaviour
-        if (!form || !form.reportValidity()) {
-          salla.notify.error(salla.lang.get('common.messages.required_fields'));
+      const setPrice = (card, price) => {
+        if (price === null || !card.isConnected) {
           return;
         }
 
-        const btn = event.currentTarget;
-        const stopLoading = () => {
-          btn.classList.remove('is-loading');
-          btn.disabled = false;
-        };
+        card.insertAdjacentHTML('beforeend', `<span class="sawab-option__price">${salla.money(price)}</span>`);
+      };
 
-        // submit() only redirects for a signed-in shopper; release the button when
-        // it opens the login modal or fails instead of leaving it stuck
-        salla.event.once('login::open', stopLoading);
-        salla.event.once('cart::submit.failed', stopLoading);
+      const paint = () => {
+        options.querySelectorAll('.s-product-options-grid-mode-span').forEach(card => {
+          if (card.dataset.sawabCard) {
+            return;
+          }
 
-        btn.classList.add('is-loading');
-        btn.disabled = true;
+          card.dataset.sawabCard = '1';
+          const detailId = card.parentElement?.querySelector('input')?.value;
+          // نزيل لاحقة السعر التي تضيفها سلة ونعيدها بسطر خاص
+          const name = card.innerHTML.trim().replace(/\s*\([\s\S]*\)\s*$/, '');
+          card.innerHTML = `<span class="sawab-option__name">${name}</span>`;
 
-        salla.cart.addItem(new FormData(form))
-          .then(() => salla.cart.submit())
-          .catch(stopLoading);
-      });
+          if (!detailId) {
+            return;
+          }
+
+          if (canCompute) {
+            setPrice(card, basePrice + (additionalPrices[detailId] || 0));
+          } else if (soleOption) {
+            fetchPrice(detailId).then(price => setPrice(card, price));
+          }
+        });
+      };
+
+      paint();
+      // البطاقات تُرسم بعد ترطيب المكوّن، وتُعاد رسمها عند تغيّر التوافر
+      new MutationObserver(paint).observe(options, { childList: true, subtree: true });
     }
 
     initImagesZooming() {

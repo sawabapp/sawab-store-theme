@@ -30,8 +30,11 @@
 #}
 {% if product.options|length %}
     {# config: يعرض الخيارات كبطاقات قابلة للضغط بدل القائمة المنسدلة الافتراضية #}
+    {# data-base-price: product.js يجمعه مع السعر الإضافي لكل خيار ليعرض السعر
+       الكامل داخل البطاقة بدل فرق السعر وحده #}
     <salla-product-options
         data-testid="store-product-options"
+        data-base-price="{{ product.price }}"
         options="{{ product.options }}"
         product-id="{{ product.id }}"
         config='{"single-option": {"type": "button"}, "multiple-option": {"type": "button"}}'

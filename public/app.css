@@ -10134,12 +10134,13 @@ salla-cart-summary .s-cart-summary-count {
 .sawab-brand__info {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 0;
   min-width: 0;
 }
 .sawab-brand__name {
   font-size: 15px;
   font-weight: 700;
+  line-height: 1.9;
   color: #1c1b19;
   color: var(--main-text-color);
   -webkit-text-decoration: none;
@@ -10157,6 +10158,7 @@ salla-cart-summary .s-cart-summary-count {
   gap: 5px;
   font-size: 12px;
   font-weight: 500;
+  line-height: 1.3;
   color: #9a9a9a;
 }
 .sawab-brand__warranty i {
@@ -10202,13 +10204,31 @@ salla-cart-summary .s-cart-summary-count {
 .sawab-stock i {
   font-size: 14px;
 }
+.sawab-sold {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #9a9a9a;
+}
+.sawab-sold i {
+  font-size: 15px;
+  color: #c62127;
+  color: var(--color-primary);
+}
+.sawab-sold span {
+  color: #1c1b19;
+  color: var(--main-text-color);
+}
 .sawab-price__now {
   margin: 0;
   font-size: 30px;
   font-weight: 800;
   line-height: 1.2;
-  color: #1c1b19;
-  color: var(--main-text-color);
+  color: #c62127;
+  color: var(--color-primary);
 }
 .sawab-price__was {
   font-size: 15px;
@@ -10226,13 +10246,19 @@ salla-cart-summary .s-cart-summary-count {
   white-space: nowrap;
 }
 .sawab-price__note {
-  margin: 8px 0 0;
+  margin: 4px 0 0;
   font-size: 13px;
   color: #9a9a9a;
 }
 salla-product-options {
   display: block;
   margin-top: 22px;
+}
+salla-product-options .s-product-options-option:not(div.s-product-options-option-booking) {
+  display: block;
+}
+salla-product-options .s-product-options-option-content {
+  margin-top: 0;
 }
 salla-product-options .s-product-options-option-label {
   font-weight: 700;
@@ -10242,9 +10268,10 @@ salla-product-options .s-product-options-option-label {
 }
 salla-product-options .s-product-options-grid-mode {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  grid-gap: 10px;
-  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-gap: 8px;
+  gap: 8px;
+  margin-bottom: 0;
 }
 salla-product-options .s-product-options-grid-mode label {
   display: block;
@@ -10262,17 +10289,17 @@ salla-product-options .s-product-options-grid-mode .s-product-options-grid-mode-
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 2px;
   height: 100%;
-  padding: 12px 14px;
+  padding: 9px 10px;
   box-sizing: border-box;
-  min-height: 62px;
+  min-height: 0;
   border: 1.5px solid #e8e1d5;
-  border-radius: 12px;
+  border-radius: 10px;
   background: #fff;
   font-size: 14px;
   font-weight: 700;
-  line-height: 1.5;
+  line-height: 1.35;
   text-align: center;
   color: #1c1b19;
   color: var(--main-text-color);
@@ -10313,10 +10340,11 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
 .sawab-buy-row {
   display: flex;
   align-items: stretch;
+  flex-wrap: wrap;
   gap: 12px;
 }
 .sawab-qty {
-  flex-shrink: 0;
+  flex: 0 0 auto;
 }
 .sawab-qty salla-quantity-input,
 .sawab-qty .s-quantity-input-container {
@@ -10333,10 +10361,36 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
   font-weight: 700;
 }
 .sawab-atc {
-  flex: 1;
+  flex: 1 1 240px;
+  min-width: 0;
+}
+.sawab-atc .s-add-product-button-main {
+  align-items: stretch;
+  gap: 12px;
+  -moz-column-gap: 12px;
+       column-gap: 12px;
+}
+.sawab-atc .s-add-product-button-main > salla-button,
+.sawab-atc .s-add-product-button-main > .s-add-product-button-mini-checkout {
+  flex: 1 1 0;
+  width: auto !important;
   min-width: 0;
 }
 .sawab-atc .s-button-element {
+  width: 100%;
+  height: 100%;
+  min-height: 52px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
+}
+.sawab-atc .s-add-product-button-mini-checkout {
+  --salla-fast-checkout-button-border-radius: 12px;
+  --salla-fast-checkout-button-width: 100%;
+  --salla-fast-checkout-button-height: 52px;
+}
+.sawab-atc .s-add-product-button-mini-checkout button,
+.sawab-atc .s-add-product-button-mini-checkout a {
   width: 100%;
   min-height: 52px;
   border-radius: 12px;
@@ -10347,34 +10401,6 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
   margin: 0 6px;
   opacity: 0.65;
 }
-.sawab-buy-now {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 52px;
-  margin-top: 12px;
-  padding: 0 16px;
-  border: 1.5px solid #e8e1d5;
-  border-radius: 12px;
-  background: #fff;
-  color: #1c1b19;
-  color: var(--main-text-color);
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
-}
-.sawab-buy-now:hover {
-  border-color: #c62127;
-  border-color: var(--color-primary);
-  color: #c62127;
-  color: var(--color-primary);
-}
-.sawab-buy-now.is-loading, .sawab-buy-now:disabled {
-  opacity: 0.6;
-  cursor: wait;
-}
 @media (max-width: 768px) {
   .sawab-brand__logo {
     width: 42px;
@@ -10383,8 +10409,13 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
   .sawab-price__now {
     font-size: 26px;
   }
+}
+@media (max-width: 480px) {
+  .sawab-atc {
+    flex: 1 1 100%;
+  }
   salla-product-options .s-product-options-grid-mode {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 .before\:text-orange-300::before{
@@ -10415,11 +10446,6 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
 }
 .last\:border-none:last-child{
     border-style: none;
-}
-.even\:border-gray-200:nth-child(even){
-    --tw-border-opacity: 1;
-    border-color: rgba(229, 231, 235, 1);
-    border-color: rgba(229, 231, 235, var(--tw-border-opacity, 1));
 }
 .empty\:hidden:empty{
     display: none;
@@ -10976,9 +11002,6 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
 .ltr\:text-end:where([dir="ltr"], [dir="ltr"] *){
     text-align: right;
 }
-.ltr\:even\:border-l:nth-child(even):where([dir="ltr"], [dir="ltr"] *){
-    border-left-width: 1px;
-}
 @media (min-width: 640px){
     .sm\:ltr\:text-left:where([dir="ltr"], [dir="ltr"] *){
         text-align: left;
@@ -11107,9 +11130,6 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
 }
 .rtl\:text-start:where([dir="rtl"], [dir="rtl"] *){
     text-align: left;
-}
-.rtl\:even\:border-r:nth-child(even):where([dir="rtl"], [dir="rtl"] *){
-    border-right-width: 1px;
 }
 @media (min-width: 640px){
     .sm\:rtl\:text-right:where([dir="rtl"], [dir="rtl"] *){
