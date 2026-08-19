@@ -29,7 +29,7 @@
             "id": "squar_photo_bg_image_size",
             "type": "items",
             "format": "dropdown-list",
-            "label": "طريقة عرض الصور في قسم قائمة عناصر ",
+            "label": "طريقة عرض الصور في قسم قائمة عناصر",
             "description": null,
             "labelHTML": null,
             "icon": "sicon-list",
@@ -81,7 +81,7 @@
             "type": "static",
             "format": "title",
             "id": "static-label2",
-            "value": "<div class='rounded-lg' style='background-color: #21636d; display: flex; justify-content: center; align-items: center;padding: 15px;margin-bottom: 20px !important; flex-direction: column;gap: 15px;'><h6 style='color: #ffffff;font-size: 15px; font-weight: bold;'> خيارات أعلى الصفحة</h6></div>",
+            "value": "<div class='rounded-lg' ><h6 > خيارات أعلى الصفحة</h6></div>",
             "variant": "h6"
         },
         {
@@ -117,36 +117,34 @@
             "value": true,
             "selected": false
         },
-
         {
-    "type": "range",
-    "icon": "sicon-image",
-    "label": "حجم شعار المتجر - سطح المكتب (بكسل)",
-    "description": "تحكم بارتفاع شعار المتجر في الهيدر على الحاسوب",
-    "id": "logo_height_desktop",
-    "format": "range",
-    "required": false,
-    "min": 24,
-    "max": 60,
-    "step": 2,
-    "value": 40,
-    "selected": 40
-},
-{
-    "type": "range",
-    "icon": "sicon-image",
-    "label": "حجم شعار المتجر - الجوال (بكسل)",
-    "description": "تحكم بارتفاع شعار المتجر في الهيدر على الجوال",
-    "id": "logo_height_mobile",
-    "format": "range",
-    "required": false,
-    "min": 20,
-    "max": 50,
-    "step": 2,
-    "value": 32,
-    "selected": 32
-},
-
+            "type": "range",
+            "icon": "sicon-image",
+            "label": "حجم شعار المتجر - سطح المكتب (بكسل)",
+            "description": "تحكم بارتفاع شعار المتجر في الهيدر على الحاسوب",
+            "id": "logo_height_desktop",
+            "format": "range",
+            "required": false,
+            "min": 24,
+            "max": 60,
+            "step": 2,
+            "value": 40,
+            "selected": 40
+        },
+        {
+            "type": "range",
+            "icon": "sicon-image",
+            "label": "حجم شعار المتجر - الجوال (بكسل)",
+            "description": "تحكم بارتفاع شعار المتجر في الهيدر على الجوال",
+            "id": "logo_height_mobile",
+            "format": "range",
+            "required": false,
+            "min": 20,
+            "max": 50,
+            "step": 2,
+            "value": 32,
+            "selected": 32
+        },
         {
             "type": "boolean",
             "icon": "sicon-toggle-off",
@@ -158,7 +156,6 @@
             "value": true,
             "selected": true
         },
-
         {
             "type": "string",
             "icon": "sicon-format-text-alt",
@@ -180,7 +177,6 @@
                 }
             ]
         },
-
         {
             "type": "boolean",
             "icon": "sicon-toggle-off",
@@ -224,7 +220,6 @@
                 }
             ]
         },
-
         {
             "type": "boolean",
             "icon": "sicon-toggle-off",
@@ -256,7 +251,7 @@
             "type": "static",
             "format": "title",
             "id": "static-label4",
-            "value": "<div class='rounded-lg' style='background-color: #21636d; display: flex; justify-content: center; align-items: center;padding: 15px;margin-bottom: 20px !important; flex-direction: column;gap: 15px;'><h6 style='color: #ffffff;font-size: 15px; font-weight: bold;'> خيارات أسفل الصفحة</h6></div>",
+            "value": "<div class='rounded-lg' ><h6 > خيارات أسفل الصفحة</h6></div>",
             "variant": "h6"
         },
         {
@@ -279,7 +274,7 @@
             "type": "static",
             "format": "title",
             "id": "static-label6",
-            "value": "<div class='rounded-lg' style='background-color: #21636d; display: flex; justify-content: center; align-items: center;padding: 15px;margin-bottom: 20px !important; flex-direction: column;gap: 15px;'><h6 style='color: #ffffff;font-size: 15px; font-weight: bold;'> خيارات صفحة المنتج</h6></div>",
+            "value": "<div class='rounded-lg' ><h6 > خيارات صفحة المنتج</h6></div>",
             "variant": "h6"
         },
         {
@@ -389,7 +384,6 @@
             "value": false,
             "selected": false
         },
-
         {
             "type": "static",
             "id": "static-line-hero",
@@ -399,7 +393,7 @@
             "type": "static",
             "format": "title",
             "id": "static-label-hero",
-            "value": "<div class='rounded-lg' style='background-color: #21636d; display: flex; justify-content: center; align-items: center;padding: 15px;margin-bottom: 20px !important; flex-direction: column;gap: 15px;'><h6 style='color: #ffffff;font-size: 15px; font-weight: bold;'> قسم الهيرو في الصفحة الرئيسية</h6></div>",
+            "value": "<div class='rounded-lg' ><h6 > قسم الهيرو في الصفحة الرئيسية</h6></div>",
             "variant": "h6"
         },
         {
@@ -426,7 +420,11 @@
             "minLength": 0,
             "maxLength": 100,
             "conditions": [
-                { "id": "hero_section_enabled", "operation": "=", "value": true }
+                {
+                    "id": "hero_section_enabled",
+                    "operation": "=",
+                    "value": true
+                }
             ]
         },
         {
@@ -441,7 +439,11 @@
             "minLength": 0,
             "maxLength": 100,
             "conditions": [
-                { "id": "hero_section_enabled", "operation": "=", "value": true }
+                {
+                    "id": "hero_section_enabled",
+                    "operation": "=",
+                    "value": true
+                }
             ]
         },
         {
@@ -456,7 +458,11 @@
             "minLength": 0,
             "maxLength": 100,
             "conditions": [
-                { "id": "hero_section_enabled", "operation": "=", "value": true }
+                {
+                    "id": "hero_section_enabled",
+                    "operation": "=",
+                    "value": true
+                }
             ]
         },
         {
@@ -471,7 +477,11 @@
             "minLength": 0,
             "maxLength": 50,
             "conditions": [
-                { "id": "hero_section_enabled", "operation": "=", "value": true }
+                {
+                    "id": "hero_section_enabled",
+                    "operation": "=",
+                    "value": true
+                }
             ]
         },
         {
@@ -486,7 +496,11 @@
             "minLength": 0,
             "maxLength": 255,
             "conditions": [
-                { "id": "hero_section_enabled", "operation": "=", "value": true }
+                {
+                    "id": "hero_section_enabled",
+                    "operation": "=",
+                    "value": true
+                }
             ]
         },
         {
@@ -503,7 +517,11 @@
                 "width": 700
             },
             "conditions": [
-                { "id": "hero_section_enabled", "operation": "=", "value": true }
+                {
+                    "id": "hero_section_enabled",
+                    "operation": "=",
+                    "value": true
+                }
             ]
         },
         {
@@ -518,7 +536,11 @@
             "minLength": 0,
             "maxLength": 20,
             "conditions": [
-                { "id": "hero_section_enabled", "operation": "=", "value": true }
+                {
+                    "id": "hero_section_enabled",
+                    "operation": "=",
+                    "value": true
+                }
             ]
         },
         {
@@ -533,7 +555,11 @@
             "minLength": 0,
             "maxLength": 40,
             "conditions": [
-                { "id": "hero_section_enabled", "operation": "=", "value": true }
+                {
+                    "id": "hero_section_enabled",
+                    "operation": "=",
+                    "value": true
+                }
             ]
         },
         {
@@ -548,7 +574,11 @@
             "minLength": 0,
             "maxLength": 40,
             "conditions": [
-                { "id": "hero_section_enabled", "operation": "=", "value": true }
+                {
+                    "id": "hero_section_enabled",
+                    "operation": "=",
+                    "value": true
+                }
             ]
         },
         {
@@ -563,7 +593,11 @@
             "minLength": 0,
             "maxLength": 250,
             "conditions": [
-                { "id": "hero_section_enabled", "operation": "=", "value": true }
+                {
+                    "id": "hero_section_enabled",
+                    "operation": "=",
+                    "value": true
+                }
             ]
         },
         {
@@ -578,7 +612,11 @@
             "minLength": 0,
             "maxLength": 60,
             "conditions": [
-                { "id": "hero_section_enabled", "operation": "=", "value": true }
+                {
+                    "id": "hero_section_enabled",
+                    "operation": "=",
+                    "value": true
+                }
             ]
         },
         {
@@ -593,8 +631,13 @@
             "minLength": 0,
             "maxLength": 120,
             "conditions": [
-                { "id": "hero_section_enabled", "operation": "=", "value": true }
-            ]
+                {
+                    "id": "hero_section_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ],
+            "public": true
         },
         {
             "type": "string",
@@ -608,7 +651,11 @@
             "minLength": 0,
             "maxLength": 60,
             "conditions": [
-                { "id": "hero_section_enabled", "operation": "=", "value": true }
+                {
+                    "id": "hero_section_enabled",
+                    "operation": "=",
+                    "value": true
+                }
             ]
         },
         {
@@ -623,7 +670,11 @@
             "minLength": 0,
             "maxLength": 120,
             "conditions": [
-                { "id": "hero_section_enabled", "operation": "=", "value": true }
+                {
+                    "id": "hero_section_enabled",
+                    "operation": "=",
+                    "value": true
+                }
             ]
         },
         {
@@ -637,7 +688,11 @@
             "minLength": 0,
             "maxLength": 10,
             "conditions": [
-                { "id": "hero_section_enabled", "operation": "=", "value": true }
+                {
+                    "id": "hero_section_enabled",
+                    "operation": "=",
+                    "value": true
+                }
             ]
         },
         {
@@ -652,7 +707,11 @@
             "minLength": 0,
             "maxLength": 60,
             "conditions": [
-                { "id": "hero_section_enabled", "operation": "=", "value": true }
+                {
+                    "id": "hero_section_enabled",
+                    "operation": "=",
+                    "value": true
+                }
             ]
         },
         {
@@ -667,7 +726,11 @@
             "minLength": 0,
             "maxLength": 250,
             "conditions": [
-                { "id": "hero_section_enabled", "operation": "=", "value": true }
+                {
+                    "id": "hero_section_enabled",
+                    "operation": "=",
+                    "value": true
+                }
             ]
         }
     ],
