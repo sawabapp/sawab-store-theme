@@ -10520,9 +10520,6 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
   background: #fffdf9;
   box-shadow: 0 1px 3px rgba(28, 27, 25, 0.04);
 }
-.sawab-questions:not(:has(salla-comment-form form)) {
-  display: none;
-}
 .sawab-questions__title {
   margin: 0;
   font-size: 18px;

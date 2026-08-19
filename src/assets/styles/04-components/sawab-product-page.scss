@@ -525,11 +525,6 @@ salla-product-options {
   background: $sawab-panel;
   box-shadow: 0 1px 3px rgba(28, 27, 25, 0.04);
 
-  // سلة لم ترسم النموذج (لا يُسمح لهذا الزائر بالتعليق) ⇒ أخفِ القسم كله
-  // بدل صندوق بلا إجراء
-  &:not(:has(salla-comment-form form)) {
-    display: none;
-  }
 }
 
 .sawab-questions__title {
