@@ -198,9 +198,16 @@ isElementLoaded(selector){
   }
 
   setHeaderHeight() {
-    let height = this.element('#mainnav .inner').clientHeight,
+    // هيدر صواب لا يحتوي .inner (أُعيد بناؤه)، وهو لاصق بالـCSS لا بارتفاع
+    // محسوب — فبلا هذا الحرس ترمي الدالة TypeError عند كل load و resize
+    let inner = this.element('#mainnav .inner'),
       header = this.element('#mainnav');
-    header.style.height = height + 'px';
+
+    if (!inner || !header) {
+      return;
+    }
+
+    header.style.height = inner.clientHeight + 'px';
   }
 
   /**
