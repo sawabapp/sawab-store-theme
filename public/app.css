@@ -10872,11 +10872,6 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
 [dir=ltr] .sawab-atc[product-status=sale] salla-button .s-button-text::before {
   margin-right: 8px;
 }
-.sawab-atc .sicon-sar {
-  display: inline-block;
-  width: 0.68em;
-  min-height: 1.1em;
-}
 .sawab-atc .s-add-product-button-mini-checkout {
   --salla-fast-checkout-button-border-radius: 12px;
   --salla-fast-checkout-button-width: 100%;
@@ -10889,10 +10884,6 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
   border-radius: 12px;
   font-weight: 700;
   font-size: 15px;
-}
-.sawab-atc__sep {
-  margin: 0 6px;
-  opacity: 0.65;
 }
 @media (max-width: 768px) {
   .sawab-brand__logo {

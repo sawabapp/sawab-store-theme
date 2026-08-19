@@ -332,7 +332,6 @@ class Product extends BasePage {
 
         // سلة تعيد إدراج محتوى زر الإضافة (setText) فتصبح العقد المحفوظة في
         // app.totalPrice قديمة — نستعلم من جديد في كل تحديث
-        document.querySelectorAll('.sawab-atc__price').forEach((el) => {el.innerHTML = salla.money(data.price)});
 
         app.toggleClassIf('.price_is_on_sale','showed','hidden', ()=> is_on_sale)
         app.toggleClassIf('.starting-or-normal-price','hidden','showed', ()=> is_on_sale)

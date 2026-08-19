@@ -397,9 +397,9 @@
                                         subscribed-options="{{ product.notify_availability.subscribed_options|json_encode }}"
                                         {{ product.notify_availability.options ? 'notify-options-availability' : '' }}
                                     {% endif %}>
-                                {#- سلة تقرأ هذا المحتوى كنص HTML وتعيد إدراجه داخل الزر، فيُحدَّث
-                                    السعر عبر .sawab-atc__price في product.js لا عبر app.totalPrice -#}
-                                {{ product.add_to_cart_label }}<span class="sawab-atc__sep">·</span><span class="sawab-atc__price">{{ product.is_on_sale ? product.sale_price|money : (product.starting_price ? product.starting_price|money : product.price|money) }}</span>
+                                {#- بلا سعر داخل الزر: التسمية الإنجليزية أطول فيُقطع النص،
+                                    والسعر بارز أعلى الصفحة أصلًا -#}
+                                {{ product.add_to_cart_label }}
                             </salla-add-product-button>
                         </div>
                         {# زر "اشترِ الآن" يأتي من سلة نفسها داخل salla-add-product-button

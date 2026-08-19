@@ -900,9 +900,7 @@ $sawab-btn-height: 52px;
   }
 
   // أيقونة السلة قبل نص الزر (mixin معرّف في sawab-product-card). محصورة في
-  // salla-button وحالة sale: فودجت "اشترِ الآن" وزر "أبلغني عند التوفر" لا يخصّهما.
-  // ولا نحوّل صف النص إلى flex: أيقونة الريال (sicon-sar) بلا أبعاد ذاتية فتفقد
-  // صندوقها في سياق flex وتختفي — لهذا يضبطها الثيم يدويًا في الهيدر أيضًا
+  // salla-button وحالة sale: فودجت "اشترِ الآن" وزر "أبلغني عند التوفر" لا يخصّهما
   &[product-status="sale"] salla-button .s-button-text::before {
     @include sawab-cart-icon(19px);
 
@@ -910,12 +908,6 @@ $sawab-btn-height: 52px;
     [dir="ltr"] & { margin-right: 8px; }
   }
 
-  // احتياط: نعيد لأيقونة الريال أبعادها داخل الزر كما يفعل الهيدر
-  .sicon-sar {
-    display: inline-block;
-    width: 0.68em;
-    min-height: 1.1em;
-  }
 
   // ودجت الدفع السريع خارجية، فنمرّر لها ما تتيحه من متغيّرات + احتياط للزر
   .s-add-product-button-mini-checkout {
@@ -932,11 +924,6 @@ $sawab-btn-height: 52px;
       font-size: 15px;
     }
   }
-}
-
-.sawab-atc__sep {
-  margin: 0 6px;
-  opacity: 0.65;
 }
 
 @media (max-width: 768px) {
