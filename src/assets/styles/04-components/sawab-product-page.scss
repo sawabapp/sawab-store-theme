@@ -690,15 +690,146 @@ salla-product-options {
     font-weight: 700;
     color: var(--main-text-color);
   }
+}
 
-  // الشريط يرسم عنوانه وأسهمه؛ لا نحتاجهما داخل لوحة ضيّقة
-  salla-products-slider {
-    display: block;
+.sawab-combo__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 
-    .s-block__title,
-    .s-slider-nav {
-      display: none;
+.sawab-combo__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border: 1px solid $sawab-border;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.sawab-combo__thumb {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: $sawab-cream;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.sawab-combo__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.sawab-combo__name {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--main-text-color);
+  text-decoration: none;
+  // سطر واحد: الصف مصغّر ولا يتّسع لاسم طويل
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+}
+
+.sawab-combo__prices {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 1px;
+}
+
+.sawab-combo__price {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+.sawab-combo__was {
+  font-size: 11.5px;
+  color: $sawab-muted;
+  text-decoration: line-through;
+  white-space: nowrap;
+}
+
+// زر الإضافة: مربّع صغير بعلامة + مرسومة بالحدود لا بخط أيقونات
+.sawab-combo__add {
+  position: relative;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1.5px solid var(--color-primary);
+  border-radius: 9px;
+  background: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: var(--color-primary);
+    transform: translate(-50%, -50%);
+    transition: background-color 0.2s ease;
+  }
+
+  &::before {
+    width: 13px;
+    height: 2px;
+  }
+
+  &::after {
+    width: 2px;
+    height: 13px;
+  }
+
+  &:hover {
+    background: var(--color-primary);
+
+    &::before,
+    &::after {
+      background: #fff;
     }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: wait;
+  }
+}
+
+@media (max-width: 480px) {
+  .sawab-combo {
+    padding: 14px;
+  }
+
+  .sawab-combo__thumb {
+    width: 42px;
+    height: 42px;
+  }
+
+  .sawab-combo__name {
+    font-size: 13px;
   }
 }
 
@@ -765,6 +896,24 @@ $sawab-btn-height: 52px;
     border-radius: 12px;
     font-weight: 700;
     font-size: 15px;
+  }
+
+  // أيقونة السلة قبل نص الزر (mixin معرّف في sawab-product-card). محصورة في
+  // salla-button وحالة sale: فودجت "اشترِ الآن" وزر "أبلغني عند التوفر" لا يخصّهما.
+  // ولا نحوّل صف النص إلى flex: أيقونة الريال (sicon-sar) بلا أبعاد ذاتية فتفقد
+  // صندوقها في سياق flex وتختفي — لهذا يضبطها الثيم يدويًا في الهيدر أيضًا
+  &[product-status="sale"] salla-button .s-button-text::before {
+    @include sawab-cart-icon(19px);
+
+    [dir="rtl"] & { margin-left: 8px; }
+    [dir="ltr"] & { margin-right: 8px; }
+  }
+
+  // احتياط: نعيد لأيقونة الريال أبعادها داخل الزر كما يفعل الهيدر
+  .sicon-sar {
+    display: inline-block;
+    width: 0.68em;
+    min-height: 1.1em;
   }
 
   // ودجت الدفع السريع خارجية، فنمرّر لها ما تتيحه من متغيّرات + احتياط للزر

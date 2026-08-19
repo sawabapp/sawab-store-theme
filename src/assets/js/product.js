@@ -4,6 +4,41 @@ import Fslightbox from 'fslightbox';
 window.fslightbox = Fslightbox;
 import { zoom } from './partials/image-zoom';
 
+function escapeHTML(value = '') {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+/** صف ملحق مصغّر: صورة صغيرة، اسم بسطر واحد، السعر، وزر إضافة دائري */
+function comboRow(product) {
+  const name = escapeHTML(product.name || '');
+  const url = escapeHTML(product.url || '#');
+  const image = escapeHTML(product.image?.url || '');
+  const price = product.is_on_sale ? product.sale_price : product.price;
+  const wasPrice = product.is_on_sale && product.regular_price > price
+    ? `<span class="sawab-combo__was">${salla.money(product.regular_price)}</span>`
+    : '';
+
+  return `
+    <div class="sawab-combo__item">
+      <a class="sawab-combo__thumb" href="${url}" tabindex="-1" aria-hidden="true">
+        ${image ? `<img src="${image}" alt="" loading="lazy">` : ''}
+      </a>
+      <div class="sawab-combo__body">
+        <a class="sawab-combo__name" href="${url}">${name}</a>
+        <span class="sawab-combo__prices">
+          <span class="sawab-combo__price">${salla.money(price)}</span>
+          ${wasPrice}
+        </span>
+      </div>
+      <button type="button" class="sawab-combo__add" data-id="${product.id}" aria-label="أضف ${name} للسلة"></button>
+    </div>`;
+}
+
 class Product extends BasePage {
     onReady() {
         app.watchElements({
@@ -37,9 +72,9 @@ class Product extends BasePage {
 
     /**
      * «يضيفها العملاء عادة مع المنتج» عبر الوسوم: التاجر يضع وسمًا يبدأ بـ«طقم»
-     * على المنتج وملحقاته، فنجلب منتجات ذلك الوسم. لا نمرّر الوسم للشريط مباشرةً
-     * لأنه سيعيد المنتج الحالي أيضًا (يحمل الوسم نفسه)؛ نجلب المعرّفات أولًا
-     * ونستبعده ثم نرسم الشريط بـ source=selected — أنظف من حذف بطاقة بعد الرسم.
+     * على المنتج وملحقاته، فنجلب منتجات ذلك الوسم ونستبعد المنتج الحالي.
+     * ونرسم صفوفًا مصغّرة من البيانات نفسها لا بطاقات سلة الكاملة: البطاقة
+     * الكاملة مبنية لشبكة عريضة فتبدو مشوّهة داخل صندوق ضيّق داخل الصفحة.
      */
     initComboProducts() {
       const box = document.querySelector('.sawab-combo');
@@ -76,27 +111,37 @@ class Product extends BasePage {
       // سلة تفرض مصفوفة لـ source_value في مصادر tags/categories/brands/selected
       salla.api.withoutNotifier(() => salla.product.api.fetch({ source: 'tags', source_value: [Number(tagId)] }))
         .then(res => {
-          const products = res?.data || [];
-          log('أعادت سلة لهذا الوسم:', products.map(item => item.name));
+          const products = (res?.data || [])
+            .filter(item => Number(item.id) !== Number(box.dataset.productId))
+            .slice(0, 6);
+          log('ملحقات الوسم:', products.map(item => item.name));
 
-          const ids = products
-            .map(item => Number(item.id))
-            .filter(id => id !== Number(box.dataset.productId))
-            .slice(0, 8);
-          log('بعد استبعاد المنتج الحالي:', ids);
-
-          if (!ids.length) {
+          if (!products.length) {
             return;
           }
 
-          const slider = document.createElement('salla-products-slider');
-          slider.setAttribute('source', 'selected');
-          slider.setAttribute('source-value', JSON.stringify(ids));
-          slider.setAttribute('includes', '["brand"]');
-          box.appendChild(slider);
+          box.insertAdjacentHTML('beforeend', `<div class="sawab-combo__list">${products.map(comboRow).join('')}</div>`);
           box.hidden = false;
         })
         .catch(error => log('فشل جلب منتجات الوسم:', error));
+
+      // الصفوف تُرسَم بعد التحميل، فنفوّض النقر للصندوق نفسه.
+      // quickAdd هي نقطة الإضافة بضغطة (cart/{cart}/item/{product}/quick-add)
+      // وهي ما تستخدمه بطاقات سلة. تمرير quantity يحوّل addItem إلى النقطة
+      // العادية التي تتطلّب بيانات المنتج كاملة، فنتركها لسلة.
+      box.addEventListener('click', event => {
+        const btn = event.target.closest('.sawab-combo__add');
+
+        if (!btn) {
+          return;
+        }
+
+        btn.disabled = true;
+        salla.cart.quickAdd(btn.dataset.id)
+          .finally(() => {
+            btn.disabled = false;
+          });
+      });
     }
 
     /**

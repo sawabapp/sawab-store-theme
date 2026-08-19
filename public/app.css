@@ -9943,10 +9943,9 @@ salla-cart-summary .s-cart-summary-count {
 .s-product-card-entry.s-product-card-vertical .s-product-card-image img {
   width: 100%;
   height: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
-  padding: 14px;
-  box-sizing: border-box;
+  -o-object-fit: cover;
+     object-fit: cover;
+  padding: 0;
   border-radius: 0;
 }
 .s-product-card-entry.s-product-card-vertical .s-product-card-promotion-title {
@@ -10056,6 +10055,23 @@ salla-cart-summary .s-cart-summary-count {
 }
 .s-product-card-entry.s-product-card-vertical .s-product-card-content-footer salla-add-product-button i {
   display: none;
+}
+.s-product-card-entry.s-product-card-vertical .s-product-card-content-footer salla-add-product-button[product-status=sale] .s-button-text::before {
+  content: "";
+  display: inline-block;
+  flex-shrink: 0;
+  width: 17px;
+  height: 17px;
+  vertical-align: -0.15em;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg fill='black' stroke='black' stroke-width='0.9' stroke-linejoin='round' fill-rule='evenodd' clip-rule='evenodd'%3E%3Cpath d='m16 2c-2.7614 0-5 2.23858-5 5v1h-2.2099c-1.52864 0-2.81284 1.1494-2.98165 2.6687l-1.55555 14c-.19746 1.7771 1.19361 3.3313 2.98165 3.3313h11.76545c.5523 0 1-.4477 1-1s-.4477-1-1-1h-11.76545c-.59601 0-1.05971-.5181-.99389-1.1104l1.55556-14c.05627-.5065.48433-.8896.99388-.8896h2.2099v2c0 .5523.4477 1 1 1s1-.4477 1-1v-2h6v2c0 .5523.4477 1 1 1s1-.4477 1-1v-2h2.2099c.5096 0 .9377.3831.9939.8896l.8023 7.2208c.061.5489.5554.9445 1.1044.8835.5489-.061.9444-.5554.8834-1.1043l-.8023-7.2209c-.1688-1.51929-1.453-2.6687-2.9817-2.6687h-2.2099v-1c0-2.76142-2.2386-5-5-5zm3 6v-1c0-1.65685-1.3431-3-3-3-1.6568 0-3 1.34315-3 3v1z'/%3E%3Cpath d='m25 21c0-.5523-.4477-1-1-1s-1 .4477-1 1v2h-2c-.5523 0-1 .4477-1 1s.4477 1 1 1h2v2c0 .5523.4477 1 1 1s1-.4477 1-1v-2h2c.5523 0 1-.4477 1-1s-.4477-1-1-1h-2z'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg fill='black' stroke='black' stroke-width='0.9' stroke-linejoin='round' fill-rule='evenodd' clip-rule='evenodd'%3E%3Cpath d='m16 2c-2.7614 0-5 2.23858-5 5v1h-2.2099c-1.52864 0-2.81284 1.1494-2.98165 2.6687l-1.55555 14c-.19746 1.7771 1.19361 3.3313 2.98165 3.3313h11.76545c.5523 0 1-.4477 1-1s-.4477-1-1-1h-11.76545c-.59601 0-1.05971-.5181-.99389-1.1104l1.55556-14c.05627-.5065.48433-.8896.99388-.8896h2.2099v2c0 .5523.4477 1 1 1s1-.4477 1-1v-2h6v2c0 .5523.4477 1 1 1s1-.4477 1-1v-2h2.2099c.5096 0 .9377.3831.9939.8896l.8023 7.2208c.061.5489.5554.9445 1.1044.8835.5489-.061.9444-.5554.8834-1.1043l-.8023-7.2209c-.1688-1.51929-1.453-2.6687-2.9817-2.6687h-2.2099v-1c0-2.76142-2.2386-5-5-5zm3 6v-1c0-1.65685-1.3431-3-3-3-1.6568 0-3 1.34315-3 3v1z'/%3E%3Cpath d='m25 21c0-.5523-.4477-1-1-1s-1 .4477-1 1v2h-2c-.5523 0-1 .4477-1 1s.4477 1 1 1h2v2c0 .5523.4477 1 1 1s1-.4477 1-1v-2h2c.5523 0 1-.4477 1-1s-.4477-1-1-1h-2z'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+}
+[dir=rtl] .s-product-card-entry.s-product-card-vertical .s-product-card-content-footer salla-add-product-button[product-status=sale] .s-button-text::before {
+  margin-left: 7px;
+}
+[dir=ltr] .s-product-card-entry.s-product-card-vertical .s-product-card-content-footer salla-add-product-button[product-status=sale] .s-button-text::before {
+  margin-right: 7px;
 }
 .s-product-card-entry.s-product-card-vertical .s-product-card-content-footer .s-button-element {
   background-color: #c62127;
@@ -10663,12 +10679,131 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
   color: #1c1b19;
   color: var(--main-text-color);
 }
-.sawab-combo salla-products-slider {
-  display: block;
+.sawab-combo__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
-.sawab-combo salla-products-slider .s-block__title,
-.sawab-combo salla-products-slider .s-slider-nav {
-  display: none;
+.sawab-combo__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border: 1px solid #e8e1d5;
+  border-radius: 12px;
+  background: #fff;
+}
+.sawab-combo__thumb {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: #f8f1e7;
+  overflow: hidden;
+}
+.sawab-combo__thumb img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.sawab-combo__body {
+  flex: 1;
+  min-width: 0;
+}
+.sawab-combo__name {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #1c1b19;
+  color: var(--main-text-color);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sawab-combo__name:hover {
+  color: #c62127;
+  color: var(--color-primary);
+}
+.sawab-combo__prices {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 1px;
+}
+.sawab-combo__price {
+  font-size: 13px;
+  font-weight: 800;
+  color: #c62127;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+.sawab-combo__was {
+  font-size: 11.5px;
+  color: #9a9a9a;
+  -webkit-text-decoration: line-through;
+  text-decoration: line-through;
+  white-space: nowrap;
+}
+.sawab-combo__add {
+  position: relative;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1.5px solid #c62127;
+  border: 1.5px solid var(--color-primary);
+  border-radius: 9px;
+  background: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.sawab-combo__add::before, .sawab-combo__add::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: #c62127;
+  background: var(--color-primary);
+  transform: translate(-50%, -50%);
+  transition: background-color 0.2s ease;
+}
+.sawab-combo__add::before {
+  width: 13px;
+  height: 2px;
+}
+.sawab-combo__add::after {
+  width: 2px;
+  height: 13px;
+}
+.sawab-combo__add:hover {
+  background: #c62127;
+  background: var(--color-primary);
+}
+.sawab-combo__add:hover::before, .sawab-combo__add:hover::after {
+  background: #fff;
+}
+.sawab-combo__add:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+@media (max-width: 480px) {
+  .sawab-combo {
+    padding: 14px;
+  }
+  .sawab-combo__thumb {
+    width: 42px;
+    height: 42px;
+  }
+  .sawab-combo__name {
+    font-size: 13px;
+  }
 }
 .sawab-actions {
   padding: 0;
@@ -10720,6 +10855,28 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
   border-radius: 12px;
   font-weight: 700;
   font-size: 15px;
+}
+.sawab-atc[product-status=sale] salla-button .s-button-text::before {
+  content: "";
+  display: inline-block;
+  flex-shrink: 0;
+  width: 19px;
+  height: 19px;
+  vertical-align: -0.15em;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg fill='black' stroke='black' stroke-width='0.9' stroke-linejoin='round' fill-rule='evenodd' clip-rule='evenodd'%3E%3Cpath d='m16 2c-2.7614 0-5 2.23858-5 5v1h-2.2099c-1.52864 0-2.81284 1.1494-2.98165 2.6687l-1.55555 14c-.19746 1.7771 1.19361 3.3313 2.98165 3.3313h11.76545c.5523 0 1-.4477 1-1s-.4477-1-1-1h-11.76545c-.59601 0-1.05971-.5181-.99389-1.1104l1.55556-14c.05627-.5065.48433-.8896.99388-.8896h2.2099v2c0 .5523.4477 1 1 1s1-.4477 1-1v-2h6v2c0 .5523.4477 1 1 1s1-.4477 1-1v-2h2.2099c.5096 0 .9377.3831.9939.8896l.8023 7.2208c.061.5489.5554.9445 1.1044.8835.5489-.061.9444-.5554.8834-1.1043l-.8023-7.2209c-.1688-1.51929-1.453-2.6687-2.9817-2.6687h-2.2099v-1c0-2.76142-2.2386-5-5-5zm3 6v-1c0-1.65685-1.3431-3-3-3-1.6568 0-3 1.34315-3 3v1z'/%3E%3Cpath d='m25 21c0-.5523-.4477-1-1-1s-1 .4477-1 1v2h-2c-.5523 0-1 .4477-1 1s.4477 1 1 1h2v2c0 .5523.4477 1 1 1s1-.4477 1-1v-2h2c.5523 0 1-.4477 1-1s-.4477-1-1-1h-2z'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg fill='black' stroke='black' stroke-width='0.9' stroke-linejoin='round' fill-rule='evenodd' clip-rule='evenodd'%3E%3Cpath d='m16 2c-2.7614 0-5 2.23858-5 5v1h-2.2099c-1.52864 0-2.81284 1.1494-2.98165 2.6687l-1.55555 14c-.19746 1.7771 1.19361 3.3313 2.98165 3.3313h11.76545c.5523 0 1-.4477 1-1s-.4477-1-1-1h-11.76545c-.59601 0-1.05971-.5181-.99389-1.1104l1.55556-14c.05627-.5065.48433-.8896.99388-.8896h2.2099v2c0 .5523.4477 1 1 1s1-.4477 1-1v-2h6v2c0 .5523.4477 1 1 1s1-.4477 1-1v-2h2.2099c.5096 0 .9377.3831.9939.8896l.8023 7.2208c.061.5489.5554.9445 1.1044.8835.5489-.061.9444-.5554.8834-1.1043l-.8023-7.2209c-.1688-1.51929-1.453-2.6687-2.9817-2.6687h-2.2099v-1c0-2.76142-2.2386-5-5-5zm3 6v-1c0-1.65685-1.3431-3-3-3-1.6568 0-3 1.34315-3 3v1z'/%3E%3Cpath d='m25 21c0-.5523-.4477-1-1-1s-1 .4477-1 1v2h-2c-.5523 0-1 .4477-1 1s.4477 1 1 1h2v2c0 .5523.4477 1 1 1s1-.4477 1-1v-2h2c.5523 0 1-.4477 1-1s-.4477-1-1-1h-2z'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+}
+[dir=rtl] .sawab-atc[product-status=sale] salla-button .s-button-text::before {
+  margin-left: 8px;
+}
+[dir=ltr] .sawab-atc[product-status=sale] salla-button .s-button-text::before {
+  margin-right: 8px;
+}
+.sawab-atc .sicon-sar {
+  display: inline-block;
+  width: 0.68em;
+  min-height: 1.1em;
 }
 .sawab-atc .s-add-product-button-mini-checkout {
   --salla-fast-checkout-button-border-radius: 12px;
