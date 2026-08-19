@@ -485,9 +485,21 @@
             <h2 class="sawab-questions__title">هل لديك سؤال عن المنتج؟</h2>
             <p class="sawab-questions__hint">اسأل عن المقاسات أو التوصيل أو التركيب، وسنجيبك في أسرع وقت.</p>
 
-            {# من يحقّ له السؤال تقرّره سلة عبر user.can_comment (وقد تسمح للزائر
-               غير المسجَّل)، فلا نفرض شرط دخول ولا نعرض بديلًا من طرفنا #}
-            <salla-comment-form data-testid="store-product-comment-form" type="product" item-id="{{ product.id }}"></salla-comment-form>
+            {# نموذجنا يستدعي salla.comment.add مباشرةً (نفس نقطة سلة
+               product/{id}/comments). لا نستخدم salla-comment-form لأنه يرسم
+               فراغًا ما لم تكن user.can_comment صحيحة، فيغيب القسم بلا سبب ظاهر #}
+            <form class="sawab-questions__form" data-testid="store-product-comment-form" data-product-id="{{ product.id }}">
+                <textarea class="sawab-questions__input"
+                          name="comment"
+                          rows="4"
+                          minlength="4"
+                          maxlength="500"
+                          required
+                          placeholder="اكتب سؤالك أو تعليقك هنا…"></textarea>
+                <div class="sawab-questions__actions">
+                    <button type="submit" class="sawab-questions__submit">إرسال</button>
+                </div>
+            </form>
         </section>
     </div>
 

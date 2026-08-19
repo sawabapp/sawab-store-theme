@@ -10532,75 +10532,51 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
   font-size: 13px;
   color: #9a9a9a;
 }
-.sawab-questions salla-comment-form {
+.sawab-questions__form {
   display: block;
 }
-.sawab-questions salla-comment-form .s-comment-form-wrapper {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-.sawab-questions salla-comment-form .s-comment-form-avatar {
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-  border-radius: 999px;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-.sawab-questions salla-comment-form .s-comment-form-content {
-  flex: 1;
-  min-width: 0;
-}
-.sawab-questions salla-comment-form .s-comment-form-input {
+.sawab-questions__input {
   width: 100%;
   min-height: 110px;
   padding: 14px 16px;
   border: 1px solid #e8e1d5;
   border-radius: 12px;
   background: #fff;
+  font-family: inherit;
   font-size: 14px;
   line-height: 1.8;
   resize: vertical;
 }
-.sawab-questions salla-comment-form .s-comment-form-input:focus {
+.sawab-questions__input:focus {
   border-color: #c62127;
   border-color: var(--color-primary);
   outline: none;
 }
-.sawab-questions salla-comment-form br {
-  display: none;
-}
-.sawab-questions salla-comment-form .s-comment-form-action {
+.sawab-questions__actions {
   display: flex;
   justify-content: flex-end;
   margin-top: 12px;
 }
-.sawab-questions salla-comment-form .s-comment-form-action .s-button-element {
+.sawab-questions__submit {
   min-height: 46px;
-  padding: 0 26px;
+  padding: 0 28px;
+  border: 0;
   border-radius: 12px;
+  background: #c62127;
+  background: var(--color-primary);
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
   font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
 }
-@media (max-width: 640px) {
-  .sawab-description {
-    margin-top: 24px;
-    padding: 20px;
-    border-radius: 14px;
-  }
-  .sawab-questions {
-    margin-top: 20px;
-    padding: 18px;
-    border-radius: 14px;
-  }
-  .sawab-reviews {
-    margin-top: 20px;
-    padding: 18px;
-    border-radius: 14px;
-  }
-  .sawab-reviews .s-comments-item {
-    padding: 14px;
-  }
+.sawab-questions__submit:hover {
+  opacity: 0.9;
+}
+.sawab-questions__submit:disabled {
+  opacity: 0.6;
+  cursor: wait;
 }
 .sawab-actions {
   padding: 0;

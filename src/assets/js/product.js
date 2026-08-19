@@ -16,6 +16,7 @@ class Product extends BasePage {
 
         this.initProductOptionValidations();
         this.initOptionCards();
+        this.initQuestionForm();
 
         if(imageZoom){
             // call the function when the page is ready
@@ -30,6 +31,46 @@ class Product extends BasePage {
         // reportValidity() natively focuses/scrolls to the first empty required option mid-edit; read validity instead
         const isComplete = Array.from(this.elements).every(el => !el.willValidate || el.validity.valid);
         isComplete && salla.product.getPrice(new FormData(this));
+      });
+    }
+
+    /**
+     * أسئلة العملاء: نستخدم salla.comment.add (نفس نقطة سلة
+     * product/{id}/comments) بدل مكوّن salla-comment-form، لأن الأخير مشروط
+     * بـ user.can_comment فيرسم فراغًا للزائر ويغيب القسم كله.
+     */
+    initQuestionForm() {
+      const form = document.querySelector('.sawab-questions__form');
+
+      if (!form) {
+        return;
+      }
+
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+
+        if (!form.reportValidity()) {
+          return;
+        }
+
+        const field = form.querySelector('.sawab-questions__input');
+        const btn = form.querySelector('.sawab-questions__submit');
+        btn.disabled = true;
+
+        salla.comment.add({ id: form.dataset.productId, comment: field.value, type: 'product' })
+          .then(() => {
+            field.value = '';
+            salla.notify.success('تم إرسال سؤالك، وسيظهر بعد مراجعته من المتجر');
+          })
+          .catch(error => {
+            // سلة ترفض تعليق الزائر بخطأ مصادقة ⇒ نفتح تسجيل الدخول بدل رسالة مبهمة
+            if (error?.response?.status === 401 || error?.status === 401) {
+              salla.event.dispatch('login::open');
+            }
+          })
+          .finally(() => {
+            btn.disabled = false;
+          });
       });
     }
 
