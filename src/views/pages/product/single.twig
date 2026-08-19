@@ -340,8 +340,13 @@
                         <div class="sawab-combo"
                              data-testid="store-product-combo"
                              data-product-id="{{ product.id }}"
-                             data-tags='{{ product.tags|json_encode }}'
-                             hidden></div>
+                             hidden>
+                            {# الوسوم كعناصر لا كـJSON في سمة: تسلسل المجموعات في
+                               Twig غير مضمون الشكل، والسمات يهرّبها Twig بأمان #}
+                            {% for tag in product.tags %}
+                                <span class="sawab-combo__tag" data-name="{{ tag.name }}" data-url="{{ tag.url }}" hidden></span>
+                            {% endfor %}
+                        </div>
                     {% endif %}
 
                     <section class="sticky-product-bar sawab-actions">

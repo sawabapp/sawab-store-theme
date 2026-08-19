@@ -43,40 +43,48 @@ class Product extends BasePage {
      */
     initComboProducts() {
       const box = document.querySelector('.sawab-combo');
+      // القسم يختفي بصمت عند أي حلقة ناقصة، فأضف ?sawab-debug للرابط ليشرح أين توقّف
+      const debug = window.location.search.includes('sawab-debug');
+      const log = (...args) => debug && console.info('[sawab-combo]', ...args);
 
       if (!box) {
+        log('لا مربّع في الصفحة ⇒ المنتج بلا وسوم إطلاقًا');
         return;
       }
 
-      let tags = [];
+      const tags = Array.from(box.querySelectorAll('.sawab-combo__tag'))
+        .map(el => ({ name: el.dataset.name || '', url: el.dataset.url || '' }));
+      log('وسوم المنتج:', tags);
 
-      try {
-        tags = JSON.parse(box.dataset.tags || '[]');
-      } catch (e) {
-        return;
-      }
-
-      // اصطلاح المشروع: وسم المجموعة يبدأ بـ«طقم»، وبقية الوسوم تسويقية
-      const combo = tags.find(tag => (tag.name || '').trim().startsWith('طقم'));
+      // اصطلاح المشروع: وسم المجموعة يحتوي «طقم»، وبقية الوسوم تسويقية
+      const combo = tags.find(tag => tag.name.trim().includes('طقم'));
 
       if (!combo) {
+        log('لا وسم يحتوي كلمة «طقم»');
         return;
       }
 
       // بيانات الوسم لا تحمل id، فنأخذ آخر رقم في رابطه
-      const tagId = (String(combo.url || '').match(/(\d+)(?!.*\d)/) || [])[1];
+      const tagId = (combo.url.match(/(\d+)(?!.*\d)/) || [])[1];
+      log('وسم المجموعة:', combo.name, '| الرابط:', combo.url, '| المعرّف:', tagId);
 
       if (!tagId) {
+        log('تعذّر استخراج معرّف رقمي من رابط الوسم');
         return;
       }
 
       // سلة تفرض مصفوفة لـ source_value في مصادر tags/categories/brands/selected
       salla.api.withoutNotifier(() => salla.product.api.fetch({ source: 'tags', source_value: [Number(tagId)] }))
-        .then(res => (res?.data || [])
-          .map(item => Number(item.id))
-          .filter(id => id !== Number(box.dataset.productId))
-          .slice(0, 8))
-        .then(ids => {
+        .then(res => {
+          const products = res?.data || [];
+          log('أعادت سلة لهذا الوسم:', products.map(item => item.name));
+
+          const ids = products
+            .map(item => Number(item.id))
+            .filter(id => id !== Number(box.dataset.productId))
+            .slice(0, 8);
+          log('بعد استبعاد المنتج الحالي:', ids);
+
           if (!ids.length) {
             return;
           }
@@ -88,7 +96,7 @@ class Product extends BasePage {
           box.appendChild(slider);
           box.hidden = false;
         })
-        .catch(() => {});
+        .catch(error => log('فشل جلب منتجات الوسم:', error));
     }
 
     /**
