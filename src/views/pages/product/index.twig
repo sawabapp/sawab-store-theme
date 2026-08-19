@@ -28,6 +28,36 @@
 		</div>
 	{% endif %}
 
+	{# رأس التصنيف: صورته واسمه وعدد منتجاته. اسم التصنيف هو الـh1 (page.title
+	   يعيده سلة كعدد منتجات لا كاسم)، ويبقى #page-main-title على سطر العدد لأن
+	   products.js يستبدل محتواه بعنوان الاستجابة عند كل ترتيب أو تصفية #}
+	<div class="container sawab-cat-head">
+		{# بلا صورة التصنيف الحالي: صور التصنيفات مقصوصة على خلفيات ملوّنة فتبدو
+		   دخيلة بجانب العنوان، وتُغني عنها صور التصنيفات الفرعية أدناه #}
+		<div class="sawab-cat-hero">
+			<div class="sawab-cat-hero__body">
+				<h1 class="sawab-cat-hero__title">{{ category.name|default(page.title)|raw }}</h1>
+				<p class="sawab-cat-hero__count" id="page-main-title">{{ category.name and page.title != category.name ? page.title|raw : '' }}</p>
+			</div>
+		</div>
+
+		{% if category.sub_categories|length %}
+			<h2 class="sawab-subcats__title">تسوّق حسب التصنيفات الفرعية</h2>
+			<nav class="sawab-subcats" aria-label="{{ category.name }}">
+				{% for sub in category.sub_categories %}
+					<a class="sawab-subcats__item" href="{{ sub.url }}">
+						{% if sub.image %}
+							<span class="sawab-subcats__thumb">
+								<img src="{{ sub.image }}" alt="{{ sub.name }}" loading="lazy">
+							</span>
+						{% endif %}
+						<span class="sawab-subcats__name">{{ sub.name }}</span>
+					</a>
+				{% endfor %}
+			</nav>
+		{% endif %}
+	</div>
+
 	{#
     Hook: product.index.before_products_group_with_filter
     Fires before the products grid and filter sidebar wrapper.
@@ -42,8 +72,8 @@
 		{% endif %}
 
 		<div class="main-content flex-1 w-full {{ filters ? 'ltr:lg:ml-8 rtl:lg:mr-8' : '' }}">
-			<div class="mb-4 sm:mb-6 flex justify-between items-center">
-				<h1 class="font-bold text-xl rtl:pl-3 ltr:pr-3" id="page-main-title">{{ page.title|raw }}</h1>
+			{# العنوان انتقل إلى رأس التصنيف أعلى الصفحة #}
+			<div class="mb-4 sm:mb-6 flex justify-end items-center">
 				<div class="flex items-center space-x-2 rtl:space-x-reverse">
 					{% if filters %}
 						<a data-testid="store-products-filters-mobile-trigger" href="#filters-menu" class="filters-trigger bg-border-color text-primary lg:hidden mt-2">

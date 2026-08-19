@@ -1,0 +1,133 @@
+// ===== صفحة التصنيف — تصميم صواب =====
+// نفس رموز هوية صفحة المنتج (مكرّرة هنا لأن كل ملف sawab-* مستقل)
+$sawab-cat-muted: #9a9a9a;
+$sawab-cat-border: #e8e1d5;
+$sawab-cat-cream: #f8f1e7;
+
+// ----- رأس التصنيف: الاسم + عدد المنتجات -----
+// الكتلة كلها فوق .s-blocks-wrapper ليبقى تجاورها مع قائمة المنتجات سليمًا،
+// فقاعدة الثيم `.s-blocks-wrapper:empty + .container--products-list { mt-0 }`
+// تظل فعّالة — أي إدراج بينهما يكسرها ويعيد هامشًا شاسعًا قبل القائمة
+.sawab-cat-head {
+  padding-top: 4px;
+}
+
+.sawab-cat-hero {
+  margin-bottom: 10px;
+}
+
+.sawab-cat-hero__body {
+  min-width: 0;
+}
+
+.sawab-cat-hero__title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.4;
+  color: var(--main-text-color);
+}
+
+.sawab-cat-hero__count {
+  margin: 2px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: $sawab-cat-muted;
+
+  // يبقى المعرّف في الصفحة ليجده products.js، فنخفيه ما لم يحمل نصًا
+  &:empty {
+    display: none;
+  }
+}
+
+// ----- التصنيفات الفرعية -----
+// صف مرن ببطاقات ثابتة العرض لا شبكة أعمدة: التصنيفات قليلة عادةً، والشبكة
+// كانت تحشرها في أول أعمدة وتترك بقية السطر فراغًا. والصورة تملأ البطاقة
+// حتى حوافها (صور سلة على خلفيات ملوّنة، فأي إطار كريمي يصطدم بها).
+.sawab-subcats__title {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+  color: var(--main-text-color);
+}
+
+.sawab-subcats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.sawab-subcats__item {
+  display: block;
+  width: 124px;
+  border: 1px solid $sawab-cat-border;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(28, 27, 25, 0.03);
+  text-decoration: none;
+  overflow: hidden;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(28, 27, 25, 0.07);
+
+    .sawab-subcats__name {
+      color: var(--color-primary);
+    }
+  }
+}
+
+.sawab-subcats__thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  background: $sawab-cat-cream;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.sawab-subcats__name {
+  display: block;
+  padding: 9px 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--main-text-color);
+  transition: color 0.2s ease;
+}
+
+@media (max-width: 640px) {
+  .sawab-cat-hero {
+    margin-bottom: 8px;
+  }
+
+  .sawab-cat-hero__title {
+    font-size: 20px;
+  }
+
+  .sawab-subcats {
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .sawab-subcats__item {
+    width: 104px;
+  }
+
+  .sawab-subcats__name {
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+}

@@ -81,6 +81,38 @@ function addTaxNote(card) {
   price.parentNode.insertBefore(el, price.nextSibling);
 }
 
+/**
+ * سلة لا ترسم نسبة الخصم على البطاقة، وشارة `promotion_title` نصّ يكتبه التاجر
+ * ("وفّر!"). نحسب النسبة من الأسعار — أو من discount_percentage إن جاء بكسوره
+ * الطويلة — ونضعها شارة بيج بجانب السعر كما في صفحة المنتج.
+ */
+function getDiscountPercent(product) {
+  const declared = parseFloat(String(product?.discount_percentage || '').replace(/[^\d.]/g, ''));
+  if (Number.isFinite(declared) && declared > 0) return Math.round(declared);
+
+  const regular = Number(product?.regular_price);
+  const sale = Number(product?.sale_price ?? product?.price);
+  if (!Number.isFinite(regular) || !Number.isFinite(sale) || regular <= 0 || sale >= regular) return 0;
+
+  return Math.round((1 - sale / regular) * 100);
+}
+
+function addDiscount(card, product) {
+  if (card.querySelector('.sawab-card__save')) return;
+
+  const percent = getDiscountPercent(product);
+  if (!percent) return;
+
+  // صف السعر المخفّض يحوي السعر الحالي والسعر القديم مشطوبًا، فالشارة تليهما
+  const row = card.querySelector('.s-product-card-sale-price');
+  if (!row) return;
+
+  const el = document.createElement('span');
+  el.className = 'sawab-card__save';
+  el.textContent = `وفّر ${percent}%`;
+  row.appendChild(el);
+}
+
 function enhance(card) {
   if (!card) return;
 
@@ -95,12 +127,14 @@ function enhance(card) {
     if (card.querySelector('.sawab-card__tax')) card.dataset.sawabTax = '1';
   }
 
+  // الماركة ونسبة الخصم تحتاجان بيانات المنتج، فتُعلَّم البطاقة معًا حين تصل
   if (!card.dataset.sawabBrand) {
     const product = getProductData(card);
     // ما دامت البيانات لم تصل، نترك البطاقة دون علامة لتُعاد المحاولة.
     // وحين تصل نعلّمها سواء وُجدت ماركة أم لا، فلا تتكرر المحاولة بلا طائل.
     if (product) {
       addBrand(card, product);
+      addDiscount(card, product);
       card.dataset.sawabBrand = '1';
     }
   }
