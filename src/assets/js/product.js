@@ -55,16 +55,10 @@ class Product extends BasePage {
 
         const field = form.querySelector('.sawab-questions__input');
         const btn = form.querySelector('.sawab-questions__submit');
-
-        // نقطة التعليقات تشترط عميلًا مسجَّلًا (can_comment جزء من كائن user)،
-        // فنفتح تسجيل الدخول بدل إرسال طلب يرجع "ليس لديك صلاحية"
-        if (salla.config.isGuest()) {
-          salla.event.dispatch('login::open');
-          return;
-        }
-
         btn.disabled = true;
 
+        // نرسل للزائر أيضًا: سلة تقبل تعليقات الزوّار وتسجّلها باسم "زائر" حين
+        // يسمح إعداد المتجر بذلك، والرفض إن وقع يأتي من السيرفر برسالته
         salla.comment.add({ id: form.dataset.productId, comment: field.value, type: 'product' })
           .then(() => {
             field.value = '';
