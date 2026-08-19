@@ -4,6 +4,19 @@ import Fslightbox from 'fslightbox';
 window.fslightbox = Fslightbox;
 import { zoom } from './partials/image-zoom';
 
+// نصوص ظاهرة للعميل: نقرأ اللغة من <html lang> التي يضبطها master.twig
+const LANG = (document.documentElement.lang || 'ar').startsWith('ar') ? 'ar' : 'en';
+const TEXTS = {
+  ar: {
+    addToCart: name => `أضف ${name} للسلة`,
+    questionSent: 'تم إرسال سؤالك، وسيظهر بعد مراجعته من المتجر',
+  },
+  en: {
+    addToCart: name => `Add ${name} to cart`,
+    questionSent: 'Your question has been sent and will appear once the store reviews it',
+  },
+}[LANG];
+
 function escapeHTML(value = '') {
   return String(value)
     .replace(/&/g, '&amp;')
@@ -35,7 +48,7 @@ function comboRow(product) {
           ${wasPrice}
         </span>
       </div>
-      <button type="button" class="sawab-combo__add" data-id="${product.id}" aria-label="أضف ${name} للسلة"></button>
+      <button type="button" class="sawab-combo__add" data-id="${product.id}" aria-label="${TEXTS.addToCart(name)}"></button>
     </div>`;
 }
 
@@ -172,7 +185,7 @@ class Product extends BasePage {
         salla.comment.add({ id: form.dataset.productId, comment: field.value, type: 'product' })
           .then(() => {
             field.value = '';
-            salla.notify.success('تم إرسال سؤالك، وسيظهر بعد مراجعته من المتجر');
+            salla.notify.success(TEXTS.questionSent);
           })
           .finally(() => {
             btn.disabled = false;

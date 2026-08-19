@@ -18,6 +18,8 @@
 #}
 {% extends "layouts.master" %}
 {% block content %}
+	{% set sawab_ar = (language.code|default('ar')) == 'ar' %}
+	{% set t_shop_subcats = sawab_ar ? 'تسوّق حسب التصنيفات الفرعية' : 'Shop by subcategory' %}
 	{% if theme.settings.get('product_index_show_breadcrumbs', true) %}
 		<div
 			class="container container--breadcrumbs">
@@ -45,7 +47,7 @@
 		</div>
 
 		{% if sawab_subcats|length %}
-			<h2 class="sawab-subcats__title">تسوّق حسب التصنيفات الفرعية</h2>
+			<h2 class="sawab-subcats__title">{{ t_shop_subcats }}</h2>
 			<nav class="sawab-subcats" aria-label="{{ sawab_cat_name }}">
 				{% for sub in sawab_subcats %}
 					<a class="sawab-subcats__item" href="{{ sub.url|default('#') }}">

@@ -682,14 +682,15 @@ salla-product-options {
     display: none;
   }
 
-  &::before {
-    content: "يضيفها العملاء عادة مع هذا المنتج";
-    display: block;
-    margin-bottom: 12px;
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--main-text-color);
-  }
+}
+
+// العنوان عنصر في القالب لا content في CSS، فالنص يحتاج ترجمة
+.sawab-combo__title {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.6;
+  color: var(--main-text-color);
 }
 
 .sawab-combo__list {

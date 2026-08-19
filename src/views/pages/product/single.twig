@@ -84,6 +84,19 @@
 #}
 {% extends "layouts.master" %}
 {% block content %}
+	{# نصوص الثيم المخصصة بلغتين. لا نمرّرها بـtrans() لأن ترجمات سلة لا تشمل
+	   مفاتيحنا وهي تخدم ترجماتها لا ملفات locales في الثيم (انظر CLAUDE.md) #}
+	{% set sawab_ar = (language.code|default('ar')) == 'ar' %}
+	{% set t_warranty = sawab_ar ? 'ضمان معتمد من الوكيل' : 'Agent-approved warranty' %}
+	{% set t_reviews  = sawab_ar ? 'تقييم' : 'reviews' %}
+	{% set t_in_stock = sawab_ar ? 'متوفر في المخزون' : 'In stock' %}
+	{% set t_save     = sawab_ar ? 'وفّر' : 'Save' %}
+	{% set t_ends_in  = sawab_ar ? 'ينتهي العرض بعد' : 'Offer ends in' %}
+	{% set t_combo    = sawab_ar ? 'يضيفها العملاء عادة مع هذا المنتج' : 'Frequently bought with this product' %}
+	{% set t_q_title  = sawab_ar ? 'هل لديك سؤال عن المنتج؟' : 'Have a question about this product?' %}
+	{% set t_q_hint   = sawab_ar ? 'اسأل عن المقاسات أو التوصيل أو التركيب، وسنجيبك في أسرع وقت.' : 'Ask about sizes, delivery or installation — we will reply shortly.' %}
+	{% set t_q_ph     = sawab_ar ? 'اكتب سؤالك أو تعليقك هنا…' : 'Write your question or comment here…' %}
+	{% set t_q_send   = sawab_ar ? 'إرسال' : 'Send' %}
     {% if theme.settings.get('product_show_breadcrumbs', true) %}
       <div class="container container--breadcrumbs">
           {# add breadcumbs container in pages to make a space in case breadcrumbs is off #}
@@ -212,7 +225,7 @@
                                 <a class="sawab-brand__name" href="{{ product.brand.url }}">{{ product.brand.name }}</a>
                                 <span class="sawab-brand__warranty">
                                     <i class="sicon-check-circle"></i>
-                                    ضمان معتمد من الوكيل
+                                    {{ t_warranty }}
                                 </span>
                             </div>
                         </div>
@@ -250,14 +263,14 @@
                             <div class="sawab-rating">
                                 <salla-rating-stars data-testid="store-product-rating" value="{{ product.rating.stars }}"></salla-rating-stars>
                                 <span class="sawab-rating__value">{{ product.rating.stars }}</span>
-                                <span class="sawab-rating__count">({{ product.rating.count }} تقييم)</span>
+                                <span class="sawab-rating__count">({{ product.rating.count }} {{ t_reviews }})</span>
                             </div>
                         {% endif %}
 
                         {% if not product.is_out_of_stock and product.status == 'sale' %}
                             <span class="sawab-stock">
                                 <i class="sicon-check-circle"></i>
-                                متوفر في المخزون
+                                {{ t_in_stock }}
                             </span>
                         {% endif %}
                     </div>
@@ -279,7 +292,7 @@
                       <span class="before-price sawab-price__was">{{product.regular_price|money}}</span>
                       {% if product.discount_percentage %}
                           {# سلة تُرجع النسبة بكسور طويلة مثل "10.45467%" — نقرّبها لعدد صحيح #}
-                          <span class="sawab-price__save">وفّر {{ product.discount_percentage|replace({'%': '', '٪': ''})|trim|round }}%</span>
+                          <span class="sawab-price__save">{{ t_save }} {{ product.discount_percentage|replace({'%': '', '٪': ''})|trim|round }}%</span>
                       {% endif %}
                   </div>
                   <div class="starting-or-normal-price flex items-center flex-wrap gap-3 {{ product.is_on_sale ? 'hidden' : '' }}">
@@ -302,7 +315,7 @@
                     <div class="sawab-countdown">
                         <span class="sawab-countdown__label">
                             <i class="sicon-discount-calculator"></i>
-                            ينتهي العرض بعد
+                            {{ t_ends_in }}
                         </span>
                         <salla-count-down
                                 data-testid="store-product-discount-countdown"
@@ -341,6 +354,7 @@
                              data-testid="store-product-combo"
                              data-product-id="{{ product.id }}"
                              hidden>
+                            <h2 class="sawab-combo__title">{{ t_combo }}</h2>
                             {# الوسوم كعناصر لا كـJSON في سمة: تسلسل المجموعات في
                                Twig غير مضمون الشكل، والسمات يهرّبها Twig بأمان #}
                             {% for tag in product.tags %}
@@ -515,8 +529,8 @@
        (salla-comment-form ⇒ salla.comment.add) ويجيب التاجر من لوحة التحكم #}
     <div class="container">
         <section class="sawab-questions">
-            <h2 class="sawab-questions__title">هل لديك سؤال عن المنتج؟</h2>
-            <p class="sawab-questions__hint">اسأل عن المقاسات أو التوصيل أو التركيب، وسنجيبك في أسرع وقت.</p>
+            <h2 class="sawab-questions__title">{{ t_q_title }}</h2>
+            <p class="sawab-questions__hint">{{ t_q_hint }}</p>
 
             {# نموذجنا يستدعي salla.comment.add مباشرةً (نفس نقطة سلة
                product/{id}/comments). لا نستخدم salla-comment-form لأنه يرسم
@@ -528,9 +542,9 @@
                           minlength="4"
                           maxlength="500"
                           required
-                          placeholder="اكتب سؤالك أو تعليقك هنا…"></textarea>
+                          placeholder="{{ t_q_ph }}"></textarea>
                 <div class="sawab-questions__actions">
-                    <button type="submit" class="sawab-questions__submit">إرسال</button>
+                    <button type="submit" class="sawab-questions__submit">{{ t_q_send }}</button>
                 </div>
             </form>
         </section>

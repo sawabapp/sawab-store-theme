@@ -10,7 +10,14 @@
  * لذا نراقب الـDOM بدل الاكتفاء بمرور واحد، ونعلّم كل بطاقة عند معالجتها
  * حتى لا تُضاف العناصر مرتين عند إعادة الرسم.
  */
-const TAX_LABEL = 'شامل الضريبة';
+/**
+ * المفتاح من ترجمات سلة نفسها (صفحة المنتج تستخدمه عبر trans)، فيترجم مع تغيير
+ * اللغة. والاحتياط عربي لأن اللغة الأساسية للمتجر عربية.
+ */
+function taxLabel() {
+  const label = salla.lang.get('pages.products.tax_included');
+  return !label || label.includes('pages.products') ? 'شامل الضريبة' : label;
+}
 
 function escapeHTML(str = '') {
   return String(str)
@@ -77,7 +84,7 @@ function addTaxNote(card) {
 
   const el = document.createElement('span');
   el.className = 'sawab-card__tax';
-  el.textContent = TAX_LABEL;
+  el.textContent = taxLabel();
   price.parentNode.insertBefore(el, price.nextSibling);
 }
 
