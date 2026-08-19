@@ -197,24 +197,43 @@
             <div class="main-content md:sticky md:overflow-hidden top-24 w-full md:w-2/4">
                 {% hook 'product:single.description.start' %}
 
-                {% if product.brand.name %}
-                    <div class="sawab-brand">
-                        {% if product.brand.logo %}
-                            <a class="sawab-brand__logo" href="{{ product.brand.url }}" title="{{ product.brand.name }}">
-                                <img width="48" height="48" loading="lazy"
-                                     src="{{ product.brand.logo }}"
-                                     alt="{{ product.brand.name }}">
-                            </a>
-                        {% endif %}
-                        <div class="sawab-brand__info">
-                            <a class="sawab-brand__name" href="{{ product.brand.url }}">{{ product.brand.name }}</a>
-                            <span class="sawab-brand__warranty">
-                                <i class="sicon-check-circle"></i>
-                                ضمان معتمد من الوكيل
-                            </span>
+                {# الماركة في بداية السطر، والمشاركة والمفضلة في طرفه المقابل #}
+                <div class="sawab-topbar">
+                    {% if product.brand.name %}
+                        <div class="sawab-brand">
+                            {% if product.brand.logo %}
+                                <a class="sawab-brand__logo" href="{{ product.brand.url }}" title="{{ product.brand.name }}">
+                                    <img width="48" height="48" loading="lazy"
+                                         src="{{ product.brand.logo }}"
+                                         alt="{{ product.brand.name }}">
+                                </a>
+                            {% endif %}
+                            <div class="sawab-brand__info">
+                                <a class="sawab-brand__name" href="{{ product.brand.url }}">{{ product.brand.name }}</a>
+                                <span class="sawab-brand__warranty">
+                                    <i class="sicon-check-circle"></i>
+                                    ضمان معتمد من الوكيل
+                                </span>
+                            </div>
                         </div>
+                    {% endif %}
+
+                    <div class="sawab-topbar__actions">
+                        <salla-social-share data-testid="store-product-social-share" aria-label="social share"></salla-social-share>
+
+                        <salla-button
+                                data-testid="store-product-wishlist-btn"
+                                class="btn--wishlist animated hidden sm:inline-flex"
+                                data-id="{{ product.id }}"
+                                onclick="salla.wishlist.toggle('{{ product.id }}')"
+                                shape="icon"
+                                fill="outline"
+                                color="light"
+                                aria-label="add to wishlist">
+                            <i class="sicon-heart"></i>
+                        </salla-button>
                     </div>
-                {% endif %}
+                </div>
 
                 <h1 data-testid="store-product-title" class="text-xl md:text-2xl leading-10 font-bold mb-6 text-gray-800">{{ product.name }}</h1>
 
@@ -344,24 +363,7 @@
                     {% endif %}
                 </form>
 
-                <div data-testid="store-product-description" class="product__description p-2 px-5 sm:p-1 leading-7 mb-3">
-                    {% set product_desc = product.description|replace({"&nbsp;":"\n"}) %}
-                    {% if product.has_read_more %}
-                        <article class="article article--main relative leading-8 overflow-hidden transition-all max-h-0 duration-300 py-4"
-                            id="more-content" style="max-height:5.25rem">
-                            {{ product_desc|raw }}
-                        </article>
-
-                        {# Read More Button #}
-                        <a id="btn-show-more" class="link--primary inline-block mt-2 cursor-pointer">
-                            {{ trans('pages.products.read_more') }}
-                        </a>
-                    {% else %}
-                        <article class="article--main pb-1">
-                            {{ product_desc|raw }}
-                        </article>
-                    {% endif %}
-                </div>
+                {# الوصف نُقل أسفل قسم المنتج بعرض الصفحة الكامل #}
 
                 {% if product.tags|length and theme.settings.get('show_tags', true) %}
                     <div class="mb-3">
@@ -373,21 +375,7 @@
                     </div>
                 {% endif %}
 
-                <div class="flex rtl:space-x-reverse space-x-3">
-                    <salla-social-share data-testid="store-product-social-share" class="inline-flex mb-5" aria-label="social share"></salla-social-share>
-
-                    <salla-button
-                            data-testid="store-product-wishlist-btn"
-                            class="btn--wishlist animated hidden sm:inline-flex"
-                            data-id="{{ product.id }}"
-                            onclick="salla.wishlist.toggle('{{ product.id }}')"
-                            shape="icon"
-                            fill="outline"
-                            color="light"
-							aria-label="add to wishlist">
-                        <i class="sicon-heart"></i>
-                    </salla-button>
-                </div>
+                {# المشاركة والمفضلة انتقلا لأعلى الصفحة بجانب الماركة #}
 
                 {# عدد مرات الشراء انتقل لأعلى الصفحة تحت شارة التوافر #}
                 {% if product.can_show_remained_quantity %}
@@ -450,6 +438,28 @@
                 <salla-quick-order data-testid="store-product-quick-order" class="mt-5 md:-mb-2 block"></salla-quick-order>
             </div>
         </div>
+
+        {% if product.description %}
+            <div data-testid="store-product-description" class="product__description sawab-description">
+                {% set product_desc = product.description|replace({"&nbsp;":"\n"}) %}
+                {% if product.has_read_more %}
+                    <article class="article article--main relative overflow-hidden transition-all max-h-0 duration-300"
+                        id="more-content" style="max-height:5.25rem">
+                        {{ product_desc|raw }}
+                    </article>
+
+                    {# Read More Button #}
+                    <a id="btn-show-more" class="link--primary inline-block mt-2 cursor-pointer">
+                        {{ trans('pages.products.read_more') }}
+                    </a>
+                {% else %}
+                    <article class="article--main">
+                        {{ product_desc|raw }}
+                    </article>
+                {% endif %}
+            </div>
+        {% endif %}
+
         <salla-offer data-testid="store-product-offer"></salla-offer>
     </div>
 
@@ -460,10 +470,26 @@
     #}
     <div class="s-blocks-wrapper s-before-reviews">{% hook 'product.single.before_customer_reviews' %}</div>
 
-    {# Comments Area #}
-    {% if store.settings.rating.show_on_product %}
-        <salla-comments data-testid="store-product-comments" item-id="{{product.id}}" type="product"></salla-comments>
+    {# Comments Area — أسفل الوصف، وبشرط وجود تقييمات فعلية للمنتج.
+       hide-form: نموذج الكتابة له قسمه الخاص أدناه فلا يتكرر في الصفحة #}
+    {% if store.settings.rating.show_on_product and product.rating.count %}
+        <div class="container">
+            <salla-comments class="sawab-reviews" data-testid="store-product-comments" item-id="{{product.id}}" type="product" hide-form></salla-comments>
+        </div>
     {% endif %}
+
+    {# أسئلة وتعليقات العملاء — سلة تستخدم تعليقات المنتج نفسها لهذا الغرض
+       (salla-comment-form ⇒ salla.comment.add) ويجيب التاجر من لوحة التحكم #}
+    <div class="container">
+        <section class="sawab-questions">
+            <h2 class="sawab-questions__title">هل لديك سؤال عن المنتج؟</h2>
+            <p class="sawab-questions__hint">اسأل عن المقاسات أو التوصيل أو التركيب، وسنجيبك في أسرع وقت.</p>
+
+            {# من يحقّ له السؤال تقرّره سلة عبر user.can_comment (وقد تسمح للزائر
+               غير المسجَّل)، فلا نفرض شرط دخول ولا نعرض بديلًا من طرفنا #}
+            <salla-comment-form data-testid="store-product-comment-form" type="product" item-id="{{ product.id }}"></salla-comment-form>
+        </section>
+    </div>
 
     {#
         Hook: product.single.before_product_recommendations

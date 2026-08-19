@@ -3,6 +3,7 @@
 $sawab-muted: #9a9a9a;
 $sawab-border: #e8e1d5;
 $sawab-cream: #f8f1e7;
+$sawab-panel: #fffdf9;
 $sawab-save-bg: #f4ead9;
 $sawab-save-text: #8a6a3f;
 $sawab-green: #2e9e5b;
@@ -28,12 +29,37 @@ $sawab-green: #2e9e5b;
   }
 }
 
+// ----- سطر أعلى العمود: الماركة + المشاركة والمفضلة -----
+// justify-content: flex-end + تمدّد كتلة الماركة يدفع الأزرار للطرف المقابل،
+// ويبقيها في الطرف نفسه للمنتجات بلا ماركة — بلا خصائص منطقية تعكسها PostCSS
+.sawab-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.sawab-topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+
+  salla-social-share,
+  salla-button {
+    display: inline-flex;
+    margin: 0;
+  }
+}
+
 // ----- الماركة + ضمان الوكيل -----
 .sawab-brand {
   display: flex;
   align-items: center;
+  flex: 1 1 auto;
   gap: 12px;
-  margin-bottom: 20px;
+  min-width: 0;
 }
 
 .sawab-brand__logo {
@@ -200,6 +226,16 @@ salla-product-options {
   display: block;
   margin-top: 22px;
 
+  // العنصر نفسه يحمل .s-product-options-wrapper من سلة (خلفية بيضاء وحواف 6px
+  // وحشوة 20px)، ولا يُتجاوَز إلا بمحدّد أعلى من كلاس واحد
+  &.s-product-options-wrapper {
+    padding: 18px;
+    border: 1px solid $sawab-border;
+    border-radius: 16px;
+    background: $sawab-panel;
+    box-shadow: 0 1px 2px rgba(28, 27, 25, 0.03);
+  }
+
   // سلة تجعل مجموعة الخيار شبكة من ٣ أعمدة: العنوان عمود والبطاقات عمودان،
   // فتبقى مساحة فارغة. نجعلها كتلة واحدة ليأخذ العنوان سطره والبطاقات العرض كله
   .s-product-options-option:not(div.s-product-options-option-booking) {
@@ -210,22 +246,47 @@ salla-product-options {
     margin-top: 0;
   }
 
+  // العنوان: الاسم غامق، النجمة بلون العلامة، والـplaceholder سطر خفيف تحته
   .s-product-options-option-label {
-    font-weight: 700;
-    font-size: 15px;
-    margin-bottom: 10px;
     display: block;
+    margin-bottom: 12px;
+    font-size: 15px;
+
+    b {
+      font-weight: 700;
+      color: var(--main-text-color);
+
+      span {
+        color: var(--color-primary);
+      }
+    }
+
+    small {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      font-weight: 500;
+      color: $sawab-muted;
+    }
   }
 
   .s-product-options-grid-mode {
-    // ثلاث بطاقات في السطر كما في التصميم — auto-fill كان يمدّها بلا داعٍ
+    // ثلاث بطاقات في السطر كما في التصميم — auto-fill كان يمدّها بلا داعٍ.
+    // سلة تضبط justify-items: center (بلا أثر في flex لكنها تعمل في الشبكة)
+    // فتنكمش البطاقة على محتواها — نعيدها stretch ليكون العرض كامل العمود،
+    // و grid-auto-rows: 1fr يوحّد ارتفاع كل السطور بغضّ النظر عن المحتوى.
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+    justify-items: stretch;
+    align-items: stretch;
     gap: 8px;
     margin-bottom: 0;
 
     label {
       display: block;
+      width: 100%;
+      height: 100%;
       margin: 0;
       cursor: pointer;
     }
@@ -250,6 +311,7 @@ salla-product-options {
       border: 1.5px solid $sawab-border;
       border-radius: 10px;
       background: #fff;
+      box-shadow: 0 1px 1px rgba(28, 27, 25, 0.02);
       font-size: 14px;
       font-weight: 700;
       line-height: 1.35;
@@ -260,10 +322,19 @@ salla-product-options {
 
     label:hover .s-product-options-grid-mode-span {
       border-color: var(--color-primary);
+      background: rgba(198, 33, 39, 0.03);
     }
 
-    // سعر الخيار — مصغّر وبلون العلامة
-    .sawab-option__price,
+    // سعر الخيار — يأتي من سمة data يضبطها product.js، ويُرسم كعنصر زائف حتى
+    // لا نلمس أبناء البطاقة التي ترسمها سلة (انظر التعليق في product.js)
+    .s-product-options-grid-mode-span[data-sawab-price]::after {
+      content: attr(data-sawab-price);
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
     .s-product-options-grid-mode-span p {
       margin: 0;
       display: block;
@@ -277,7 +348,7 @@ salla-product-options {
       background: var(--color-primary);
       color: #fff;
 
-      .sawab-option__price,
+      &::after,
       p {
         color: #fff;
       }
@@ -286,6 +357,271 @@ salla-product-options {
     .s-product-options-disabled {
       opacity: 0.5;
       cursor: not-allowed;
+    }
+  }
+}
+
+// ----- وصف المنتج: صندوق أبيض بعرض الصفحة أسفل قسم المنتج -----
+// المحتوى HTML يكتبه التاجر، فنضبط الإيقاع (عناوين، قوائم، فواصل) ولا نفرض
+// ألوان النص كي لا نضيّع تنسيقه.
+.sawab-description {
+  margin-top: 32px;
+  padding: 26px 30px;
+  border: 1px solid $sawab-border;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(28, 27, 25, 0.04);
+  line-height: 1.9;
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 26px 0 10px;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  p {
+    margin: 0 0 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  ul,
+  ol {
+    margin: 0 0 14px;
+  }
+
+  li {
+    margin-bottom: 6px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    td,
+    th {
+      padding: 8px 12px;
+      border: 1px solid $sawab-border;
+    }
+
+    th {
+      background: $sawab-panel;
+      font-weight: 700;
+    }
+  }
+
+  #btn-show-more {
+    margin-top: 14px;
+    font-weight: 700;
+  }
+}
+
+// ----- تقييمات العملاء: بطاقة أسفل الوصف -----
+.sawab-reviews {
+  display: block;
+  margin-top: 28px;
+  padding: 26px 30px;
+  border: 1px solid $sawab-border;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(28, 27, 25, 0.04);
+
+  // الثيم يلفّ تقييمات المنتج بشريط رمادي بعرض الشاشة وحاوية داخلية بعرض
+  // محدود — نلغيهما لأن البطاقة نفسها صارت داخل الحاوية
+  .s-comments-product {
+    padding: 0;
+    background: transparent;
+  }
+
+  .s-comments-container {
+    max-width: none;
+    padding: 0;
+  }
+
+  .s-comments-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--main-text-color);
+  }
+
+  .s-comments-header {
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid $sawab-border;
+  }
+
+  .s-comments-count-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: $sawab-muted;
+  }
+
+  .s-comments-sort-input {
+    border: 1px solid $sawab-border;
+    border-radius: 10px;
+  }
+
+  // كل تعليق في بطاقة خفيفة بدل الفاصل السفلي المجرّد
+  .s-comments-item {
+    margin-bottom: 12px;
+    padding: 16px 18px;
+    border: 1px solid $sawab-border;
+    border-radius: 14px;
+    background: $sawab-panel;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .s-comments-item-avatar-img {
+    border-radius: 999px;
+  }
+
+  .s-comments-item-user-info-name {
+    font-weight: 700;
+    color: var(--main-text-color);
+  }
+
+  .s-comments-item-time,
+  .s-comments-item-timestamp {
+    font-size: 12px;
+    color: $sawab-muted;
+  }
+
+  .s-comments-item-content {
+    line-height: 1.85;
+  }
+
+  salla-rating-stars {
+    line-height: 1;
+  }
+}
+
+// ----- أسئلة وتعليقات العملاء -----
+.sawab-questions {
+  display: block;
+  margin-top: 28px;
+  padding: 26px 30px;
+  border: 1px solid $sawab-border;
+  border-radius: 18px;
+  background: $sawab-panel;
+  box-shadow: 0 1px 3px rgba(28, 27, 25, 0.04);
+
+  // سلة لم ترسم النموذج (لا يُسمح لهذا الزائر بالتعليق) ⇒ أخفِ القسم كله
+  // بدل صندوق بلا إجراء
+  &:not(:has(salla-comment-form form)) {
+    display: none;
+  }
+}
+
+.sawab-questions__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--main-text-color);
+}
+
+.sawab-questions__hint {
+  margin: 6px 0 18px;
+  font-size: 13px;
+  color: $sawab-muted;
+}
+
+.sawab-questions salla-comment-form {
+  display: block;
+
+  .s-comment-form-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .s-comment-form-avatar {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 999px;
+    object-fit: cover;
+  }
+
+  .s-comment-form-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .s-comment-form-input {
+    width: 100%;
+    min-height: 110px;
+    padding: 14px 16px;
+    border: 1px solid $sawab-border;
+    border-radius: 12px;
+    background: #fff;
+    font-size: 14px;
+    line-height: 1.8;
+    resize: vertical;
+
+    &:focus {
+      border-color: var(--color-primary);
+      outline: none;
+    }
+  }
+
+  br {
+    display: none;
+  }
+
+  .s-comment-form-action {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+
+    .s-button-element {
+      min-height: 46px;
+      padding: 0 26px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .sawab-description {
+    margin-top: 24px;
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .sawab-questions {
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 14px;
+  }
+
+  .sawab-reviews {
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 14px;
+
+    .s-comments-item {
+      padding: 14px;
     }
   }
 }

@@ -36,10 +36,9 @@ class Product extends BasePage {
     /**
      * بطاقات الخيارات: سلة تكتب اسم الخيار ثم فرق السعر كنص بين قوسين
      * "1500 لتر (+400 ر.س)"، والتصميم يطلب السعر الكامل للخيار بسطر منفصل.
-     * فرق السعر متاح في سمة options، والسعر الكامل = سعر المنتج + الفرق.
-     * وللمنتجات ذات المتغيّرات (فرق السعر صفر للجميع) نسأل نقطة سعر المنتج
-     * لكل خيار — مباشرةً لا عبر salla.product.getPrice، لأن الأخير يبثّ حدث
-     * تحديث السعر فيغيّر سعر أعلى الصفحة مع كل استعلام.
+     * نسأل نقطة سعر المنتج عن سعر كل خيار — مباشرةً عبر salla.api.request لا
+     * عبر salla.product.getPrice، لأن الأخير يبثّ حدث تحديث السعر فيغيّر سعر
+     * أعلى الصفحة مع كل استعلام.
      */
     initOptionCards() {
       const options = document.querySelector('salla-product-options');
@@ -59,65 +58,58 @@ class Product extends BasePage {
       }
 
       const additionalPrices = {};
-      let hasAdditionalPrice = false;
 
       optionsData.forEach(option => (option.details || []).forEach(detail => {
         additionalPrices[detail.id] = Number(detail.additional_price) || 0;
-        hasAdditionalPrice = hasAdditionalPrice || !!additionalPrices[detail.id];
       }));
 
-      // الاستعلام لخيار واحد فقط يصلح حين لا توجد مجموعة خيارات أخرى مطلوبة
+      // مجموعة خيارات واحدة ⇒ نسأل سلة عن سعر كل خيار، وهو المصدر الموثوق:
+      // يعكس أسعار المتغيّرات والتخفيضات وأي تعديل في لوحة المنتج. أما مع أكثر
+      // من مجموعة فالاستعلام يفشل لنقص بقية الخيارات المطلوبة، فنكتفي حينها
+      // بـ (سعر المنتج + فرق سعر الخيار) وهو تقدير قد يخالف سعر المتغيّر.
       const soleOption = optionsData.length === 1 ? optionsData[0] : null;
-      const canCompute = Number.isFinite(basePrice) && hasAdditionalPrice;
       const fetched = new Map();
 
-      const fetchPrice = (detailId) => {
-        if (fetched.has(detailId)) {
-          return fetched.get(detailId);
+      const priceOf = (detailId) => {
+        if (!soleOption) {
+          return Promise.resolve(basePrice + (additionalPrices[detailId] || 0));
         }
 
-        const payload = new FormData();
-        payload.append('id', productId);
-        payload.append(`options[${soleOption.id}]`, detailId);
+        if (!fetched.has(detailId)) {
+          const payload = new FormData();
+          payload.append('id', productId);
+          payload.append(`options[${soleOption.id}]`, detailId);
 
-        const request = salla.api.request(`products/${productId}/price`, payload, 'post')
-          .then(res => Number(res?.data?.price))
-          .then(price => Number.isFinite(price) ? price : null)
-          .catch(() => null);
-
-        fetched.set(detailId, request);
-        return request;
-      };
-
-      const setPrice = (card, price) => {
-        if (price === null || !card.isConnected) {
-          return;
+          fetched.set(detailId, salla.api.request(`products/${productId}/price`, payload, 'post')
+            .then(res => Number(res?.data?.price))
+            .catch(() => NaN));
         }
 
-        card.insertAdjacentHTML('beforeend', `<span class="sawab-option__price">${salla.money(price)}</span>`);
+        return fetched.get(detailId);
       };
 
+      // لا نلمس أبناء البطاقة إطلاقًا: سلة (Stencil) تحتفظ بمرجع لعقدة النص
+      // التي رسمتها، فلو استبدلناها بعناصرنا صارت مرجعًا لعقدة منفصلة عن
+      // الصفحة، فأي تعديل يجريه التاجر على أسماء الخيارات لا يظهر أبدًا.
+      // لذلك نمرّر السعر عبر سمة data ونرسمه بـ ::after في الأنماط.
       const paint = () => {
         options.querySelectorAll('.s-product-options-grid-mode-span').forEach(card => {
-          if (card.dataset.sawabCard) {
-            return;
-          }
-
-          card.dataset.sawabCard = '1';
           const detailId = card.parentElement?.querySelector('input')?.value;
-          // نزيل لاحقة السعر التي تضيفها سلة ونعيدها بسطر خاص
-          const name = card.innerHTML.trim().replace(/\s*\([\s\S]*\)\s*$/, '');
-          card.innerHTML = `<span class="sawab-option__name">${name}</span>`;
 
-          if (!detailId) {
+          if (!detailId || card.dataset.sawabDetail === detailId) {
             return;
           }
 
-          if (canCompute) {
-            setPrice(card, basePrice + (additionalPrices[detailId] || 0));
-          } else if (soleOption) {
-            fetchPrice(detailId).then(price => setPrice(card, price));
-          }
+          card.dataset.sawabDetail = detailId;
+
+          priceOf(detailId).then(price => {
+            if (card.dataset.sawabDetail !== detailId || !Number.isFinite(price)) {
+              return;
+            }
+
+            // money(price, false) نصّ صريح بلا وسوم — attr() لا يعرض HTML
+            card.dataset.sawabPrice = salla.money(price, false);
+          });
         });
       };
 
