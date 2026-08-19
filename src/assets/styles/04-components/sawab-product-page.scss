@@ -302,6 +302,9 @@ $sawab-green: #2e9e5b;
 salla-product-options {
   display: block;
   margin-top: 22px;
+  // عدد الأعمدة يتبع عرض اللوحة: على الآيباد يصير عمود المنتج ضيّقًا فتزدحم
+  // ثلاث بطاقات بأسماء طويلة («2000 لتر (القطر 140 سم…)»)
+  container-type: inline-size;
 
   // العنصر نفسه يحمل .s-product-options-wrapper من سلة (خلفية بيضاء وحواف 6px
   // وحشوة 20px)، ولا يُتجاوَز إلا بمحدّد أعلى من كلاس واحد
@@ -353,7 +356,7 @@ salla-product-options {
     // فتنكمش البطاقة على محتواها — نعيدها stretch ليكون العرض كامل العمود،
     // و grid-auto-rows: 1fr يوحّد ارتفاع كل السطور بغضّ النظر عن المحتوى.
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-auto-rows: 1fr;
     justify-items: stretch;
     align-items: stretch;
@@ -434,6 +437,13 @@ salla-product-options {
     .s-product-options-disabled {
       opacity: 0.5;
       cursor: not-allowed;
+    }
+  }
+
+  // لوحة واسعة: ثلاث بطاقات في السطر كالتصميم المرجعي
+  @container (min-width: 400px) {
+    .s-product-options-grid-mode {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 }
@@ -941,9 +951,5 @@ $sawab-btn-height: 52px;
   // الكمية في سطر، والزران في السطر التالي
   .sawab-atc {
     flex: 1 1 100%;
-  }
-
-  salla-product-options .s-product-options-grid-mode {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

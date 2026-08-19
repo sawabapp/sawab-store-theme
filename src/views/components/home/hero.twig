@@ -43,6 +43,9 @@
 {% set rating_count_text = theme.settings.get('hero_rating_count_text') %}
 {% set reviews_link = theme.settings.get('hero_reviews_link') %}
 
+{# إعدادات الهيرو تُضبط من لوحة التصميم، وقد تكون فارغة تمامًا في متجر جديد —
+   فلا نرسم لوحة كريمية فارغة بلا محتوى #}
+{% if title or title_highlight or badge_text or hero_image %}
 <section data-testid="store-home-hero" class="s-block sawab-hero">
   <div class="sawab-hero__grid">
 
@@ -147,3 +150,4 @@
 
   </div>
 </section>
+{% endif %}
