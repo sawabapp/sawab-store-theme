@@ -9920,16 +9920,6 @@ salla-cart-summary .s-cart-summary-count {
   line-height: 1.5;
   margin-top: 2px;
 }
-.sawab-card__save {
-  padding: 2px 7px;
-  border-radius: 6px;
-  background: #f4ead9;
-  color: #8a6a3f;
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1.6;
-  white-space: nowrap;
-}
 .s-product-card-entry.s-product-card-vertical {
   background: #fff;
   border: 1px solid #f2ecdf;
@@ -10040,6 +10030,7 @@ salla-cart-summary .s-cart-summary-count {
   margin: 0;
   color: #1c1b19;
   color: var(--main-text-color);
+  white-space: nowrap;
 }
 .s-product-card-entry.s-product-card-vertical .s-product-card-sale-price {
   display: flex;
@@ -10052,6 +10043,7 @@ salla-cart-summary .s-cart-summary-count {
   color: #9a9a9a;
   -webkit-text-decoration: line-through;
   text-decoration: line-through;
+  white-space: nowrap;
 }
 .s-product-card-entry.s-product-card-vertical .s-product-card-content-footer {
   grid-column: 2;
