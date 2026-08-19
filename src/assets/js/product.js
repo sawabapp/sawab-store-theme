@@ -70,10 +70,11 @@ class Product extends BasePage {
         return;
       }
 
-      salla.api.withoutNotifier(() => salla.product.api.fetch({ source: 'tags', source_value: tagId }))
+      // سلة تفرض مصفوفة لـ source_value في مصادر tags/categories/brands/selected
+      salla.api.withoutNotifier(() => salla.product.api.fetch({ source: 'tags', source_value: [Number(tagId)] }))
         .then(res => (res?.data || [])
-          .map(item => String(item.id))
-          .filter(id => id !== String(box.dataset.productId))
+          .map(item => Number(item.id))
+          .filter(id => id !== Number(box.dataset.productId))
           .slice(0, 8))
         .then(ids => {
           if (!ids.length) {
