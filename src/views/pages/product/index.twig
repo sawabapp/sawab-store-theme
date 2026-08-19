@@ -28,30 +28,33 @@
 		</div>
 	{% endif %}
 
-	{# رأس التصنيف: صورته واسمه وعدد منتجاته. اسم التصنيف هو الـh1 (page.title
-	   يعيده سلة كعدد منتجات لا كاسم)، ويبقى #page-main-title على سطر العدد لأن
+	{# رأس التصنيف: اسمه وعدد منتجاته. هذا القالب يخدم أيضًا صفحات الوسوم والبحث
+	   والتخفيضات حيث لا وجود لـ category، فكل وصول إليه يمرّ بـ default() — وإلا
+	   رمى Twig خطأً وظهرت الصفحة بيضاء. واسم التصنيف هو الـh1 لأن page.title
+	   يعيده سلة كعدد منتجات لا كاسم، ويبقى #page-main-title على سطر العدد لأن
 	   products.js يستبدل محتواه بعنوان الاستجابة عند كل ترتيب أو تصفية #}
+	{% set sawab_cat_name = category.name|default('') %}
+	{% set sawab_subcats = category.sub_categories|default([]) %}
+
 	<div class="container sawab-cat-head">
-		{# بلا صورة التصنيف الحالي: صور التصنيفات مقصوصة على خلفيات ملوّنة فتبدو
-		   دخيلة بجانب العنوان، وتُغني عنها صور التصنيفات الفرعية أدناه #}
 		<div class="sawab-cat-hero">
 			<div class="sawab-cat-hero__body">
-				<h1 class="sawab-cat-hero__title">{{ category.name|default(page.title)|raw }}</h1>
-				<p class="sawab-cat-hero__count" id="page-main-title">{{ category.name and page.title != category.name ? page.title|raw : '' }}</p>
+				<h1 class="sawab-cat-hero__title">{% if sawab_cat_name %}{{ sawab_cat_name }}{% else %}{{ page.title|raw }}{% endif %}</h1>
+				<p class="sawab-cat-hero__count" id="page-main-title">{% if sawab_cat_name and page.title != sawab_cat_name %}{{ page.title|raw }}{% endif %}</p>
 			</div>
 		</div>
 
-		{% if category.sub_categories|length %}
+		{% if sawab_subcats|length %}
 			<h2 class="sawab-subcats__title">تسوّق حسب التصنيفات الفرعية</h2>
-			<nav class="sawab-subcats" aria-label="{{ category.name }}">
-				{% for sub in category.sub_categories %}
-					<a class="sawab-subcats__item" href="{{ sub.url }}">
-						{% if sub.image %}
+			<nav class="sawab-subcats" aria-label="{{ sawab_cat_name }}">
+				{% for sub in sawab_subcats %}
+					<a class="sawab-subcats__item" href="{{ sub.url|default('#') }}">
+						{% if sub.image|default('') %}
 							<span class="sawab-subcats__thumb">
-								<img src="{{ sub.image }}" alt="{{ sub.name }}" loading="lazy">
+								<img src="{{ sub.image }}" alt="{{ sub.name|default('') }}" loading="lazy">
 							</span>
 						{% endif %}
-						<span class="sawab-subcats__name">{{ sub.name }}</span>
+						<span class="sawab-subcats__name">{{ sub.name|default('') }}</span>
 					</a>
 				{% endfor %}
 			</nav>
