@@ -55,18 +55,20 @@ class Product extends BasePage {
 
         const field = form.querySelector('.sawab-questions__input');
         const btn = form.querySelector('.sawab-questions__submit');
+
+        // نقطة التعليقات تشترط عميلًا مسجَّلًا (can_comment جزء من كائن user)،
+        // فنفتح تسجيل الدخول بدل إرسال طلب يرجع "ليس لديك صلاحية"
+        if (salla.config.isGuest()) {
+          salla.event.dispatch('login::open');
+          return;
+        }
+
         btn.disabled = true;
 
         salla.comment.add({ id: form.dataset.productId, comment: field.value, type: 'product' })
           .then(() => {
             field.value = '';
             salla.notify.success('تم إرسال سؤالك، وسيظهر بعد مراجعته من المتجر');
-          })
-          .catch(error => {
-            // سلة ترفض تعليق الزائر بخطأ مصادقة ⇒ نفتح تسجيل الدخول بدل رسالة مبهمة
-            if (error?.response?.status === 401 || error?.status === 401) {
-              salla.event.dispatch('login::open');
-            }
           })
           .finally(() => {
             btn.disabled = false;
