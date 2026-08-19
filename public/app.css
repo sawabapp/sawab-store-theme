@@ -10266,6 +10266,70 @@ salla-cart-summary .s-cart-summary-count {
   font-size: 13px;
   color: #9a9a9a;
 }
+.sawab-countdown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-top: 18px;
+  padding: 12px 16px;
+  border: 1px solid #e7d7b8;
+  border-radius: 14px;
+  background: #f4ead9;
+}
+.sawab-countdown__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #8a6a3f;
+}
+.sawab-countdown__label i {
+  font-size: 16px;
+  color: #c62127;
+  color: var(--color-primary);
+}
+.sawab-countdown salla-count-down {
+  display: block;
+}
+.sawab-countdown salla-count-down .s-count-down-list {
+  margin: 0;
+  gap: 6px;
+  justify-content: flex-start;
+}
+.sawab-countdown salla-count-down .s-count-down-item {
+  min-width: 46px;
+  padding: 5px 8px;
+  border-radius: 10px;
+  background: #fff;
+}
+.sawab-countdown salla-count-down .s-count-down-item-value {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #1c1b19;
+  color: var(--main-text-color);
+}
+.sawab-countdown salla-count-down .s-count-down-item-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #9a9a9a;
+}
+.sawab-countdown salla-count-down .s-count-down-end-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: #8a6a3f;
+}
+@media (max-width: 480px) {
+  .sawab-countdown {
+    justify-content: center;
+  }
+  .sawab-countdown salla-count-down .s-count-down-list {
+    justify-content: center;
+  }
+}
 salla-product-options {
   display: block;
   margin-top: 22px;

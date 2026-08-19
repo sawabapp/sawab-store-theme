@@ -296,6 +296,22 @@
                     <p class="sawab-price__note">{{ trans('pages.products.tax_included') }}</p>
                 {% endif %}
 
+                {# العدّاد التنازلي للتخفيض — لا يظهر إلا لمنتج عليه خصم فعلي
+                   بتاريخ انتهاء، ومكانه فوق صندوق الخيارات مباشرة #}
+                {% if product.is_on_sale and product.discount_ends %}
+                    <div class="sawab-countdown">
+                        <span class="sawab-countdown__label">
+                            <i class="sicon-discount-calculator"></i>
+                            ينتهي العرض بعد
+                        </span>
+                        <salla-count-down
+                                data-testid="store-product-discount-countdown"
+                                date="{{ product.discount_ends|date('Y-m-d H:i:s') }}"
+                                boxed
+                                labeled></salla-count-down>
+                    </div>
+                {% endif %}
+
                 <form data-testid="store-product-form" class="form product-form" enctype="multipart/form-data" method="post"
                       onsubmit="return salla.form.onSubmit('cart.addItem', event)" >
                     <input type="hidden" name="id" value="{{ product.id }}">
