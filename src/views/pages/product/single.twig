@@ -332,6 +332,18 @@
                         </section>
                     {% endif %}
 
+                    {# «يضيفها العملاء عادة مع الخزان» عبر الوسوم: ضع وسمًا يبدأ
+                       بـ«طقم» على المنتج وعلى ملحقاته، فتظهر هنا. الوسوم تُحرَّر
+                       لكل منتج من لوحة سلة، فلا حاجة لتاريخ مبيعات ولا لإعداد ثيم.
+                       product.js يقرأ الوسوم لأن بياناتها لا تحمل id #}
+                    {% if product.tags|length %}
+                        <div class="sawab-combo"
+                             data-testid="store-product-combo"
+                             data-product-id="{{ product.id }}"
+                             data-tags='{{ product.tags|json_encode }}'
+                             hidden></div>
+                    {% endif %}
+
                     <section class="sticky-product-bar sawab-actions">
                         {# الكمية وزر الإضافة في صف واحد، والسعر داخل الزر #}
                         {% if product.is_hidden_quantity or product.type == 'booking' %}

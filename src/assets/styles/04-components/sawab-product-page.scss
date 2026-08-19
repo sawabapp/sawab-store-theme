@@ -668,6 +668,40 @@ salla-product-options {
   }
 }
 
+// ----- «يضيفها العملاء عادة مع المنتج» -----
+// product.js يحقن salla-products-slider هنا، ويبقى المربّع مخفيًا (hidden) حتى
+// تصل ملحقات فعلية، فلا يظهر عنوان فوق فراغ
+.sawab-combo {
+  margin-top: 18px;
+  padding: 16px 18px;
+  border: 1px solid $sawab-border;
+  border-radius: 16px;
+  background: $sawab-panel;
+
+  &[hidden] {
+    display: none;
+  }
+
+  &::before {
+    content: "يضيفها العملاء عادة مع هذا المنتج";
+    display: block;
+    margin-bottom: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--main-text-color);
+  }
+
+  // الشريط يرسم عنوانه وأسهمه؛ لا نحتاجهما داخل لوحة ضيّقة
+  salla-products-slider {
+    display: block;
+
+    .s-block__title,
+    .s-slider-nav {
+      display: none;
+    }
+  }
+}
+
 // ----- الكمية + زرّا الإضافة و"اشترِ الآن" في صف واحد -----
 // سلة ترسم الزرين داخل .s-add-product-button-main (زر الإضافة + ودجت الدفع
 // السريع) وتعطي كلًا منهما 50%، فيبقى علينا توحيد الارتفاع والحواف.

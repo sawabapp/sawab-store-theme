@@ -17,6 +17,7 @@ class Product extends BasePage {
         this.initProductOptionValidations();
         this.initOptionCards();
         this.initQuestionForm();
+        this.initComboProducts();
 
         if(imageZoom){
             // call the function when the page is ready
@@ -32,6 +33,61 @@ class Product extends BasePage {
         const isComplete = Array.from(this.elements).every(el => !el.willValidate || el.validity.valid);
         isComplete && salla.product.getPrice(new FormData(this));
       });
+    }
+
+    /**
+     * «يضيفها العملاء عادة مع المنتج» عبر الوسوم: التاجر يضع وسمًا يبدأ بـ«طقم»
+     * على المنتج وملحقاته، فنجلب منتجات ذلك الوسم. لا نمرّر الوسم للشريط مباشرةً
+     * لأنه سيعيد المنتج الحالي أيضًا (يحمل الوسم نفسه)؛ نجلب المعرّفات أولًا
+     * ونستبعده ثم نرسم الشريط بـ source=selected — أنظف من حذف بطاقة بعد الرسم.
+     */
+    initComboProducts() {
+      const box = document.querySelector('.sawab-combo');
+
+      if (!box) {
+        return;
+      }
+
+      let tags = [];
+
+      try {
+        tags = JSON.parse(box.dataset.tags || '[]');
+      } catch (e) {
+        return;
+      }
+
+      // اصطلاح المشروع: وسم المجموعة يبدأ بـ«طقم»، وبقية الوسوم تسويقية
+      const combo = tags.find(tag => (tag.name || '').trim().startsWith('طقم'));
+
+      if (!combo) {
+        return;
+      }
+
+      // بيانات الوسم لا تحمل id، فنأخذ آخر رقم في رابطه
+      const tagId = (String(combo.url || '').match(/(\d+)(?!.*\d)/) || [])[1];
+
+      if (!tagId) {
+        return;
+      }
+
+      salla.api.withoutNotifier(() => salla.product.api.fetch({ source: 'tags', source_value: tagId }))
+        .then(res => (res?.data || [])
+          .map(item => String(item.id))
+          .filter(id => id !== String(box.dataset.productId))
+          .slice(0, 8))
+        .then(ids => {
+          if (!ids.length) {
+            return;
+          }
+
+          const slider = document.createElement('salla-products-slider');
+          slider.setAttribute('source', 'selected');
+          slider.setAttribute('source-value', JSON.stringify(ids));
+          slider.setAttribute('includes', '["brand"]');
+          box.appendChild(slider);
+          box.hidden = false;
+        })
+        .catch(() => {});
     }
 
     /**

@@ -10642,6 +10642,32 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
   opacity: 0.6;
   cursor: wait;
 }
+.sawab-combo {
+  margin-top: 18px;
+  padding: 16px 18px;
+  border: 1px solid #e8e1d5;
+  border-radius: 16px;
+  background: #fffdf9;
+}
+.sawab-combo[hidden] {
+  display: none;
+}
+.sawab-combo::before {
+  content: "يضيفها العملاء عادة مع هذا المنتج";
+  display: block;
+  margin-bottom: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1c1b19;
+  color: var(--main-text-color);
+}
+.sawab-combo salla-products-slider {
+  display: block;
+}
+.sawab-combo salla-products-slider .s-block__title,
+.sawab-combo salla-products-slider .s-slider-nav {
+  display: none;
+}
 .sawab-actions {
   padding: 0;
   margin-top: 22px;
