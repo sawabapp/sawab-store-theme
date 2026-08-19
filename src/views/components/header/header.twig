@@ -14,14 +14,25 @@
 {% set logo_height_mobile = theme.settings.get('logo_height_mobile')|default(32) %}
 {% set sticky_header_enabled = theme.settings.get('sticky_header_enabled')|default(true) %}
 
+{# نصوص الهيدر بلغتين. «السلة» من مفاتيح سلة نفسها فتُترجم عبر trans، وما دونها
+   لا مفتاح مؤكّدًا له فنشتقّه من لغة الصفحة (انظر CLAUDE.md) #}
+{% set sawab_ar = (language.code|default('ar')) == 'ar' %}
+{% set t_search = sawab_ar ? 'بحث' : 'Search' %}
+{% set t_account = sawab_ar ? 'حسابي' : 'My account' %}
+{% set t_localization = sawab_ar ? 'اللغة والعملة' : 'Language & currency' %}
+{% set t_menu = sawab_ar ? 'القائمة' : 'Menu' %}
+{% set t_copy_code = sawab_ar ? 'نسخ الكود' : 'Copy code' %}
+{% set t_copied = sawab_ar ? 'تم النسخ' : 'Copied' %}
+{% set t_copy_aria = sawab_ar ? 'نسخ كود الخصم' : 'Copy discount code' %}
+
 {% if announcement_enabled and announcement_bar %}
 <div class="announcement-bar">
   <span class="announcement-bar__text">{{ announcement_bar|raw }}</span>
   {% if announcement_copy_enabled and announcement_copy_code %}
-    <button type="button" class="announcement-bar__copy-btn" onclick="app.copyToClipboard(event)" data-content="{{ announcement_copy_code }}" aria-label="نسخ كود الخصم">
+    <button type="button" class="announcement-bar__copy-btn" onclick="app.copyToClipboard(event)" data-content="{{ announcement_copy_code }}" aria-label="{{ t_copy_aria }}">
       <i class="sicon-swap-fill"></i>
-      <span class="announcement-bar__copy-label">نسخ الكود</span>
-      <span class="announcement-bar__copy-label--copied">تم النسخ</span>
+      <span class="announcement-bar__copy-label">{{ t_copy_code }}</span>
+      <span class="announcement-bar__copy-label--copied">{{ t_copied }}</span>
     </button>
   {% endif %}
 </div>
@@ -30,7 +41,7 @@
 <header data-testid="store-header" class="store-header site-header{{ sticky_header_enabled ? ' js-sticky-header' : '' }}" style="--logo-h-desktop: {{ logo_height_desktop }}px; --logo-h-mobile: {{ logo_height_mobile }}px;">
   <div class="site-header__row">
 
-    <a data-testid="store-header-mobile-toggle" class="site-header__mobile-toggle lg:hidden mburger mburger--collapse leading-none" href="#mobile-menu" aria-label="القائمة">
+    <a data-testid="store-header-mobile-toggle" class="site-header__mobile-toggle lg:hidden mburger mburger--collapse leading-none" href="#mobile-menu" aria-label="{{ t_menu }}">
       <i class="sicon-menu"></i>
     </a>
 
@@ -45,30 +56,30 @@
 
     <div class="site-header__search">
       <salla-search data-testid="store-header-search" inline height="44"></salla-search>
-      <button type="button" class="site-header__search-btn" data-open-search>بحث</button>
+      <button type="button" class="site-header__search-btn" data-open-search>{{ t_search }}</button>
     </div>
 
     <div class="site-header__mobile-actions-group">
-      <button type="button" class="site-header__search-mobile-icon" aria-label="بحث" data-open-search>
+      <button type="button" class="site-header__search-mobile-icon" aria-label="{{ t_search }}" data-open-search>
         <i class="sicon-search"></i>
       </button>
 
       <div class="site-header__actions">
         {% if store.settings.is_multilingual or store.settings.currencies_enabled %}
-          <button type="button" class="site-header__lang" aria-label="اللغة والعملة" data-open-localization>
+          <button type="button" class="site-header__lang" aria-label="{{ t_localization }}" data-open-localization>
             <i class="sicon-lang"></i>
           </button>
         {% endif %}
 
         <a href="{{ routes.account_url|default('#') }}" class="site-header__account">
           <salla-user-menu data-testid="store-header-user-menu" avatar-only show-header show-trigger></salla-user-menu>
-          <span class="site-header__account-label">حسابي</span>
+          <span class="site-header__account-label">{{ t_account }}</span>
         </a>
 
         <salla-cart-summary data-testid="store-header-cart" show-cart-label="false">
           <div slot="icon" class="site-header__cart">
             <i class="header-btn__icon icon sicon-shopping-bag"></i>
-            <span>السلة</span>
+            <span>{{ trans('blocks.header.cart') }}</span>
           </div>
         </salla-cart-summary>
       </div>

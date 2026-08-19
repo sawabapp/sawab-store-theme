@@ -230,7 +230,10 @@ isElementLoaded(selector){
    * (and resets the attribute) whenever the user types.
    */
   customizeSearchPlaceholder() {
-    const placeholderText = 'ابحث عن خزان، فلتر، مضخة، غطاس';
+    // اللغة من <html lang> الذي يضبطه master.twig
+    const placeholderText = (document.documentElement.lang || 'ar').startsWith('ar')
+      ? 'ابحث عن خزان، فلتر، مضخة، غطاس'
+      : 'Search for tanks, filters, pumps or submersibles';
 
     const watch = input => {
       const apply = () => {

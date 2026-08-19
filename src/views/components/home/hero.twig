@@ -23,6 +23,8 @@
 هذا القسم ثابت أعلى الصفحة الرئيسية (يُقرأ من إعدادات التصميم مباشرة)،
 وليس عنصرًا من منشئ الصفحة — فيظهر تلقائيًا بدون أي إضافة يدوية.
 #}
+{% set sawab_ar = (language.code|default('ar')) == 'ar' %}
+{% set t_reviews_link = sawab_ar ? 'آراء العملاء' : 'Customer reviews' %}
 {% set badge_text = theme.settings.get('hero_badge_text') %}
 {% set title = theme.settings.get('hero_title') %}
 {% set title_highlight_prefix = theme.settings.get('hero_title_highlight_prefix') %}
@@ -135,7 +137,7 @@
 
           {% if reviews_link %}
             <a href="{{ reviews_link }}" class="sawab-hero__reviews-link">
-              <span>آراء العملاء</span>
+              <span>{{ t_reviews_link }}</span>
               <i class="sicon-arrow-left"></i>
             </a>
           {% endif %}
