@@ -11494,99 +11494,117 @@ salla-cart-coupons .s-cart-coupons-applied-code {
     opacity: 0.5;
   }
 }
-salla-localization-modal .s-modal-body {
-  border-radius: 20px 20px 0 0;
+salla-modal:has(.s-localization-modal-inner) .s-modal-body {
   border: 1px solid #e8e1d5;
+  border-radius: 20px 20px 0 0;
   box-shadow: 0 24px 60px rgba(28, 27, 25, 0.14);
 }
 @media (min-width: 640px) {
-  salla-localization-modal .s-modal-body {
+  salla-modal:has(.s-localization-modal-inner) .s-modal-body {
     border-radius: 20px;
   }
 }
-salla-localization-modal .s-modal-header {
+salla-modal:has(.s-localization-modal-inner) .s-modal-header {
   padding-bottom: 4px;
 }
-salla-localization-modal .s-modal-title {
+salla-modal:has(.s-localization-modal-inner) .s-modal-title {
   font-size: 17px;
   font-weight: 800;
   color: #1c1b19;
   color: var(--main-text-color);
 }
-salla-localization-modal .s-modal-close {
+salla-modal:has(.s-localization-modal-inner) .s-modal-close {
+  top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 34px;
   height: 34px;
-  top: 14px;
-  border-radius: 999px;
+  padding: 0;
   border: 1px solid #e8e1d5;
+  border-radius: 999px;
   background: #fff;
   color: #9a9a9a;
   transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
 }
-salla-localization-modal .s-modal-close:hover {
+salla-modal:has(.s-localization-modal-inner) .s-modal-close:hover {
   border-color: #c62127;
   border-color: var(--color-primary);
   background: #c62127;
   background: var(--color-primary);
   color: #fff;
 }
-salla-localization-modal .s-localization-modal-section {
+[dir=rtl] salla-modal:has(.s-localization-modal-inner) .s-modal-close {
+  left: 14px;
+  right: auto;
+}
+[dir=ltr] salla-modal:has(.s-localization-modal-inner) .s-modal-close {
+  right: 14px;
+  left: auto;
+}
+salla-modal:has(.s-localization-modal-inner) .s-button-element {
+  min-height: 50px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+}
+.s-localization-modal-section {
   margin-bottom: 20px;
 }
-salla-localization-modal .s-localization-modal-title {
+.s-localization-modal-title {
   font-size: 13px;
   font-weight: 700;
   color: #9a9a9a;
 }
-salla-localization-modal .s-localization-modal-section-inner {
+.s-localization-modal-section-inner {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
-salla-localization-modal .s-localization-modal-item {
+.s-localization-modal-item {
   position: relative;
   gap: 10px;
-  padding: 11px 14px;
+  padding: 10px 12px;
   border: 1.5px solid #e8e1d5;
   border-radius: 12px;
   background: #fff;
   cursor: pointer;
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
-salla-localization-modal .s-localization-modal-item:hover {
+.s-localization-modal-item:hover {
   border-color: #c62127;
   border-color: var(--color-primary);
   background: rgba(198, 33, 39, 0.03);
 }
-salla-localization-modal .s-localization-modal-item:has(.s-localization-modal-input:checked) {
+.s-localization-modal-item:has(.s-localization-modal-input:checked) {
   border-color: #c62127;
   border-color: var(--color-primary);
   background: rgba(198, 33, 39, 0.05);
 }
-salla-localization-modal .s-localization-modal-input {
+.s-localization-modal-input {
+  flex-shrink: 0;
   accent-color: #c62127;
   accent-color: var(--color-primary);
-  flex-shrink: 0;
   cursor: pointer;
 }
-salla-localization-modal .s-localization-modal-label,
-salla-localization-modal .s-localization-modal-label-slot {
+.s-localization-modal-label,
+.s-localization-modal-label-slot {
   font-size: 14px;
   font-weight: 600;
   color: #1c1b19;
   color: var(--main-text-color);
   cursor: pointer;
 }
-salla-localization-modal .s-localization-modal-flag {
+.s-localization-modal-flag {
   border-radius: 4px;
 }
-salla-localization-modal .s-localization-modal-currency {
+.s-localization-modal-currency {
   font-size: 13px;
   font-weight: 700;
   color: #9a9a9a;
 }
-salla-localization-modal .s-localization-modal-select {
+.s-localization-modal-select {
   height: 46px;
   border: 1.5px solid #e8e1d5;
   border-radius: 12px;
@@ -11594,16 +11612,10 @@ salla-localization-modal .s-localization-modal-select {
   font-size: 14px;
   font-weight: 600;
 }
-salla-localization-modal .s-localization-modal-select:focus {
+.s-localization-modal-select:focus {
   border-color: #c62127;
   border-color: var(--color-primary);
   outline: none;
-}
-salla-localization-modal .s-button-element {
-  min-height: 50px;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 700;
 }
 .before\:text-orange-300::before{
     content: var(--tw-content);
