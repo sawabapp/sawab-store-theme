@@ -9590,6 +9590,20 @@ salla-cart-summary .s-cart-summary-count {
     right: auto;
     border-radius: 0 16px 16px 0;
   }
+  .main-menu > li > .sub-menu li.has-children:hover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 16px;
+    z-index: 1;
+  }
+  [dir=rtl] .main-menu > li > .sub-menu li.has-children:hover::after {
+    right: 100%;
+  }
+  [dir=ltr] .main-menu > li > .sub-menu li.has-children:hover::after {
+    left: 100%;
+  }
   .main-menu > li > .sub-menu ul > li:not(:first-child) > .sub-menu {
     border: 1px solid #e8e1d5;
   }
