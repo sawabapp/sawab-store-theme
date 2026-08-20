@@ -10012,6 +10012,14 @@ salla-cart-summary .s-cart-summary-count {
     width: 70%;
   }
 }
+@keyframes sawab-promo-shine {
+  0%, 18% {
+    transform: translateX(-160%) skewX(-18deg);
+  }
+  55%, 100% {
+    transform: translateX(380%) skewX(-18deg);
+  }
+}
 .sawab-card__brand {
   font-size: 12px;
   font-weight: 500;
@@ -10070,9 +10078,22 @@ salla-cart-summary .s-cart-summary-count {
   font-weight: 700;
   line-height: 1.5;
   white-space: nowrap;
-  background: #c62127;
-  background: var(--color-primary);
-  color: #fff;
+  background: #ffcc00;
+  border: 0.5px solid #1c1b19;
+  color: #1c1b19;
+  overflow: hidden;
+}
+.s-product-card-entry.s-product-card-vertical .s-product-card-promotion-title::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 38%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0));
+  transform: translateX(-160%) skewX(-18deg);
+  animation: sawab-promo-shine 3s ease-in-out infinite;
+  pointer-events: none;
 }
 [dir=rtl] .s-product-card-entry.s-product-card-vertical .s-product-card-promotion-title {
   left: 10px;
@@ -10241,6 +10262,13 @@ salla-cart-summary .s-cart-summary-count {
 .s-product-card-entry.s-product-card-vertical.s-product-card-out-of-stock .s-product-card-image img {
   opacity: 0.55;
 }
+@media (prefers-reduced-motion: reduce) {
+  .s-product-card-promotion-title::after,
+  .promotion-title::after {
+    animation: none;
+    opacity: 0;
+  }
+}
 salla-slider.details-slider .s-slider-container {
   border-radius: 18px;
 }
@@ -10261,6 +10289,22 @@ salla-slider.details-slider .magnify-wrapper img {
 salla-slider.details-slider .promotion-title {
   border-radius: 10px;
   margin: 0 16px !important;
+  background: #ffcc00;
+  border: 0.5px solid #1c1b19;
+  color: #1c1b19;
+  overflow: hidden;
+}
+salla-slider.details-slider .promotion-title::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 38%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0));
+  transform: translateX(-160%) skewX(-18deg);
+  animation: sawab-promo-shine 3s ease-in-out infinite;
+  pointer-events: none;
 }
 .sawab-topbar {
   display: flex;

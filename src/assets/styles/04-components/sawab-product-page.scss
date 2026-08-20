@@ -8,6 +8,8 @@ $sawab-save-bg: #f4ead9;
 $sawab-save-text: #8a6a3f;
 $sawab-save-border: #e7d7b8;
 $sawab-green: #2e9e5b;
+$sawab-promo-bg: #ffcc00;
+$sawab-promo-ink: #1c1b19;
 
 // ----- معرض الصور: لوحة كريمية كما في التصميم -----
 // بلا حشوة داخلية: مكبّر الصورة (image-zoom) يحسب موضع العدسة من حدود الصورة
@@ -38,9 +40,21 @@ salla-slider.details-slider {
     object-fit: contain;
   }
 
+  // العنوان الترويجي: أصفر بحدّ ونصّ أسودين كما في بطاقة المنتج. الثيم يعطيه
+  // خلفية حمراء داكنة، ومحدّدنا (salla-slider.details-slider) يفوقه خصوصية
   .promotion-title {
     border-radius: 10px;
     margin: 0 16px !important;
+    background: $sawab-promo-bg;
+    // 0.5px يُرسَم شعرة على الشاشات عالية الكثافة، ويتقرّب إلى 1px على غيرها
+    border: 0.5px solid $sawab-promo-ink;
+    color: $sawab-promo-ink;
+    overflow: hidden;
+
+    // المِزيج معرّف في sawab-product-card
+    &::after {
+      @include sawab-promo-shine;
+    }
   }
 }
 

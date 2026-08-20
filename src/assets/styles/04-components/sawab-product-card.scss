@@ -5,6 +5,36 @@
 
 $sawab-card-radius: 14px;
 $sawab-card-muted: #9a9a9a;
+$sawab-card-promo-bg: #ffcc00;
+$sawab-card-promo-ink: #1c1b19;
+
+// لمعة زجاجية تمرّ على شارة العنوان الترويجي. تُعرَّف هنا مرة واحدة ويستدعيها
+// ملف صفحة المنتج أيضًا (app.scss يستورده بعد هذا الملف).
+@mixin sawab-promo-shine {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 38%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0));
+  transform: translateX(-160%) skewX(-18deg);
+  animation: sawab-promo-shine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes sawab-promo-shine {
+  0%,
+  18% {
+    transform: translateX(-160%) skewX(-18deg);
+  }
+
+  55%,
+  100% {
+    transform: translateX(380%) skewX(-18deg);
+  }
+}
+
 
 // أيقونة السلة داخل زر الإضافة — قناع SVG لا خط أيقونات: يأخذ لون النص تلقائيًا
 // (أبيض على الأحمر، أحمر على المفرَّغ) ولا يعتمد على رمز في خط سلة. ولا نحقنه
@@ -76,7 +106,8 @@ $sawab-card-muted: #9a9a9a;
   }
 
   // ===== شارة العنوان الترويجي (الأكثر طلباً / منتج الموسم / وفّر…) =====
-  // مصدرها حقل promotion_title الذي يضبطه التاجر لكل منتج من لوحة سلة
+  // مصدرها حقل promotion_title الذي يضبطه التاجر لكل منتج من لوحة سلة.
+  // أصفر بحدّ ونصّ أسودين — تلفت النظر وتتميّز عن الأحمر المستخدم للأسعار
   .s-product-card-promotion-title {
     position: absolute;
     top: 10px;
@@ -88,8 +119,15 @@ $sawab-card-muted: #9a9a9a;
     font-weight: 700;
     line-height: 1.5;
     white-space: nowrap;
-    background: var(--color-primary);
-    color: #fff;
+    background: $sawab-card-promo-bg;
+    // 0.5px يُرسَم شعرة على الشاشات عالية الكثافة، ويتقرّب إلى 1px على غيرها
+    border: 0.5px solid $sawab-card-promo-ink;
+    color: $sawab-card-promo-ink;
+    overflow: hidden;
+
+    &::after {
+      @include sawab-promo-shine;
+    }
 
     [dir="rtl"] & { left: 10px; right: auto; }
     [dir="ltr"] & { right: 10px; left: auto; }
@@ -270,5 +308,14 @@ $sawab-card-muted: #9a9a9a;
 .s-product-card-entry.s-product-card-vertical.s-product-card-out-of-stock {
   .s-product-card-image img {
     opacity: 0.55;
+  }
+}
+
+// من يطلب تقليل الحركة: الشارة كما هي بلا لمعة
+@media (prefers-reduced-motion: reduce) {
+  .s-product-card-promotion-title::after,
+  .promotion-title::after {
+    animation: none;
+    opacity: 0;
   }
 }
