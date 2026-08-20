@@ -104,6 +104,31 @@
   {{ theme.settings.get('topnav_is_dark') ? ' topnav-is-dark' : '' }}
   {{ theme.settings.get('sticky_add_to_cart') ? ' is-sticky-product-bar' : '' }}
   ">
+{# شاشة التحميل: أول عنصر في body لتظهر قبل تحميل الأنماط الخارجية، ولذلك
+   تحمل أنماطها الحرجة داخليًا. وإخفاؤها بسكربت داخلي لا من حزمة app.js —
+   فلو فشل تحميل الحزمة لأي سبب لبقيت الشاشة معلّقة أمام العميل #}
+<div class="sawab-loader" id="sawab-loader" style="position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92)">
+    <div class="sawab-loader__box">
+        {% if store.logo %}
+            <img class="sawab-loader__logo" src="{{ store.logo|cdn(220) }}" alt="{{ store.name }}" width="140" height="40">
+        {% else %}
+            <span class="sawab-loader__name">{{ store.name }}</span>
+        {% endif %}
+        <span class="sawab-loader__bar"><i></i></span>
+    </div>
+</div>
+<script>
+    (function () {
+        var el = document.getElementById('sawab-loader');
+        if (!el) return;
+        var hide = function () { el.classList.add('is-done'); };
+        // ثلاثة مسارات: جهوزية الثيم، حمل الصفحة، ومهلة قصوى تمنع أي تعليق
+        document.addEventListener('theme::ready', hide);
+        window.addEventListener('load', hide);
+        setTimeout(hide, 3500);
+    })();
+</script>
+
 <noscript>
     To get full functionality of this site you need to enable JavaScript. Here is how
     <a href="https://www.enable-javascript.com/" rel="noreferrer"

@@ -1,0 +1,98 @@
+// ===== شاشة التحميل — تصميم صواب =====
+// الأنماط الحرجة (تثبيت وتوسيط وخلفية) في سمة style داخل master.twig لتعمل
+// قبل وصول هذا الملف؛ وهنا الزجاج والحركة والخروج.
+$sawab-loader-border: #e8e1d5;
+$sawab-loader-cream: #f8f1e7;
+
+.sawab-loader {
+  backdrop-filter: blur(14px) saturate(115%);
+  -webkit-backdrop-filter: blur(14px) saturate(115%);
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+
+  &.is-done {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.sawab-loader__box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 0 24px;
+}
+
+.sawab-loader__logo {
+  max-width: 180px;
+  max-height: 56px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  animation: sawab-loader-pulse 1.5s ease-in-out infinite;
+}
+
+.sawab-loader__name {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--main-text-color);
+  animation: sawab-loader-pulse 1.5s ease-in-out infinite;
+}
+
+// شريط غير محدّد: مسار كريمي وقطعة بلون العلامة تنزلق فيه
+.sawab-loader__bar {
+  position: relative;
+  display: block;
+  width: 150px;
+  height: 3px;
+  border-radius: 999px;
+  background: $sawab-loader-cream;
+  overflow: hidden;
+
+  i {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 42%;
+    border-radius: 999px;
+    background: var(--color-primary);
+    animation: sawab-loader-slide 1.15s ease-in-out infinite;
+  }
+}
+
+@keyframes sawab-loader-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.55;
+    transform: scale(0.97);
+  }
+}
+
+@keyframes sawab-loader-slide {
+  0% {
+    transform: translateX(-115%);
+  }
+
+  100% {
+    transform: translateX(340%);
+  }
+}
+
+// احترام تفضيل تقليل الحركة: يبقى الشعار ساكنًا والشريط نابضًا بلطف
+@media (prefers-reduced-motion: reduce) {
+  .sawab-loader__logo,
+  .sawab-loader__name,
+  .sawab-loader__bar i {
+    animation: none;
+  }
+
+  .sawab-loader__bar i {
+    width: 100%;
+    opacity: 0.5;
+  }
+}
