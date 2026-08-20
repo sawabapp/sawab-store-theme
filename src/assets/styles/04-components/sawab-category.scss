@@ -40,6 +40,23 @@ $sawab-cat-cream: #f8f1e7;
   }
 }
 
+// ----- شريط الترتيب فوق القائمة -----
+.sawab-list-toolbar {
+  gap: 10px;
+
+  label {
+    margin: 0;
+    font-size: 13px;
+    color: $sawab-cat-muted;
+  }
+
+  select {
+    border: 1px solid $sawab-cat-border;
+    border-radius: 10px;
+    background-color: #fff;
+  }
+}
+
 // ----- التصنيفات الفرعية -----
 // صف مرن ببطاقات ثابتة العرض لا شبكة أعمدة: التصنيفات قليلة عادةً، والشبكة
 // كانت تحشرها في أول أعمدة وتترك بقية السطر فراغًا. والصورة تملأ البطاقة

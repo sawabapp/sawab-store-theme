@@ -77,8 +77,9 @@
 		{% endif %}
 
 		<div class="main-content flex-1 w-full {{ filters ? 'ltr:lg:ml-8 rtl:lg:mr-8' : '' }}">
-			{# العنوان انتقل إلى رأس التصنيف أعلى الصفحة #}
-			<div class="mb-4 sm:mb-6 flex justify-end items-center">
+			{# العنوان انتقل إلى رأس التصنيف أعلى الصفحة، فيبقى شريط الترتيب في بداية
+			   السطر ملتصقًا بالقائمة لا معلّقًا في طرفها المقابل #}
+			<div class="sawab-list-toolbar mb-4 sm:mb-6 flex items-center">
 				<div class="flex items-center space-x-2 rtl:space-x-reverse">
 					{% if filters %}
 						<a data-testid="store-products-filters-mobile-trigger" href="#filters-menu" class="filters-trigger bg-border-color text-primary lg:hidden mt-2">
