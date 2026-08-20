@@ -10131,17 +10131,24 @@ salla-cart-summary .s-cart-summary-count {
 .s-product-card-entry.s-product-card-vertical.s-product-card-out-of-stock .s-product-card-image img {
   opacity: 0.55;
 }
-.details-slider .magnify-wrapper,
-.details-slider .model-entry {
+salla-slider.details-slider .s-slider-container {
+  border-radius: 18px;
+}
+salla-slider.details-slider .slide--one-fourth,
+salla-slider.details-slider .slide--one-fourth img {
+  border-radius: 12px;
+}
+salla-slider.details-slider .magnify-wrapper,
+salla-slider.details-slider .model-entry {
   background: #f8f1e7;
   border-radius: 18px;
   overflow: hidden;
 }
-.details-slider .magnify-wrapper img {
+salla-slider.details-slider .magnify-wrapper img {
   -o-object-fit: contain;
      object-fit: contain;
 }
-.details-slider .promotion-title {
+salla-slider.details-slider .promotion-title {
   border-radius: 10px;
   margin: 0 16px !important;
 }

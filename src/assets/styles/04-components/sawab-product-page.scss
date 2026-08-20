@@ -12,7 +12,21 @@ $sawab-green: #2e9e5b;
 // ----- معرض الصور: لوحة كريمية كما في التصميم -----
 // بلا حشوة داخلية: مكبّر الصورة (image-zoom) يحسب موضع العدسة من حدود الصورة
 // نفسها، وأي حشوة على الحاوية تزيح العدسة بمقدارها.
-.details-slider {
+// المحدّد يبدأ بـsalla-slider لأن قواعد الثيم تستخدم
+// `salla-slider.details-slider …` فتفوز على أي محدّد أضعف — وهذا سبب بقاء
+// حواف المعرض 6px رغم قاعدتنا السابقة
+salla-slider.details-slider {
+  // إطار المعرض كان 6px من الثيم بينما لوحات الصفحة 16–18px، فيبدو نشازًا
+  .s-slider-container {
+    border-radius: 18px;
+  }
+
+  // المصغّرات: حواف أصغر قليلًا من الإطار كي لا تنافسه
+  .slide--one-fourth,
+  .slide--one-fourth img {
+    border-radius: 12px;
+  }
+
   .magnify-wrapper,
   .model-entry {
     background: $sawab-cream;
