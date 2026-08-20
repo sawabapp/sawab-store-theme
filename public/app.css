@@ -9558,13 +9558,56 @@ salla-cart-summary .s-cart-summary-count {
   padding-bottom: 8px !important;
 }
 @media (min-width: 1024px) {
-  .main-menu .sub-menu {
+  .main-menu > li > .sub-menu {
     min-width: 224px;
     padding: 8px;
     border: 1px solid #e8e1d5;
     border-radius: 16px;
     background: #fff;
     box-shadow: 0 18px 40px rgba(28, 27, 25, 0.1);
+  }
+  .main-menu > li > .sub-menu .sub-menu {
+    position: absolute;
+    top: -9px;
+    bottom: auto;
+    min-width: 224px;
+    max-height: 70vh;
+    overflow-y: auto;
+    margin: 0;
+    padding: 8px;
+    border: 1px solid #e8e1d5;
+    background: #fff;
+    box-shadow: 0 18px 40px rgba(28, 27, 25, 0.1);
+    transform: none;
+  }
+  [dir=rtl] .main-menu > li > .sub-menu .sub-menu {
+    right: calc(100% + 8px);
+    left: auto;
+    border-radius: 16px 0 0 16px;
+  }
+  [dir=ltr] .main-menu > li > .sub-menu .sub-menu {
+    left: calc(100% + 8px);
+    right: auto;
+    border-radius: 0 16px 16px 0;
+  }
+  .main-menu > li > .sub-menu ul > li:not(:first-child) > .sub-menu {
+    border: 1px solid #e8e1d5;
+  }
+  [dir=rtl] .main-menu > li > .sub-menu ul > li:not(:first-child) > .sub-menu {
+    border-radius: 16px 0 0 16px;
+  }
+  [dir=ltr] .main-menu > li > .sub-menu ul > li:not(:first-child) > .sub-menu {
+    border-radius: 0 16px 16px 0;
+  }
+  [dir=rtl] .main-menu > li.change-menu-dir > .sub-menu .sub-menu {
+    left: calc(100% + 8px);
+    right: auto;
+    border-radius: 0 16px 16px 0;
+  }
+  [dir=ltr] .main-menu > li.change-menu-dir > .sub-menu .sub-menu {
+    right: calc(100% + 8px);
+    left: auto;
+    border-radius: 16px 0 0 16px;
   }
   .main-menu .sub-menu li > a {
     padding: 8px 10px;
@@ -9597,11 +9640,6 @@ salla-cart-summary .s-cart-summary-count {
     height: 100%;
     -o-object-fit: cover;
        object-fit: cover;
-  }
-  .main-menu .sub-menu ul > li:not(:first-child) > .sub-menu,
-  .main-menu .sub-menu .sub-menu {
-    border: 1px solid #e8e1d5;
-    border-radius: 16px;
   }
   .main-menu .has-children li a:hover,
   .main-menu .has-children .has-children:hover > a {

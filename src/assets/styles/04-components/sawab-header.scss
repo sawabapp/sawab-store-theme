@@ -350,7 +350,8 @@ salla-cart-summary {
 // يستخدم mmenu فلا يمسّه هذا القسم.
 @media (min-width: 1024px) {
   .main-menu {
-    .sub-menu {
+    // ----- اللوحة الأساسية: المستوى الأول من كل رابط رئيسي -----
+    > li > .sub-menu {
       min-width: 224px;
       padding: 8px;
       // الثيم يعطيها حدًّا أعلى فقط وحواف 6px سفلية. ونستخدم حدّ لوحاتنا
@@ -359,7 +360,73 @@ salla-cart-summary {
       border-radius: 16px;
       background: #fff;
       box-shadow: 0 18px 40px rgba(28, 27, 25, 0.1);
+    }
 
+    // ----- المستوى الثالث: عمود أفقي يكمّل صفّه -----
+    // يستند إلى الصف نفسه (الثيم يعطيه position: relative) فيبدأ أول عنصر فيه
+    // بمحاذاة صفّه الأب لا بمحاذاة أعلى اللوحة. والإزاحة calc(100% + 8px)
+    // تخرجه من حشوة اللوحة (8px) ليلاصق حدّها الخارجي مع تراكب الحدّ،
+    // والحواف مربّعة من الجهة الملاصقة — فيُقرأ امتدادًا لها لا صندوقًا ثانيًا.
+    > li > .sub-menu .sub-menu {
+      position: absolute;
+      top: -9px;
+      bottom: auto;
+      min-width: 224px;
+      max-height: 70vh;
+      overflow-y: auto;
+      margin: 0;
+      padding: 8px;
+      border: 1px solid #e8e1d5;
+      background: #fff;
+      box-shadow: 0 18px 40px rgba(28, 27, 25, 0.1);
+      transform: none;
+
+      [dir="rtl"] & {
+        right: calc(100% + 8px);
+        left: auto;
+        border-radius: 16px 0 0 16px;
+      }
+
+      [dir="ltr"] & {
+        left: calc(100% + 8px);
+        right: auto;
+        border-radius: 0 16px 16px 0;
+      }
+    }
+
+    // الثيم يجرّد أعمدة الصفوف غير الأولى من حدّها ويعطيها حواف 6px عبر
+    // `.main-menu .sub-menu ul > li:not(:first-child) > .sub-menu` — ومحدّده
+    // أعلى خصوصية من قاعدتنا، فنطابق شكله لتتساوى كل الأعمدة مع اللوحة
+    > li > .sub-menu ul > li:not(:first-child) > .sub-menu {
+      border: 1px solid #e8e1d5;
+
+      [dir="rtl"] & {
+        border-radius: 16px 0 0 16px;
+      }
+
+      [dir="ltr"] & {
+        border-radius: 0 16px 16px 0;
+      }
+    }
+
+    // قرب حافة الشاشة يضيف app.js الكلاس change-menu-dir لعكس الاتجاه،
+    // فنحافظ على ذلك السلوك بمحدّد أعلى خصوصية
+    > li.change-menu-dir > .sub-menu .sub-menu {
+      [dir="rtl"] & {
+        left: calc(100% + 8px);
+        right: auto;
+        border-radius: 0 16px 16px 0;
+      }
+
+      [dir="ltr"] & {
+        right: calc(100% + 8px);
+        left: auto;
+        border-radius: 16px 0 0 16px;
+      }
+    }
+
+    // ----- الصفوف -----
+    .sub-menu {
       li > a {
         padding: 8px 10px;
         border-radius: 10px;
@@ -395,13 +462,6 @@ salla-cart-summary {
           object-fit: cover;
         }
       }
-    }
-
-    // المستويات الأعمق: محدّد الثيم لها أعلى خصوصية، فنطابق شكله
-    .sub-menu ul > li:not(:first-child) > .sub-menu,
-    .sub-menu .sub-menu {
-      border: 1px solid #e8e1d5;
-      border-radius: 16px;
     }
 
     // لمسة الهوية عند المرور بدل الرمادي الباهت
