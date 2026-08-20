@@ -119,16 +119,21 @@
   flex: 1;
   display: flex;
   background: #f5f1ea;
-  border: 1px solid #e8e1d5;
+  // لا حدّ على الصندوق: الحدّ صار على الحقل والزر، كلٌّ بإطاره الخاص — فلا
+  // يمكن أن يظهر أحدهما أعلى من الآخر بفارق بكسل. وoverflow يبقى visible لأن
+  // hidden كان يقصّ لوحة نتائج البحث (.s-search-results).
+  border: none;
   border-radius: 10px;
-  // كان overflow: hidden لقصّ الحواف، لكنه كان يقصّ لوحة نتائج البحث
-  // (.s-search-results داخل .s-search-container) فلا تظهر المنتجات أثناء
-  // الكتابة. الحواف الآن على الحقل نفسه.
   overflow: visible;
 }
 
+// الحقل والزر يتقاسمان الصندوق: كل واحد يقوّس جهته الخارجية فقط ليبدو الصندوق
+// قطعة واحدة (كان overflow: hidden يتولّى ذلك قبل أن نزيله لإظهار النتائج)
 .site-header__search .s-search-input {
-  border-radius: 10px;
+  border: 1px solid #e8e1d5;
+
+  [dir="rtl"] & { border-radius: 0 10px 10px 0; }
+  [dir="ltr"] & { border-radius: 10px 0 0 10px; }
 }
 
 // لوحة النتائج تطفو أسفل الحقل بهوية لوحاتنا، بدل أن تتوسّع فتمدّ الهيدر
@@ -209,9 +214,26 @@
   font-weight: 600;
   font-size: 14px;
   padding: 0 22px;
-  border: none;
+  // نفس حدّ الحقل. والهامش السالب على الحدّ المشترك وحده يُطبِق الخطّين
+  // فيبقى الفاصل خطًّا واحدًا لا اثنين
+  border: 1px solid #e8e1d5;
+  // لا يمتدّ مع ارتفاع الحاوية: حاوية سلة تضمّ عنصر "لا نتائج" في التدفّق
+  // فتكون أطول من الحقل، فيصير الزر أطول منه. نثبّته على ارتفاع الحقل نفسه
+  // (سمة height="44" على salla-search في القالب) ونحاذيه من الأعلى.
+  align-self: flex-start;
+  height: 44px;
   cursor: pointer;
   font-family: var(--font-main);
+
+  [dir="rtl"] & {
+    margin-right: -1px;
+    border-radius: 10px 0 0 10px;
+  }
+
+  [dir="ltr"] & {
+    margin-left: -1px;
+    border-radius: 0 10px 10px 0;
+  }
 }
 
 .site-header__mobile-actions-group {

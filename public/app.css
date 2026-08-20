@@ -9345,12 +9345,18 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
   flex: 1;
   display: flex;
   background: #f5f1ea;
-  border: 1px solid #e8e1d5;
+  border: none;
   border-radius: 10px;
   overflow: visible;
 }
 .site-header__search .s-search-input {
-  border-radius: 10px;
+  border: 1px solid #e8e1d5;
+}
+[dir=rtl] .site-header__search .s-search-input {
+  border-radius: 0 10px 10px 0;
+}
+[dir=ltr] .site-header__search .s-search-input {
+  border-radius: 10px 0 0 10px;
 }
 .site-header__search .s-search-results {
   display: none;
@@ -9423,10 +9429,20 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
   font-weight: 600;
   font-size: 14px;
   padding: 0 22px;
-  border: none;
+  border: 1px solid #e8e1d5;
+  align-self: flex-start;
+  height: 44px;
   cursor: pointer;
   font-family: "IBM Plex Sans Arabic", sans-serif;
   font-family: var(--font-main);
+}
+[dir=rtl] .site-header__search-btn {
+  margin-right: -1px;
+  border-radius: 10px 0 0 10px;
+}
+[dir=ltr] .site-header__search-btn {
+  margin-left: -1px;
+  border-radius: 0 10px 10px 0;
 }
 .site-header__mobile-actions-group {
   display: flex;
