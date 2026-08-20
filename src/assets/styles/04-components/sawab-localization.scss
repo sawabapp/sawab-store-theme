@@ -1,0 +1,138 @@
+// ===== مودال اللغة والعملة — تصميم صواب =====
+// محصور في salla-localization-modal حتى لا يتأثر باقي مودالات سلة (المقاسات،
+// الهدايا، البحث…). ومحدّداتنا تبدأ باسم المكوّن لأن قواعد سلة تُحقَن وقت
+// التشغيل وقد تأتي بعد أنماطنا — فالخصوصية لا الترتيب هي ما يُعتمد عليه.
+$sawab-loc-muted: #9a9a9a;
+$sawab-loc-border: #e8e1d5;
+$sawab-loc-cream: #f8f1e7;
+$sawab-loc-panel: #fffdf9;
+
+salla-localization-modal {
+  // ----- صندوق المودال -----
+  .s-modal-body {
+    border-radius: 20px 20px 0 0;
+    border: 1px solid $sawab-loc-border;
+    box-shadow: 0 24px 60px rgba(28, 27, 25, 0.14);
+
+    @media (min-width: 640px) {
+      border-radius: 20px;
+    }
+  }
+
+  .s-modal-header {
+    padding-bottom: 4px;
+  }
+
+  .s-modal-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--main-text-color);
+  }
+
+  // زر الإغلاق: دائرة هادئة تتلوّن عند المرور
+  .s-modal-close {
+    width: 34px;
+    height: 34px;
+    top: 14px;
+    border-radius: 999px;
+    border: 1px solid $sawab-loc-border;
+    background: #fff;
+    color: $sawab-loc-muted;
+    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+
+    &:hover {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+      color: #fff;
+    }
+  }
+
+  // ----- الأقسام -----
+  .s-localization-modal-section {
+    margin-bottom: 20px;
+  }
+
+  .s-localization-modal-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: $sawab-loc-muted;
+  }
+
+  .s-localization-modal-section-inner {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  // ----- الخيار كبطاقة كاملة قابلة للنقر -----
+  // بنية سلة: <div class="item"><input radio><div class="label-slot">، فالبطاقة
+  // هي الحاوية والاختيار يُقرأ من :has على الـinput
+  .s-localization-modal-item {
+    position: relative;
+    gap: 10px;
+    padding: 11px 14px;
+    border: 1.5px solid $sawab-loc-border;
+    border-radius: 12px;
+    background: #fff;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+
+    &:hover {
+      border-color: var(--color-primary);
+      background: rgba(198, 33, 39, 0.03);
+    }
+
+    &:has(.s-localization-modal-input:checked) {
+      border-color: var(--color-primary);
+      background: rgba(198, 33, 39, 0.05);
+    }
+  }
+
+  .s-localization-modal-input {
+    accent-color: var(--color-primary);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .s-localization-modal-label,
+  .s-localization-modal-label-slot {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--main-text-color);
+    cursor: pointer;
+  }
+
+  .s-localization-modal-flag {
+    border-radius: 4px;
+  }
+
+  .s-localization-modal-currency {
+    font-size: 13px;
+    font-weight: 700;
+    color: $sawab-loc-muted;
+  }
+
+  // ----- القائمة المنسدلة (تظهر مع أكثر من ٦ خيارات) -----
+  .s-localization-modal-select {
+    height: 46px;
+    border: 1.5px solid $sawab-loc-border;
+    border-radius: 12px;
+    background-color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+
+    &:focus {
+      border-color: var(--color-primary);
+      outline: none;
+    }
+  }
+
+  // ----- زر الحفظ -----
+  .s-button-element {
+    min-height: 50px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+}
