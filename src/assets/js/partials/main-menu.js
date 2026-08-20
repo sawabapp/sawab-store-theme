@@ -98,10 +98,18 @@ class NavigationMenu extends HTMLElement {
     * @returns {String}
     */
     getDesktopMenu(menu, isRootMenu, additionalClasses = '') {
+        // صورة التصنيف (ميزة menu-images في سلة) كانت تُرسَم في نسخة الجوال فقط.
+        // نعرضها أيقونة مصغّرة في القوائم المنسدلة لا في شريط الروابط الرئيسي
+        // كي لا يتضخّم. والعنوان والصورة داخل غلاف واحد ليبقى سهم has-children
+        // في الطرف المقابل مع justify-between الذي يضبطه الثيم.
+        const thumb = (!isRootMenu && menu.image)
+            ? `<span class="sawab-menu__thumb"><img src="${menu.image}" alt="" width="28" height="28" loading="lazy"></span>`
+            : '';
+
         return `
         <li class="${this.getDesktopClasses(menu, isRootMenu)} ${additionalClasses}" ${menu.attrs} data-menu-item>
             <a href="${menu.url}" aria-label="${menu.title || 'category'}" ${menu.link_attrs}>
-                <span>${menu.title}</span>
+                <span class="sawab-menu__label">${thumb}<span>${menu.title}</span></span>
             </a>
             ${this.hasChildren(menu) ? `
                 <div class="sub-menu ${this.hasProducts(menu) ? 'w-full left-0 flex' : 'w-56'}">

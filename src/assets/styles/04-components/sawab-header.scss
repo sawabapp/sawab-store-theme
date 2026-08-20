@@ -345,6 +345,76 @@ salla-cart-summary {
   }
 }
 
+// ===== القائمة المنسدلة للتصنيفات (سطح المكتب) =====
+// قواعد الثيم لها داخل @media(min-width:1024px) فنطابق نفس النطاق. والجوال
+// يستخدم mmenu فلا يمسّه هذا القسم.
+@media (min-width: 1024px) {
+  .main-menu {
+    .sub-menu {
+      min-width: 224px;
+      padding: 8px;
+      // الثيم يعطيها حدًّا أعلى فقط وحواف 6px سفلية. ونستخدم حدّ لوحاتنا
+      // الصريح لا --color-border (قيمته في المتجر أفتح: #f2ecdf)
+      border: 1px solid #e8e1d5;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 18px 40px rgba(28, 27, 25, 0.1);
+
+      li > a {
+        padding: 8px 10px;
+        border-radius: 10px;
+        font-size: 13.5px;
+        font-weight: 600;
+        line-height: 1.6;
+        transition: background-color 0.18s ease, color 0.18s ease;
+      }
+
+      // صورة التصنيف أيقونة مصغّرة (main-menu.js يرسمها للقوائم الفرعية)
+      .sawab-menu__label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+      }
+
+      .sawab-menu__thumb {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border: 1px solid #e8e1d5;
+        border-radius: 8px;
+        background: #f8f1e7;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+
+    // المستويات الأعمق: محدّد الثيم لها أعلى خصوصية، فنطابق شكله
+    .sub-menu ul > li:not(:first-child) > .sub-menu,
+    .sub-menu .sub-menu {
+      border: 1px solid #e8e1d5;
+      border-radius: 16px;
+    }
+
+    // لمسة الهوية عند المرور بدل الرمادي الباهت
+    .has-children {
+      li a:hover,
+      .has-children:hover > a {
+        color: var(--color-primary);
+        background: rgba(198, 33, 39, 0.05);
+      }
+    }
+  }
+}
+
 .site-nav__row a.active,
 .site-nav__row a:hover {
   color: var(--color-primary);
