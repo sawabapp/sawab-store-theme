@@ -178,7 +178,43 @@ class Product extends BasePage {
         bar.classList.toggle('is-visible', scrolledPast);
       }, { threshold: 0 }).observe(actions);
 
-      bar.querySelector('.sawab-sticky-bar__btn')?.addEventListener('click', () => {
+      const btn = bar.querySelector('.sawab-sticky-bar__btn');
+
+      if (!btn) {
+        return;
+      }
+
+      // مؤشّر تحميل حتى تُنهي سلة الإضافة. نُطلقه في المستمعات لا في وعد
+      // الإرسال، لأن requestSubmit يمرّ على salla.form.onSubmit ولا يعيد وعدًا
+      let release = null;
+
+      const stopLoading = () => {
+        clearTimeout(release);
+        btn.classList.remove('is-loading');
+        btn.disabled = false;
+      };
+
+      salla.cart.event.onItemAdded(stopLoading);
+      salla.cart.event.onItemAddedFailed(stopLoading);
+      // الزائر الذي تطلب سلة تسجيل دخوله: لا إضافة ولا حدث، فنحرّر الزر
+      salla.event.on('login::open', stopLoading);
+
+      btn.addEventListener('click', () => {
+        if (btn.disabled) {
+          return;
+        }
+
+        // خيار مطلوب ناقص: reportValidity ينقل العميل إليه، ولا نُظهر تحميلًا
+        // لطلب لن يُرسَل أصلًا
+        if (typeof form.reportValidity === 'function' && !form.reportValidity()) {
+          return;
+        }
+
+        btn.classList.add('is-loading');
+        btn.disabled = true;
+        // شبكة أمان: لو انقطعت الشبكة ولم يصل أي حدث لا يبقى الزر معطّلًا
+        release = setTimeout(stopLoading, 10000);
+
         if (typeof form.requestSubmit === 'function') {
           form.requestSubmit();
           return;
