@@ -967,3 +967,132 @@ $sawab-btn-height: 52px;
     flex: 1 1 100%;
   }
 }
+
+// ----- شريط الشراء السفلي (حاسوب فقط) -----
+// الجوال يستخدم شريط سلة اللاصق عبر support-sticky-bar، فلا نزاحمه
+.sawab-sticky-bar {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 40;
+  padding: 10px 0;
+  border-top: 1px solid $sawab-border;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 -6px 24px rgba(28, 27, 25, 0.06);
+  transform: translateY(100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.28s ease, opacity 0.28s ease, visibility 0.28s ease;
+
+  &.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @media (max-width: 1023px) {
+    display: none;
+  }
+}
+
+.sawab-sticky-bar__inner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sawab-sticky-bar__thumb {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: $sawab-cream;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.sawab-sticky-bar__name {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--main-text-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// لا نضبط display على .price_is_on_sale هنا: كلاس hidden من tailwind يجب أن
+// يفوز عليه، وأنماطنا تأتي بعده في المخرجات (انظر مزالق البناء في CLAUDE.md)
+.sawab-sticky-bar__prices {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  // بلا فراغ: ارتفاع السطر وحده كان يبعد ملاحظة الضريبة عن السعر
+  gap: 0;
+}
+
+.sawab-sticky-bar__row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  line-height: 1.15;
+}
+
+.sawab-sticky-bar__price {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+.sawab-sticky-bar__was {
+  font-size: 13px;
+  color: $sawab-muted;
+  text-decoration: line-through;
+  white-space: nowrap;
+}
+
+.sawab-sticky-bar__tax {
+  font-size: 11px;
+  line-height: 1.3;
+  color: $sawab-muted;
+  white-space: nowrap;
+}
+
+.sawab-sticky-bar__btn {
+  flex-shrink: 0;
+  min-height: 44px;
+
+  // أيقونة السلة نفسها المستخدمة في زر الإضافة (mixin في sawab-product-card)
+  &::before {
+    @include sawab-cart-icon(18px);
+
+    [dir="rtl"] & { margin-left: 8px; }
+    [dir="ltr"] & { margin-right: 8px; }
+  }
+
+  padding: 0 28px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--color-primary);
+  color: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}

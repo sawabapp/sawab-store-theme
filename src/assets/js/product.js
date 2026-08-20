@@ -66,6 +66,7 @@ class Product extends BasePage {
         this.initOptionCards();
         this.initQuestionForm();
         this.initComboProducts();
+        this.initStickyBuyBar();
 
         if(imageZoom){
             // call the function when the page is ready
@@ -154,6 +155,36 @@ class Product extends BasePage {
           .finally(() => {
             btn.disabled = false;
           });
+      });
+    }
+
+    /**
+     * شريط الشراء السفلي (حاسوب فقط، والإخفاء بالأنماط): يظهر حين يخرج صفّ
+     * الأزرار الأصلي من الشاشة نحو الأعلى. زرّه يستدعي requestSubmit على الفورم
+     * لا نقرة على زر سلة، فيسري تحقّق الخيارات المطلوبة كما في الشراء العادي.
+     */
+    initStickyBuyBar() {
+      const bar = document.querySelector('.sawab-sticky-bar');
+      const actions = document.querySelector('.sawab-actions');
+      const form = document.querySelector('.product-form');
+
+      if (!bar || !actions || !form) {
+        return;
+      }
+
+      new IntersectionObserver(([entry]) => {
+        // فوق الشاشة فقط: لا يظهر الشريط قبل أن يمرّ العميل بالأزرار
+        const scrolledPast = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        bar.classList.toggle('is-visible', scrolledPast);
+      }, { threshold: 0 }).observe(actions);
+
+      bar.querySelector('.sawab-sticky-bar__btn')?.addEventListener('click', () => {
+        if (typeof form.requestSubmit === 'function') {
+          form.requestSubmit();
+          return;
+        }
+
+        form.querySelector('salla-add-product-button button')?.click();
       });
     }
 

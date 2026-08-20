@@ -97,6 +97,7 @@
 	{% set t_q_hint   = sawab_ar ? 'اسأل عن المقاسات أو التوصيل أو التركيب، وسنجيبك في أسرع وقت.' : 'Ask about sizes, delivery or installation — we will reply shortly.' %}
 	{% set t_q_ph     = sawab_ar ? 'اكتب سؤالك أو تعليقك هنا…' : 'Write your question or comment here…' %}
 	{% set t_q_send   = sawab_ar ? 'إرسال' : 'Send' %}
+	{% set t_sticky_add = sawab_ar ? 'أضف للسلة' : 'Add to cart' %}
     {% if theme.settings.get('product_show_breadcrumbs', true) %}
       <div class="container container--breadcrumbs">
           {# add breadcumbs container in pages to make a space in case breadcrumbs is off #}
@@ -562,6 +563,40 @@
         <salla-products-slider data-testid="store-product-related" source="related" source-value="{{product.id}}" includes='["brand"]' block-title="{{trans('pages.products.similar_products')}}" display-all-url></salla-products-slider>
     </div>
     
+    {# شريط سفلي على الحاسوب فقط: يظهر بانزلاق حين يخرج صف الأزرار من الشاشة.
+       زرّه يمرّ على الفورم نفسه لا على زر سلة، فيسري تحقّق الخيارات المطلوبة.
+       والسعر يحمل .total-price ليحدّثه product.js مع كل تغيير خيار #}
+    {% if product.status == 'sale' and not product.is_out_of_stock %}
+        <div class="sawab-sticky-bar" data-testid="store-product-sticky-bar">
+            <div class="container sawab-sticky-bar__inner">
+                {% if product.image.url %}
+                    <span class="sawab-sticky-bar__thumb">
+                        <img src="{{ product.image.url }}" alt="" width="44" height="44" loading="lazy">
+                    </span>
+                {% endif %}
+
+                <span class="sawab-sticky-bar__name">{{ product.name }}</span>
+
+                {# الكلاسات total-price/before-price/price_is_on_sale تجعل product.js
+                   يحدّث السعرين ويخفي المشطوب تلقائيًا عند تغيّر الخيار #}
+                <span class="sawab-sticky-bar__prices">
+                    <span class="sawab-sticky-bar__row">
+                        <span class="sawab-sticky-bar__price total-price">{{ product.is_on_sale ? product.sale_price|money : (product.starting_price ? product.starting_price|money : product.price|money) }}</span>
+                        <span class="price_is_on_sale {{ product.is_on_sale ? '' : 'hidden' }}">
+                            <span class="sawab-sticky-bar__was before-price">{{ product.regular_price|money }}</span>
+                        </span>
+                    </span>
+
+                    {% if store.settings.tax.taxable_prices_enabled is not same as(false) %}
+                        <span class="sawab-sticky-bar__tax">{{ trans('pages.products.tax_included') }}</span>
+                    {% endif %}
+                </span>
+
+                <button type="button" class="sawab-sticky-bar__btn">{{ t_sticky_add }}</button>
+            </div>
+        </div>
+    {% endif %}
+
     {#
         Hook: product.single.after_product_recommendations
         Fires after the similar/related products slider, at the very end of the product page content.

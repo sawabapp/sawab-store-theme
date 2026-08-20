@@ -54,7 +54,15 @@
         <nav class="breadcrumbs w-full py-5">
             <salla-breadcrumb></salla-breadcrumb>
         </nav>
-        <h1 class="sr-only">{{ trans('blocks.header.cart') }}</h1>
+        {# رأس مرئي بنفس نمط رأس التصنيف: الاسم وتحته عدد المنتجات #}
+        {% set sawab_ar = (language.code|default('ar')) == 'ar' %}
+        <div class="sawab-cart-head">
+            <h1 class="sawab-cart-head__title">{{ sawab_ar ? 'سلة المشتريات' : 'Shopping cart' }}</h1>
+            {% if cart.items|length %}
+                {% set count = cart.items|length %}
+                <p class="sawab-cart-head__count">{{ count }} {{ sawab_ar ? (count > 2 ? 'منتجات' : 'منتج') : (count > 1 ? 'items' : 'item') }}</p>
+            {% endif %}
+        </div>
         <salla-conditional-offer data-testid="store-cart-conditional-offer"></salla-conditional-offer>
         <div class="pt-5 flex flex-col items-start lg:flex-row pb-32 lg:pb-20">
             <div class="main-content w-full lg:w-[calc(100%-384px)]">

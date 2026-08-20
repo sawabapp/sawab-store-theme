@@ -1,0 +1,259 @@
+// ===== صفحة السلة — تصميم صواب =====
+// نفس رموز الهوية (مكرّرة لأن كل ملف sawab-* مستقل)
+$sawab-cart-muted: #9a9a9a;
+$sawab-cart-border: #e8e1d5;
+$sawab-cart-cream: #f8f1e7;
+$sawab-cart-panel: #fffdf9;
+$sawab-cart-save-bg: #f4ead9;
+$sawab-cart-save-text: #8a6a3f;
+$sawab-cart-save-border: #e7d7b8;
+
+// ----- رأس الصفحة -----
+.sawab-cart-head {
+  margin-bottom: 18px;
+}
+
+.sawab-cart-head__title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.4;
+  color: var(--main-text-color);
+}
+
+.sawab-cart-head__count {
+  margin: 2px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: $sawab-cart-muted;
+}
+
+// ----- لوحات الصفحة -----
+// الثيم يستخدم rounded-md (6px) و shadow-default بلا حدود، فنوحّدها مع بقية
+// الصفحات: حدّ شعرة وحواف 18px وظلّ ناعم
+.cart-item,
+#free-shipping,
+#cart-gifting,
+.cart-options,
+salla-cart-coupons,
+.s-cart-summary-card {
+  border: 1px solid $sawab-cart-border;
+  border-radius: 18px;
+  box-shadow: 0 1px 3px rgba(28, 27, 25, 0.04);
+}
+
+// ----- عنصر السلة -----
+.cart-item {
+  padding: 18px;
+
+  // صورة المنتج: مربّعة بلوحة كريمية كمعرض صفحة المنتج
+  img.flex-none {
+    width: 88px;
+    height: 88px;
+    border: 1px solid $sawab-cart-border;
+    border-radius: 12px;
+    background: $sawab-cart-cream;
+    object-fit: cover;
+  }
+
+  h1 a {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.6;
+    color: var(--main-text-color);
+
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+
+  // السعر الحالي أحمر غامق، والأسعار القديمة رمادية مشطوبة
+  .item-price {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--color-primary);
+  }
+
+  .item-regular-price,
+  .item-original-price {
+    font-size: 12.5px;
+    color: $sawab-cart-muted;
+  }
+
+  .item-total {
+    font-size: 15px;
+    font-weight: 800;
+  }
+
+  // زر الحذف: دائرة هادئة تتلوّن عند المرور
+  .btn--delete .s-button-element {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid $sawab-cart-border;
+    color: $sawab-cart-muted;
+    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+
+    &:hover {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+      color: #fff;
+    }
+  }
+}
+
+// ----- مدخل الكمية: نفس هيئته في صفحة المنتج -----
+.cart-item,
+.s-cart-summary-card {
+  .s-quantity-input-container {
+    border: 1.5px solid $sawab-cart-border;
+    border-radius: 12px;
+    background: #fff;
+    min-height: 44px;
+  }
+
+  .s-quantity-input-input {
+    width: 44px;
+    font-weight: 700;
+  }
+}
+
+// ----- شريط الشحن المجاني -----
+// لوحة بيج كشارة "وفّر %" ليقرأه العميل كمكافأة قريبة
+#free-shipping {
+  padding: 16px 18px;
+  background: $sawab-cart-save-bg;
+  border-color: $sawab-cart-save-border;
+
+  .shipping-item {
+    color: $sawab-cart-save-text;
+  }
+
+  h4.shipping-item {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  #free-shipping-bar {
+    margin-top: 22px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.7);
+    overflow: hidden;
+  }
+
+  .progress-bg {
+    height: 10px;
+    border-radius: 999px;
+  }
+}
+
+// ----- كوبون الخصم -----
+salla-cart-coupons {
+  display: block;
+  padding: 6px 18px;
+  background: #fff;
+
+  .s-cart-coupons-coupon-input-container input,
+  input.s-form-control {
+    border: 1px solid $sawab-cart-border;
+    border-radius: 12px;
+    background: #fff;
+
+    &:focus {
+      border-color: var(--color-primary);
+    }
+  }
+
+  .s-cart-coupons-coupon-button .s-button-element {
+    border-radius: 12px;
+    font-weight: 700;
+  }
+
+  .s-cart-coupons-applied-code {
+    border-radius: 10px;
+    background: $sawab-cart-save-bg;
+    color: $sawab-cart-save-text;
+    font-weight: 700;
+  }
+}
+
+// ----- بطاقة الملخّص -----
+.s-cart-summary-card {
+  padding: 18px;
+  background: $sawab-cart-panel;
+
+  .s-cart-summary-card-line {
+    font-size: 13.5px;
+
+    &--discount {
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+  }
+
+  .s-cart-summary-card-bar-total {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--color-primary);
+  }
+
+  .s-cart-summary-card-bar-savings-badge {
+    padding: 3px 9px;
+    border-radius: 8px;
+    background: $sawab-cart-save-bg;
+    color: $sawab-cart-save-text;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  // زر إتمام الطلب
+  #s-cart-summary-card-submit .s-button-element {
+    min-height: 52px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+}
+
+// ----- الحالة الفارغة -----
+// الكلاس مشترك مع صفحات أخرى (المفضلة، الطلبات)، وتوحيده مقصود
+.no-content-placeholder {
+  padding: 56px 20px;
+  border: 1px dashed $sawab-cart-border;
+  border-radius: 18px;
+  background: $sawab-cart-panel;
+
+  i.icon {
+    color: $sawab-cart-muted;
+  }
+
+  .btn {
+    border-radius: 12px;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 640px) {
+  .cart-item {
+    padding: 14px;
+    border-radius: 14px;
+
+    img.flex-none {
+      width: 72px;
+      height: 72px;
+    }
+  }
+
+  .sawab-cart-head__title {
+    font-size: 20px;
+  }
+
+  #free-shipping,
+  salla-cart-coupons,
+  .s-cart-summary-card,
+  .no-content-placeholder {
+    border-radius: 14px;
+  }
+}
