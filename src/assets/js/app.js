@@ -215,10 +215,27 @@ isElementLoaded(selector){
    * (rendered once in master.twig as `store-search-modal`).
    */
   initiateHeaderSearch() {
+    // أيقونة البحث في الجوال: تفتح مودال سلة (لا حقل مدمج هناك)
     this.onClick('[data-open-search]', event => {
       event.preventDefault();
       salla.event.emit('search::open');
     });
+
+    // زر "بحث" على الحاسوب يعمل كمفتاح Enter على الحقل المدمج لا كفاتح مودال:
+    // نفس ما يفعله المكوّن في handleKeyDown — الانتقال إلى صفحة النتائج
+    this.onClick('[data-submit-search]', event => {
+      event.preventDefault();
+      const input = document.querySelector('.site-header__search .s-search-input');
+      const term = input?.value.trim();
+
+      if (!term) {
+        input?.focus();
+        return;
+      }
+
+      window.location.href = salla.url.get('search?q=' + encodeURI(term));
+    });
+
     this.customizeSearchPlaceholder();
   }
 
