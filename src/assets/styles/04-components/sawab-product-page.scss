@@ -1141,3 +1141,18 @@ $sawab-btn-height: 52px;
     transform: rotate(360deg);
   }
 }
+
+// ----- شريط الشراء اللاصق على الجوال -----
+// يأتي من الثيم الأساسي (≤640px) مثبّتًا أسفل الشاشة بظلٍّ **وبلا خلفية**، فيظهر
+// نصّ الصفحة من تحت الأزرار. نضيف زجاجًا وحدًّا علويًا، ومساحة آمنة أسفل
+// لأجهزة الشاشة الكاملة (شريط الـhome في آيفون).
+@media (max-width: 640px) {
+  .is-sticky-product-bar .sticky-product-bar {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(14px) saturate(115%);
+    -webkit-backdrop-filter: blur(14px) saturate(115%);
+    border-top: 1px solid $sawab-border;
+    box-shadow: 0 -6px 24px rgba(28, 27, 25, 0.07);
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+}
