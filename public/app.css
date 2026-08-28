@@ -10254,9 +10254,14 @@ salla-cart-summary .s-cart-summary-count {
   font-weight: 800;
   line-height: 1.4;
   margin: 0;
-  color: #1c1b19;
-  color: var(--main-text-color);
+  color: #c62127;
+  color: var(--color-primary);
   white-space: nowrap;
+}
+.s-product-card-entry.s-product-card-vertical .s-product-card-sale-price h4,
+.s-product-card-entry.s-product-card-vertical .s-product-card-starting-price h4 {
+  color: #c62127 !important;
+  color: var(--color-primary) !important;
 }
 .s-product-card-entry.s-product-card-vertical .s-product-card-sale-price {
   display: flex;

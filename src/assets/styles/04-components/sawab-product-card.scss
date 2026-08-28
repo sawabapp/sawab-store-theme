@@ -195,10 +195,20 @@ $sawab-card-promo-ink: #1c1b19;
       font-weight: 800;
       line-height: 1.4;
       margin: 0;
-      color: var(--main-text-color);
+      // بلون الثيم كسعر صفحة المنتج: سلة تلوّن السعر المخفّض أحمر وتترك
+      // السعر العادي داكنًا، فيتفاوت لون الأسعار بين البطاقات
+      color: var(--color-primary);
       // الرقم ورمز الريال وحدة واحدة لا تُكسَر في العمود الضيّق
       white-space: nowrap;
     }
+  }
+
+  // الثيم الأساسي يفرض `text-red-800 !important` على السعر المخفّض
+  // (product.scss:378) و`text-red-800` على "يبدأ من" — وهو #991b1b لا أحمر
+  // الهوية #c62127. فلا سبيل لتوحيد اللون إلا بـ!important مقابل
+  .s-product-card-sale-price h4,
+  .s-product-card-starting-price h4 {
+    color: var(--color-primary) !important;
   }
 
   .s-product-card-sale-price {
