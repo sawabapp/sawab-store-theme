@@ -1,10 +1,13 @@
 {
+    "version": "1.0.0",
+    "theme_name": "Sawab Store",
+    "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "name": {
-        "ar": "sawab-store-theme",
-        "en": "sawab-store-theme"
+        "ar": "صواب",
+        "en": "Sawab Store"
     },
     "repository": "https://github.com/sawabapp/sawab-store-theme",
-    "author_email": "imr_khaled@outlook.com",
+    "author_email": "khaled@sawab.app",
     "features": [
         "mega-menu",
         "fonts",
@@ -1592,7 +1595,7 @@
             ]
         }
     ],
-    "support_url": "https://example.com",
+    "support_url": "https://sawab.app",
     "description": {
         "ar": "ثيم متجر صواب لحلول المياه المنزلية",
         "en": "Sawab Store theme for home water solutions"
