@@ -43,10 +43,20 @@ salla theme preview    # معاينة حيّة (تفاعلي — يحتاج طر
 
 > الأنواع المسموحة فقط: `string` · `boolean` · `collection` · `number` ·
 > `items` · `static`
-> (`format` حرّ — `"format": "range"` مقبول مع `"type": "number"`.)
 
 فشل التحقق ⇒ **لم تُبنَ أي نسخة قط** ⇒ `cdn.assets.salla.network/themes/121610538/*`
 يعيد 404 لكل النسخ ⇒ لا أصول، لا إعدادات، لا مكوّنات، والمتجر يبقى على رائد.
+
+**ولا تكتفِ بتصحيح النوع:** حوّلناهما إلى `"type": "number"` فمرّا من مُدقِّق
+الـCLI، ثم ردّ المحرّك **422** عند رسم الصفحة. ولا ثيم رسمي من سلة يستعمل إعدادًا
+رقميًا أصلًا — فلا صيغة مؤكدة تُقاس عليها. فحُذف الإعدادان نهائيًا (commit
+`5ffb487`) وثُبّت ارتفاع الشعار في القيم الاحتياطية داخل
+`var(--logo-h-desktop, 40px)` و`var(--logo-h-mobile, 32px)`.
+
+> **القاعدة:** التزم بأزواج `type/format` التي يستعملها `theme-raed` فعلًا
+> (`boolean/switch`, `items/dropdown-list`, `static/line|title`,
+> `string/text|textarea|image`). أي نوع خارجها مقامرة بالثيم كله مقابل إعداد
+> واحد.
 
 ### من يكشف هذا الخطأ؟ `salla theme preview` وحده
 
