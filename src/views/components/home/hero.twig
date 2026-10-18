@@ -1,47 +1,46 @@
 {#
 | Variable | Type | Description |
 |----------|------|--------------|
-| theme.settings.hero_section_enabled          | bool    |                                                  |
-| theme.settings.hero_badge_text               | ?string |                                                  |
-| theme.settings.hero_title                    | ?string | السطر الأول من العنوان                          |
-| theme.settings.hero_title_highlight_prefix   | ?string | بداية السطر الثاني (بدون تمييز)                  |
-| theme.settings.hero_title_highlight          | ?string | نهاية السطر الثاني (بلون العلامة التجارية)        |
-| theme.settings.hero_description              | ?string |                                                  |
-| theme.settings.hero_image                    | ?string |                                                  |
-| theme.settings.hero_whatsapp_number          | ?string | أرقام فقط، مثال: 966500000000                   |
-| theme.settings.hero_whatsapp_button_text     | ?string |                                                  |
-| theme.settings.hero_shop_button_text         | ?string |                                                  |
-| theme.settings.hero_shop_button_link         | ?string |                                                  |
-| theme.settings.hero_delivery_title           | ?string |                                                  |
-| theme.settings.hero_delivery_description     | ?string |                                                  |
-| theme.settings.hero_warranty_title           | ?string |                                                  |
-| theme.settings.hero_warranty_description     | ?string |                                                  |
-| theme.settings.hero_rating_percentage        | ?string |                                                  |
-| theme.settings.hero_rating_count_text        | ?string |                                                  |
-| theme.settings.hero_reviews_link             | ?string |                                                  |
+| component.hero_badge_text               | ?string |                                           |
+| component.hero_title                    | ?string | السطر الأول من العنوان                    |
+| component.hero_title_highlight_prefix   | ?string | بداية السطر الثاني (بدون تمييز)            |
+| component.hero_title_highlight          | ?string | نهاية السطر الثاني (بلون العلامة التجارية)  |
+| component.hero_description              | ?string |                                           |
+| component.hero_image                    | ?string |                                           |
+| component.hero_whatsapp_number          | ?string | أرقام فقط، مثال: 966500000000             |
+| component.hero_whatsapp_button_text     | ?string |                                           |
+| component.hero_shop_button_text         | ?string |                                           |
+| component.hero_shop_button_link         | ?string |                                           |
+| component.hero_delivery_title           | ?string |                                           |
+| component.hero_delivery_description     | ?string |                                           |
+| component.hero_warranty_title           | ?string |                                           |
+| component.hero_warranty_description     | ?string |                                           |
+| component.hero_rating_percentage        | ?string |                                           |
+| component.hero_rating_count_text        | ?string |                                           |
+| component.hero_reviews_link             | ?string |                                           |
 
-هذا القسم ثابت أعلى الصفحة الرئيسية (يُقرأ من إعدادات التصميم مباشرة)،
-وليس عنصرًا من منشئ الصفحة — فيظهر تلقائيًا بدون أي إضافة يدوية.
+مكوّن مسجّل في twilight.json بالمسار `home.hero`، فيُضاف ويُخفى ويُرتَّب من لوحة
+«عناصر الصفحة» كبقية المكوّنات. لا معرّفات ثابتة فيه، فإضافته أكثر من مرة آمنة.
 #}
 {% set sawab_ar = (language.code|default('ar')) == 'ar' %}
 {% set t_reviews_link = sawab_ar ? 'آراء العملاء' : 'Customer reviews' %}
-{% set badge_text = theme.settings.get('hero_badge_text') %}
-{% set title = theme.settings.get('hero_title') %}
-{% set title_highlight_prefix = theme.settings.get('hero_title_highlight_prefix') %}
-{% set title_highlight = theme.settings.get('hero_title_highlight') %}
-{% set description = theme.settings.get('hero_description') %}
-{% set hero_image = theme.settings.get('hero_image') %}
-{% set whatsapp_number = theme.settings.get('hero_whatsapp_number') %}
-{% set whatsapp_button_text = theme.settings.get('hero_whatsapp_button_text') %}
-{% set shop_button_text = theme.settings.get('hero_shop_button_text') %}
-{% set shop_button_link = theme.settings.get('hero_shop_button_link') %}
-{% set delivery_title = theme.settings.get('hero_delivery_title') %}
-{% set delivery_description = theme.settings.get('hero_delivery_description') %}
-{% set warranty_title = theme.settings.get('hero_warranty_title') %}
-{% set warranty_description = theme.settings.get('hero_warranty_description') %}
-{% set rating_percentage = theme.settings.get('hero_rating_percentage') %}
-{% set rating_count_text = theme.settings.get('hero_rating_count_text') %}
-{% set reviews_link = theme.settings.get('hero_reviews_link') %}
+{% set badge_text = component.hero_badge_text %}
+{% set title = component.hero_title %}
+{% set title_highlight_prefix = component.hero_title_highlight_prefix %}
+{% set title_highlight = component.hero_title_highlight %}
+{% set description = component.hero_description %}
+{% set hero_image = component.hero_image %}
+{% set whatsapp_number = component.hero_whatsapp_number %}
+{% set whatsapp_button_text = component.hero_whatsapp_button_text %}
+{% set shop_button_text = component.hero_shop_button_text %}
+{% set shop_button_link = component.hero_shop_button_link %}
+{% set delivery_title = component.hero_delivery_title %}
+{% set delivery_description = component.hero_delivery_description %}
+{% set warranty_title = component.hero_warranty_title %}
+{% set warranty_description = component.hero_warranty_description %}
+{% set rating_percentage = component.hero_rating_percentage %}
+{% set rating_count_text = component.hero_rating_count_text %}
+{% set reviews_link = component.hero_reviews_link %}
 
 {# إعدادات الهيرو تُضبط من لوحة التصميم، وقد تكون فارغة تمامًا في متجر جديد —
    فلا نرسم لوحة كريمية فارغة بلا محتوى #}

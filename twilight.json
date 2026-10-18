@@ -1,5 +1,5 @@
 {
-    "version": "1.0.123",
+    "version": "1.0.125",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -359,355 +359,6 @@
             "required": false,
             "value": false,
             "selected": false
-        },
-        {
-            "type": "static",
-            "id": "static-line-hero",
-            "format": "line"
-        },
-        {
-            "type": "static",
-            "format": "title",
-            "id": "static-label-hero",
-            "value": "<div class='rounded-lg' ><h6 > قسم الهيرو في الصفحة الرئيسية</h6></div>",
-            "variant": "h6"
-        },
-        {
-            "type": "boolean",
-            "icon": "sicon-toggle-off",
-            "label": "تفعيل قسم الهيرو أعلى الصفحة الرئيسية",
-            "description": "يظهر تلقائيًا أعلى الصفحة الرئيسية دون الحاجة لإضافته من منشئ الصفحة",
-            "id": "hero_section_enabled",
-            "format": "switch",
-            "required": false,
-            "value": true,
-            "selected": true
-        },
-        {
-            "type": "string",
-            "icon": "sicon-award-ribbon",
-            "label": "نص الشارة العلوية",
-            "multilanguage": true,
-            "id": "hero_badge_text",
-            "value": "موثوق لدى منصة الأعمال · SBC 0000026946",
-            "required": false,
-            "format": "text",
-            "placeholder": "أدخل نص الشارة هنا...",
-            "minLength": 0,
-            "maxLength": 100,
-            "conditions": [
-                {
-                    "id": "hero_section_enabled",
-                    "operation": "=",
-                    "value": true
-                }
-            ]
-        },
-        {
-            "type": "string",
-            "icon": "sicon-format-text-alt",
-            "label": "السطر الأول من العنوان",
-            "multilanguage": true,
-            "id": "hero_title",
-            "value": "كل حلول المياه لمنزلك،",
-            "required": false,
-            "format": "text",
-            "minLength": 0,
-            "maxLength": 100,
-            "conditions": [
-                {
-                    "id": "hero_section_enabled",
-                    "operation": "=",
-                    "value": true
-                }
-            ]
-        },
-        {
-            "type": "string",
-            "icon": "sicon-format-text-alt",
-            "label": "السطر الثاني من العنوان (الجزء العادي)",
-            "multilanguage": true,
-            "id": "hero_title_highlight_prefix",
-            "value": "تصلك خلال",
-            "required": false,
-            "format": "text",
-            "minLength": 0,
-            "maxLength": 100,
-            "conditions": [
-                {
-                    "id": "hero_section_enabled",
-                    "operation": "=",
-                    "value": true
-                }
-            ]
-        },
-        {
-            "type": "string",
-            "icon": "sicon-format-text-alt",
-            "label": "السطر الثاني من العنوان (الجزء المميز بلون العلامة)",
-            "multilanguage": true,
-            "id": "hero_title_highlight",
-            "value": "1-4 أيام",
-            "required": false,
-            "format": "text",
-            "minLength": 0,
-            "maxLength": 50,
-            "conditions": [
-                {
-                    "id": "hero_section_enabled",
-                    "operation": "=",
-                    "value": true
-                }
-            ]
-        },
-        {
-            "type": "string",
-            "icon": "sicon-typography",
-            "label": "الوصف",
-            "multilanguage": true,
-            "id": "hero_description",
-            "value": "منتجات أصلية من موردين معتمدين، بضمانات تصل إلى 7 سنوات وتوصيل وتركيب حتى باب منزلك.",
-            "required": false,
-            "format": "textarea",
-            "minLength": 0,
-            "maxLength": 255,
-            "conditions": [
-                {
-                    "id": "hero_section_enabled",
-                    "operation": "=",
-                    "value": true
-                }
-            ]
-        },
-        {
-            "type": "string",
-            "icon": "sicon-image",
-            "label": "صورة الهيرو",
-            "id": "hero_image",
-            "value": null,
-            "required": false,
-            "format": "image",
-            "description": "* المقاس المناسب للصورة هو 700×700 بكسل، ويُفضّل خلفية شفافة",
-            "settings": {
-                "height": 700,
-                "width": 700
-            },
-            "conditions": [
-                {
-                    "id": "hero_section_enabled",
-                    "operation": "=",
-                    "value": true
-                }
-            ]
-        },
-        {
-            "type": "string",
-            "icon": "sicon-whatsapp",
-            "label": "رقم واتساب (أرقام فقط مع رمز الدولة)",
-            "id": "hero_whatsapp_number",
-            "value": null,
-            "required": false,
-            "format": "text",
-            "placeholder": "مثال: 966500000000",
-            "minLength": 0,
-            "maxLength": 20,
-            "conditions": [
-                {
-                    "id": "hero_section_enabled",
-                    "operation": "=",
-                    "value": true
-                }
-            ]
-        },
-        {
-            "type": "string",
-            "icon": "sicon-format-text-alt",
-            "label": "نص زر واتساب",
-            "multilanguage": true,
-            "id": "hero_whatsapp_button_text",
-            "value": "استشرنا واتساب",
-            "required": false,
-            "format": "text",
-            "minLength": 0,
-            "maxLength": 40,
-            "conditions": [
-                {
-                    "id": "hero_section_enabled",
-                    "operation": "=",
-                    "value": true
-                }
-            ]
-        },
-        {
-            "type": "string",
-            "icon": "sicon-format-text-alt",
-            "label": "نص زر التسوق",
-            "multilanguage": true,
-            "id": "hero_shop_button_text",
-            "value": "تسوق الآن",
-            "required": false,
-            "format": "text",
-            "minLength": 0,
-            "maxLength": 40,
-            "conditions": [
-                {
-                    "id": "hero_section_enabled",
-                    "operation": "=",
-                    "value": true
-                }
-            ]
-        },
-        {
-            "type": "string",
-            "icon": "sicon-link",
-            "label": "رابط زر التسوق",
-            "id": "hero_shop_button_link",
-            "value": null,
-            "required": false,
-            "format": "text",
-            "placeholder": "مثال: /offers أو رابط كامل",
-            "minLength": 0,
-            "maxLength": 250,
-            "conditions": [
-                {
-                    "id": "hero_section_enabled",
-                    "operation": "=",
-                    "value": true
-                }
-            ]
-        },
-        {
-            "type": "string",
-            "icon": "sicon-shipping-fast",
-            "label": "عنوان بطاقة التوصيل",
-            "multilanguage": true,
-            "id": "hero_delivery_title",
-            "value": "توصيل خلال 1-4 أيام 🚚",
-            "required": false,
-            "format": "text",
-            "minLength": 0,
-            "maxLength": 60,
-            "conditions": [
-                {
-                    "id": "hero_section_enabled",
-                    "operation": "=",
-                    "value": true
-                }
-            ]
-        },
-        {
-            "type": "string",
-            "icon": "sicon-typography",
-            "label": "وصف بطاقة التوصيل",
-            "multilanguage": true,
-            "id": "hero_delivery_description",
-            "value": "توصيل ورفع وتركيب لجميع مناطق المملكة",
-            "required": false,
-            "format": "textarea",
-            "minLength": 0,
-            "maxLength": 120,
-            "conditions": [
-                {
-                    "id": "hero_section_enabled",
-                    "operation": "=",
-                    "value": true
-                }
-            ],
-            "public": true
-        },
-        {
-            "type": "string",
-            "icon": "sicon-award-ribbon",
-            "label": "عنوان بطاقة الضمان",
-            "multilanguage": true,
-            "id": "hero_warranty_title",
-            "value": "ضمانات حتى 7 سنوات",
-            "required": false,
-            "format": "text",
-            "minLength": 0,
-            "maxLength": 60,
-            "conditions": [
-                {
-                    "id": "hero_section_enabled",
-                    "operation": "=",
-                    "value": true
-                }
-            ]
-        },
-        {
-            "type": "string",
-            "icon": "sicon-typography",
-            "label": "وصف بطاقة الضمان",
-            "multilanguage": true,
-            "id": "hero_warranty_description",
-            "value": "منتجات أصلية مع فواتير ضريبية من موردين معتمدين",
-            "required": false,
-            "format": "textarea",
-            "minLength": 0,
-            "maxLength": 120,
-            "conditions": [
-                {
-                    "id": "hero_section_enabled",
-                    "operation": "=",
-                    "value": true
-                }
-            ]
-        },
-        {
-            "type": "string",
-            "icon": "sicon-star",
-            "label": "نسبة التقييم",
-            "id": "hero_rating_percentage",
-            "value": "97%",
-            "required": false,
-            "format": "text",
-            "minLength": 0,
-            "maxLength": 10,
-            "conditions": [
-                {
-                    "id": "hero_section_enabled",
-                    "operation": "=",
-                    "value": true
-                }
-            ]
-        },
-        {
-            "type": "string",
-            "icon": "sicon-typography",
-            "label": "نص عدد التقييمات",
-            "multilanguage": true,
-            "id": "hero_rating_count_text",
-            "value": "تقييم +5000 عميل",
-            "required": false,
-            "format": "text",
-            "minLength": 0,
-            "maxLength": 60,
-            "conditions": [
-                {
-                    "id": "hero_section_enabled",
-                    "operation": "=",
-                    "value": true
-                }
-            ]
-        },
-        {
-            "type": "string",
-            "icon": "sicon-link",
-            "label": "رابط آراء العملاء",
-            "id": "hero_reviews_link",
-            "value": null,
-            "required": false,
-            "format": "text",
-            "placeholder": "مثال: /reviews أو رابط كامل",
-            "minLength": 0,
-            "maxLength": 250,
-            "conditions": [
-                {
-                    "id": "hero_section_enabled",
-                    "operation": "=",
-                    "value": true
-                }
-            ]
         }
     ],
     "components": [
@@ -1564,6 +1215,223 @@
                     "required": false,
                     "minLength": 1,
                     "maxLength": 30
+                }
+            ]
+        },
+        {
+            "key": "09843d65-f541-4d5d-95b3-f6bf51238adf",
+            "title": {
+                "ar": "قسم الهيرو",
+                "en": "Hero section"
+            },
+            "icon": "sicon-image",
+            "path": "home.hero",
+            "fields": [
+                {
+                    "type": "string",
+                    "icon": "sicon-award-ribbon",
+                    "label": "نص الشارة العلوية",
+                    "multilanguage": true,
+                    "id": "hero_badge_text",
+                    "value": "موثوق لدى منصة الأعمال · SBC 0000026946",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": "أدخل نص الشارة هنا...",
+                    "minLength": 0,
+                    "maxLength": 100
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "السطر الأول من العنوان",
+                    "multilanguage": true,
+                    "id": "hero_title",
+                    "value": "كل حلول المياه لمنزلك،",
+                    "required": false,
+                    "format": "text",
+                    "minLength": 0,
+                    "maxLength": 100
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "السطر الثاني من العنوان (الجزء العادي)",
+                    "multilanguage": true,
+                    "id": "hero_title_highlight_prefix",
+                    "value": "تصلك خلال",
+                    "required": false,
+                    "format": "text",
+                    "minLength": 0,
+                    "maxLength": 100
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "السطر الثاني من العنوان (الجزء المميز بلون العلامة)",
+                    "multilanguage": true,
+                    "id": "hero_title_highlight",
+                    "value": "1-4 أيام",
+                    "required": false,
+                    "format": "text",
+                    "minLength": 0,
+                    "maxLength": 50
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-typography",
+                    "label": "الوصف",
+                    "multilanguage": true,
+                    "id": "hero_description",
+                    "value": "منتجات أصلية من موردين معتمدين، بضمانات تصل إلى 7 سنوات وتوصيل وتركيب حتى باب منزلك.",
+                    "required": false,
+                    "format": "textarea",
+                    "minLength": 0,
+                    "maxLength": 255
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-image",
+                    "label": "صورة الهيرو",
+                    "id": "hero_image",
+                    "value": null,
+                    "required": false,
+                    "format": "image",
+                    "description": "* المقاس المناسب للصورة هو 700×700 بكسل، ويُفضّل خلفية شفافة",
+                    "settings": {
+                        "height": 700,
+                        "width": 700
+                    }
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-whatsapp",
+                    "label": "رقم واتساب (أرقام فقط مع رمز الدولة)",
+                    "id": "hero_whatsapp_number",
+                    "value": null,
+                    "required": false,
+                    "format": "text",
+                    "placeholder": "مثال: 966500000000",
+                    "minLength": 0,
+                    "maxLength": 20
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "نص زر واتساب",
+                    "multilanguage": true,
+                    "id": "hero_whatsapp_button_text",
+                    "value": "استشرنا واتساب",
+                    "required": false,
+                    "format": "text",
+                    "minLength": 0,
+                    "maxLength": 40
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "نص زر التسوق",
+                    "multilanguage": true,
+                    "id": "hero_shop_button_text",
+                    "value": "تسوق الآن",
+                    "required": false,
+                    "format": "text",
+                    "minLength": 0,
+                    "maxLength": 40
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-link",
+                    "label": "رابط زر التسوق",
+                    "id": "hero_shop_button_link",
+                    "value": null,
+                    "required": false,
+                    "format": "text",
+                    "placeholder": "مثال: /offers أو رابط كامل",
+                    "minLength": 0,
+                    "maxLength": 250
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-shipping-fast",
+                    "label": "عنوان بطاقة التوصيل",
+                    "multilanguage": true,
+                    "id": "hero_delivery_title",
+                    "value": "توصيل خلال 1-4 أيام 🚚",
+                    "required": false,
+                    "format": "text",
+                    "minLength": 0,
+                    "maxLength": 60
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-typography",
+                    "label": "وصف بطاقة التوصيل",
+                    "multilanguage": true,
+                    "id": "hero_delivery_description",
+                    "value": "توصيل ورفع وتركيب لجميع مناطق المملكة",
+                    "required": false,
+                    "format": "textarea",
+                    "minLength": 0,
+                    "maxLength": 120
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-award-ribbon",
+                    "label": "عنوان بطاقة الضمان",
+                    "multilanguage": true,
+                    "id": "hero_warranty_title",
+                    "value": "ضمانات حتى 7 سنوات",
+                    "required": false,
+                    "format": "text",
+                    "minLength": 0,
+                    "maxLength": 60
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-typography",
+                    "label": "وصف بطاقة الضمان",
+                    "multilanguage": true,
+                    "id": "hero_warranty_description",
+                    "value": "منتجات أصلية مع فواتير ضريبية من موردين معتمدين",
+                    "required": false,
+                    "format": "textarea",
+                    "minLength": 0,
+                    "maxLength": 120
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-star",
+                    "label": "نسبة التقييم",
+                    "id": "hero_rating_percentage",
+                    "value": "97%",
+                    "required": false,
+                    "format": "text",
+                    "minLength": 0,
+                    "maxLength": 10
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-typography",
+                    "label": "نص عدد التقييمات",
+                    "multilanguage": true,
+                    "id": "hero_rating_count_text",
+                    "value": "تقييم +5000 عميل",
+                    "required": false,
+                    "format": "text",
+                    "minLength": 0,
+                    "maxLength": 60
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-link",
+                    "label": "رابط آراء العملاء",
+                    "id": "hero_reviews_link",
+                    "value": null,
+                    "required": false,
+                    "format": "text",
+                    "placeholder": "مثال: /reviews أو رابط كامل",
+                    "minLength": 0,
+                    "maxLength": 250
                 }
             ]
         }
