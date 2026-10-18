@@ -1,5 +1,5 @@
 {
-    "version": "1.0.109",
+    "version": "1.0.122",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -122,7 +122,7 @@
             "selected": false
         },
         {
-            "type": "range",
+            "type": "number",
             "icon": "sicon-image",
             "label": "حجم شعار المتجر - سطح المكتب (بكسل)",
             "description": "تحكم بارتفاع شعار المتجر في الهيدر على الحاسوب",
@@ -136,7 +136,7 @@
             "selected": 40
         },
         {
-            "type": "range",
+            "type": "number",
             "icon": "sicon-image",
             "label": "حجم شعار المتجر - الجوال (بكسل)",
             "description": "تحكم بارتفاع شعار المتجر في الهيدر على الجوال",
