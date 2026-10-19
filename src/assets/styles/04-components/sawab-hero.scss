@@ -36,9 +36,9 @@
   min-width: 0;
   max-width: 56%;
 
-  // حجاب متدرّج من لون البطاقة: معتم خلف النص ويتلاشى نحو الصورة،
-  // فيبقى النص مقروءًا مهما كانت الصورة فاتحة أو داكنة خلفه
-  &::before {
+  // حجاب متدرّج اختياري (حقل hero_text_scrim): معتم خلف النص ويتلاشى نحو
+  // الصورة، فيبقى النص مقروءًا مهما كانت الصورة فاتحة أو داكنة خلفه
+  .sawab-hero--scrim &::before {
     content: '';
     position: absolute;
     top: -48px;
@@ -48,12 +48,12 @@
     pointer-events: none;
   }
 
-  [dir="rtl"] &::before {
+  [dir="rtl"] .sawab-hero--scrim &::before {
     right: -48px;
     background: linear-gradient(to left, #f3ebe0 48%, rgba(243, 235, 224, 0) 100%);
   }
 
-  [dir="ltr"] &::before {
+  [dir="ltr"] .sawab-hero--scrim &::before {
     left: -48px;
     background: linear-gradient(to right, #f3ebe0 48%, rgba(243, 235, 224, 0) 100%);
   }
@@ -301,7 +301,7 @@
   .sawab-hero__content {
     max-width: none;
 
-    &::before {
+    .sawab-hero--scrim &::before {
       content: none;
     }
   }

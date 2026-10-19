@@ -9878,7 +9878,7 @@ salla-cart-summary .s-cart-summary-count {
   min-width: 0;
   max-width: 56%;
 }
-.sawab-hero__content::before {
+.sawab-hero--scrim .sawab-hero__content::before {
   content: "";
   position: absolute;
   top: -48px;
@@ -9887,11 +9887,11 @@ salla-cart-summary .s-cart-summary-count {
   z-index: -1;
   pointer-events: none;
 }
-[dir=rtl] .sawab-hero__content::before {
+[dir=rtl] .sawab-hero--scrim .sawab-hero__content::before {
   right: -48px;
   background: linear-gradient(to left, #f3ebe0 48%, rgba(243, 235, 224, 0) 100%);
 }
-[dir=ltr] .sawab-hero__content::before {
+[dir=ltr] .sawab-hero--scrim .sawab-hero__content::before {
   left: -48px;
   background: linear-gradient(to right, #f3ebe0 48%, rgba(243, 235, 224, 0) 100%);
 }
@@ -10107,7 +10107,7 @@ salla-cart-summary .s-cart-summary-count {
   .sawab-hero__content {
     max-width: none;
   }
-  .sawab-hero__content::before {
+  .sawab-hero--scrim .sawab-hero__content::before {
     content: none;
   }
   .sawab-hero__image {

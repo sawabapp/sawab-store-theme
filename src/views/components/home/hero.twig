@@ -7,6 +7,7 @@
 | component.hero_title_highlight          | ?string | نهاية السطر الثاني (بلون العلامة التجارية)  |
 | component.hero_description              | ?string |                                           |
 | component.hero_image                    | ?string |                                           |
+| component.hero_text_scrim               | bool    | تدرّج يحمي قراءة النص فوق الصورة (افتراضيًا مفعّل) |
 | component.hero_whatsapp_number          | ?string | أرقام فقط، مثال: 966500000000             |
 | component.hero_whatsapp_button_text     | ?string |                                           |
 | component.hero_shop_button_text         | ?string |                                           |
@@ -30,6 +31,7 @@
 {% set title_highlight = component.hero_title_highlight %}
 {% set description = component.hero_description %}
 {% set hero_image = component.hero_image %}
+{% set text_scrim = component.hero_text_scrim is not same as(false) %}
 {% set whatsapp_number = component.hero_whatsapp_number %}
 {% set whatsapp_button_text = component.hero_whatsapp_button_text %}
 {% set shop_button_text = component.hero_shop_button_text %}
@@ -45,7 +47,7 @@
 {# إعدادات الهيرو تُضبط من لوحة التصميم، وقد تكون فارغة تمامًا في متجر جديد —
    فلا نرسم لوحة كريمية فارغة بلا محتوى #}
 {% if title or title_highlight or badge_text or hero_image %}
-<section data-testid="store-home-hero" class="s-block sawab-hero">
+<section data-testid="store-home-hero" class="s-block sawab-hero{{ text_scrim ? ' sawab-hero--scrim' : '' }}">
   <div class="sawab-hero__grid">
 
     <div class="sawab-hero__main">
