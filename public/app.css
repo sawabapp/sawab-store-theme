@@ -12149,27 +12149,38 @@ salla-modal:has(.s-localization-modal-inner) .s-button-element {
 .sawab-cats--cols-6 .sawab-cats__grid {
   grid-template-columns: repeat(6, minmax(0, 1fr));
 }
+.sawab-cats--cols-7 .sawab-cats__grid {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+.sawab-cats--cols-8 .sawab-cats__grid {
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+}
 .sawab-cats__card {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 10px;
+  height: 100%;
+  padding: 16px 10px 14px;
+  background: #fff;
+  border: 1px solid #f2ecdf;
+  border: 1px solid var(--color-border, #e8e1d5);
+  border-radius: 16px;
   -webkit-text-decoration: none;
   text-decoration: none;
   color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 .sawab-cats__media {
   position: relative;
-  width: 100%;
-  aspect-ratio: 1/1;
+  width: 62px;
+  height: 62px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   background: #f3ebe0;
-  border: 1px solid #f2ecdf;
-  border: 1px solid var(--color-border, #e8e1d5);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 .sawab-cats__media img {
   width: 100%;
@@ -12186,7 +12197,7 @@ salla-modal:has(.s-localization-modal-inner) .s-button-element {
   border-radius: 999px;
 }
 .sawab-cats--rounded .sawab-cats__media {
-  border-radius: 18px;
+  border-radius: 14px;
 }
 .sawab-cats__name {
   font-size: 14px;
@@ -12200,17 +12211,17 @@ salla-modal:has(.s-localization-modal-inner) .s-button-element {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.sawab-cats__card:hover .sawab-cats__media {
+.sawab-cats__card:hover {
   transform: translateY(-3px);
   border-color: #c62127;
   border-color: var(--color-primary);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.09);
 }
 .sawab-cats__card:hover .sawab-cats__name {
   color: #c62127;
   color: var(--color-primary);
 }
-.sawab-cats__card:focus-visible .sawab-cats__media {
+.sawab-cats__card:focus-visible {
   outline: 2px solid #c62127;
   outline: 2px solid var(--color-primary);
   outline-offset: 3px;
@@ -12220,7 +12231,9 @@ salla-modal:has(.s-localization-modal-inner) .s-button-element {
     padding: 28px 24px;
   }
   .sawab-cats--cols-5 .sawab-cats__grid,
-  .sawab-cats--cols-6 .sawab-cats__grid {
+  .sawab-cats--cols-6 .sawab-cats__grid,
+  .sawab-cats--cols-7 .sawab-cats__grid,
+  .sawab-cats--cols-8 .sawab-cats__grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
@@ -12237,7 +12250,9 @@ salla-modal:has(.s-localization-modal-inner) .s-button-element {
   .sawab-cats__grid,
   .sawab-cats--cols-4 .sawab-cats__grid,
   .sawab-cats--cols-5 .sawab-cats__grid,
-  .sawab-cats--cols-6 .sawab-cats__grid {
+  .sawab-cats--cols-6 .sawab-cats__grid,
+  .sawab-cats--cols-7 .sawab-cats__grid,
+  .sawab-cats--cols-8 .sawab-cats__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .sawab-cats__name {
@@ -12251,7 +12266,9 @@ salla-modal:has(.s-localization-modal-inner) .s-button-element {
   .sawab-cats__grid,
   .sawab-cats--cols-4 .sawab-cats__grid,
   .sawab-cats--cols-5 .sawab-cats__grid,
-  .sawab-cats--cols-6 .sawab-cats__grid {
+  .sawab-cats--cols-6 .sawab-cats__grid,
+  .sawab-cats--cols-7 .sawab-cats__grid,
+  .sawab-cats--cols-8 .sawab-cats__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

@@ -1,5 +1,5 @@
 {
-    "version": "1.0.135",
+    "version": "1.0.136",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -2241,26 +2241,36 @@
                     "icon": "sicon-grid",
                     "selected": [
                         {
-                            "label": "5",
-                            "value": "5",
-                            "key": "66d10817-e690-4bb5-be19-1dd22650f74a"
+                            "label": "8",
+                            "value": "8",
+                            "key": "c0219f01-20b0-4c7b-b5f2-58b34a7161cc"
                         }
                     ],
                     "options": [
                         {
                             "label": "4",
                             "value": "4",
-                            "key": "ea21933a-3124-4f9f-93ac-59d6aa7bfbca"
+                            "key": "ea3b49c1-2601-4b6b-b16d-558f7b98d3a5"
                         },
                         {
                             "label": "5",
                             "value": "5",
-                            "key": "66d10817-e690-4bb5-be19-1dd22650f74a"
+                            "key": "c6834e3e-7e3e-450d-a500-27566f4e267a"
                         },
                         {
                             "label": "6",
                             "value": "6",
-                            "key": "1631d374-ad19-4e2e-8c25-6eab4826f3a8"
+                            "key": "72258dff-1a8a-4fd4-a80e-bd8a3b2708bd"
+                        },
+                        {
+                            "label": "7",
+                            "value": "7",
+                            "key": "f5f9dc64-0b24-4531-98dd-94335dd0de04"
+                        },
+                        {
+                            "label": "8",
+                            "value": "8",
+                            "key": "c0219f01-20b0-4c7b-b5f2-58b34a7161cc"
                         }
                     ],
                     "source": "Manual",
