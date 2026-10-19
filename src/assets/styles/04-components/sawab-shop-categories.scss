@@ -10,11 +10,7 @@
 }
 
 .sawab-cats__head {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 22px;
+  margin-bottom: 18px;
 }
 
 .sawab-cats__title {
@@ -31,46 +27,35 @@
   margin: 6px 0 0;
 }
 
-.sawab-cats__all {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  flex-shrink: 0;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--color-primary);
-  text-decoration: none;
-  transition: opacity 0.18s ease;
+// ===== الشريط المنزلق =====
+// محدّدات الشرائح تبدأ باسم المكوّن salla-slider: قواعد سلة لمكوّناتها تبدأ
+// باسمها، فأي قاعدة بكلاسات فقط تخسر بفارق الخصوصية (انظر CLAUDE.md).
+salla-slider.sawab-cats__slider {
+  display: block;
 
-  i {
-    font-size: 12px;
-    transition: transform 0.18s ease;
-  }
-
-  &:hover i {
-    transform: translateX(-3px);
+  .sawab-cats__slide {
+    height: auto;
+    width: 45%;
   }
 }
 
-[dir="ltr"] .sawab-cats__all:hover i {
-  transform: translateX(3px);
+@media (min-width: 480px) {
+  salla-slider.sawab-cats__slider .sawab-cats__slide { width: 33.333%; }
 }
 
-.sawab-cats__grid {
-  display: grid;
-  gap: 18px 14px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+@media (min-width: 768px) {
+  salla-slider.sawab-cats__slider .sawab-cats__slide { width: 25%; }
 }
 
-.sawab-cats--cols-4 .sawab-cats__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.sawab-cats--cols-5 .sawab-cats__grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-.sawab-cats--cols-6 .sawab-cats__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-.sawab-cats--cols-7 .sawab-cats__grid { grid-template-columns: repeat(7, minmax(0, 1fr)); }
-.sawab-cats--cols-8 .sawab-cats__grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+// على الحاسوب يقرّر التاجر كم فئة تظهر، والباقي يُتصفَّح بالسحب
+@media (min-width: 1024px) {
+  .sawab-cats--cols-4 salla-slider.sawab-cats__slider .sawab-cats__slide { width: 25%; }
+  .sawab-cats--cols-5 salla-slider.sawab-cats__slider .sawab-cats__slide { width: 20%; }
+  .sawab-cats--cols-6 salla-slider.sawab-cats__slider .sawab-cats__slide { width: 16.666%; }
+  .sawab-cats--cols-7 salla-slider.sawab-cats__slider .sawab-cats__slide { width: 14.285%; }
+  .sawab-cats--cols-8 salla-slider.sawab-cats__slider .sawab-cats__slide { width: 12.5%; }
+}
 
-// البطاقة صندوق أبيض يضمّ الصورة والاسم معًا
 .sawab-cats__card {
   display: flex;
   flex-direction: column;
@@ -153,13 +138,6 @@
   .sawab-cats {
     padding: 28px 24px;
   }
-
-  .sawab-cats--cols-5 .sawab-cats__grid,
-  .sawab-cats--cols-6 .sawab-cats__grid,
-  .sawab-cats--cols-7 .sawab-cats__grid,
-  .sawab-cats--cols-8 .sawab-cats__grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 768px) {
@@ -167,39 +145,20 @@
     padding: 24px 16px;
   }
 
-  .sawab-cats__head {
-    align-items: center;
-  }
-
   .sawab-cats__title {
     font-size: 19px;
-  }
-
-  .sawab-cats__grid,
-  .sawab-cats--cols-4 .sawab-cats__grid,
-  .sawab-cats--cols-5 .sawab-cats__grid,
-  .sawab-cats--cols-6 .sawab-cats__grid,
-  .sawab-cats--cols-7 .sawab-cats__grid,
-  .sawab-cats--cols-8 .sawab-cats__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .sawab-cats__name {
     font-size: 13px;
   }
 
-  .sawab-cats__media i {
-    font-size: 24px;
-  }
-}
+  .sawab-cats__media {
+    width: 54px;
+    height: 54px;
 
-@media (max-width: 420px) {
-  .sawab-cats__grid,
-  .sawab-cats--cols-4 .sawab-cats__grid,
-  .sawab-cats--cols-5 .sawab-cats__grid,
-  .sawab-cats--cols-6 .sawab-cats__grid,
-  .sawab-cats--cols-7 .sawab-cats__grid,
-  .sawab-cats--cols-8 .sawab-cats__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    i {
+      font-size: 24px;
+    }
   }
 }

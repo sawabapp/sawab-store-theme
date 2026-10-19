@@ -1,5 +1,5 @@
 {
-    "version": "1.0.136",
+    "version": "1.0.137",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -2235,8 +2235,8 @@
                     "id": "columns",
                     "type": "items",
                     "format": "dropdown-list",
-                    "label": "عدد الفئات في الصف",
-                    "description": "على الحاسوب. يقلّ تلقائيًا على الشاشات الأصغر",
+                    "label": "عدد الفئات الظاهرة",
+                    "description": "على الحاسوب. يقلّ تلقائيًا على الشاشات الأصغر، والباقي يُتصفَّح بالسحب",
                     "labelHTML": null,
                     "icon": "sicon-grid",
                     "selected": [
@@ -2305,75 +2305,6 @@
                     ],
                     "source": "Manual",
                     "required": false
-                },
-                {
-                    "type": "items",
-                    "icon": "sicon-link",
-                    "label": "رابط «عرض الكل»",
-                    "id": "all_url",
-                    "value": [],
-                    "description": "اتركه فارغًا لإخفاء الزر. اختر «تصنيف» لربطه بصفحة تصنيف بعينها",
-                    "required": false,
-                    "format": "variable-list",
-                    "searchable": true,
-                    "source": "custom",
-                    "sources": [
-                        {
-                            "label": "منتج",
-                            "key": "products",
-                            "value": "products"
-                        },
-                        {
-                            "label": "منتجات مع وسم",
-                            "key": "products_tags",
-                            "value": "products_tags"
-                        },
-                        {
-                            "label": "تصنيف",
-                            "key": "categories",
-                            "value": "categories"
-                        },
-                        {
-                            "label": "ماركة تجارية",
-                            "key": "brands",
-                            "value": "brands"
-                        },
-                        {
-                            "label": "صفحة تعريفية",
-                            "key": "pages",
-                            "value": "pages"
-                        },
-                        {
-                            "label": "مقالة",
-                            "key": "blog_articles",
-                            "value": "blog_articles"
-                        },
-                        {
-                            "label": "تصنيف ضمن المدونة",
-                            "key": "blog_categories",
-                            "value": "blog_categories"
-                        },
-                        {
-                            "label": "التخفيضات",
-                            "key": "offers_link",
-                            "value": "offers_link"
-                        },
-                        {
-                            "label": "الماركات التجارية",
-                            "key": "brands_link",
-                            "value": "brands_link"
-                        },
-                        {
-                            "label": "المدونة",
-                            "key": "blog_link",
-                            "value": "blog_link"
-                        },
-                        {
-                            "label": "رابط خارجي",
-                            "key": "custom",
-                            "value": "custom"
-                        }
-                    ]
                 }
             ]
         }

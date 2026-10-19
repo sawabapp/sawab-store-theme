@@ -4,58 +4,59 @@
 | component.title      | ?string   | عنوان القسم                                                        |
 | component.subtitle   | ?string   | نص توضيحي أسفل العنوان                                             |
 | component.categories | Category[]| التصنيفات المختارة — لكلٍّ name و url و image و icon                |
-| component.columns    | ?string   | عدد الفئات في الصف على الحاسوب: 4 أو 5 أو 6                        |
+| component.columns    | ?string   | عدد الفئات الظاهرة على الحاسوب: 4 … 8                               |
 | component.shape      | ?string   | circle أو rounded                                                   |
-| component.all_url    | ?string   | رابط «عرض الكل» — فارغ يعني إخفاء الزر                             |
+| position             | int       | ترتيب العنصر في الصفحة — يلزم لتمييز معرّف السلايدر                 |
 
 التصنيفات تأتي من منتقي سلة (`source: categories`) فلا نجلبها بأنفسنا، وهي
 مرتّبة كما رتّبها التاجر. وصورة التصنيف أولى من أيقونته، فإن غابت الاثنتان
 رسمنا أيقونة افتراضية بدل فراغ.
+
+العرض شريط منزلق لا شبكة، فالفئات لا تنزل إلى صف ثانٍ مهما كثرت. نستعمل
+`salla-slider` بعنوان خاص بنا لا بـ`block-title` — نفس نمط مكوّن «آراء عملاء
+مخصصة» في هذا الثيم.
 #}
 {% set cats = component.categories|default([]) %}
 
 {% if cats|length %}
 <section
   data-testid="store-home-shop-categories"
-  class="s-block sawab-cats sawab-cats--cols-{{ component.columns|default('5') }} sawab-cats--{{ component.shape|default('circle') }}"
+  class="s-block sawab-cats sawab-cats--cols-{{ component.columns|default('8') }} sawab-cats--{{ component.shape|default('circle') }}"
 >
-  {% set all_url = component.all_url %}
-
-  {% if component.title or component.subtitle or all_url %}
+  {% if component.title or component.subtitle %}
     <div class="sawab-cats__head">
-      <div class="sawab-cats__headings">
-        {% if component.title %}
-          <h2 class="sawab-cats__title">{{ component.title }}</h2>
-        {% endif %}
-        {% if component.subtitle %}
-          <p class="sawab-cats__subtitle">{{ component.subtitle }}</p>
-        {% endif %}
-      </div>
-
-      {% if all_url %}
-        <a href="{{ all_url }}" class="sawab-cats__all">
-          <span>{{ trans('blocks.home.show_all') }}</span>
-          <i class="sicon-arrow-left" aria-hidden="true"></i>
-        </a>
+      {% if component.title %}
+        <h2 class="sawab-cats__title">{{ component.title }}</h2>
+      {% endif %}
+      {% if component.subtitle %}
+        <p class="sawab-cats__subtitle">{{ component.subtitle }}</p>
       {% endif %}
     </div>
   {% endif %}
 
-  <ul class="sawab-cats__grid">
-    {% for cat in cats %}
-      <li class="sawab-cats__cell">
-        <a href="{{ cat.url }}" class="sawab-cats__card">
-          <span class="sawab-cats__media">
-            {% if cat.image %}
-              <img src="{{ cat.image }}" alt="{{ cat.name }}" width="96" height="96" loading="lazy">
-            {% else %}
-              <i class="{{ cat.icon|default('sicon-shapes') }}" aria-hidden="true"></i>
-            {% endif %}
-          </span>
-          <span class="sawab-cats__name">{{ cat.name }}</span>
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
+  <salla-slider
+    type="carousel"
+    class="sawab-cats__slider"
+    controls-outer
+    show-controls="true"
+    id="sawab-cats-{{ position }}"
+  >
+    <div slot="items">
+      {% for cat in cats %}
+        <div class="swiper-slide sawab-cats__slide">
+          <a href="{{ cat.url }}" class="sawab-cats__card">
+            <span class="sawab-cats__media">
+              {% if cat.image %}
+                <img src="{{ cat.image }}" alt="{{ cat.name }}" width="96" height="96" loading="lazy">
+              {% else %}
+                <i class="{{ cat.icon|default('sicon-shapes') }}" aria-hidden="true"></i>
+              {% endif %}
+            </span>
+            <span class="sawab-cats__name">{{ cat.name }}</span>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </salla-slider>
 </section>
 {% endif %}
