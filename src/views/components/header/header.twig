@@ -6,11 +6,7 @@
 | cart.total         | string | Formatted total ex: "١٠٠ ر.س"        |
 #}
 {# يُعرض الشريط إن كان مفعّلًا وفيه إعلان واحد على الأقل #}
-{% set announcement_any = theme.settings.get('announcement_text_1')|trim
-  or theme.settings.get('announcement_text_2')|trim
-  or theme.settings.get('announcement_text_3')|trim
-  or theme.settings.get('announcement_text_4')|trim
-  or theme.settings.get('announcement_text_5')|trim %}
+{% set announcement_any = theme.settings.get('announcement_text_1')|default('')|trim or theme.settings.get('announcement_text_2')|default('')|trim or theme.settings.get('announcement_text_3')|default('')|trim or theme.settings.get('announcement_text_4')|default('')|trim or theme.settings.get('announcement_text_5')|default('')|trim %}
 {% set announcement_speed = theme.settings.get('announcement_speed')|default('normal') %}
 {% set announcement_bg = theme.settings.get('announcement_bg')|default('#c62127') %}
 {% set announcement_fg = theme.settings.get('announcement_text_color')|default('#ffffff') %}
