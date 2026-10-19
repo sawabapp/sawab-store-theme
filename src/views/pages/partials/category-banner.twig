@@ -15,6 +15,10 @@
 #}
 {% set sawab_bn_id = category.id|default('') %}
 
+{# مجسّ مؤقّت: يطبع معرّف التصنيف وما يُرجعه المنتقي، لنرى سبب عدم المطابقة.
+   json_encode آمن على أي نوع (مستعمل 13 مرة في الثيم). يُحذف فور الحسم #}
+<!-- sawab-bn cat=[{{ sawab_bn_id }}] name=[{{ category.name|default('') }}] s1=[{{ theme.settings.get('cat_banner_1_cat')|json_encode }}] img1=[{{ theme.settings.get('cat_banner_1_image') ? 'y' : 'n' }}] -->
+
 {% if sawab_bn_id %}
   {% for picked in theme.settings.get('cat_banner_1_cat')|default([]) %}
     {% if picked.id == sawab_bn_id and theme.settings.get('cat_banner_1_image') %}
