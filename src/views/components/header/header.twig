@@ -5,10 +5,12 @@
 | cart.items_count   | int    |                                        |
 | cart.total         | string | Formatted total ex: "١٠٠ ر.س"        |
 #}
-{# كل سطر في الإعداد النصّي إعلان مستقل. split فلتر موثّق في Twilight،
-   وcollection في إعدادات الثيم لا يستعمله أي ثيم فجرّبناه فأسقط الهيدر #}
-{% set announcement_lines = theme.settings.get('announcement_text')|default('')|split("\n") %}
-{% set announcement_icon = theme.settings.get('announcement_icon')|default('sicon-shipping-fast') %}
+{# يُعرض الشريط إن كان مفعّلًا وفيه إعلان واحد على الأقل #}
+{% set announcement_any = theme.settings.get('announcement_text_1')|trim
+  or theme.settings.get('announcement_text_2')|trim
+  or theme.settings.get('announcement_text_3')|trim
+  or theme.settings.get('announcement_text_4')|trim
+  or theme.settings.get('announcement_text_5')|trim %}
 {% set announcement_speed = theme.settings.get('announcement_speed')|default('normal') %}
 {% set announcement_bg = theme.settings.get('announcement_bg')|default('#c62127') %}
 {% set announcement_fg = theme.settings.get('announcement_text_color')|default('#ffffff') %}
@@ -35,7 +37,7 @@
    دائرة. المسار مكرّر مرّتين ليبدو الدوران متصلًا بلا قفزة عند نهايته، والنسخة
    الثانية مخفيّة عن القارئات الصوتية حتى لا يُقرأ النص مرّتين. الألوان تمرّ
    كمتغيّرات CSS مضمّنة لأنها إعدادات تاجر لا قيم ثابتة #}
-{% if announcement_enabled and announcement_lines|length %}
+{% if announcement_enabled and announcement_any %}
 <div
   class="announcement-bar announcement-bar--speed-{{ announcement_speed }}"
   style="--ann-bg: {{ announcement_bg }}; --ann-fg: {{ announcement_fg }}; --ann-icon-bg: {{ announcement_icon_bg }}; --ann-icon-fg: {{ announcement_icon_fg }};"
@@ -45,29 +47,11 @@
       {# النسختان مكتوبتان صراحةً لا بحلقة مدى: محرّك سلة لا يفهم كل مفردات
          Twig القياسية، والالتزام بما يستعمله الثيم فعلًا أأمن من الاختصار #}
       <div class="announcement-bar__seq">
-        {% for line in announcement_lines %}
-          {% if line|trim %}
-            <span class="announcement-bar__item">
-              <span class="announcement-bar__text">{{ line|trim }}</span>
-              <span class="announcement-bar__sep" aria-hidden="true">
-                <i class="{{ announcement_icon }}"></i>
-              </span>
-            </span>
-          {% endif %}
-        {% endfor %}
+        {% include 'components.header.announcement-items' %}
       </div>
 
       <div class="announcement-bar__seq" aria-hidden="true">
-        {% for line in announcement_lines %}
-          {% if line|trim %}
-            <span class="announcement-bar__item">
-              <span class="announcement-bar__text">{{ line|trim }}</span>
-              <span class="announcement-bar__sep" aria-hidden="true">
-                <i class="{{ announcement_icon }}"></i>
-              </span>
-            </span>
-          {% endif %}
-        {% endfor %}
+        {% include 'components.header.announcement-items' %}
       </div>
     </div>
   </div>

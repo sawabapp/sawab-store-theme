@@ -1,5 +1,5 @@
 {
-    "version": "1.0.130",
+    "version": "1.0.131",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -135,16 +135,16 @@
         {
             "type": "string",
             "icon": "sicon-format-text-alt",
-            "label": "إعلانات الشريط",
-            "description": "اكتب كل إعلان في سطر مستقل. تتحرّك تباعًا ويفصل بينها الأيقونة المختارة أدناه",
+            "label": "الإعلان 1 — النص",
+            "description": null,
             "multilanguage": true,
-            "id": "announcement_text",
-            "format": "textarea",
+            "id": "announcement_text_1",
+            "value": "شحن مجاني للطلبات فوق 200 ريال",
             "required": false,
-            "placeholder": "شحن مجاني للطلبات فوق 200 ريال\nضمان معتمد من الوكيل\nدعم فني بعد التركيب",
-            "value": "شحن مجاني للطلبات فوق 200 ريال\nضمان معتمد من الوكيل على جميع المنتجات\nدعم فني ومتابعة بعد التركيب",
+            "format": "text",
+            "placeholder": "اكتب نص الإعلان هنا...",
             "minLength": 0,
-            "maxLength": 600,
+            "maxLength": 120,
             "conditions": [
                 {
                     "id": "announcement_bar_enabled",
@@ -154,100 +154,612 @@
             ]
         },
         {
-            "id": "announcement_icon",
+            "id": "announcement_icon_1",
             "type": "items",
             "format": "dropdown-list",
-            "label": "الأيقونة الفاصلة بين الإعلانات",
-            "description": "تظهر داخل دائرة بين كل إعلان والذي يليه",
+            "label": "الإعلان 1 — الأيقونة",
+            "description": null,
             "labelHTML": null,
             "icon": "sicon-shapes",
             "selected": [
                 {
                     "label": "🚚 شحن سريع",
                     "value": "sicon-shipping-fast",
-                    "key": "15434c01-0cad-48ba-99ee-91741cd989ca"
+                    "key": "8a7dd06f-8a88-4787-ae41-f69a49853737"
                 }
             ],
             "options": [
                 {
                     "label": "🚚 شحن سريع",
                     "value": "sicon-shipping-fast",
-                    "key": "15434c01-0cad-48ba-99ee-91741cd989ca"
+                    "key": "8a7dd06f-8a88-4787-ae41-f69a49853737"
                 },
                 {
                     "label": "📦 توصيل",
                     "value": "sicon-delivery-parcel2",
-                    "key": "a63bd502-566f-41ec-b464-20a4b7faf3a1"
+                    "key": "c4c5b873-7cbf-4532-9f95-4118edc4d369"
                 },
                 {
                     "label": "🛡️ ضمان",
                     "value": "sicon-shield-check",
-                    "key": "578f0d0c-e352-4b4c-b4c7-cb2bb33a0553"
+                    "key": "27ff742d-27ff-40ab-a5dc-eed164c4ee48"
                 },
                 {
                     "label": "🏅 جودة",
                     "value": "sicon-medal",
-                    "key": "53281145-0f6f-4a2c-8405-44443b09c723"
+                    "key": "447ceab2-2c14-4b55-a180-a5c9c7bc6294"
                 },
                 {
                     "label": "✅ ضمان جودة",
                     "value": "sicon-check-circle",
-                    "key": "68f3d218-99a0-4a0f-bb5e-eb847fd1f6e2"
+                    "key": "cea89134-54bb-42c0-8e1c-ce5348703429"
                 },
                 {
                     "label": "⭐ تقييم",
                     "value": "sicon-star",
-                    "key": "b9bc9d98-483e-4461-b61a-68ee930f09a6"
+                    "key": "dbb9032e-fd15-494f-8be5-c485ee6be635"
                 },
                 {
                     "label": "🎁 هدية",
                     "value": "sicon-gift",
-                    "key": "f0f463cf-a4e8-46f8-b37a-16d44c91965c"
+                    "key": "abe1052d-30c0-481c-bc8c-35e6465cdc2b"
                 },
                 {
                     "label": "🏷️ خصم",
                     "value": "sicon-special-discount",
-                    "key": "57caa314-808a-4d66-9903-69abc0132993"
+                    "key": "47a22c00-088b-43bc-9be8-f344ed8b0123"
                 },
                 {
                     "label": "٪ نسبة خصم",
                     "value": "sicon-percentage",
-                    "key": "8be8f1b8-fa9b-4a38-807a-0e170382d4e1"
+                    "key": "17b0e596-8407-4b7b-ba0d-0decea8570c1"
                 },
                 {
                     "label": "🔥 عرض مميز",
                     "value": "sicon-fire",
-                    "key": "83ea60a6-5d30-4001-8cc2-1062faf216f1"
+                    "key": "5248d0f2-802e-4663-8249-504ec02ae4e8"
                 },
                 {
                     "label": "⏰ عرض محدود",
                     "value": "sicon-clock",
-                    "key": "3e1a9432-e212-4dab-985a-7e3f6a4d2bb7"
+                    "key": "b8802b08-68eb-484f-a35a-cc8d70226185"
                 },
                 {
                     "label": "🎧 دعم العملاء",
                     "value": "sicon-headphones",
-                    "key": "9ba2ff2f-799e-411b-acf5-6fba170ad3ef"
+                    "key": "4c54e9ec-00cb-4a10-af79-92ef75adcf8f"
                 },
                 {
                     "label": "💳 دفع آمن",
                     "value": "sicon-credit-card",
-                    "key": "bf369187-e678-4301-b4ca-74832c60b23b"
+                    "key": "84bbe053-a195-47d3-960d-a087bf54893b"
                 },
                 {
                     "label": "↩️ استرجاع",
                     "value": "sicon-refund",
-                    "key": "9dfc6572-3844-4dd9-b070-ffff94423fac"
+                    "key": "bb12abde-48f3-4b8f-950f-f9f8130de56d"
                 },
                 {
                     "label": "🏪 فروعنا",
                     "value": "sicon-store",
-                    "key": "e2c5ad10-14a7-46c5-a026-20988e41f55f"
+                    "key": "5c3a6bf7-a055-470a-a891-8a5bb2347f8e"
                 },
                 {
                     "label": "📍 مواقعنا",
                     "value": "sicon-location",
-                    "key": "4cccb6b9-5ff2-4e69-8dd8-67920863fa57"
+                    "key": "1f26a509-f19e-4639-a386-a5edce038949"
+                }
+            ],
+            "source": "Manual",
+            "required": false,
+            "conditions": [
+                {
+                    "id": "announcement_bar_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ]
+        },
+        {
+            "type": "string",
+            "icon": "sicon-format-text-alt",
+            "label": "الإعلان 2 — النص",
+            "description": null,
+            "multilanguage": true,
+            "id": "announcement_text_2",
+            "value": "ضمان معتمد من الوكيل على جميع المنتجات",
+            "required": false,
+            "format": "text",
+            "placeholder": "اكتب نص الإعلان هنا...",
+            "minLength": 0,
+            "maxLength": 120,
+            "conditions": [
+                {
+                    "id": "announcement_bar_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ]
+        },
+        {
+            "id": "announcement_icon_2",
+            "type": "items",
+            "format": "dropdown-list",
+            "label": "الإعلان 2 — الأيقونة",
+            "description": null,
+            "labelHTML": null,
+            "icon": "sicon-shapes",
+            "selected": [
+                {
+                    "label": "🛡️ ضمان",
+                    "value": "sicon-shield-check",
+                    "key": "22104443-7714-4b34-98e7-7b957fe36831"
+                }
+            ],
+            "options": [
+                {
+                    "label": "🚚 شحن سريع",
+                    "value": "sicon-shipping-fast",
+                    "key": "5286e424-3034-4bc9-bd7e-fa34adc01636"
+                },
+                {
+                    "label": "📦 توصيل",
+                    "value": "sicon-delivery-parcel2",
+                    "key": "b47246e5-3514-48e7-a25b-fbca05f315c4"
+                },
+                {
+                    "label": "🛡️ ضمان",
+                    "value": "sicon-shield-check",
+                    "key": "22104443-7714-4b34-98e7-7b957fe36831"
+                },
+                {
+                    "label": "🏅 جودة",
+                    "value": "sicon-medal",
+                    "key": "d6011a47-26a3-4be4-97cb-27d5c2ce9925"
+                },
+                {
+                    "label": "✅ ضمان جودة",
+                    "value": "sicon-check-circle",
+                    "key": "e234c6e1-1844-42ee-a34d-1fe3a40311f6"
+                },
+                {
+                    "label": "⭐ تقييم",
+                    "value": "sicon-star",
+                    "key": "3baf4b39-acf3-4add-bf9d-966bb0316e7e"
+                },
+                {
+                    "label": "🎁 هدية",
+                    "value": "sicon-gift",
+                    "key": "c97f4e1c-5b41-475f-941f-5a7fb1491273"
+                },
+                {
+                    "label": "🏷️ خصم",
+                    "value": "sicon-special-discount",
+                    "key": "8f624c19-bc4a-4ac4-9d89-64e90ba47909"
+                },
+                {
+                    "label": "٪ نسبة خصم",
+                    "value": "sicon-percentage",
+                    "key": "fe3eba03-d46d-4c1a-b974-ab6d023b7f06"
+                },
+                {
+                    "label": "🔥 عرض مميز",
+                    "value": "sicon-fire",
+                    "key": "9c650e95-a71e-4b4d-9b7c-2f328a2f3ce8"
+                },
+                {
+                    "label": "⏰ عرض محدود",
+                    "value": "sicon-clock",
+                    "key": "f6c47321-a72d-4b21-a087-5d0a761ca30d"
+                },
+                {
+                    "label": "🎧 دعم العملاء",
+                    "value": "sicon-headphones",
+                    "key": "f3025906-2d05-4f1a-967e-2055ec7f3fcc"
+                },
+                {
+                    "label": "💳 دفع آمن",
+                    "value": "sicon-credit-card",
+                    "key": "21bb8295-c7d2-4ab1-bd09-dea619a50988"
+                },
+                {
+                    "label": "↩️ استرجاع",
+                    "value": "sicon-refund",
+                    "key": "ee16ce5a-9696-41a7-ba09-9ec3be26ffad"
+                },
+                {
+                    "label": "🏪 فروعنا",
+                    "value": "sicon-store",
+                    "key": "b7d36ae5-fde0-4300-9fa4-174ee9491fac"
+                },
+                {
+                    "label": "📍 مواقعنا",
+                    "value": "sicon-location",
+                    "key": "117935cc-5a65-465e-a62e-68b99249ada2"
+                }
+            ],
+            "source": "Manual",
+            "required": false,
+            "conditions": [
+                {
+                    "id": "announcement_bar_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ]
+        },
+        {
+            "type": "string",
+            "icon": "sicon-format-text-alt",
+            "label": "الإعلان 3 — النص",
+            "description": null,
+            "multilanguage": true,
+            "id": "announcement_text_3",
+            "value": "دعم فني ومتابعة بعد التركيب",
+            "required": false,
+            "format": "text",
+            "placeholder": "اكتب نص الإعلان هنا...",
+            "minLength": 0,
+            "maxLength": 120,
+            "conditions": [
+                {
+                    "id": "announcement_bar_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ]
+        },
+        {
+            "id": "announcement_icon_3",
+            "type": "items",
+            "format": "dropdown-list",
+            "label": "الإعلان 3 — الأيقونة",
+            "description": null,
+            "labelHTML": null,
+            "icon": "sicon-shapes",
+            "selected": [
+                {
+                    "label": "🎧 دعم العملاء",
+                    "value": "sicon-headphones",
+                    "key": "89424983-5369-42f2-b875-1878ff6ae2b6"
+                }
+            ],
+            "options": [
+                {
+                    "label": "🚚 شحن سريع",
+                    "value": "sicon-shipping-fast",
+                    "key": "65e12e56-30ac-4141-ad99-be88fa714b90"
+                },
+                {
+                    "label": "📦 توصيل",
+                    "value": "sicon-delivery-parcel2",
+                    "key": "9b74a583-63f3-4b59-952f-f4e9db4252a3"
+                },
+                {
+                    "label": "🛡️ ضمان",
+                    "value": "sicon-shield-check",
+                    "key": "4fb75b57-7735-4b71-81cd-abe63977884b"
+                },
+                {
+                    "label": "🏅 جودة",
+                    "value": "sicon-medal",
+                    "key": "6e64dd9a-5815-4c31-a89f-18974842b753"
+                },
+                {
+                    "label": "✅ ضمان جودة",
+                    "value": "sicon-check-circle",
+                    "key": "2eb926db-3b74-45a5-ad47-98bf2b8db208"
+                },
+                {
+                    "label": "⭐ تقييم",
+                    "value": "sicon-star",
+                    "key": "0880a489-2294-498d-94f0-f472cbf408f3"
+                },
+                {
+                    "label": "🎁 هدية",
+                    "value": "sicon-gift",
+                    "key": "fe5dca98-bd79-4aae-b5e9-5e9e3577b1e7"
+                },
+                {
+                    "label": "🏷️ خصم",
+                    "value": "sicon-special-discount",
+                    "key": "100d5a16-330f-42a9-ba00-52aa542bc754"
+                },
+                {
+                    "label": "٪ نسبة خصم",
+                    "value": "sicon-percentage",
+                    "key": "60442055-fd08-4311-a9c8-b496d58a518b"
+                },
+                {
+                    "label": "🔥 عرض مميز",
+                    "value": "sicon-fire",
+                    "key": "797ca19a-31e9-4267-9a98-c1ff2fd8e037"
+                },
+                {
+                    "label": "⏰ عرض محدود",
+                    "value": "sicon-clock",
+                    "key": "6d95a8fd-25f7-4d09-bf92-e0e6a6bbf911"
+                },
+                {
+                    "label": "🎧 دعم العملاء",
+                    "value": "sicon-headphones",
+                    "key": "89424983-5369-42f2-b875-1878ff6ae2b6"
+                },
+                {
+                    "label": "💳 دفع آمن",
+                    "value": "sicon-credit-card",
+                    "key": "b7d150bb-cd13-49d2-9c6a-d760c6dcc62a"
+                },
+                {
+                    "label": "↩️ استرجاع",
+                    "value": "sicon-refund",
+                    "key": "d2b00154-6f59-4ec2-b291-86cffb932299"
+                },
+                {
+                    "label": "🏪 فروعنا",
+                    "value": "sicon-store",
+                    "key": "3c354534-0a99-42e4-8bf3-e8db3182f76e"
+                },
+                {
+                    "label": "📍 مواقعنا",
+                    "value": "sicon-location",
+                    "key": "3179e988-f168-43be-af87-484fa3bc33eb"
+                }
+            ],
+            "source": "Manual",
+            "required": false,
+            "conditions": [
+                {
+                    "id": "announcement_bar_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ]
+        },
+        {
+            "type": "string",
+            "icon": "sicon-format-text-alt",
+            "label": "الإعلان 4 — النص",
+            "description": "اتركه فارغًا لإخفاء هذا الإعلان",
+            "multilanguage": true,
+            "id": "announcement_text_4",
+            "value": null,
+            "required": false,
+            "format": "text",
+            "placeholder": "اكتب نص الإعلان هنا...",
+            "minLength": 0,
+            "maxLength": 120,
+            "conditions": [
+                {
+                    "id": "announcement_bar_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ]
+        },
+        {
+            "id": "announcement_icon_4",
+            "type": "items",
+            "format": "dropdown-list",
+            "label": "الإعلان 4 — الأيقونة",
+            "description": null,
+            "labelHTML": null,
+            "icon": "sicon-shapes",
+            "selected": [
+                {
+                    "label": "🎁 هدية",
+                    "value": "sicon-gift",
+                    "key": "39f769d1-18e8-48b5-afb1-fb95ca5fc524"
+                }
+            ],
+            "options": [
+                {
+                    "label": "🚚 شحن سريع",
+                    "value": "sicon-shipping-fast",
+                    "key": "4a4eb74e-82f5-4ac9-9647-4656e2ec04ad"
+                },
+                {
+                    "label": "📦 توصيل",
+                    "value": "sicon-delivery-parcel2",
+                    "key": "24a9436a-253f-48f7-9325-18cdd0c7b2c0"
+                },
+                {
+                    "label": "🛡️ ضمان",
+                    "value": "sicon-shield-check",
+                    "key": "6c6040f0-6117-41fd-8a75-df9b3013e9e3"
+                },
+                {
+                    "label": "🏅 جودة",
+                    "value": "sicon-medal",
+                    "key": "30ea6c45-f6aa-47bf-aa63-02695aeaa9d2"
+                },
+                {
+                    "label": "✅ ضمان جودة",
+                    "value": "sicon-check-circle",
+                    "key": "ce1d3f11-fe18-419d-92d5-18b692f2e988"
+                },
+                {
+                    "label": "⭐ تقييم",
+                    "value": "sicon-star",
+                    "key": "987b5799-4dd7-4c1e-b090-24ab81935765"
+                },
+                {
+                    "label": "🎁 هدية",
+                    "value": "sicon-gift",
+                    "key": "39f769d1-18e8-48b5-afb1-fb95ca5fc524"
+                },
+                {
+                    "label": "🏷️ خصم",
+                    "value": "sicon-special-discount",
+                    "key": "7f801de4-a512-479d-baae-31dedf47df95"
+                },
+                {
+                    "label": "٪ نسبة خصم",
+                    "value": "sicon-percentage",
+                    "key": "16705efd-2df3-47d9-8b3b-381053caf343"
+                },
+                {
+                    "label": "🔥 عرض مميز",
+                    "value": "sicon-fire",
+                    "key": "d32abbd5-4313-457c-8e72-8c849ea3159e"
+                },
+                {
+                    "label": "⏰ عرض محدود",
+                    "value": "sicon-clock",
+                    "key": "2fbcd8d7-7d6f-41ff-bd36-4970ad4db90c"
+                },
+                {
+                    "label": "🎧 دعم العملاء",
+                    "value": "sicon-headphones",
+                    "key": "f8f1e01b-ae0f-4d2a-b0b9-a11594aaac17"
+                },
+                {
+                    "label": "💳 دفع آمن",
+                    "value": "sicon-credit-card",
+                    "key": "5e9792f9-2506-4e5f-8fe4-147a95ed7c52"
+                },
+                {
+                    "label": "↩️ استرجاع",
+                    "value": "sicon-refund",
+                    "key": "3e5879fd-6e76-4535-95f4-42209591f902"
+                },
+                {
+                    "label": "🏪 فروعنا",
+                    "value": "sicon-store",
+                    "key": "852e546f-1c1d-48e1-9290-a9d73160d01c"
+                },
+                {
+                    "label": "📍 مواقعنا",
+                    "value": "sicon-location",
+                    "key": "fd6e2d6a-9b20-4f0b-8b03-7f411ce18a4a"
+                }
+            ],
+            "source": "Manual",
+            "required": false,
+            "conditions": [
+                {
+                    "id": "announcement_bar_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ]
+        },
+        {
+            "type": "string",
+            "icon": "sicon-format-text-alt",
+            "label": "الإعلان 5 — النص",
+            "description": "اتركه فارغًا لإخفاء هذا الإعلان",
+            "multilanguage": true,
+            "id": "announcement_text_5",
+            "value": null,
+            "required": false,
+            "format": "text",
+            "placeholder": "اكتب نص الإعلان هنا...",
+            "minLength": 0,
+            "maxLength": 120,
+            "conditions": [
+                {
+                    "id": "announcement_bar_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ]
+        },
+        {
+            "id": "announcement_icon_5",
+            "type": "items",
+            "format": "dropdown-list",
+            "label": "الإعلان 5 — الأيقونة",
+            "description": null,
+            "labelHTML": null,
+            "icon": "sicon-shapes",
+            "selected": [
+                {
+                    "label": "🏷️ خصم",
+                    "value": "sicon-special-discount",
+                    "key": "5bb554d3-43e2-4ffd-89d4-0c7e9a067de4"
+                }
+            ],
+            "options": [
+                {
+                    "label": "🚚 شحن سريع",
+                    "value": "sicon-shipping-fast",
+                    "key": "87be2b2b-39bc-466b-ad64-a4cfb59b5f3f"
+                },
+                {
+                    "label": "📦 توصيل",
+                    "value": "sicon-delivery-parcel2",
+                    "key": "a7e1790d-7217-43d9-b173-e55de6232992"
+                },
+                {
+                    "label": "🛡️ ضمان",
+                    "value": "sicon-shield-check",
+                    "key": "16c04408-d2d3-471b-b9b5-3f3102ec8410"
+                },
+                {
+                    "label": "🏅 جودة",
+                    "value": "sicon-medal",
+                    "key": "ee54694b-f9f7-45fa-bfad-798733c8fe58"
+                },
+                {
+                    "label": "✅ ضمان جودة",
+                    "value": "sicon-check-circle",
+                    "key": "b43fac5d-28d6-458c-9b28-e07ee3dd002f"
+                },
+                {
+                    "label": "⭐ تقييم",
+                    "value": "sicon-star",
+                    "key": "aa19a639-f443-4e78-89d0-2100f1606581"
+                },
+                {
+                    "label": "🎁 هدية",
+                    "value": "sicon-gift",
+                    "key": "15ee7907-d1b5-4d28-a15b-e6995bcd1fa0"
+                },
+                {
+                    "label": "🏷️ خصم",
+                    "value": "sicon-special-discount",
+                    "key": "5bb554d3-43e2-4ffd-89d4-0c7e9a067de4"
+                },
+                {
+                    "label": "٪ نسبة خصم",
+                    "value": "sicon-percentage",
+                    "key": "0de73bd0-8ce9-4b9e-b721-a895279a93c6"
+                },
+                {
+                    "label": "🔥 عرض مميز",
+                    "value": "sicon-fire",
+                    "key": "fc190a85-70c4-4028-9af5-e079e1a192b8"
+                },
+                {
+                    "label": "⏰ عرض محدود",
+                    "value": "sicon-clock",
+                    "key": "0dd1019a-6c74-4500-8bd8-bd977e1806de"
+                },
+                {
+                    "label": "🎧 دعم العملاء",
+                    "value": "sicon-headphones",
+                    "key": "fbbb9de6-1c09-4ef5-b3b6-880d3e48f6fc"
+                },
+                {
+                    "label": "💳 دفع آمن",
+                    "value": "sicon-credit-card",
+                    "key": "36f56815-2cf6-41b1-bf8a-626463bb7d10"
+                },
+                {
+                    "label": "↩️ استرجاع",
+                    "value": "sicon-refund",
+                    "key": "58f692bf-825a-4105-809e-3b759736c5c2"
+                },
+                {
+                    "label": "🏪 فروعنا",
+                    "value": "sicon-store",
+                    "key": "1fd02ef4-bc42-490d-a8ff-cbeebc7a86de"
+                },
+                {
+                    "label": "📍 مواقعنا",
+                    "value": "sicon-location",
+                    "key": "409d43ac-a804-4237-abc1-16fc74bda81e"
                 }
             ],
             "source": "Manual",
