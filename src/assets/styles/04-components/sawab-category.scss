@@ -14,11 +14,6 @@ $sawab-cat-cream: #f8f1e7;
 
 .sawab-cat-hero {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  overflow: hidden;
   background: $sawab-cat-cream;
   border: 1px solid $sawab-cat-border;
   border-radius: 22px;
@@ -71,21 +66,11 @@ $sawab-cat-cream: #f8f1e7;
   }
 }
 
-// صورة التصنيف زينة لا محتوى: تُقصّ من الحافة ولا تُقرأ للقارئات
-.sawab-cat-hero__media {
-  flex: 0 0 auto;
-  width: 190px;
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  img {
-    width: 100%;
-    height: 100%;
-    max-height: 150px;
-    object-fit: contain;
-  }
+// التصنيفات الفرعية صارت داخل اللوحة، يفصلها خطّ خفيف عن اسم التصنيف
+.sawab-subcats__wrap {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid $sawab-cat-border;
 }
 
 // ----- شريط الترتيب فوق القائمة -----
@@ -180,20 +165,17 @@ $sawab-cat-cream: #f8f1e7;
 // كانت تحشرها في أول أعمدة وتترك بقية السطر فراغًا. والصورة تملأ البطاقة
 // حتى حوافها (صور سلة على خلفيات ملوّنة، فأي إطار كريمي يصطدم بها).
 .sawab-subcats__title {
-  margin: 0 0 10px;
-  font-size: 15px;
+  margin: 0 0 12px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.6;
-  text-align: center;
   color: var(--main-text-color);
 }
 
 .sawab-subcats {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 10px;
-  margin-bottom: 8px;
 }
 
 .sawab-subcats__item {
@@ -273,11 +255,6 @@ $sawab-cat-cream: #f8f1e7;
     padding: 20px;
     border-radius: 18px;
     margin-bottom: 20px;
-  }
-
-  // الصورة زينة، وفي شاشة ضيّقة تزاحم الاسم فتختفي
-  .sawab-cat-hero__media {
-    display: none;
   }
 
   .sawab-cat-hero__title {

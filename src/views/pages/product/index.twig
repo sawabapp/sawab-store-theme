@@ -27,11 +27,10 @@
 	   منتجات لا كاسم، ويبقى #page-main-title على سطر العدد لأن products.js
 	   يستبدل محتواه بعنوان الاستجابة عند كل ترتيب أو تصفية #}
 	{% set sawab_cat_name = category.name|default('') %}
-	{% set sawab_cat_image = category.image|default('') %}
 	{% set sawab_subcats = category.sub_categories|default([]) %}
 
 	<div class="container sawab-cat-head">
-		<div class="sawab-cat-hero{{ sawab_cat_image ? ' sawab-cat-hero--has-image' : '' }}">
+		<div class="sawab-cat-hero">
 			<div class="sawab-cat-hero__body">
 				{% if theme.settings.get('product_index_show_breadcrumbs', true) %}
 					<nav class="sawab-cat-hero__crumbs">
@@ -43,28 +42,24 @@
 				<p class="sawab-cat-hero__count" id="page-main-title">{% if sawab_cat_name and page.title != sawab_cat_name %}{{ page.title|raw }}{% endif %}</p>
 			</div>
 
-			{% if sawab_cat_image %}
-				<div class="sawab-cat-hero__media" aria-hidden="true">
-					<img src="{{ sawab_cat_image }}" alt="" loading="lazy" width="320" height="240">
+			{% if sawab_subcats|length %}
+				<div class="sawab-subcats__wrap">
+					<h2 class="sawab-subcats__title">{{ t_shop_subcats }}</h2>
+					<nav class="sawab-subcats" aria-label="{{ sawab_cat_name }}">
+						{% for sub in sawab_subcats %}
+							<a class="sawab-subcats__item" href="{{ sub.url|default('#') }}">
+								{% if sub.image|default('') %}
+									<span class="sawab-subcats__thumb">
+										<img src="{{ sub.image }}" alt="{{ sub.name|default('') }}" loading="lazy">
+									</span>
+								{% endif %}
+								<span class="sawab-subcats__name">{{ sub.name|default('') }}</span>
+							</a>
+						{% endfor %}
+					</nav>
 				</div>
 			{% endif %}
 		</div>
-
-		{% if sawab_subcats|length %}
-			<h2 class="sawab-subcats__title">{{ t_shop_subcats }}</h2>
-			<nav class="sawab-subcats" aria-label="{{ sawab_cat_name }}">
-				{% for sub in sawab_subcats %}
-					<a class="sawab-subcats__item" href="{{ sub.url|default('#') }}">
-						{% if sub.image|default('') %}
-							<span class="sawab-subcats__thumb">
-								<img src="{{ sub.image }}" alt="{{ sub.name|default('') }}" loading="lazy">
-							</span>
-						{% endif %}
-						<span class="sawab-subcats__name">{{ sub.name|default('') }}</span>
-					</a>
-				{% endfor %}
-			</nav>
-		{% endif %}
 	</div>
 
 	{#
