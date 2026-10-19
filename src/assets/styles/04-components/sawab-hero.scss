@@ -18,6 +18,7 @@
 
 // ===== البطاقة الرئيسية =====
 .sawab-hero__main {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 32px;
@@ -25,11 +26,37 @@
   border-radius: 24px;
   padding: 40px;
   overflow: hidden;
+  min-height: 460px;
 }
 
 .sawab-hero__content {
+  position: relative;
+  z-index: 1;
   flex: 1;
   min-width: 0;
+  max-width: 56%;
+
+  // حجاب متدرّج من لون البطاقة: معتم خلف النص ويتلاشى نحو الصورة،
+  // فيبقى النص مقروءًا مهما كانت الصورة فاتحة أو داكنة خلفه
+  &::before {
+    content: '';
+    position: absolute;
+    top: -48px;
+    bottom: -48px;
+    width: 175%;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  [dir="rtl"] &::before {
+    right: -48px;
+    background: linear-gradient(to left, #f3ebe0 48%, rgba(243, 235, 224, 0) 100%);
+  }
+
+  [dir="ltr"] &::before {
+    left: -48px;
+    background: linear-gradient(to right, #f3ebe0 48%, rgba(243, 235, 224, 0) 100%);
+  }
 }
 
 .sawab-hero__badge {
@@ -116,16 +143,30 @@
   color: #fff;
 }
 
+// الصورة طبقة خلفية تملأ ارتفاع البطاقة وتمتد خلف النص.
+// التموضع المطلق يُقاس من صندوق الحشو، فتصل الصورة إلى حافة البطاقة
+// متجاوزة الـ40px حشوًا — وهذا المقصود.
 .sawab-hero__image {
-  flex-shrink: 0;
-  width: 42%;
-  max-width: 320px;
-  aspect-ratio: 1 / 1;
-  border-radius: 18px;
-  overflow: hidden;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+  width: 72%;
+  max-width: none;
+  border-radius: 0;
+  overflow: visible;
+  pointer-events: none;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  [dir="rtl"] & {
+    left: 0;
+  }
+
+  [dir="ltr"] & {
+    right: 0;
+  }
 
   img {
     width: 100%;
@@ -254,11 +295,23 @@
     padding: 24px;
     gap: 20px;
     border-radius: 18px;
+    min-height: 0;
+  }
+
+  .sawab-hero__content {
+    max-width: none;
+
+    &::before {
+      content: none;
+    }
   }
 
   .sawab-hero__image {
+    position: static;
     width: 60%;
     max-width: 220px;
+    aspect-ratio: 1 / 1;
+    height: auto;
   }
 
   .sawab-hero__title,
