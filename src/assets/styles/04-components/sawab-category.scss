@@ -4,6 +4,27 @@ $sawab-cat-muted: #9a9a9a;
 $sawab-cat-border: #e8e1d5;
 $sawab-cat-cream: #f8f1e7;
 
+// ----- بنر التصنيف -----
+// نفس حواف بقية الأقسام وعرضها. لا ارتفاع ولا نسبة مفروضة: الارتفاع يتبع
+// الصورة نفسها، فيضع التاجر أي مقاس يريد بلا اقتصاص.
+.sawab-cat-banner {
+  display: block;
+  margin-bottom: 20px;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sawab-cat-banner img {
+    border-radius: 18px;
+  }
+}
+
 // ----- رأس التصنيف: لوحة كريمية بالاسم والعدد وصورة التصنيف -----
 // الكتلة كلها فوق .s-blocks-wrapper ليبقى تجاورها مع قائمة المنتجات سليمًا،
 // فقاعدة الثيم `.s-blocks-wrapper:empty + .container--products-list { mt-0 }`

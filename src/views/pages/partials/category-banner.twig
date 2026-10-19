@@ -1,0 +1,48 @@
+{#
+بنر صفحة التصنيف.
+
+خمس خانات في إعدادات الثيم، كل خانة: اسم تصنيف وصورتان (حاسوب وجوال).
+نقارن اسم التصنيف الحالي بما كُتب، فأول مطابقة تفوز.
+
+لماذا الاسم لا منتقي تصنيفات؟ منتقي سلة (`source: categories`) مُثبَت داخل
+المكوّنات فقط، ولم يُستعمل قط في إعدادات الثيم — ومجموعة في الإعدادات أسقطت
+الهيدر كاملًا من قبل (انظر CLAUDE.md). فالاسم النصّي هو الطريق المضمون.
+
+`{% set %}` داخل `{% if %}` يبقى أثره خارجها في Twig (بخلاف `{% for %}`)،
+فنجمع النتيجة بخمس مقارنات متتابعة بلا elseif.
+#}
+{% set sawab_bn_name = category.name|default('')|trim %}
+{% set sawab_bn_img = '' %}
+{% set sawab_bn_mob = '' %}
+
+{% if sawab_bn_name %}
+  {% if theme.settings.get('cat_banner_1_name')|default('')|trim == sawab_bn_name %}
+    {% set sawab_bn_img = theme.settings.get('cat_banner_1_image')|default('') %}
+    {% set sawab_bn_mob = theme.settings.get('cat_banner_1_mobile')|default('') %}
+  {% endif %}
+  {% if theme.settings.get('cat_banner_2_name')|default('')|trim == sawab_bn_name %}
+    {% set sawab_bn_img = theme.settings.get('cat_banner_2_image')|default('') %}
+    {% set sawab_bn_mob = theme.settings.get('cat_banner_2_mobile')|default('') %}
+  {% endif %}
+  {% if theme.settings.get('cat_banner_3_name')|default('')|trim == sawab_bn_name %}
+    {% set sawab_bn_img = theme.settings.get('cat_banner_3_image')|default('') %}
+    {% set sawab_bn_mob = theme.settings.get('cat_banner_3_mobile')|default('') %}
+  {% endif %}
+  {% if theme.settings.get('cat_banner_4_name')|default('')|trim == sawab_bn_name %}
+    {% set sawab_bn_img = theme.settings.get('cat_banner_4_image')|default('') %}
+    {% set sawab_bn_mob = theme.settings.get('cat_banner_4_mobile')|default('') %}
+  {% endif %}
+  {% if theme.settings.get('cat_banner_5_name')|default('')|trim == sawab_bn_name %}
+    {% set sawab_bn_img = theme.settings.get('cat_banner_5_image')|default('') %}
+    {% set sawab_bn_mob = theme.settings.get('cat_banner_5_mobile')|default('') %}
+  {% endif %}
+{% endif %}
+
+{% if sawab_bn_img %}
+  <picture class="sawab-cat-banner">
+    {% if sawab_bn_mob %}
+      <source media="(max-width: 768px)" srcset="{{ sawab_bn_mob }}">
+    {% endif %}
+    <img src="{{ sawab_bn_img }}" alt="{{ sawab_bn_name }}" loading="lazy">
+  </picture>
+{% endif %}

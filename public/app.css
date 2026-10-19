@@ -11547,6 +11547,21 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
     padding-bottom: calc(12px + env(safe-area-inset-bottom));
   }
 }
+.sawab-cat-banner {
+  display: block;
+  margin-bottom: 20px;
+}
+.sawab-cat-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 22px;
+}
+@media (max-width: 768px) {
+  .sawab-cat-banner img {
+    border-radius: 18px;
+  }
+}
 .sawab-cat-head {
   padding-top: 14px;
 }

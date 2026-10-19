@@ -29,6 +29,8 @@
 	{% set sawab_subcats = category.sub_categories|default([]) %}
 
 	<div class="container sawab-cat-head">
+		{% include 'pages.partials.category-banner' %}
+
 		<div class="sawab-cat-hero">
 			<div class="sawab-cat-hero__body">
 				{% if theme.settings.get('product_index_show_breadcrumbs', true) %}

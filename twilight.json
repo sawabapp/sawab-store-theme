@@ -1,5 +1,5 @@
 {
-    "version": "1.0.158",
+    "version": "1.0.159",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -1162,6 +1162,229 @@
             "required": false,
             "value": false,
             "selected": false
+        },
+        {
+            "type": "static",
+            "format": "line",
+            "id": "static-line-catbn",
+            "variant": "line"
+        },
+        {
+            "type": "static",
+            "format": "title",
+            "id": "static-label-catbn",
+            "value": "بنرات صفحات التصنيفات",
+            "variant": "title"
+        },
+        {
+            "type": "string",
+            "icon": "sicon-list",
+            "label": "بنر 1 — اسم التصنيف",
+            "description": "اكتب اسم التصنيف كما يظهر في متجرك تمامًا. اتركه فارغًا لتعطيل هذا البنر",
+            "multilanguage": false,
+            "id": "cat_banner_1_name",
+            "value": null,
+            "required": false,
+            "format": "text",
+            "placeholder": "حلول المياه",
+            "minLength": 0,
+            "maxLength": 80
+        },
+        {
+            "type": "string",
+            "icon": "sicon-image",
+            "label": "بنر 1 — صورة الحاسوب",
+            "description": "* المقاس المناسب 1320×340 بكسل",
+            "id": "cat_banner_1_image",
+            "value": null,
+            "required": false,
+            "format": "image",
+            "settings": {
+                "width": 1320,
+                "height": 340
+            }
+        },
+        {
+            "type": "string",
+            "icon": "sicon-image",
+            "label": "بنر 1 — صورة الجوال",
+            "description": "* المقاس المناسب 700×480 بكسل. اتركها فارغة لاستعمال صورة الحاسوب",
+            "id": "cat_banner_1_mobile",
+            "value": null,
+            "required": false,
+            "format": "image",
+            "settings": {
+                "width": 700,
+                "height": 480
+            }
+        },
+        {
+            "type": "string",
+            "icon": "sicon-list",
+            "label": "بنر 2 — اسم التصنيف",
+            "description": null,
+            "multilanguage": false,
+            "id": "cat_banner_2_name",
+            "value": null,
+            "required": false,
+            "format": "text",
+            "placeholder": "حلول المياه",
+            "minLength": 0,
+            "maxLength": 80
+        },
+        {
+            "type": "string",
+            "icon": "sicon-image",
+            "label": "بنر 2 — صورة الحاسوب",
+            "description": "* المقاس المناسب 1320×340 بكسل",
+            "id": "cat_banner_2_image",
+            "value": null,
+            "required": false,
+            "format": "image",
+            "settings": {
+                "width": 1320,
+                "height": 340
+            }
+        },
+        {
+            "type": "string",
+            "icon": "sicon-image",
+            "label": "بنر 2 — صورة الجوال",
+            "description": "* المقاس المناسب 700×480 بكسل. اتركها فارغة لاستعمال صورة الحاسوب",
+            "id": "cat_banner_2_mobile",
+            "value": null,
+            "required": false,
+            "format": "image",
+            "settings": {
+                "width": 700,
+                "height": 480
+            }
+        },
+        {
+            "type": "string",
+            "icon": "sicon-list",
+            "label": "بنر 3 — اسم التصنيف",
+            "description": null,
+            "multilanguage": false,
+            "id": "cat_banner_3_name",
+            "value": null,
+            "required": false,
+            "format": "text",
+            "placeholder": "حلول المياه",
+            "minLength": 0,
+            "maxLength": 80
+        },
+        {
+            "type": "string",
+            "icon": "sicon-image",
+            "label": "بنر 3 — صورة الحاسوب",
+            "description": "* المقاس المناسب 1320×340 بكسل",
+            "id": "cat_banner_3_image",
+            "value": null,
+            "required": false,
+            "format": "image",
+            "settings": {
+                "width": 1320,
+                "height": 340
+            }
+        },
+        {
+            "type": "string",
+            "icon": "sicon-image",
+            "label": "بنر 3 — صورة الجوال",
+            "description": "* المقاس المناسب 700×480 بكسل. اتركها فارغة لاستعمال صورة الحاسوب",
+            "id": "cat_banner_3_mobile",
+            "value": null,
+            "required": false,
+            "format": "image",
+            "settings": {
+                "width": 700,
+                "height": 480
+            }
+        },
+        {
+            "type": "string",
+            "icon": "sicon-list",
+            "label": "بنر 4 — اسم التصنيف",
+            "description": null,
+            "multilanguage": false,
+            "id": "cat_banner_4_name",
+            "value": null,
+            "required": false,
+            "format": "text",
+            "placeholder": "حلول المياه",
+            "minLength": 0,
+            "maxLength": 80
+        },
+        {
+            "type": "string",
+            "icon": "sicon-image",
+            "label": "بنر 4 — صورة الحاسوب",
+            "description": "* المقاس المناسب 1320×340 بكسل",
+            "id": "cat_banner_4_image",
+            "value": null,
+            "required": false,
+            "format": "image",
+            "settings": {
+                "width": 1320,
+                "height": 340
+            }
+        },
+        {
+            "type": "string",
+            "icon": "sicon-image",
+            "label": "بنر 4 — صورة الجوال",
+            "description": "* المقاس المناسب 700×480 بكسل. اتركها فارغة لاستعمال صورة الحاسوب",
+            "id": "cat_banner_4_mobile",
+            "value": null,
+            "required": false,
+            "format": "image",
+            "settings": {
+                "width": 700,
+                "height": 480
+            }
+        },
+        {
+            "type": "string",
+            "icon": "sicon-list",
+            "label": "بنر 5 — اسم التصنيف",
+            "description": null,
+            "multilanguage": false,
+            "id": "cat_banner_5_name",
+            "value": null,
+            "required": false,
+            "format": "text",
+            "placeholder": "حلول المياه",
+            "minLength": 0,
+            "maxLength": 80
+        },
+        {
+            "type": "string",
+            "icon": "sicon-image",
+            "label": "بنر 5 — صورة الحاسوب",
+            "description": "* المقاس المناسب 1320×340 بكسل",
+            "id": "cat_banner_5_image",
+            "value": null,
+            "required": false,
+            "format": "image",
+            "settings": {
+                "width": 1320,
+                "height": 340
+            }
+        },
+        {
+            "type": "string",
+            "icon": "sicon-image",
+            "label": "بنر 5 — صورة الجوال",
+            "description": "* المقاس المناسب 700×480 بكسل. اتركها فارغة لاستعمال صورة الحاسوب",
+            "id": "cat_banner_5_mobile",
+            "value": null,
+            "required": false,
+            "format": "image",
+            "settings": {
+                "width": 700,
+                "height": 480
+            }
         }
     ],
     "components": [
