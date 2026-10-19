@@ -33,6 +33,18 @@
    دائرة. المسار مكرّر مرّتين ليبدو الدوران متصلًا بلا قفزة عند نهايته، والنسخة
    الثانية مخفيّة عن القارئات الصوتية حتى لا يُقرأ النص مرّتين. الألوان تمرّ
    كمتغيّرات CSS مضمّنة لأنها إعدادات تاجر لا قيم ثابتة #}
+{# تشخيص مؤقّت: يطبع ما تُرجعه سلة لكل مفتاح، لنرى سبب إخفاء الشريط.
+   يُحذف فور معرفة السبب #}
+<!-- sawab-ann
+  enabled = [{{ announcement_enabled }}]
+  any     = [{{ announcement_any }}]
+  t1      = [{{ theme.settings.get('announcement_text_1') }}]
+  t1_type = [{{ theme.settings.get('announcement_text_1')|default('NULL') }}]
+  t1_trim = [{{ theme.settings.get('announcement_text_1')|default('')|trim }}]
+  icon1   = [{{ theme.settings.get('announcement_icon_1') }}]
+  speed   = [{{ announcement_speed }}]
+  bg      = [{{ announcement_bg }}]
+-->
 {% if announcement_enabled and announcement_any %}
 <div
   class="announcement-bar announcement-bar--speed-{{ announcement_speed }}"
