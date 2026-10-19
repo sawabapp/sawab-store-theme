@@ -2,84 +2,99 @@
 بنر صفحة التصنيف.
 
 خمس خانات في إعدادات الثيم، كل خانة: تصنيف مختار من منتقي سلة وصورتان
-(حاسوب وجوال). نقارن معرّف التصنيف الحالي بالمختار، فأول مطابقة ترسم بنرها.
+(حاسوب وجوال). البنر يظهر في صفحة التصنيف المختار.
 
-الخانات مكتوبة صراحةً لا بحلقة على مصفوفة حرفية: المصفوفات الحرفية غير
-مُثبَتة في محرّك سلة، ومؤثّر المدى أسقط الهيدر من قبل (انظر CLAUDE.md).
+**شكل ما يعيده المنتقي في الإعدادات** (كُشف بمجسّ، ويخالف شكله في المكوّنات):
 
-والمنتقي يعيد قائمة بحدّ أقصى عنصر واحد، و`set` داخل `for` لا يبقى أثره
-خارجها في Twig — فنرسم البنر داخل الحلقة مباشرةً.
+    {"value": [664368940], "source": "categories"}
 
-وكل وصول إلى `category` يمرّ بـ`default()`: هذا القالب يُضمَّن أيضًا في صفحات
+أي كائن فيه `value` = قائمة **معرّفات** لا كائنات تصنيفات. فنقارن المعرّف
+بالمعرّف مباشرةً، لا `picked.id`.
+
+الخانات مكتوبة صراحةً لا بحلقة على مصفوفة حرفية (غير مُثبَتة في محرّك سلة)،
+والرسم داخل الحلقة لأن `set` داخل `for` لا يبقى أثره خارجها.
+
+وكل وصول إلى `category` يمرّ بـ`default()`: القالب يُضمَّن أيضًا في صفحات
 الوسوم والبحث والتخفيضات حيث لا وجود له.
 #}
 {% set sawab_bn_id = category.id|default('') %}
 
-{# مجسّ مؤقّت: يطبع معرّف التصنيف وما يُرجعه المنتقي، لنرى سبب عدم المطابقة.
-   json_encode آمن على أي نوع (مستعمل 13 مرة في الثيم). يُحذف فور الحسم #}
-<!-- sawab-bn cat=[{{ sawab_bn_id }}] name=[{{ category.name|default('') }}] s1=[{{ theme.settings.get('cat_banner_1_cat')|json_encode }}] img1=[{{ theme.settings.get('cat_banner_1_image') ? 'y' : 'n' }}] -->
-
 {% if sawab_bn_id %}
-  {% for picked in theme.settings.get('cat_banner_1_cat')|default([]) %}
-    {% if picked.id == sawab_bn_id and theme.settings.get('cat_banner_1_image') %}
-      <picture class="sawab-cat-banner">
-        {% if theme.settings.get('cat_banner_1_mobile') %}
-          <source media="(max-width: 768px)" srcset="{{ theme.settings.get('cat_banner_1_mobile') }}">
-        {% endif %}
-        <img src="{{ theme.settings.get('cat_banner_1_image') }}" alt="{{ category.name|default('') }}" loading="lazy">
-      </picture>
-    {% endif %}
-  {% endfor %}
+  {% set sawab_bn_pick = theme.settings.get('cat_banner_1_cat') %}
+  {% if sawab_bn_pick %}
+    {% for picked_id in sawab_bn_pick.value|default([]) %}
+      {% if picked_id == sawab_bn_id and theme.settings.get('cat_banner_1_image') %}
+        <picture class="sawab-cat-banner">
+          {% if theme.settings.get('cat_banner_1_mobile') %}
+            <source media="(max-width: 768px)" srcset="{{ theme.settings.get('cat_banner_1_mobile') }}">
+          {% endif %}
+          <img src="{{ theme.settings.get('cat_banner_1_image') }}" alt="{{ category.name|default('') }}" loading="lazy">
+        </picture>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 {% endif %}
 
 {% if sawab_bn_id %}
-  {% for picked in theme.settings.get('cat_banner_2_cat')|default([]) %}
-    {% if picked.id == sawab_bn_id and theme.settings.get('cat_banner_2_image') %}
-      <picture class="sawab-cat-banner">
-        {% if theme.settings.get('cat_banner_2_mobile') %}
-          <source media="(max-width: 768px)" srcset="{{ theme.settings.get('cat_banner_2_mobile') }}">
-        {% endif %}
-        <img src="{{ theme.settings.get('cat_banner_2_image') }}" alt="{{ category.name|default('') }}" loading="lazy">
-      </picture>
-    {% endif %}
-  {% endfor %}
+  {% set sawab_bn_pick = theme.settings.get('cat_banner_2_cat') %}
+  {% if sawab_bn_pick %}
+    {% for picked_id in sawab_bn_pick.value|default([]) %}
+      {% if picked_id == sawab_bn_id and theme.settings.get('cat_banner_2_image') %}
+        <picture class="sawab-cat-banner">
+          {% if theme.settings.get('cat_banner_2_mobile') %}
+            <source media="(max-width: 768px)" srcset="{{ theme.settings.get('cat_banner_2_mobile') }}">
+          {% endif %}
+          <img src="{{ theme.settings.get('cat_banner_2_image') }}" alt="{{ category.name|default('') }}" loading="lazy">
+        </picture>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 {% endif %}
 
 {% if sawab_bn_id %}
-  {% for picked in theme.settings.get('cat_banner_3_cat')|default([]) %}
-    {% if picked.id == sawab_bn_id and theme.settings.get('cat_banner_3_image') %}
-      <picture class="sawab-cat-banner">
-        {% if theme.settings.get('cat_banner_3_mobile') %}
-          <source media="(max-width: 768px)" srcset="{{ theme.settings.get('cat_banner_3_mobile') }}">
-        {% endif %}
-        <img src="{{ theme.settings.get('cat_banner_3_image') }}" alt="{{ category.name|default('') }}" loading="lazy">
-      </picture>
-    {% endif %}
-  {% endfor %}
+  {% set sawab_bn_pick = theme.settings.get('cat_banner_3_cat') %}
+  {% if sawab_bn_pick %}
+    {% for picked_id in sawab_bn_pick.value|default([]) %}
+      {% if picked_id == sawab_bn_id and theme.settings.get('cat_banner_3_image') %}
+        <picture class="sawab-cat-banner">
+          {% if theme.settings.get('cat_banner_3_mobile') %}
+            <source media="(max-width: 768px)" srcset="{{ theme.settings.get('cat_banner_3_mobile') }}">
+          {% endif %}
+          <img src="{{ theme.settings.get('cat_banner_3_image') }}" alt="{{ category.name|default('') }}" loading="lazy">
+        </picture>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 {% endif %}
 
 {% if sawab_bn_id %}
-  {% for picked in theme.settings.get('cat_banner_4_cat')|default([]) %}
-    {% if picked.id == sawab_bn_id and theme.settings.get('cat_banner_4_image') %}
-      <picture class="sawab-cat-banner">
-        {% if theme.settings.get('cat_banner_4_mobile') %}
-          <source media="(max-width: 768px)" srcset="{{ theme.settings.get('cat_banner_4_mobile') }}">
-        {% endif %}
-        <img src="{{ theme.settings.get('cat_banner_4_image') }}" alt="{{ category.name|default('') }}" loading="lazy">
-      </picture>
-    {% endif %}
-  {% endfor %}
+  {% set sawab_bn_pick = theme.settings.get('cat_banner_4_cat') %}
+  {% if sawab_bn_pick %}
+    {% for picked_id in sawab_bn_pick.value|default([]) %}
+      {% if picked_id == sawab_bn_id and theme.settings.get('cat_banner_4_image') %}
+        <picture class="sawab-cat-banner">
+          {% if theme.settings.get('cat_banner_4_mobile') %}
+            <source media="(max-width: 768px)" srcset="{{ theme.settings.get('cat_banner_4_mobile') }}">
+          {% endif %}
+          <img src="{{ theme.settings.get('cat_banner_4_image') }}" alt="{{ category.name|default('') }}" loading="lazy">
+        </picture>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 {% endif %}
 
 {% if sawab_bn_id %}
-  {% for picked in theme.settings.get('cat_banner_5_cat')|default([]) %}
-    {% if picked.id == sawab_bn_id and theme.settings.get('cat_banner_5_image') %}
-      <picture class="sawab-cat-banner">
-        {% if theme.settings.get('cat_banner_5_mobile') %}
-          <source media="(max-width: 768px)" srcset="{{ theme.settings.get('cat_banner_5_mobile') }}">
-        {% endif %}
-        <img src="{{ theme.settings.get('cat_banner_5_image') }}" alt="{{ category.name|default('') }}" loading="lazy">
-      </picture>
-    {% endif %}
-  {% endfor %}
+  {% set sawab_bn_pick = theme.settings.get('cat_banner_5_cat') %}
+  {% if sawab_bn_pick %}
+    {% for picked_id in sawab_bn_pick.value|default([]) %}
+      {% if picked_id == sawab_bn_id and theme.settings.get('cat_banner_5_image') %}
+        <picture class="sawab-cat-banner">
+          {% if theme.settings.get('cat_banner_5_mobile') %}
+            <source media="(max-width: 768px)" srcset="{{ theme.settings.get('cat_banner_5_mobile') }}">
+          {% endif %}
+          <img src="{{ theme.settings.get('cat_banner_5_image') }}" alt="{{ category.name|default('') }}" loading="lazy">
+        </picture>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 {% endif %}
