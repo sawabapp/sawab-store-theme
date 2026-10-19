@@ -1,5 +1,5 @@
 {
-    "version": "1.0.159",
+    "version": "1.0.160",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -1177,18 +1177,21 @@
             "variant": "title"
         },
         {
-            "type": "string",
-            "icon": "sicon-list",
-            "label": "بنر 1 — اسم التصنيف",
-            "description": "اكتب اسم التصنيف كما يظهر في متجرك تمامًا. اتركه فارغًا لتعطيل هذا البنر",
-            "multilanguage": false,
-            "id": "cat_banner_1_name",
-            "value": null,
+            "id": "cat_banner_1_cat",
+            "type": "items",
+            "format": "dropdown-list",
+            "label": "بنر 1 — التصنيف",
+            "description": "اختر التصنيف الذي يظهر فيه هذا البنر. اتركه فارغًا لتعطيله",
+            "labelHTML": null,
+            "icon": "sicon-keyboard_arrow_down",
+            "selected": [],
+            "options": [],
+            "source": "categories",
+            "multichoice": true,
+            "searchable": true,
             "required": false,
-            "format": "text",
-            "placeholder": "حلول المياه",
             "minLength": 0,
-            "maxLength": 80
+            "maxLength": 1
         },
         {
             "type": "string",
@@ -1219,18 +1222,21 @@
             }
         },
         {
-            "type": "string",
-            "icon": "sicon-list",
-            "label": "بنر 2 — اسم التصنيف",
+            "id": "cat_banner_2_cat",
+            "type": "items",
+            "format": "dropdown-list",
+            "label": "بنر 2 — التصنيف",
             "description": null,
-            "multilanguage": false,
-            "id": "cat_banner_2_name",
-            "value": null,
+            "labelHTML": null,
+            "icon": "sicon-keyboard_arrow_down",
+            "selected": [],
+            "options": [],
+            "source": "categories",
+            "multichoice": true,
+            "searchable": true,
             "required": false,
-            "format": "text",
-            "placeholder": "حلول المياه",
             "minLength": 0,
-            "maxLength": 80
+            "maxLength": 1
         },
         {
             "type": "string",
@@ -1261,18 +1267,21 @@
             }
         },
         {
-            "type": "string",
-            "icon": "sicon-list",
-            "label": "بنر 3 — اسم التصنيف",
+            "id": "cat_banner_3_cat",
+            "type": "items",
+            "format": "dropdown-list",
+            "label": "بنر 3 — التصنيف",
             "description": null,
-            "multilanguage": false,
-            "id": "cat_banner_3_name",
-            "value": null,
+            "labelHTML": null,
+            "icon": "sicon-keyboard_arrow_down",
+            "selected": [],
+            "options": [],
+            "source": "categories",
+            "multichoice": true,
+            "searchable": true,
             "required": false,
-            "format": "text",
-            "placeholder": "حلول المياه",
             "minLength": 0,
-            "maxLength": 80
+            "maxLength": 1
         },
         {
             "type": "string",
@@ -1303,18 +1312,21 @@
             }
         },
         {
-            "type": "string",
-            "icon": "sicon-list",
-            "label": "بنر 4 — اسم التصنيف",
+            "id": "cat_banner_4_cat",
+            "type": "items",
+            "format": "dropdown-list",
+            "label": "بنر 4 — التصنيف",
             "description": null,
-            "multilanguage": false,
-            "id": "cat_banner_4_name",
-            "value": null,
+            "labelHTML": null,
+            "icon": "sicon-keyboard_arrow_down",
+            "selected": [],
+            "options": [],
+            "source": "categories",
+            "multichoice": true,
+            "searchable": true,
             "required": false,
-            "format": "text",
-            "placeholder": "حلول المياه",
             "minLength": 0,
-            "maxLength": 80
+            "maxLength": 1
         },
         {
             "type": "string",
@@ -1345,18 +1357,21 @@
             }
         },
         {
-            "type": "string",
-            "icon": "sicon-list",
-            "label": "بنر 5 — اسم التصنيف",
+            "id": "cat_banner_5_cat",
+            "type": "items",
+            "format": "dropdown-list",
+            "label": "بنر 5 — التصنيف",
             "description": null,
-            "multilanguage": false,
-            "id": "cat_banner_5_name",
-            "value": null,
+            "labelHTML": null,
+            "icon": "sicon-keyboard_arrow_down",
+            "selected": [],
+            "options": [],
+            "source": "categories",
+            "multichoice": true,
+            "searchable": true,
             "required": false,
-            "format": "text",
-            "placeholder": "حلول المياه",
             "minLength": 0,
-            "maxLength": 80
+            "maxLength": 1
         },
         {
             "type": "string",

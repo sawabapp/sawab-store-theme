@@ -1,48 +1,81 @@
 {#
 بنر صفحة التصنيف.
 
-خمس خانات في إعدادات الثيم، كل خانة: اسم تصنيف وصورتان (حاسوب وجوال).
-نقارن اسم التصنيف الحالي بما كُتب، فأول مطابقة تفوز.
+خمس خانات في إعدادات الثيم، كل خانة: تصنيف مختار من منتقي سلة وصورتان
+(حاسوب وجوال). نقارن معرّف التصنيف الحالي بالمختار، فأول مطابقة ترسم بنرها.
 
-لماذا الاسم لا منتقي تصنيفات؟ منتقي سلة (`source: categories`) مُثبَت داخل
-المكوّنات فقط، ولم يُستعمل قط في إعدادات الثيم — ومجموعة في الإعدادات أسقطت
-الهيدر كاملًا من قبل (انظر CLAUDE.md). فالاسم النصّي هو الطريق المضمون.
+الخانات مكتوبة صراحةً لا بحلقة على مصفوفة حرفية: المصفوفات الحرفية غير
+مُثبَتة في محرّك سلة، ومؤثّر المدى أسقط الهيدر من قبل (انظر CLAUDE.md).
 
-`{% set %}` داخل `{% if %}` يبقى أثره خارجها في Twig (بخلاف `{% for %}`)،
-فنجمع النتيجة بخمس مقارنات متتابعة بلا elseif.
+والمنتقي يعيد قائمة بحدّ أقصى عنصر واحد، و`set` داخل `for` لا يبقى أثره
+خارجها في Twig — فنرسم البنر داخل الحلقة مباشرةً.
+
+وكل وصول إلى `category` يمرّ بـ`default()`: هذا القالب يُضمَّن أيضًا في صفحات
+الوسوم والبحث والتخفيضات حيث لا وجود له.
 #}
-{% set sawab_bn_name = category.name|default('')|trim %}
-{% set sawab_bn_img = '' %}
-{% set sawab_bn_mob = '' %}
+{% set sawab_bn_id = category.id|default('') %}
 
-{% if sawab_bn_name %}
-  {% if theme.settings.get('cat_banner_1_name')|default('')|trim == sawab_bn_name %}
-    {% set sawab_bn_img = theme.settings.get('cat_banner_1_image')|default('') %}
-    {% set sawab_bn_mob = theme.settings.get('cat_banner_1_mobile')|default('') %}
-  {% endif %}
-  {% if theme.settings.get('cat_banner_2_name')|default('')|trim == sawab_bn_name %}
-    {% set sawab_bn_img = theme.settings.get('cat_banner_2_image')|default('') %}
-    {% set sawab_bn_mob = theme.settings.get('cat_banner_2_mobile')|default('') %}
-  {% endif %}
-  {% if theme.settings.get('cat_banner_3_name')|default('')|trim == sawab_bn_name %}
-    {% set sawab_bn_img = theme.settings.get('cat_banner_3_image')|default('') %}
-    {% set sawab_bn_mob = theme.settings.get('cat_banner_3_mobile')|default('') %}
-  {% endif %}
-  {% if theme.settings.get('cat_banner_4_name')|default('')|trim == sawab_bn_name %}
-    {% set sawab_bn_img = theme.settings.get('cat_banner_4_image')|default('') %}
-    {% set sawab_bn_mob = theme.settings.get('cat_banner_4_mobile')|default('') %}
-  {% endif %}
-  {% if theme.settings.get('cat_banner_5_name')|default('')|trim == sawab_bn_name %}
-    {% set sawab_bn_img = theme.settings.get('cat_banner_5_image')|default('') %}
-    {% set sawab_bn_mob = theme.settings.get('cat_banner_5_mobile')|default('') %}
-  {% endif %}
+{% if sawab_bn_id %}
+  {% for picked in theme.settings.get('cat_banner_1_cat')|default([]) %}
+    {% if picked.id == sawab_bn_id and theme.settings.get('cat_banner_1_image') %}
+      <picture class="sawab-cat-banner">
+        {% if theme.settings.get('cat_banner_1_mobile') %}
+          <source media="(max-width: 768px)" srcset="{{ theme.settings.get('cat_banner_1_mobile') }}">
+        {% endif %}
+        <img src="{{ theme.settings.get('cat_banner_1_image') }}" alt="{{ category.name|default('') }}" loading="lazy">
+      </picture>
+    {% endif %}
+  {% endfor %}
 {% endif %}
 
-{% if sawab_bn_img %}
-  <picture class="sawab-cat-banner">
-    {% if sawab_bn_mob %}
-      <source media="(max-width: 768px)" srcset="{{ sawab_bn_mob }}">
+{% if sawab_bn_id %}
+  {% for picked in theme.settings.get('cat_banner_2_cat')|default([]) %}
+    {% if picked.id == sawab_bn_id and theme.settings.get('cat_banner_2_image') %}
+      <picture class="sawab-cat-banner">
+        {% if theme.settings.get('cat_banner_2_mobile') %}
+          <source media="(max-width: 768px)" srcset="{{ theme.settings.get('cat_banner_2_mobile') }}">
+        {% endif %}
+        <img src="{{ theme.settings.get('cat_banner_2_image') }}" alt="{{ category.name|default('') }}" loading="lazy">
+      </picture>
     {% endif %}
-    <img src="{{ sawab_bn_img }}" alt="{{ sawab_bn_name }}" loading="lazy">
-  </picture>
+  {% endfor %}
+{% endif %}
+
+{% if sawab_bn_id %}
+  {% for picked in theme.settings.get('cat_banner_3_cat')|default([]) %}
+    {% if picked.id == sawab_bn_id and theme.settings.get('cat_banner_3_image') %}
+      <picture class="sawab-cat-banner">
+        {% if theme.settings.get('cat_banner_3_mobile') %}
+          <source media="(max-width: 768px)" srcset="{{ theme.settings.get('cat_banner_3_mobile') }}">
+        {% endif %}
+        <img src="{{ theme.settings.get('cat_banner_3_image') }}" alt="{{ category.name|default('') }}" loading="lazy">
+      </picture>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if sawab_bn_id %}
+  {% for picked in theme.settings.get('cat_banner_4_cat')|default([]) %}
+    {% if picked.id == sawab_bn_id and theme.settings.get('cat_banner_4_image') %}
+      <picture class="sawab-cat-banner">
+        {% if theme.settings.get('cat_banner_4_mobile') %}
+          <source media="(max-width: 768px)" srcset="{{ theme.settings.get('cat_banner_4_mobile') }}">
+        {% endif %}
+        <img src="{{ theme.settings.get('cat_banner_4_image') }}" alt="{{ category.name|default('') }}" loading="lazy">
+      </picture>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if sawab_bn_id %}
+  {% for picked in theme.settings.get('cat_banner_5_cat')|default([]) %}
+    {% if picked.id == sawab_bn_id and theme.settings.get('cat_banner_5_image') %}
+      <picture class="sawab-cat-banner">
+        {% if theme.settings.get('cat_banner_5_mobile') %}
+          <source media="(max-width: 768px)" srcset="{{ theme.settings.get('cat_banner_5_mobile') }}">
+        {% endif %}
+        <img src="{{ theme.settings.get('cat_banner_5_image') }}" alt="{{ category.name|default('') }}" loading="lazy">
+      </picture>
+    {% endif %}
+  {% endfor %}
 {% endif %}
