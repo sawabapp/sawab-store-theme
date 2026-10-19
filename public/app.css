@@ -12685,14 +12685,14 @@ salla-add-product-button.sawab-pow__add .s-add-product-button-main > salla-butto
   grid-gap: 10px;
   gap: 10px;
   list-style: none;
-  margin: 0;
+  margin: 18px 0 0;
   padding: 0;
 }
 .sawab-pow__trust li {
   display: flex;
   align-items: center;
   gap: 9px;
-  background: #fff;
+  background: #f3ebe0;
   border-radius: 12px;
   padding: 10px 12px;
 }
