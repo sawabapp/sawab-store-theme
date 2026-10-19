@@ -82,7 +82,11 @@
         <h4 class="sawab-pow__price total-price">{{ product.price|money }}</h4>
         {% if product.is_on_sale and product.regular_price %}
           <span class="sawab-pow__was before-price">{{ product.regular_price|money }}</span>
-          <span class="sawab-pow__save">{{ t_save }} {{ (product.regular_price - product.price)|money }}</span>
+        {% endif %}
+        {# الطرح بين السعرين أسقط القسم مرّتين: القيمتان تُطبعان نظيفتين لكن
+           نوعيهما ليسا واحدًا بالضرورة. نصّ يكتبه التاجر بدل عملية حسابية #}
+        {% if component.save_label %}
+          <span class="sawab-pow__save">{{ component.save_label }}</span>
         {% endif %}
         {% if show_tax %}<span class="sawab-pow__tax">{{ t_tax }}</span>{% endif %}
       </div>

@@ -1,5 +1,5 @@
 {
-    "version": "1.0.144",
+    "version": "1.0.145",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -2556,6 +2556,20 @@
                     "description": null,
                     "minLength": 0,
                     "maxLength": 30
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "شارة التوفير",
+                    "multilanguage": true,
+                    "id": "save_label",
+                    "value": null,
+                    "required": false,
+                    "format": "text",
+                    "placeholder": "وفّر 133 ر.س",
+                    "description": "تظهر بجانب السعر. اتركها فارغة لإخفائها",
+                    "minLength": 0,
+                    "maxLength": 40
                 },
                 {
                     "type": "string",
