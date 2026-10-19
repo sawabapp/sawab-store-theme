@@ -109,7 +109,7 @@
       {% if product.is_on_sale and product.discount_ends %}
         <div class="sawab-pow__countdown">
           <span class="sawab-pow__countdown-label">
-            <i class="sicon-clock" aria-hidden="true"></i>{{ t_ends_in }}
+            <i class="sicon-discount-calculator" aria-hidden="true"></i>{{ t_ends_in }}
           </span>
           <salla-count-down date="{{ product.discount_ends }}" boxed labeled></salla-count-down>
         </div>
