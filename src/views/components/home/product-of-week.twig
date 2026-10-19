@@ -85,12 +85,18 @@
         {% if show_tax %}<span class="sawab-pow__tax">{{ t_tax }}</span>{% endif %}
       </div>
 
+      {# تشخيص مؤقّت: شكل discount_ends كما يعطيه منتقي المنتجات (قد يخالف
+         صفحة المنتج). يُحذف فور تأكّد العدّاد #}
+      <!-- sawab-pow ends=[{{ product.discount_ends|json_encode }}] sale=[{{ product.is_on_sale|json_encode }}] -->
+
+      {# لا نمرّر القيمة عبر |date: فلتر التاريخ على قيمة المنتقي هو ما أسقط
+         القسم. نمرّرها كما هي، وsalla-count-down يحلّلها بنفسه #}
       {% if product.is_on_sale and product.discount_ends %}
         <div class="sawab-pow__countdown">
           <span class="sawab-pow__countdown-label">
             <i class="sicon-clock" aria-hidden="true"></i>{{ t_ends_in }}
           </span>
-          <salla-count-down date="{{ product.discount_ends|date('Y-m-d H:i:s') }}" boxed labeled></salla-count-down>
+          <salla-count-down date="{{ product.discount_ends }}" boxed labeled></salla-count-down>
         </div>
       {% endif %}
 
