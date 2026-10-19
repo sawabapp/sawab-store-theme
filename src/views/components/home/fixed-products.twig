@@ -7,17 +7,46 @@
 | display_all_url       | ?string   | If it's existed, mean should show load more link to this url     |
 | position              | Int       | Sorting number start from zero                                   |
 | limit                 | int       | Number of products to be shown                                   |
+
+هذا قسم جاهز من سلة، فحقوله ليست لنا. والتحكّم فيه من إعدادات الثيم العامة:
+
+- `fixed_products_per_row`  عدد المنتجات في الصف (3 … 6)
+- `fixed_products_layout`   ما يحدث عند التجاوز: `slider` أو `grid`
+- `vertical_fixed_products` البطاقة العمودية — وهي تصميم بطاقات هذا الثيم
+
+في وضع الشريط نمرّر العنوان إلى `salla-products-slider` بسمة `block-title`
+ليرسمه مع أزرار التنقّل في سطر واحد، فلا نرسم ترويستنا كي لا يتكرّر العنوان.
 #}
 {% set is_vertical = theme.settings.get('vertical_fixed_products', true) %}
-<section data-testid="store-home-fixed-products" class="s-block sawab-block">
+{% set fp_cols = theme.settings.get('fixed_products_per_row')|default('5') %}
+{% set fp_layout = theme.settings.get('fixed_products_layout')|default('slider') %}
+
+<section
+  data-testid="store-home-fixed-products"
+  class="s-block sawab-block sawab-block--cols-{{ fp_cols }}{{ fp_layout == 'slider' ? ' sawab-block--slider overflow-hidden' : '' }}"
+>
+  {% if fp_layout == 'slider' %}
+
+    <salla-products-slider
+      data-testid="store-home-fixed-products-slider"
+      source="{{ products.source }}"
+      includes='["brand"]'
+      limit="{{ limit }}"
+      source-value="{{ products.source_value|json_encode }}"
+      display-all-url="{{ display_all_url }}"
+      block-title="{{ title }}"
+      slider-id="fixed-products-{{ position }}"
+    ></salla-products-slider>
+
+  {% else %}
+
     {% if title %}
       <div class="s-block__title">
         <div class="right-side">
           <h2>{{ title }}</h2>
-          {# <p>عنوان فرعي توصيفي صغير</p> #}
         </div>
         {% if display_all_url %}
-            <a href="{{ display_all_url }}" class="s-block__display-all">{{ trans('blocks.home.display_all') }} <i class="sicon-arrow-left"></i></a>
+          <a href="{{ display_all_url }}" class="s-block__display-all">{{ trans('blocks.home.display_all') }} <i class="sicon-arrow-left"></i></a>
         {% endif %}
       </div>
     {% endif %}
@@ -28,10 +57,10 @@
       includes='["brand"]'
       limit="{{ limit }}"
       source-value="{{ products.source_value|json_encode }}"
-      class="{{is_vertical ? 'vertical-products' : 'horizontal-products'}}"
-      {{is_vertical ? '' : 'horizontal-cards'}}
+      class="{{ is_vertical ? 'vertical-products' : 'horizontal-products' }}"
+      {{ is_vertical ? '' : 'horizontal-cards' }}
       >
     </salla-products-list>
+
+  {% endif %}
 </section>
-
-

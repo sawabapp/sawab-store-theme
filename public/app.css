@@ -12290,6 +12290,39 @@ salla-slider.sawab-cats__slider .sawab-cats__slide {
     font-size: 19px;
   }
 }
+@media (min-width: 1024px) {
+  .sawab-block--cols-3 salla-products-list .s-products-list-wrapper {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .sawab-block--cols-4 salla-products-list .s-products-list-wrapper {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .sawab-block--cols-5 salla-products-list .s-products-list-wrapper {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .sawab-block--cols-6 salla-products-list .s-products-list-wrapper {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .sawab-block--cols-3 salla-products-slider .swiper-slide {
+    width: 33.333%;
+  }
+  .sawab-block--cols-4 salla-products-slider .swiper-slide {
+    width: 25%;
+  }
+  .sawab-block--cols-5 salla-products-slider .swiper-slide {
+    width: 20%;
+  }
+  .sawab-block--cols-6 salla-products-slider .swiper-slide {
+    width: 16.666%;
+  }
+}
+.sawab-block--slider salla-products-slider .s-slider-block__title h2,
+.sawab-block--slider salla-products-slider .s-block__title h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1c1b19;
+  color: var(--main-text-color, #1a1a1a);
+}
 .before\:text-orange-300::before{
     content: var(--tw-content);
     --tw-text-opacity: 1;

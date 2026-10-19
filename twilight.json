@@ -1,5 +1,5 @@
 {
-    "version": "1.0.141",
+    "version": "1.0.142",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -69,6 +69,76 @@
             "required": false,
             "value": true,
             "selected": true
+        },
+        {
+            "id": "fixed_products_per_row",
+            "type": "items",
+            "format": "dropdown-list",
+            "label": "عدد المنتجات في الصف — «منتجات ثابتة»",
+            "description": "على الحاسوب. يقلّ تلقائيًا على الشاشات الأصغر",
+            "labelHTML": null,
+            "icon": "sicon-grid",
+            "selected": [
+                {
+                    "label": "5",
+                    "value": "5",
+                    "key": "50df81a2-7f50-4a40-9805-11cfee6793e1"
+                }
+            ],
+            "options": [
+                {
+                    "label": "3",
+                    "value": "3",
+                    "key": "7845b587-b6f6-4e73-b0aa-64bb1aa1a1e0"
+                },
+                {
+                    "label": "4",
+                    "value": "4",
+                    "key": "db2267e1-642e-4d01-9e46-75c2b9292db8"
+                },
+                {
+                    "label": "5",
+                    "value": "5",
+                    "key": "50df81a2-7f50-4a40-9805-11cfee6793e1"
+                },
+                {
+                    "label": "6",
+                    "value": "6",
+                    "key": "4cb0837c-03f7-4246-86bc-3fe85be9a285"
+                }
+            ],
+            "source": "Manual",
+            "required": false
+        },
+        {
+            "id": "fixed_products_layout",
+            "type": "items",
+            "format": "dropdown-list",
+            "label": "ما يحدث عند تجاوز العدد",
+            "description": null,
+            "labelHTML": null,
+            "icon": "sicon-list",
+            "selected": [
+                {
+                    "label": "شريط منزلق — تُتصفَّح البقية بالسحب",
+                    "value": "slider",
+                    "key": "fda07df1-833c-4bd9-9423-82c58f6fc135"
+                }
+            ],
+            "options": [
+                {
+                    "label": "شريط منزلق — تُتصفَّح البقية بالسحب",
+                    "value": "slider",
+                    "key": "fda07df1-833c-4bd9-9423-82c58f6fc135"
+                },
+                {
+                    "label": "صفوف متتابعة — تنزل البقية إلى صف جديد",
+                    "value": "grid",
+                    "key": "5e0e6132-41ee-4de9-b974-2a960e811597"
+                }
+            ],
+            "source": "Manual",
+            "required": false
         },
         {
             "type": "boolean",
