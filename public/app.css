@@ -12154,7 +12154,7 @@ salla-slider.sawab-cats__slider .sawab-cats__slide {
   -webkit-text-decoration: none;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: border-color 0.18s ease;
 }
 .sawab-cats__media {
   position: relative;
@@ -12196,10 +12196,8 @@ salla-slider.sawab-cats__slider .sawab-cats__slide {
   overflow: hidden;
 }
 .sawab-cats__card:hover {
-  transform: translateY(-3px);
   border-color: #c62127;
   border-color: var(--color-primary);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.09);
 }
 .sawab-cats__card:hover .sawab-cats__name {
   color: #c62127;
