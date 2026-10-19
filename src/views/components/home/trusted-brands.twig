@@ -1,0 +1,86 @@
+{#
+| Variable             | Type    | Description                                                     |
+|----------------------|---------|-----------------------------------------------------------------|
+| component.title      | ?string | عنوان القسم                                                     |
+| component.subtitle   | ?string | نص توضيحي أسفل العنوان                                          |
+| component.all_url    | ?string | رابط «كل الماركات» بجانب العنوان                                 |
+| component.brands     | Brand[] | الماركات المختارة — لكلٍّ name و logo و url                      |
+| component.columns    | ?string | عدد الماركات في الصف على الحاسوب: 3 أو 4 أو 5                    |
+| component.card_*     | ?string | بطاقة الضمان الداكنة: عنوان ونص وثلاث مزايا وزر                  |
+
+الماركات من منتقي سلة (`source: brands`) فلا نجلبها. والمتاح منها `name` و
+`logo` و`url` فقط — لا عدد منتجات (انظر القاعدة الذهبية في CLAUDE.md: خاصية
+جذرية غائبة تُسقط القسم، فلا نلمس ما لم يثبت وجوده).
+#}
+{% set brands = component.brands|default([]) %}
+
+{% if brands|length %}
+<section data-testid="store-home-trusted-brands" class="s-block sawab-tb sawab-tb--cols-{{ component.columns|default('4') }}">
+
+  {% if component.title or component.subtitle or component.all_url %}
+    <div class="sawab-tb__head">
+      <div class="sawab-tb__headings">
+        {% if component.title %}<h2 class="sawab-tb__title">{{ component.title }}</h2>{% endif %}
+        {% if component.subtitle %}<p class="sawab-tb__subtitle">{{ component.subtitle }}</p>{% endif %}
+      </div>
+      {% if component.all_url %}
+        <a href="{{ component.all_url }}" class="sawab-tb__all">
+          <span>{{ trans('blocks.home.display_all') }}</span>
+          <i class="sicon-arrow-left" aria-hidden="true"></i>
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="sawab-tb__body">
+
+    <ul class="sawab-tb__grid">
+      {% for brand in brands %}
+        <li class="sawab-tb__cell">
+          <a href="{{ brand.url }}" class="sawab-tb__card">
+            <span class="sawab-tb__logo">
+              <img src="{{ brand.logo }}" alt="{{ brand.name }}" loading="lazy" width="160" height="120">
+            </span>
+            <span class="sawab-tb__name">{{ brand.name }}</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% if component.card_title or component.card_text or component.card_item1 %}
+      <aside class="sawab-tb__promise">
+        <span class="sawab-tb__promise-icon" aria-hidden="true">
+          <i class="sicon-shield-check"></i>
+        </span>
+
+        {% if component.card_title %}
+          <h3 class="sawab-tb__promise-title">{{ component.card_title }}</h3>
+        {% endif %}
+        {% if component.card_text %}
+          <p class="sawab-tb__promise-text">{{ component.card_text }}</p>
+        {% endif %}
+
+        <ul class="sawab-tb__promise-list">
+          {% if component.card_item1 %}
+            <li><i class="sicon-check" aria-hidden="true"></i><span>{{ component.card_item1 }}</span></li>
+          {% endif %}
+          {% if component.card_item2 %}
+            <li><i class="sicon-check" aria-hidden="true"></i><span>{{ component.card_item2 }}</span></li>
+          {% endif %}
+          {% if component.card_item3 %}
+            <li><i class="sicon-check" aria-hidden="true"></i><span>{{ component.card_item3 }}</span></li>
+          {% endif %}
+        </ul>
+
+        {% if component.card_btn_url and component.card_btn_text %}
+          <a href="{{ component.card_btn_url }}" class="sawab-tb__promise-btn">
+            <span>{{ component.card_btn_text }}</span>
+            <i class="sicon-arrow-left" aria-hidden="true"></i>
+          </a>
+        {% endif %}
+      </aside>
+    {% endif %}
+
+  </div>
+</section>
+{% endif %}

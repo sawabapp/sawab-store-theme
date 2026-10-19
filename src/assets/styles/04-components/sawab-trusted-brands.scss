@@ -1,0 +1,277 @@
+// ===== ماركات نثق بها =====
+// شبكة شعارات + بطاقة ضمان داكنة. البطاقة في طرف السطر (يسارًا في RTL)
+// وترتفع بارتفاع الشبكة كاملة.
+
+.sawab-tb {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 48px;
+  font-family: var(--font-main);
+}
+
+.sawab-tb__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.sawab-tb__title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--main-text-color, #1a1a1a);
+  margin: 0;
+}
+
+.sawab-tb__subtitle {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6b6b6b;
+  margin: 6px 0 0;
+}
+
+.sawab-tb__all {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--main-text-color, #1a1a1a);
+  text-decoration: none;
+
+  i {
+    font-size: 12px;
+    transition: transform 0.18s ease;
+  }
+
+  &:hover {
+    color: var(--color-primary);
+  }
+
+  &:hover i { transform: translateX(-3px); }
+}
+
+[dir="ltr"] .sawab-tb__all:hover i { transform: translateX(3px); }
+
+// ===== التخطيط =====
+.sawab-tb__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 300px);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.sawab-tb__grid {
+  display: grid;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-content: start;
+}
+
+.sawab-tb--cols-3 .sawab-tb__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.sawab-tb--cols-4 .sawab-tb__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.sawab-tb--cols-5 .sawab-tb__grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+// ===== بطاقة الماركة =====
+.sawab-tb__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+  padding: 18px 14px 16px;
+  background: #fff;
+  border: 1px solid var(--color-border, #e8e1d5);
+  border-radius: 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.18s ease;
+
+  &:hover {
+    border-color: var(--color-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+}
+
+// لوحة الشعار بنسبة ثابتة: شعارات الماركات تختلف أبعادها كثيرًا،
+// و contain يمنعها من تفكيك الصف
+.sawab-tb__logo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f6f4f0;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 10px;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+}
+
+.sawab-tb__name {
+  font-size: 13.5px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.4;
+  color: var(--main-text-color, #1a1a1a);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.sawab-tb__card:hover .sawab-tb__name {
+  color: var(--color-primary);
+}
+
+// ===== بطاقة الضمان الداكنة =====
+.sawab-tb__promise {
+  display: flex;
+  flex-direction: column;
+  background: #17181a;
+  border-radius: 18px;
+  padding: 24px 22px;
+  color: #fff;
+}
+
+.sawab-tb__promise-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 16px;
+
+  i {
+    font-size: 19px;
+    color: #f6d98a;
+  }
+}
+
+.sawab-tb__promise-title {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.4;
+  margin: 0 0 8px;
+  color: #fff;
+}
+
+.sawab-tb__promise-text {
+  font-size: 13px;
+  line-height: 1.75;
+  color: #b9b9b9;
+  margin: 0 0 16px;
+}
+
+.sawab-tb__promise-list {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  // يدفع الزر إلى أسفل البطاقة مهما طالت
+  flex: 1 1 auto;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.6;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  li:last-child { border-bottom: 0; }
+
+  i {
+    font-size: 12px;
+    color: #f6d98a;
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+}
+
+.sawab-tb__promise-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 46px;
+  border-radius: 12px;
+  background: #fff;
+  color: #17181a;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: filter 0.18s ease;
+
+  i {
+    font-size: 12px;
+    transition: transform 0.18s ease;
+  }
+
+  &:hover {
+    filter: brightness(0.92);
+  }
+
+  &:hover i { transform: translateX(-3px); }
+}
+
+[dir="ltr"] .sawab-tb__promise-btn:hover i { transform: translateX(3px); }
+
+// ===== الشاشات الأصغر =====
+@media (max-width: 1024px) {
+  .sawab-tb { padding: 28px 24px; }
+
+  .sawab-tb__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sawab-tb--cols-4 .sawab-tb__grid,
+  .sawab-tb--cols-5 .sawab-tb__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .sawab-tb { padding: 24px 16px; }
+
+  .sawab-tb__title { font-size: 19px; }
+
+  .sawab-tb__grid,
+  .sawab-tb--cols-3 .sawab-tb__grid,
+  .sawab-tb--cols-4 .sawab-tb__grid,
+  .sawab-tb--cols-5 .sawab-tb__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .sawab-tb__card { padding: 12px 8px 10px; gap: 8px; }
+  .sawab-tb__name { font-size: 12px; }
+  .sawab-tb__promise { padding: 20px 18px; }
+}
+
+@media (max-width: 420px) {
+  .sawab-tb__grid,
+  .sawab-tb--cols-3 .sawab-tb__grid,
+  .sawab-tb--cols-4 .sawab-tb__grid,
+  .sawab-tb--cols-5 .sawab-tb__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

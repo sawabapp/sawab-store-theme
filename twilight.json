@@ -1,5 +1,5 @@
 {
-    "version": "1.0.151",
+    "version": "1.0.152",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -2892,6 +2892,329 @@
                     ],
                     "source": "Manual",
                     "required": false
+                }
+            ]
+        },
+        {
+            "key": "296f7811-3555-46ed-90c5-7b6fc5ada497",
+            "title": {
+                "ar": "ماركات نثق بها",
+                "en": "Trusted brands"
+            },
+            "icon": "sicon-shield-check",
+            "path": "home.trusted-brands",
+            "fields": [
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "عنوان القسم",
+                    "multilanguage": true,
+                    "id": "title",
+                    "value": "ماركات نثق بها",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 80
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "نص توضيحي",
+                    "multilanguage": true,
+                    "id": "subtitle",
+                    "value": "وكلاء معتمدون لأفضل ماركات حلول المياه",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 120
+                },
+                {
+                    "type": "items",
+                    "icon": "sicon-link",
+                    "label": "رابط «كل الماركات»",
+                    "id": "all_url",
+                    "value": [],
+                    "description": "يظهر بجانب العنوان. اتركه فارغًا لإخفائه",
+                    "required": false,
+                    "format": "variable-list",
+                    "searchable": true,
+                    "source": "custom",
+                    "sources": [
+                        {
+                            "label": "منتج",
+                            "key": "products",
+                            "value": "products"
+                        },
+                        {
+                            "label": "منتجات مع وسم",
+                            "key": "products_tags",
+                            "value": "products_tags"
+                        },
+                        {
+                            "label": "تصنيف",
+                            "key": "categories",
+                            "value": "categories"
+                        },
+                        {
+                            "label": "ماركة تجارية",
+                            "key": "brands",
+                            "value": "brands"
+                        },
+                        {
+                            "label": "صفحة تعريفية",
+                            "key": "pages",
+                            "value": "pages"
+                        },
+                        {
+                            "label": "مقالة",
+                            "key": "blog_articles",
+                            "value": "blog_articles"
+                        },
+                        {
+                            "label": "تصنيف ضمن المدونة",
+                            "key": "blog_categories",
+                            "value": "blog_categories"
+                        },
+                        {
+                            "label": "التخفيضات",
+                            "key": "offers_link",
+                            "value": "offers_link"
+                        },
+                        {
+                            "label": "الماركات التجارية",
+                            "key": "brands_link",
+                            "value": "brands_link"
+                        },
+                        {
+                            "label": "المدونة",
+                            "key": "blog_link",
+                            "value": "blog_link"
+                        },
+                        {
+                            "label": "رابط خارجي",
+                            "key": "custom",
+                            "value": "custom"
+                        }
+                    ]
+                },
+                {
+                    "type": "items",
+                    "icon": "sicon-keyboard_arrow_down",
+                    "label": "الماركات",
+                    "description": "اختر الماركات التي تريد عرضها ورتّبها. يُعرض شعار كل ماركة واسمها",
+                    "id": "brands",
+                    "format": "dropdown-list",
+                    "selected": [],
+                    "options": [],
+                    "required": true,
+                    "multichoice": true,
+                    "searchable": true,
+                    "source": "brands"
+                },
+                {
+                    "id": "columns",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "عدد الماركات في الصف",
+                    "description": "على الحاسوب. يقلّ تلقائيًا على الشاشات الأصغر",
+                    "labelHTML": null,
+                    "icon": "sicon-grid",
+                    "selected": [
+                        {
+                            "label": "4",
+                            "value": "4",
+                            "key": "763f9e85-60a3-40a2-aac9-f8b06246627e"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "3",
+                            "value": "3",
+                            "key": "390bf737-a613-42a1-872c-2be55005fbf6"
+                        },
+                        {
+                            "label": "4",
+                            "value": "4",
+                            "key": "763f9e85-60a3-40a2-aac9-f8b06246627e"
+                        },
+                        {
+                            "label": "5",
+                            "value": "5",
+                            "key": "0118667d-f717-413a-99dc-cccfafeb6848"
+                        }
+                    ],
+                    "source": "Manual",
+                    "required": false
+                },
+                {
+                    "type": "static",
+                    "format": "line",
+                    "id": "static-line-tb",
+                    "variant": "line"
+                },
+                {
+                    "type": "static",
+                    "format": "title",
+                    "id": "static-label-tb",
+                    "value": "بطاقة الضمان الداكنة",
+                    "variant": "title"
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "عنوان البطاقة",
+                    "multilanguage": true,
+                    "id": "card_title",
+                    "value": "منتجات أصلية من الوكيل",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 50
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "نص البطاقة",
+                    "multilanguage": true,
+                    "id": "card_text",
+                    "value": "كل ماركة نعرضها تصلك بفاتورة ضريبية وضمان معتمد يصل إلى 7 سنوات.",
+                    "required": false,
+                    "format": "textarea",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 200
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "الميزة 1",
+                    "multilanguage": true,
+                    "id": "card_item1",
+                    "value": "فاتورة ضريبية لكل طلب",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 50
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "الميزة 2",
+                    "multilanguage": true,
+                    "id": "card_item2",
+                    "value": "ضمان الوكيل الرسمي",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 50
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "الميزة 3",
+                    "multilanguage": true,
+                    "id": "card_item3",
+                    "value": "قطع غيار وصيانة بعد البيع",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 50
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "نص زر البطاقة",
+                    "multilanguage": true,
+                    "id": "card_btn_text",
+                    "value": "تصفّح كل الماركات",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 40
+                },
+                {
+                    "type": "items",
+                    "icon": "sicon-link",
+                    "label": "رابط زر البطاقة",
+                    "id": "card_btn_url",
+                    "value": [],
+                    "description": "اتركه فارغًا لإخفاء الزر",
+                    "required": false,
+                    "format": "variable-list",
+                    "searchable": true,
+                    "source": "custom",
+                    "sources": [
+                        {
+                            "label": "منتج",
+                            "key": "products",
+                            "value": "products"
+                        },
+                        {
+                            "label": "منتجات مع وسم",
+                            "key": "products_tags",
+                            "value": "products_tags"
+                        },
+                        {
+                            "label": "تصنيف",
+                            "key": "categories",
+                            "value": "categories"
+                        },
+                        {
+                            "label": "ماركة تجارية",
+                            "key": "brands",
+                            "value": "brands"
+                        },
+                        {
+                            "label": "صفحة تعريفية",
+                            "key": "pages",
+                            "value": "pages"
+                        },
+                        {
+                            "label": "مقالة",
+                            "key": "blog_articles",
+                            "value": "blog_articles"
+                        },
+                        {
+                            "label": "تصنيف ضمن المدونة",
+                            "key": "blog_categories",
+                            "value": "blog_categories"
+                        },
+                        {
+                            "label": "التخفيضات",
+                            "key": "offers_link",
+                            "value": "offers_link"
+                        },
+                        {
+                            "label": "الماركات التجارية",
+                            "key": "brands_link",
+                            "value": "brands_link"
+                        },
+                        {
+                            "label": "المدونة",
+                            "key": "blog_link",
+                            "value": "blog_link"
+                        },
+                        {
+                            "label": "رابط خارجي",
+                            "key": "custom",
+                            "value": "custom"
+                        }
+                    ]
                 }
             ]
         }
