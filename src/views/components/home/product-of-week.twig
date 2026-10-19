@@ -97,6 +97,20 @@
         </div>
       {% endif %}
 
+      {# فورم كفورم صفحة المنتج: بدونه لا تصل الخيارات المختارة إلى السلة.
+         لا نمرّر سمة options — طباعة كائن غير مضمونة؛ والمكوّن يجلب الخيارات
+         بنفسه عبر getDetails(id, ['options']) كما هو موثّق في CLAUDE.md #}
+      <form class="form product-form sawab-pow__form" enctype="multipart/form-data" method="post"
+            onsubmit="return salla.form.onSubmit('cart.addItem', event)">
+        <input type="hidden" name="id" value="{{ product.id }}">
+
+        <salla-product-options
+          class="sawab-pow__options"
+          data-base-price="{{ product.price }}"
+          product-id="{{ product.id }}"
+          config='{"single-option": {"type": "button"}, "multiple-option": {"type": "button"}}'
+        ></salla-product-options>
+
       <div class="sawab-pow__actions">
         <salla-quantity-input max="{{ product.max_quantity }}" value="1" name="quantity"></salla-quantity-input>
 
@@ -115,6 +129,7 @@
           </a>
         {% endif %}
       </div>
+      </form>
 
       <ul class="sawab-pow__trust">
         {% if component.trust1_title %}

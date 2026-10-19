@@ -12579,8 +12579,53 @@ salla-slider.sawab-cats__slider .sawab-cats__slide {
   min-height: 52px;
 }
 .sawab-pow__actions .s-quantity-input-input {
-  width: 44px;
+  width: 32px;
+  padding: 0;
+  font-size: 15px;
   font-weight: 700;
+}
+.sawab-pow__actions .s-quantity-input-button {
+  width: 34px;
+  min-width: 34px;
+  padding: 0;
+}
+.sawab-pow__actions salla-quantity-input {
+  flex: 0 0 auto;
+}
+salla-product-options.sawab-pow__options {
+  display: block;
+  margin-bottom: 16px;
+}
+salla-product-options.sawab-pow__options .s-product-options-option {
+  display: block;
+}
+salla-product-options.sawab-pow__options .s-product-options-option-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1c1b19;
+  color: var(--main-text-color, #1a1a1a);
+  margin-bottom: 8px;
+}
+salla-product-options.sawab-pow__options .s-product-options-grid-mode-span {
+  background: #fff;
+  border: 1.5px solid #f2ecdf;
+  border: 1.5px solid var(--color-border, #e8e1d5);
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1c1b19;
+  color: var(--main-text-color, #1a1a1a);
+  transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+salla-product-options.sawab-pow__options input:checked + .s-product-options-grid-mode-span {
+  background: #17181a;
+  border-color: #17181a;
+  color: #fff;
+}
+salla-product-options.sawab-pow__options label:hover .s-product-options-grid-mode-span {
+  border-color: #c62127;
+  border-color: var(--color-primary);
 }
 salla-add-product-button.sawab-pow__add {
   flex: 1 1 220px;
