@@ -259,19 +259,22 @@
 }
 
 // ===== الأزرار =====
+// stretch لا center: ارتفاع الكمية يتبع ارتفاع زر السلة مهما تغيّر،
+// بدل رقم ثابت يختلّ حين ترسم سلة زرّين (أضف للسلة + اشترِ الآن)
 .sawab-pow__actions {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 10px;
   flex-wrap: wrap;
   margin-bottom: 18px;
+  min-height: 52px;
 }
 
 // الكمية: نفس تصميم صفحة المنتج — صندوق أبيض بحدّ وزوايا مدوّرة
 // بارتفاع الأزرار نفسه. المحدّدات تبدأ باسم المكوّن كعادة قواعد سلة.
 .sawab-pow__actions salla-quantity-input,
 .sawab-pow__actions .s-quantity-input-container {
-  height: 52px;
+  height: 100%;
 }
 
 .sawab-pow__actions .s-quantity-input-container {
@@ -347,7 +350,17 @@ salla-add-product-button.sawab-pow__add {
 // زرّا سلة (أضف للسلة / اشترِ الآن) بعرض متساوٍ وارتفاع واحد
 salla-add-product-button.sawab-pow__add .s-add-product-button-main {
   align-items: stretch;
-  gap: 12px;
+  gap: 10px;
+}
+
+// أيقونة السلة قبل النص. لا نضيف عنصر <i>: سلة تعيد بناء محتوى الزر
+// بـsetText فتُمحى أي عقدة نضيفها — فالقناع على ::before هو السبيل الوحيد.
+// ومحصورة في حالة sale وفي salla-button فلا تمسّ ودجت "اشترِ الآن".
+salla-add-product-button.sawab-pow__add[product-status="sale"] salla-button .s-button-text::before {
+  @include sawab-cart-icon(18px);
+
+  [dir="rtl"] & { margin-left: 8px; }
+  [dir="ltr"] & { margin-right: 8px; }
 }
 
 salla-add-product-button.sawab-pow__add .s-add-product-button-main > salla-button {

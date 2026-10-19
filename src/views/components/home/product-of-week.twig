@@ -119,8 +119,11 @@
 
         {# type="submit" أساسي لا تجميلي: بدونه يضيف الزر المنتج بمعرّفه
            وحده، فتضيع الخيارات المختارة. وبه يرسل الفورم المحيط بها جميعًا #}
+        {# "اشترِ الآن" يأتي من سلة عبر quick-buy، مشروطًا بإعداد المتجر.
+           لا نبني زرًا ثانيًا — جرّبناه في صفحة المنتج فظهر زرّان #}
         <salla-add-product-button
           class="sawab-pow__add"
+          {{ product.can_quick_buy ? 'quick-buy' : '' }}
           product-id="{{ product.id }}"
           product-status="{{ product.status }}"
           product-type="{{ product.type }}"
