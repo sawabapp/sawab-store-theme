@@ -196,14 +196,6 @@ $sawab-cat-cream: #f8f1e7;
 // صف مرن ببطاقات ثابتة العرض لا شبكة أعمدة: التصنيفات قليلة عادةً، والشبكة
 // كانت تحشرها في أول أعمدة وتترك بقية السطر فراغًا. والصورة تملأ البطاقة
 // حتى حوافها (صور سلة على خلفيات ملوّنة، فأي إطار كريمي يصطدم بها).
-.sawab-subcats__title {
-  margin: 0 0 12px;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.6;
-  color: var(--main-text-color);
-}
-
 .sawab-subcats {
   display: flex;
   flex-wrap: wrap;

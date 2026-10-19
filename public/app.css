@@ -11709,14 +11709,6 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
 [dir=ltr] .sawab-list-toolbar__sort i {
   right: 12px;
 }
-.sawab-subcats__title {
-  margin: 0 0 12px;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.6;
-  color: #1c1b19;
-  color: var(--main-text-color);
-}
 .sawab-subcats {
   display: flex;
   flex-wrap: wrap;

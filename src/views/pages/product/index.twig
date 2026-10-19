@@ -19,7 +19,6 @@
 {% extends "layouts.master" %}
 {% block content %}
 	{% set sawab_ar = (language.code|default('ar')) == 'ar' %}
-	{% set t_shop_subcats = sawab_ar ? 'تسوّق حسب التصنيفات الفرعية' : 'Shop by subcategory' %}
 	{# رأس التصنيف: لوحة كريمية تضمّ مسار التنقّل والاسم وعدد المنتجات وصورة
 	   التصنيف. القالب يخدم أيضًا صفحات الوسوم والبحث والتخفيضات حيث لا وجود
 	   لـ category، فكل وصول إليه يمرّ بـ default() — وإلا رمى Twig وظهرت
@@ -44,7 +43,6 @@
 
 			{% if sawab_subcats|length %}
 				<div class="sawab-subcats__wrap">
-					<h2 class="sawab-subcats__title">{{ t_shop_subcats }}</h2>
 					<nav class="sawab-subcats" aria-label="{{ sawab_cat_name }}">
 						{% for sub in sawab_subcats %}
 							<a class="sawab-subcats__item" href="{{ sub.url|default('#') }}">
