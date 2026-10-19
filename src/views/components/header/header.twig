@@ -39,18 +39,29 @@
 >
   <div class="announcement-bar__viewport">
     <div class="announcement-bar__track">
-      {% for pass in 1..2 %}
-        <div class="announcement-bar__seq"{{ pass == 2 ? ' aria-hidden="true"' : '' }}>
-          {% for item in announcement_items %}
-            <span class="announcement-bar__item">
-              <span class="announcement-bar__text">{{ item.text }}</span>
-              <span class="announcement-bar__sep" aria-hidden="true">
-                <i class="{{ item.icon|default('sicon-shipping-fast') }}"></i>
-              </span>
+      {# النسختان مكتوبتان صراحةً لا بحلقة مدى: محرّك سلة لا يفهم كل مفردات
+         Twig القياسية، والالتزام بما يستعمله الثيم فعلًا أأمن من الاختصار #}
+      <div class="announcement-bar__seq">
+        {% for item in announcement_items %}
+          <span class="announcement-bar__item">
+            <span class="announcement-bar__text">{{ item.text }}</span>
+            <span class="announcement-bar__sep" aria-hidden="true">
+              <i class="{{ item.icon|default('sicon-shipping-fast') }}"></i>
             </span>
-          {% endfor %}
-        </div>
-      {% endfor %}
+          </span>
+        {% endfor %}
+      </div>
+
+      <div class="announcement-bar__seq" aria-hidden="true">
+        {% for item in announcement_items %}
+          <span class="announcement-bar__item">
+            <span class="announcement-bar__text">{{ item.text }}</span>
+            <span class="announcement-bar__sep" aria-hidden="true">
+              <i class="{{ item.icon|default('sicon-shipping-fast') }}"></i>
+            </span>
+          </span>
+        {% endfor %}
+      </div>
     </div>
   </div>
 
