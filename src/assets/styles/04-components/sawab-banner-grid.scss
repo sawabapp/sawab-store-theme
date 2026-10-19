@@ -1,0 +1,181 @@
+// ===== شبكة البنرات =====
+// صفّان: بنران كبيران ثم أربعة صغيرة. لون خلفية كل بنر يصل كمتغيّر مضمّن
+// (--bn-bg) لأنه إعداد تاجر، والقيمة هنا احتياطية فقط.
+
+.sawab-bn {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 48px;
+  font-family: var(--font-main);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.sawab-bn__row {
+  display: grid;
+  gap: 18px;
+}
+
+.sawab-bn__row--large { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.sawab-bn__row--small { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+// ===== البطاقة =====
+.sawab-bn__card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  overflow: hidden;
+  background: var(--bn-bg, #e63329);
+  border-radius: 22px;
+  color: #fff;
+  text-decoration: none;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+a.sawab-bn__card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+}
+
+a.sawab-bn__card:focus-visible {
+  outline: 2px solid var(--bn-bg, #e63329);
+  outline-offset: 3px;
+}
+
+.sawab-bn__card--large {
+  min-height: 300px;
+  padding: 30px 32px;
+  border-radius: 26px;
+}
+
+.sawab-bn__card--small {
+  min-height: 170px;
+  padding: 20px 22px;
+}
+
+// ===== النص =====
+.sawab-bn__text {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.sawab-bn__eyebrow {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+  margin-bottom: 6px;
+}
+
+.sawab-bn__title {
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0;
+  color: #fff;
+  // العنوان يُكتب بأكثر من سطر في حقل نصّي، فنحترم فواصل الأسطر
+  white-space: pre-line;
+}
+
+.sawab-bn__card--large .sawab-bn__title { font-size: 40px; }
+.sawab-bn__card--small .sawab-bn__title { font-size: 21px; }
+
+.sawab-bn__subtitle {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+  margin: 10px 0 0;
+}
+
+.sawab-bn__card--small .sawab-bn__subtitle {
+  font-size: 12px;
+  margin-top: 7px;
+}
+
+.sawab-bn__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: #17181a;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+
+  i { font-size: 16px; }
+}
+
+[dir="rtl"] .sawab-bn__btn i { transform: scaleX(-1); }
+
+// ===== الصورة =====
+// contain لا cover: صور البنرات رسوم بخلفية شفافة، والاقتصاص يقطعها
+.sawab-bn__media {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.sawab-bn__card--large .sawab-bn__media { width: 46%; }
+.sawab-bn__card--small .sawab-bn__media { width: 42%; }
+
+// ===== الشاشات الأصغر =====
+@media (max-width: 1024px) {
+  .sawab-bn { padding: 28px 24px; }
+
+  .sawab-bn__row--small { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .sawab-bn__card--large {
+    min-height: 240px;
+    padding: 24px;
+  }
+
+  .sawab-bn__card--large .sawab-bn__title { font-size: 32px; }
+}
+
+@media (max-width: 768px) {
+  .sawab-bn {
+    padding: 24px 16px;
+    gap: 12px;
+  }
+
+  .sawab-bn__row { gap: 12px; }
+
+  // البنران الكبيران يتكدّسان: عرضهما نصف الشاشة يخنق عنوانًا من ثلاثة أسطر
+  .sawab-bn__row--large { grid-template-columns: minmax(0, 1fr); }
+
+  .sawab-bn__card--large {
+    min-height: 210px;
+    border-radius: 20px;
+  }
+
+  .sawab-bn__card--large .sawab-bn__title { font-size: 28px; }
+  .sawab-bn__card--small .sawab-bn__title { font-size: 18px; }
+
+  .sawab-bn__card--small {
+    min-height: 150px;
+    padding: 16px 16px;
+    border-radius: 18px;
+  }
+
+  .sawab-bn__eyebrow { font-size: 11.5px; }
+}
+
+@media (max-width: 420px) {
+  .sawab-bn__card--large .sawab-bn__title { font-size: 24px; }
+  .sawab-bn__card--small .sawab-bn__title { font-size: 16px; }
+  .sawab-bn__card--small .sawab-bn__subtitle { display: none; }
+}

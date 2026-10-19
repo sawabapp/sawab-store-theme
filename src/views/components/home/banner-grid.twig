@@ -1,0 +1,78 @@
+{#
+| Variable           | Type       | Description                                               |
+|--------------------|------------|-----------------------------------------------------------|
+| component.large    | Collection | بنران كبيران جنبًا إلى جنب                                 |
+| component.small    | Collection | أربعة بنرات صغيرة في صف تحتهما                             |
+
+لكل بنر: `image` و `eyebrow` و `title` و `subtitle` و `bg` و `btn` و `url`.
+لون الخلفية إعداد تاجر فيمرّ كمتغيّر CSS مضمّن لا كقيمة ثابتة في الأنماط.
+
+البنر رابط كامل حين يُملأ `url`، وإلا فصندوق غير قابل للنقر — فلا نرسم وسم
+`<a>` بلا وجهة.
+#}
+{% set large = component.large|default([]) %}
+{% set small = component.small|default([]) %}
+
+{% if large|length or small|length %}
+<section data-testid="store-home-banner-grid" class="s-block sawab-bn">
+
+  {% if large|length %}
+    <div class="sawab-bn__row sawab-bn__row--large">
+      {% for item in large %}
+        {% if item.url %}
+          <a href="{{ item.url }}" class="sawab-bn__card sawab-bn__card--large" style="--bn-bg: {{ item.bg|default('#e63329') }};">
+        {% else %}
+          <div class="sawab-bn__card sawab-bn__card--large" style="--bn-bg: {{ item.bg|default('#e63329') }};">
+        {% endif %}
+
+          <div class="sawab-bn__text">
+            {% if item.eyebrow %}<span class="sawab-bn__eyebrow">{{ item.eyebrow }}</span>{% endif %}
+            {% if item.title %}<h3 class="sawab-bn__title">{{ item.title }}</h3>{% endif %}
+            {% if item.subtitle %}<p class="sawab-bn__subtitle">{{ item.subtitle }}</p>{% endif %}
+            {% if item.btn %}
+              <span class="sawab-bn__btn">
+                <i class="sicon-shipping-fast" aria-hidden="true"></i>
+                <span>{{ item.btn }}</span>
+              </span>
+            {% endif %}
+          </div>
+
+          {% if item.image %}
+            <span class="sawab-bn__media">
+              <img src="{{ item.image }}" alt="{{ item.title|default('') }}" loading="lazy" width="520" height="360">
+            </span>
+          {% endif %}
+
+        {% if item.url %}</a>{% else %}</div>{% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if small|length %}
+    <div class="sawab-bn__row sawab-bn__row--small">
+      {% for item in small %}
+        {% if item.url %}
+          <a href="{{ item.url }}" class="sawab-bn__card sawab-bn__card--small" style="--bn-bg: {{ item.bg|default('#e63329') }};">
+        {% else %}
+          <div class="sawab-bn__card sawab-bn__card--small" style="--bn-bg: {{ item.bg|default('#e63329') }};">
+        {% endif %}
+
+          <div class="sawab-bn__text">
+            {% if item.eyebrow %}<span class="sawab-bn__eyebrow">{{ item.eyebrow }}</span>{% endif %}
+            {% if item.title %}<h3 class="sawab-bn__title">{{ item.title }}</h3>{% endif %}
+            {% if item.subtitle %}<p class="sawab-bn__subtitle">{{ item.subtitle }}</p>{% endif %}
+          </div>
+
+          {% if item.image %}
+            <span class="sawab-bn__media">
+              <img src="{{ item.image }}" alt="{{ item.title|default('') }}" loading="lazy" width="300" height="220">
+            </span>
+          {% endif %}
+
+        {% if item.url %}</a>{% else %}</div>{% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+</section>
+{% endif %}
