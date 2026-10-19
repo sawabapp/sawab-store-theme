@@ -1,0 +1,61 @@
+{#
+| Variable             | Type      | Description                                                        |
+|----------------------|-----------|--------------------------------------------------------------------|
+| component.title      | ?string   | عنوان القسم                                                        |
+| component.subtitle   | ?string   | نص توضيحي أسفل العنوان                                             |
+| component.categories | Category[]| التصنيفات المختارة — لكلٍّ name و url و image و icon                |
+| component.columns    | ?string   | عدد الفئات في الصف على الحاسوب: 4 أو 5 أو 6                        |
+| component.shape      | ?string   | circle أو rounded                                                   |
+| component.all_url    | ?string   | رابط «عرض الكل» — فارغ يعني إخفاء الزر                             |
+
+التصنيفات تأتي من منتقي سلة (`source: categories`) فلا نجلبها بأنفسنا، وهي
+مرتّبة كما رتّبها التاجر. وصورة التصنيف أولى من أيقونته، فإن غابت الاثنتان
+رسمنا أيقونة افتراضية بدل فراغ.
+#}
+{% set cats = component.categories|default([]) %}
+
+{% if cats|length %}
+<section
+  data-testid="store-home-shop-categories"
+  class="s-block sawab-cats sawab-cats--cols-{{ component.columns|default('5') }} sawab-cats--{{ component.shape|default('circle') }}"
+>
+  {% set all_url = component.all_url %}
+
+  {% if component.title or component.subtitle or all_url %}
+    <div class="sawab-cats__head">
+      <div class="sawab-cats__headings">
+        {% if component.title %}
+          <h2 class="sawab-cats__title">{{ component.title }}</h2>
+        {% endif %}
+        {% if component.subtitle %}
+          <p class="sawab-cats__subtitle">{{ component.subtitle }}</p>
+        {% endif %}
+      </div>
+
+      {% if all_url %}
+        <a href="{{ all_url }}" class="sawab-cats__all">
+          <span>{{ trans('blocks.home.show_all') }}</span>
+          <i class="sicon-arrow-left" aria-hidden="true"></i>
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <ul class="sawab-cats__grid">
+    {% for cat in cats %}
+      <li class="sawab-cats__cell">
+        <a href="{{ cat.url }}" class="sawab-cats__card">
+          <span class="sawab-cats__media">
+            {% if cat.image %}
+              <img src="{{ cat.image }}" alt="{{ cat.name }}" width="96" height="96" loading="lazy">
+            {% else %}
+              <i class="{{ cat.icon|default('sicon-shapes') }}" aria-hidden="true"></i>
+            {% endif %}
+          </span>
+          <span class="sawab-cats__name">{{ cat.name }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}

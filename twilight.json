@@ -1,5 +1,5 @@
 {
-    "version": "1.0.134",
+    "version": "1.0.135",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -2176,6 +2176,194 @@
                     "placeholder": "مثال: /reviews أو رابط كامل",
                     "minLength": 0,
                     "maxLength": 250
+                }
+            ]
+        },
+        {
+            "key": "5b38ccc3-9ad4-4ae2-92b1-14f3e257535b",
+            "title": {
+                "ar": "تسوّق عبر الفئات",
+                "en": "Shop by category"
+            },
+            "icon": "sicon-grid",
+            "path": "home.shop-categories",
+            "fields": [
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "عنوان القسم",
+                    "multilanguage": true,
+                    "id": "title",
+                    "value": "تسوّق عبر الفئات",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": "اكتب عنوان القسم هنا...",
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 80
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-typography",
+                    "label": "نص توضيحي",
+                    "multilanguage": true,
+                    "id": "subtitle",
+                    "value": null,
+                    "required": false,
+                    "format": "textarea",
+                    "placeholder": "سطر تعريفي قصير أسفل العنوان...",
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 160
+                },
+                {
+                    "id": "categories",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "حدد التصنيفات",
+                    "description": "اختر التصنيفات التي تريد عرضها، ورتّبها كما تشاء. تُعرض صورة التصنيف، وإن لم تكن له صورة فأيقونته",
+                    "labelHTML": null,
+                    "icon": "sicon-keyboard_arrow_down",
+                    "selected": [],
+                    "options": [],
+                    "source": "categories",
+                    "multichoice": true,
+                    "searchable": true,
+                    "required": false
+                },
+                {
+                    "id": "columns",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "عدد الفئات في الصف",
+                    "description": "على الحاسوب. يقلّ تلقائيًا على الشاشات الأصغر",
+                    "labelHTML": null,
+                    "icon": "sicon-grid",
+                    "selected": [
+                        {
+                            "label": "5",
+                            "value": "5",
+                            "key": "66d10817-e690-4bb5-be19-1dd22650f74a"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "4",
+                            "value": "4",
+                            "key": "ea21933a-3124-4f9f-93ac-59d6aa7bfbca"
+                        },
+                        {
+                            "label": "5",
+                            "value": "5",
+                            "key": "66d10817-e690-4bb5-be19-1dd22650f74a"
+                        },
+                        {
+                            "label": "6",
+                            "value": "6",
+                            "key": "1631d374-ad19-4e2e-8c25-6eab4826f3a8"
+                        }
+                    ],
+                    "source": "Manual",
+                    "required": false
+                },
+                {
+                    "id": "shape",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "شكل الصورة",
+                    "description": null,
+                    "labelHTML": null,
+                    "icon": "sicon-shapes",
+                    "selected": [
+                        {
+                            "label": "دائري",
+                            "value": "circle",
+                            "key": "9e3d0705-f367-4760-872b-a8d95cb08473"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "دائري",
+                            "value": "circle",
+                            "key": "9e3d0705-f367-4760-872b-a8d95cb08473"
+                        },
+                        {
+                            "label": "مربّع بزوايا مدوّرة",
+                            "value": "rounded",
+                            "key": "bbff45d8-82a4-41a4-858b-44997a8c846f"
+                        }
+                    ],
+                    "source": "Manual",
+                    "required": false
+                },
+                {
+                    "type": "items",
+                    "icon": "sicon-link",
+                    "label": "رابط «عرض الكل»",
+                    "id": "all_url",
+                    "value": [],
+                    "description": "اتركه فارغًا لإخفاء الزر. اختر «تصنيف» لربطه بصفحة تصنيف بعينها",
+                    "required": false,
+                    "format": "variable-list",
+                    "searchable": true,
+                    "source": "custom",
+                    "sources": [
+                        {
+                            "label": "منتج",
+                            "key": "products",
+                            "value": "products"
+                        },
+                        {
+                            "label": "منتجات مع وسم",
+                            "key": "products_tags",
+                            "value": "products_tags"
+                        },
+                        {
+                            "label": "تصنيف",
+                            "key": "categories",
+                            "value": "categories"
+                        },
+                        {
+                            "label": "ماركة تجارية",
+                            "key": "brands",
+                            "value": "brands"
+                        },
+                        {
+                            "label": "صفحة تعريفية",
+                            "key": "pages",
+                            "value": "pages"
+                        },
+                        {
+                            "label": "مقالة",
+                            "key": "blog_articles",
+                            "value": "blog_articles"
+                        },
+                        {
+                            "label": "تصنيف ضمن المدونة",
+                            "key": "blog_categories",
+                            "value": "blog_categories"
+                        },
+                        {
+                            "label": "التخفيضات",
+                            "key": "offers_link",
+                            "value": "offers_link"
+                        },
+                        {
+                            "label": "الماركات التجارية",
+                            "key": "brands_link",
+                            "value": "brands_link"
+                        },
+                        {
+                            "label": "المدونة",
+                            "key": "blog_link",
+                            "value": "blog_link"
+                        },
+                        {
+                            "label": "رابط خارجي",
+                            "key": "custom",
+                            "value": "custom"
+                        }
+                    ]
                 }
             ]
         }
