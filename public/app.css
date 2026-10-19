@@ -9234,18 +9234,109 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
 }
 .announcement-bar {
   background: #c62127;
-  background: var(--color-primary);
+  background: var(--ann-bg, var(--color-primary));
   color: #fff;
+  color: var(--ann-fg, #fff);
   font-size: 13px;
   padding: 9px 12px;
   font-family: "IBM Plex Sans Arabic", sans-serif;
   font-family: var(--font-main);
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
   gap: 10px;
-  text-align: center;
+  overflow: hidden;
+}
+.announcement-bar__viewport {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent);
+          mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent);
+}
+.announcement-bar__track {
+  display: flex;
+  width: -moz-max-content;
+  width: max-content;
+  animation: sawab-ann-scroll 32s linear infinite;
+  animation: sawab-ann-scroll var(--ann-duration, 32s) linear infinite;
+}
+.announcement-bar__seq {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.announcement-bar__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  white-space: nowrap;
+}
+.announcement-bar__sep {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #fff;
+  background: var(--ann-icon-bg, #fff);
+  color: #c62127;
+  color: var(--ann-icon-fg, var(--color-primary));
+  flex-shrink: 0;
+}
+.announcement-bar__sep i {
+  font-size: 12px;
+  line-height: 1;
+}
+@keyframes sawab-ann-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes sawab-ann-scroll-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(50%);
+  }
+}
+[dir=rtl] .announcement-bar__track {
+  animation-name: sawab-ann-scroll-rtl;
+}
+.announcement-bar--speed-slow {
+  --ann-duration: 48s;
+}
+.announcement-bar--speed-normal {
+  --ann-duration: 32s;
+}
+.announcement-bar--speed-fast {
+  --ann-duration: 20s;
+}
+.announcement-bar:hover .announcement-bar__track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .announcement-bar__track {
+    animation: none;
+    width: 100%;
+    justify-content: center;
+  }
+  .announcement-bar__viewport {
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+  .announcement-bar__seq:nth-child(2) {
+    display: none;
+  }
+  .announcement-bar__seq {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 .announcement-bar__copy-btn {
   display: inline-flex;

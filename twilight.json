@@ -1,5 +1,5 @@
 {
-    "version": "1.0.128",
+    "version": "1.0.129",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -133,18 +133,179 @@
             "selected": true
         },
         {
+            "id": "announcement_items",
+            "type": "collection",
+            "format": "collection",
+            "label": "إعلانات الشريط",
+            "item_label": "إعلان",
+            "icon": "sicon-list-add",
+            "description": "تتحرّك تباعًا في شريط واحد، ويفصل بينها أيقونة داخل دائرة",
+            "required": false,
+            "minLength": 1,
+            "maxLength": 10,
+            "conditions": [
+                {
+                    "id": "announcement_bar_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ],
+            "value": [
+                {
+                    "announcement_items.icon": "sicon-shipping-fast",
+                    "announcement_items.text": "شحن مجاني للطلبات فوق 200 ريال"
+                },
+                {
+                    "announcement_items.icon": "sicon-shield-check",
+                    "announcement_items.text": "ضمان معتمد من الوكيل على جميع المنتجات"
+                },
+                {
+                    "announcement_items.icon": "sicon-headphone",
+                    "announcement_items.text": "دعم فني ومتابعة بعد التركيب"
+                }
+            ],
+            "fields": [
+                {
+                    "type": "string",
+                    "icon": "sicon-shapes",
+                    "label": "الأيقونة الفاصلة",
+                    "id": "announcement_items.icon",
+                    "value": "sicon-shipping-fast",
+                    "required": false,
+                    "format": "icon",
+                    "class": "form--inline",
+                    "description": "تظهر داخل دائرة بعد نصّ هذا الإعلان"
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "نص الإعلان",
+                    "multilanguage": true,
+                    "id": "announcement_items.text",
+                    "value": null,
+                    "required": true,
+                    "format": "text",
+                    "placeholder": "اكتب نص الإعلان هنا...",
+                    "description": null,
+                    "minLength": 1,
+                    "maxLength": 120
+                }
+            ]
+        },
+        {
+            "id": "announcement_speed",
+            "type": "items",
+            "format": "dropdown-list",
+            "label": "سرعة حركة الشريط",
+            "description": null,
+            "labelHTML": null,
+            "icon": "sicon-clock",
+            "selected": [
+                {
+                    "label": "متوسطة",
+                    "value": "normal",
+                    "key": "8fa193bb-694b-4aa3-a9b0-989f810d5456"
+                }
+            ],
+            "options": [
+                {
+                    "label": "بطيئة",
+                    "value": "slow",
+                    "key": "8d813578-e543-44ba-96c2-3344606bdfcb"
+                },
+                {
+                    "label": "متوسطة",
+                    "value": "normal",
+                    "key": "cd647d92-3cbd-41ee-a7ed-7f46ee71263a"
+                },
+                {
+                    "label": "سريعة",
+                    "value": "fast",
+                    "key": "e1b4459a-e070-4bb5-ae7b-9721e9fd42fe"
+                }
+            ],
+            "source": "Manual",
+            "required": false,
+            "conditions": [
+                {
+                    "id": "announcement_bar_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ]
+        },
+        {
+            "type": "string",
+            "icon": "sicon-paint-bucket",
+            "label": "لون خلفية الشريط",
+            "description": "لون hex، مثال: #c62127",
+            "id": "announcement_bg",
+            "format": "text",
+            "required": false,
+            "value": "#c62127",
+            "placeholder": "#c62127",
+            "minLength": 0,
+            "maxLength": 30,
+            "conditions": [
+                {
+                    "id": "announcement_bar_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ]
+        },
+        {
             "type": "string",
             "icon": "sicon-format-text-alt",
-            "label": "نص الشريط الإعلاني",
-            "multilanguage": true,
-            "id": "announcement_bar",
-            "value": "شحن مجاني للطلبات فوق 200 ريال · استخدم كود <strong>SWB</strong> لخصم إضافي",
-            "required": false,
+            "label": "لون نص الشريط",
+            "description": "لون hex، مثال: #ffffff",
+            "id": "announcement_text_color",
             "format": "text",
-            "description": "يمكنك استخدام HTML بسيط مثل <strong> لتنسيق جزء من النص",
-            "placeholder": "أدخل نص الشريط الإعلاني هنا...",
+            "required": false,
+            "value": "#ffffff",
+            "placeholder": "#ffffff",
             "minLength": 0,
-            "maxLength": 200,
+            "maxLength": 30,
+            "conditions": [
+                {
+                    "id": "announcement_bar_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ]
+        },
+        {
+            "type": "string",
+            "icon": "sicon-paint-bucket",
+            "label": "لون دائرة الأيقونة",
+            "description": "خلفية الدائرة التي تفصل بين الإعلانات",
+            "id": "announcement_icon_bg",
+            "format": "text",
+            "required": false,
+            "value": "#ffffff",
+            "placeholder": "#ffffff",
+            "minLength": 0,
+            "maxLength": 30,
+            "conditions": [
+                {
+                    "id": "announcement_bar_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ]
+        },
+        {
+            "type": "string",
+            "icon": "sicon-shapes",
+            "label": "لون الأيقونة",
+            "description": "لون الأيقونة داخل الدائرة",
+            "id": "announcement_icon_color",
+            "format": "text",
+            "required": false,
+            "value": "#c62127",
+            "placeholder": "#c62127",
+            "minLength": 0,
+            "maxLength": 30,
             "conditions": [
                 {
                     "id": "announcement_bar_enabled",
