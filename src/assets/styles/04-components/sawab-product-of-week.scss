@@ -199,6 +199,54 @@
   margin-bottom: 16px;
 }
 
+// صناديق العدّاد داخل اللوحة الداكنة: رقم فوق واسم تحته، والأخير (الثواني)
+// بلون العلامة كما في التصميم. أسماء الكلاسات من مكوّن سلة نفسه.
+.sawab-pow__countdown salla-count-down {
+  display: block;
+
+  .s-count-down-list {
+    margin: 0;
+    gap: 8px;
+    justify-content: flex-start;
+  }
+
+  .s-count-down-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 56px;
+    padding: 7px 9px;
+    border-radius: 10px;
+    background: #fff;
+  }
+
+  .s-count-down-item-value {
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--main-text-color, #1a1a1a);
+  }
+
+  .s-count-down-item-label {
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.3;
+    white-space: nowrap;
+    color: #8a8a8a;
+  }
+
+  .s-count-down-item:last-child .s-count-down-item-value {
+    color: var(--color-primary);
+  }
+
+  .s-count-down-end-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+  }
+}
+
 .sawab-pow__countdown-label {
   display: inline-flex;
   align-items: center;

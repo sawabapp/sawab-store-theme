@@ -47,7 +47,7 @@
       {# القيمة تُطبع خامًا: أي فلتر تحويل عليها أسقط القسم سابقًا #}
       {% if product.is_on_sale and product.discount_percentage %}
         <span class="sawab-pow__badge sawab-pow__badge--sale">
-          {{ sawab_ar ? 'خصم' : 'Save' }} {{ product.discount_percentage }}
+          {{ sawab_ar ? 'خصم' : 'Save' }} {{ product.discount_percentage|split('.')|first }}%
         </span>
       {% endif %}
       {% if component.badge %}
@@ -86,7 +86,7 @@
       </div>
 
       {# القيم خامًا في تعليق، لنضبط تنسيقها لاحقًا على شكلها الحقيقي #}
-      <!-- sawab-pow pct=[{{ product.discount_percentage }}] ends=[{{ product.discount_ends }}] reg=[{{ product.regular_price }}] -->
+      <!-- sawab-pow brand=[{{ product.brand.name }}] stars=[{{ product.rating.stars }}] count=[{{ product.rating.total_count }}] sale=[{{ product.sale_price }}] -->
 
       {% if product.is_on_sale and product.discount_ends %}
         <div class="sawab-pow__countdown">
