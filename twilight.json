@@ -1,5 +1,5 @@
 {
-    "version": "1.0.140",
+    "version": "1.0.141",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -62,13 +62,13 @@
         {
             "type": "boolean",
             "icon": "sicon-toggle-off",
-            "label": "وضع عمودي للمنتجات في مربع المنتجات الثابتة في الصفحة الرئيسية",
-            "description": null,
+            "label": "بطاقات عمودية في قسم «منتجات ثابتة»",
+            "description": "البطاقة العمودية هي تصميم بطاقات هذا الثيم. إطفاؤه يعيد البطاقة الأفقية من ثيم رائد، وهي غير منسّقة بهوية المتجر",
             "id": "vertical_fixed_products",
             "format": "switch",
             "required": false,
-            "value": false,
-            "selected": false
+            "value": true,
+            "selected": true
         },
         {
             "type": "boolean",
