@@ -9330,7 +9330,7 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
     -webkit-mask-image: none;
             mask-image: none;
   }
-  .announcement-bar__seq:nth-child(2) {
+  .announcement-bar__seq + .announcement-bar__seq {
     display: none;
   }
   .announcement-bar__seq {

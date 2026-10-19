@@ -40,9 +40,19 @@
 >
   <div class="announcement-bar__viewport">
     <div class="announcement-bar__track">
-      {# النسختان مكتوبتان صراحةً لا بحلقة مدى: محرّك سلة لا يفهم كل مفردات
-         Twig القياسية، والالتزام بما يستعمله الثيم فعلًا أأمن من الاختصار #}
+      {# أربع نسخ لا نسختان: الحركة تزيح نصف المسار (= نسختان)، فيبقى نصفه
+         الآخر مالئًا الشاشة في كل لحظة مهما قلّت الإعلانات أو قصُرت. بنسختين
+         فقط كان المسار أضيق من الشاشة أحيانًا فتظهر فجوة ثم يبدأ من جديد.
+         النسخ مكتوبة صراحةً لأن محرّك سلة لا يقبل حلقة مدى #}
       <div class="announcement-bar__seq">
+        {% include 'components.header.announcement-items' %}
+      </div>
+
+      <div class="announcement-bar__seq" aria-hidden="true">
+        {% include 'components.header.announcement-items' %}
+      </div>
+
+      <div class="announcement-bar__seq" aria-hidden="true">
         {% include 'components.header.announcement-items' %}
       </div>
 
