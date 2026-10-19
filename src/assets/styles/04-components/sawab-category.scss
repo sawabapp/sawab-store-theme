@@ -14,16 +14,20 @@ $sawab-cat-cream: #f8f1e7;
 
 .sawab-cat-hero {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 30px;
   background: $sawab-cat-cream;
   border: 1px solid $sawab-cat-border;
   border-radius: 22px;
-  padding: 26px 28px;
+  padding: 24px 28px;
   margin-bottom: 26px;
 }
 
 .sawab-cat-hero__body {
+  flex: 0 1 auto;
   min-width: 0;
-  flex: 1 1 auto;
+  max-width: 340px;
 }
 
 // مسار التنقّل داخل اللوحة: حجمه أصغر ولونه أهدأ من افتراضي الثيم
@@ -66,11 +70,39 @@ $sawab-cat-cream: #f8f1e7;
   }
 }
 
-// التصنيفات الفرعية صارت داخل اللوحة، يفصلها خطّ خفيف عن اسم التصنيف
+// التصنيفات الفرعية بجانب اسم التصنيف في سطر واحد، يفصلها خطّ رأسي متدرّج
+// يتلاشى عند طرفيه — أهدأ من حدّ صلب يلامس حافتي اللوحة.
 .sawab-subcats__wrap {
-  margin-top: 22px;
-  padding-top: 20px;
-  border-top: 1px solid $sawab-cat-border;
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      rgba(232, 225, 213, 0),
+      $sawab-cat-border 22%,
+      $sawab-cat-border 78%,
+      rgba(232, 225, 213, 0)
+    );
+  }
+}
+
+[dir="rtl"] .sawab-subcats__wrap {
+  padding-right: 30px;
+
+  &::before { right: 0; }
+}
+
+[dir="ltr"] .sawab-subcats__wrap {
+  padding-left: 30px;
+
+  &::before { left: 0; }
 }
 
 // ----- شريط الترتيب فوق القائمة -----
@@ -250,6 +282,40 @@ $sawab-cat-cream: #f8f1e7;
 }
 
 // ----- الشاشات الأصغر -----
+@media (max-width: 1024px) {
+  // السطر الواحد يخنق الاثنين على شاشة متوسطة، فيعودان إلى التكديس
+  // والخطّ الفاصل يستدير أفقيًا
+  .sawab-cat-hero {
+    display: block;
+  }
+
+  .sawab-cat-hero__body {
+    max-width: none;
+  }
+
+  [dir="rtl"] .sawab-subcats__wrap,
+  [dir="ltr"] .sawab-subcats__wrap {
+    padding: 20px 0 0;
+    margin-top: 20px;
+  }
+
+  .sawab-subcats__wrap::before {
+    top: 0;
+    bottom: auto;
+    right: 0;
+    left: 0;
+    width: auto;
+    height: 1px;
+    background: linear-gradient(
+      to left,
+      rgba(232, 225, 213, 0),
+      $sawab-cat-border 18%,
+      $sawab-cat-border 82%,
+      rgba(232, 225, 213, 0)
+    );
+  }
+}
+
 @media (max-width: 768px) {
   .sawab-cat-hero {
     padding: 20px;
