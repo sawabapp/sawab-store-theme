@@ -117,12 +117,17 @@
       <div class="sawab-pow__actions">
         <salla-quantity-input max="{{ product.max_quantity }}" value="1" name="quantity"></salla-quantity-input>
 
+        {# type="submit" أساسي لا تجميلي: بدونه يضيف الزر المنتج بمعرّفه
+           وحده، فتضيع الخيارات المختارة. وبه يرسل الفورم المحيط بها جميعًا #}
         <salla-add-product-button
           class="sawab-pow__add"
           product-id="{{ product.id }}"
           product-status="{{ product.status }}"
           product-type="{{ product.type }}"
           amount="{{ product.base_currency_price }}"
+          type="submit"
+          loader-position="end"
+          width="wide"
         >{{ product.add_to_cart_label }}</salla-add-product-button>
 
         {% if component.whatsapp_number %}
