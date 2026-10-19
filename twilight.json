@@ -1,5 +1,5 @@
 {
-    "version": "1.0.142",
+    "version": "1.0.143",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -2371,6 +2371,467 @@
                             "label": "مربّع بزوايا مدوّرة",
                             "value": "rounded",
                             "key": "bbff45d8-82a4-41a4-858b-44997a8c846f"
+                        }
+                    ],
+                    "source": "Manual",
+                    "required": false
+                }
+            ]
+        },
+        {
+            "key": "e36915f9-53ac-4917-954c-68bef9f5047b",
+            "title": {
+                "ar": "منتج الأسبوع",
+                "en": "Product of the week"
+            },
+            "icon": "sicon-star",
+            "path": "home.product-of-week",
+            "fields": [
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "عنوان القسم",
+                    "multilanguage": true,
+                    "id": "title",
+                    "value": "منتج مميز",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 80
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "نص توضيحي",
+                    "multilanguage": true,
+                    "id": "subtitle",
+                    "value": "عرض الأسبوع — اختيار فريق صواب لك",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 120
+                },
+                {
+                    "type": "items",
+                    "icon": "sicon-link",
+                    "label": "رابط «كل العروض»",
+                    "id": "all_url",
+                    "value": [],
+                    "description": "اتركه فارغًا لإخفاء الرابط",
+                    "required": false,
+                    "format": "variable-list",
+                    "searchable": true,
+                    "source": "custom",
+                    "sources": [
+                        {
+                            "label": "منتج",
+                            "key": "products",
+                            "value": "products"
+                        },
+                        {
+                            "label": "منتجات مع وسم",
+                            "key": "products_tags",
+                            "value": "products_tags"
+                        },
+                        {
+                            "label": "تصنيف",
+                            "key": "categories",
+                            "value": "categories"
+                        },
+                        {
+                            "label": "ماركة تجارية",
+                            "key": "brands",
+                            "value": "brands"
+                        },
+                        {
+                            "label": "صفحة تعريفية",
+                            "key": "pages",
+                            "value": "pages"
+                        },
+                        {
+                            "label": "مقالة",
+                            "key": "blog_articles",
+                            "value": "blog_articles"
+                        },
+                        {
+                            "label": "تصنيف ضمن المدونة",
+                            "key": "blog_categories",
+                            "value": "blog_categories"
+                        },
+                        {
+                            "label": "التخفيضات",
+                            "key": "offers_link",
+                            "value": "offers_link"
+                        },
+                        {
+                            "label": "الماركات التجارية",
+                            "key": "brands_link",
+                            "value": "brands_link"
+                        },
+                        {
+                            "label": "المدونة",
+                            "key": "blog_link",
+                            "value": "blog_link"
+                        },
+                        {
+                            "label": "رابط خارجي",
+                            "key": "custom",
+                            "value": "custom"
+                        }
+                    ]
+                },
+                {
+                    "type": "items",
+                    "icon": "sicon-keyboard_arrow_down",
+                    "label": "المنتج",
+                    "description": "اختر منتجًا واحدًا. تُقرأ كل بياناته تلقائيًا: الصور والسعر والتقييم والخصم",
+                    "id": "products",
+                    "format": "dropdown-list",
+                    "selected": [],
+                    "options": [],
+                    "required": true,
+                    "multichoice": true,
+                    "source": "products",
+                    "searchable": true,
+                    "minLength": 1,
+                    "maxLength": 1,
+                    "value": []
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "شارة فوق الصورة",
+                    "multilanguage": true,
+                    "id": "badge",
+                    "value": "منتج مميز",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 30
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "رقم واتساب",
+                    "multilanguage": false,
+                    "id": "whatsapp_number",
+                    "value": null,
+                    "required": false,
+                    "format": "text",
+                    "placeholder": "966500000000",
+                    "description": "أرقام فقط مع رمز الدولة. اتركه فارغًا لإخفاء الزر",
+                    "minLength": 0,
+                    "maxLength": 20
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "نص زر واتساب",
+                    "multilanguage": true,
+                    "id": "whatsapp_text",
+                    "value": "واتساب",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 30
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "ميزة 1 — العنوان",
+                    "multilanguage": true,
+                    "id": "trust1_title",
+                    "value": "توصيل وتركيب",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 40
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "ميزة 1 — الوصف",
+                    "multilanguage": true,
+                    "id": "trust1_text",
+                    "value": "خلال 1-4 أيام",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 60
+                },
+                {
+                    "id": "trust1_icon",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "ميزة 1 — الأيقونة",
+                    "description": null,
+                    "labelHTML": null,
+                    "icon": "sicon-shapes",
+                    "selected": [
+                        {
+                            "label": "🚚 شحن سريع",
+                            "value": "sicon-shipping-fast",
+                            "key": "125abc00-f99b-43c4-9ba0-ab92083e667c"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "🚚 شحن سريع",
+                            "value": "sicon-shipping-fast",
+                            "key": "125abc00-f99b-43c4-9ba0-ab92083e667c"
+                        },
+                        {
+                            "label": "📦 توصيل",
+                            "value": "sicon-delivery-parcel2",
+                            "key": "53273724-8d38-44d3-a733-743e85f26aee"
+                        },
+                        {
+                            "label": "🛡️ ضمان",
+                            "value": "sicon-shield-check",
+                            "key": "93ef3d39-4941-4150-b12f-cb6fd88d1fe1"
+                        },
+                        {
+                            "label": "🏅 وكيل معتمد",
+                            "value": "sicon-medal",
+                            "key": "3db9d134-cbc9-454c-85ea-2f48f99390c3"
+                        },
+                        {
+                            "label": "✅ جودة",
+                            "value": "sicon-check-circle",
+                            "key": "cfdfe198-89fb-48f5-8e0f-877050f1cd4a"
+                        },
+                        {
+                            "label": "⭐ تقييم",
+                            "value": "sicon-star",
+                            "key": "a6f5ff9e-16d5-42bd-a82b-a12348a7b055"
+                        },
+                        {
+                            "label": "🎧 دعم",
+                            "value": "sicon-headphones",
+                            "key": "cf4f2771-d9dc-4010-b3b0-61c88ef9c4ff"
+                        },
+                        {
+                            "label": "💳 دفع آمن",
+                            "value": "sicon-credit-card",
+                            "key": "a4f6b892-e1b9-4778-82a0-d2dc2a22a6d7"
+                        },
+                        {
+                            "label": "↩️ استرجاع",
+                            "value": "sicon-refund",
+                            "key": "65c22797-0a9a-446d-9135-af47584cfcad"
+                        },
+                        {
+                            "label": "⏰ سرعة",
+                            "value": "sicon-clock",
+                            "key": "f2cd28d8-e9ef-40f7-ae96-f5026bd078ba"
+                        }
+                    ],
+                    "source": "Manual",
+                    "required": false
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "ميزة 2 — العنوان",
+                    "multilanguage": true,
+                    "id": "trust2_title",
+                    "value": "ضمان حتى 7 سنوات",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 40
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "ميزة 2 — الوصف",
+                    "multilanguage": true,
+                    "id": "trust2_text",
+                    "value": "بفواتير ضريبية",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 60
+                },
+                {
+                    "id": "trust2_icon",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "ميزة 2 — الأيقونة",
+                    "description": null,
+                    "labelHTML": null,
+                    "icon": "sicon-shapes",
+                    "selected": [
+                        {
+                            "label": "🛡️ ضمان",
+                            "value": "sicon-shield-check",
+                            "key": "2009a555-68af-4467-ad90-e0f0b4a6f008"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "🚚 شحن سريع",
+                            "value": "sicon-shipping-fast",
+                            "key": "19038fc9-353e-4d6f-8870-a7cb1d7419fc"
+                        },
+                        {
+                            "label": "📦 توصيل",
+                            "value": "sicon-delivery-parcel2",
+                            "key": "04e565e9-8be1-43d9-b30f-96314b18d757"
+                        },
+                        {
+                            "label": "🛡️ ضمان",
+                            "value": "sicon-shield-check",
+                            "key": "2009a555-68af-4467-ad90-e0f0b4a6f008"
+                        },
+                        {
+                            "label": "🏅 وكيل معتمد",
+                            "value": "sicon-medal",
+                            "key": "359f309c-9201-4f58-8df3-910c284938c7"
+                        },
+                        {
+                            "label": "✅ جودة",
+                            "value": "sicon-check-circle",
+                            "key": "6a746d0e-ecbc-400d-9ec6-aa5f36749960"
+                        },
+                        {
+                            "label": "⭐ تقييم",
+                            "value": "sicon-star",
+                            "key": "5e3ff727-d261-4fcf-838a-875fc01734cc"
+                        },
+                        {
+                            "label": "🎧 دعم",
+                            "value": "sicon-headphones",
+                            "key": "eb038db2-51e9-4c1e-90f8-c58b8d6f8f15"
+                        },
+                        {
+                            "label": "💳 دفع آمن",
+                            "value": "sicon-credit-card",
+                            "key": "8ea6b2d1-c4c6-4fc4-8534-c77c49b05f84"
+                        },
+                        {
+                            "label": "↩️ استرجاع",
+                            "value": "sicon-refund",
+                            "key": "cc8d0de6-72a7-4b97-8104-037bdcae515d"
+                        },
+                        {
+                            "label": "⏰ سرعة",
+                            "value": "sicon-clock",
+                            "key": "a93518ad-ca3c-4022-a2b8-83293ac6feb4"
+                        }
+                    ],
+                    "source": "Manual",
+                    "required": false
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "ميزة 3 — العنوان",
+                    "multilanguage": true,
+                    "id": "trust3_title",
+                    "value": "وكيل معتمد",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 40
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "ميزة 3 — الوصف",
+                    "multilanguage": true,
+                    "id": "trust3_text",
+                    "value": "منتجات أصلية",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": null,
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 60
+                },
+                {
+                    "id": "trust3_icon",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "ميزة 3 — الأيقونة",
+                    "description": null,
+                    "labelHTML": null,
+                    "icon": "sicon-shapes",
+                    "selected": [
+                        {
+                            "label": "🏅 وكيل معتمد",
+                            "value": "sicon-medal",
+                            "key": "3dce2fa6-0801-444a-974b-d61b8c69e0af"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "🚚 شحن سريع",
+                            "value": "sicon-shipping-fast",
+                            "key": "02695449-bbfa-41d9-b197-3d45fa7e2282"
+                        },
+                        {
+                            "label": "📦 توصيل",
+                            "value": "sicon-delivery-parcel2",
+                            "key": "6c57755a-bdf3-4a82-9dda-637df579918b"
+                        },
+                        {
+                            "label": "🛡️ ضمان",
+                            "value": "sicon-shield-check",
+                            "key": "6d9a3f00-49a3-46b6-9835-2d783364c8f0"
+                        },
+                        {
+                            "label": "🏅 وكيل معتمد",
+                            "value": "sicon-medal",
+                            "key": "3dce2fa6-0801-444a-974b-d61b8c69e0af"
+                        },
+                        {
+                            "label": "✅ جودة",
+                            "value": "sicon-check-circle",
+                            "key": "604b25ff-1189-4ae3-aa3c-d35000532a59"
+                        },
+                        {
+                            "label": "⭐ تقييم",
+                            "value": "sicon-star",
+                            "key": "e7a74c60-affd-478a-883b-14eec9e9c660"
+                        },
+                        {
+                            "label": "🎧 دعم",
+                            "value": "sicon-headphones",
+                            "key": "fd888f27-262d-45eb-9e8a-10b7b8b80eb6"
+                        },
+                        {
+                            "label": "💳 دفع آمن",
+                            "value": "sicon-credit-card",
+                            "key": "94e18ab3-35b3-4215-9ff6-f2658de5bf7e"
+                        },
+                        {
+                            "label": "↩️ استرجاع",
+                            "value": "sicon-refund",
+                            "key": "4d007c78-7a18-4445-9fb4-4c520cd192c0"
+                        },
+                        {
+                            "label": "⏰ سرعة",
+                            "value": "sicon-clock",
+                            "key": "133e61e3-415a-4b3f-afae-a9a2a6531abc"
                         }
                     ],
                     "source": "Manual",

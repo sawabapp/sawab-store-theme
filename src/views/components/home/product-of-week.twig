@@ -1,0 +1,134 @@
+{#
+| Variable              | Type      | Description                                                      |
+|-----------------------|-----------|------------------------------------------------------------------|
+| component.title       | ?string   | عنوان القسم                                                      |
+| component.subtitle    | ?string   | نص توضيحي                                                        |
+| component.all_url     | ?string   | رابط «كل العروض» — فارغ يعني إخفاءه                              |
+| component.products    | Product[] | منتج واحد — كائن منتج كامل كما في صفحة المنتج                    |
+| component.badge       | ?string   | نص الشارة الداكنة فوق الصورة                                      |
+| component.whatsapp_*  | ?string   | رقم ونص زر واتساب                                                |
+| component.trustN_*    | ?string   | ثلاث مزايا أسفل البطاقة: عنوان ووصف وأيقونة                       |
+
+منتقي المنتجات يعيد كائن `Product` كاملًا (كما توثّقه `slider-products-with-header`)،
+فنقرأ منه الصورة والسعر والتقييم والخصم مباشرةً بلا أي طلب إضافي.
+
+السعر يحمل كلاسات `total-price` و`before-price` التي يحدّثها `product.js`، فلو
+أضفنا الخيارات لاحقًا تحدّث السعر معها. والعدّاد `salla-count-down` هو نفسه
+المستعمل في صفحة المنتج.
+#}
+{% set sawab_ar = (language.code|default('ar')) == 'ar' %}
+{% set t_save     = sawab_ar ? 'وفّر' : 'Save' %}
+{% set t_tax      = sawab_ar ? 'شامل الضريبة' : 'Tax included' %}
+{% set t_reviews  = sawab_ar ? 'تقييم' : 'reviews' %}
+{% set t_ends_in  = sawab_ar ? 'ينتهي العرض خلال' : 'Offer ends in' %}
+{% set t_all      = sawab_ar ? 'كل العروض' : 'All offers' %}
+{% set show_tax   = store.settings.tax.taxable_prices_enabled is not same as(false) %}
+
+{% for product in component.products %}
+<section data-testid="store-home-product-of-week" class="s-block sawab-pow">
+
+  {% if component.title or component.subtitle or component.all_url %}
+    <div class="sawab-pow__head">
+      <div class="sawab-pow__headings">
+        {% if component.title %}<h2 class="sawab-pow__title">{{ component.title }}</h2>{% endif %}
+        {% if component.subtitle %}<p class="sawab-pow__subtitle">{{ component.subtitle }}</p>{% endif %}
+      </div>
+      {% if component.all_url %}
+        <a href="{{ component.all_url }}" class="sawab-pow__all">
+          <span>{{ t_all }}</span><i class="sicon-arrow-left" aria-hidden="true"></i>
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="sawab-pow__card">
+
+    <div class="sawab-pow__media">
+      {% if product.is_on_sale and product.discount_percentage %}
+        <span class="sawab-pow__badge sawab-pow__badge--sale">
+          {{ sawab_ar ? 'خصم' : 'Save' }} {{ product.discount_percentage|replace({'%': ''})|trim|round }}%
+        </span>
+      {% endif %}
+      {% if component.badge %}
+        <span class="sawab-pow__badge sawab-pow__badge--pick">
+          <i class="sicon-star" aria-hidden="true"></i>{{ component.badge }}
+        </span>
+      {% endif %}
+      <a href="{{ product.url }}" class="sawab-pow__image">
+        <img src="{{ product.image.url|default(product.thumbnail) }}" alt="{{ product.name }}" loading="lazy" width="520" height="520">
+      </a>
+    </div>
+
+    <div class="sawab-pow__info">
+      {% if product.brand.name %}
+        <span class="sawab-pow__brand">{{ product.brand.name }}</span>
+      {% endif %}
+
+      <h3 class="sawab-pow__name"><a href="{{ product.url }}">{{ product.name }}</a></h3>
+
+      {% if product.rating.stars %}
+        <div class="sawab-pow__rating">
+          <salla-rating-stars value="{{ product.rating.stars }}" readonly></salla-rating-stars>
+          <span class="sawab-pow__rating-value">[{{ product.rating.stars }}]</span>
+          {% if product.rating.total_count %}
+            <span class="sawab-pow__rating-count">· {{ product.rating.total_count }} {{ t_reviews }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div class="sawab-pow__prices">
+        <h4 class="sawab-pow__price total-price">{{ product.price|money }}</h4>
+        {% if product.is_on_sale %}
+          <span class="sawab-pow__was before-price">{{ product.regular_price|money }}</span>
+          <span class="sawab-pow__save">{{ t_save }} {{ (product.regular_price - product.price)|money }}</span>
+        {% endif %}
+        {% if show_tax %}<span class="sawab-pow__tax">{{ t_tax }}</span>{% endif %}
+      </div>
+
+      {% if product.is_on_sale and product.discount_ends %}
+        <div class="sawab-pow__countdown">
+          <span class="sawab-pow__countdown-label">
+            <i class="sicon-clock" aria-hidden="true"></i>{{ t_ends_in }}
+          </span>
+          <salla-count-down date="{{ product.discount_ends|date('Y-m-d H:i:s') }}" boxed labeled></salla-count-down>
+        </div>
+      {% endif %}
+
+      <div class="sawab-pow__actions">
+        <salla-quantity-input max="{{ product.max_quantity }}" value="1" name="quantity"></salla-quantity-input>
+
+        <salla-add-product-button
+          class="sawab-pow__add"
+          product-id="{{ product.id }}"
+          product-status="{{ product.status }}"
+          product-type="{{ product.type }}"
+          amount="{{ product.base_currency_price }}"
+        >{{ product.add_to_cart_label }}</salla-add-product-button>
+
+        {% if component.whatsapp_number %}
+          <a href="https://wa.me/{{ component.whatsapp_number }}" target="_blank" rel="noopener" class="sawab-pow__wa">
+            <i class="sicon-whatsapp" aria-hidden="true"></i>
+            <span>{{ component.whatsapp_text|default('واتساب') }}</span>
+          </a>
+        {% endif %}
+      </div>
+
+      <ul class="sawab-pow__trust">
+        {% if component.trust1_title %}
+          <li><i class="{{ component.trust1_icon|default('sicon-shipping-fast') }}" aria-hidden="true"></i>
+            <span><strong>{{ component.trust1_title }}</strong>{{ component.trust1_text }}</span></li>
+        {% endif %}
+        {% if component.trust2_title %}
+          <li><i class="{{ component.trust2_icon|default('sicon-shield-check') }}" aria-hidden="true"></i>
+            <span><strong>{{ component.trust2_title }}</strong>{{ component.trust2_text }}</span></li>
+        {% endif %}
+        {% if component.trust3_title %}
+          <li><i class="{{ component.trust3_icon|default('sicon-medal') }}" aria-hidden="true"></i>
+            <span><strong>{{ component.trust3_title }}</strong>{{ component.trust3_text }}</span></li>
+        {% endif %}
+      </ul>
+    </div>
+
+  </div>
+</section>
+{% endfor %}
