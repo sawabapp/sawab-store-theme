@@ -44,9 +44,11 @@
   <div class="sawab-pow__card">
 
     <div class="sawab-pow__media">
-      {% if product.is_on_sale and product.discount_percentage %}
+      {# بلا replace/trim/round على discount_percentage: قيمة المنتقي قد لا
+         تكون نصًّا، والفلتر على نوع غير متوقّع يُسقط القسم كله #}
+      {% if product.is_on_sale %}
         <span class="sawab-pow__badge sawab-pow__badge--sale">
-          {{ sawab_ar ? 'خصم' : 'Save' }} {{ product.discount_percentage|replace({'%': ''})|trim|round }}%
+          {{ sawab_ar ? 'عرض خاص' : 'Special offer' }}
         </span>
       {% endif %}
       {% if component.badge %}
@@ -78,27 +80,14 @@
 
       <div class="sawab-pow__prices">
         <h4 class="sawab-pow__price total-price">{{ product.price|money }}</h4>
-        {% if product.is_on_sale %}
-          <span class="sawab-pow__was before-price">{{ product.regular_price|money }}</span>
-          <span class="sawab-pow__save">{{ t_save }} {{ (product.regular_price - product.price)|money }}</span>
-        {% endif %}
+        {# السعر القديم معطّل في هذه الجولة أيضًا: product.price|money مُثبَت
+           لأن القسم عمل به قبل الخصم، أما regular_price فلم يُختبر قط #}
         {% if show_tax %}<span class="sawab-pow__tax">{{ t_tax }}</span>{% endif %}
       </div>
 
-      {# تشخيص مؤقّت: شكل discount_ends كما يعطيه منتقي المنتجات (قد يخالف
-         صفحة المنتج). يُحذف فور تأكّد العدّاد #}
-      <!-- sawab-pow ends=[{{ product.discount_ends|json_encode }}] sale=[{{ product.is_on_sale|json_encode }}] -->
-
-      {# لا نمرّر القيمة عبر |date: فلتر التاريخ على قيمة المنتقي هو ما أسقط
-         القسم. نمرّرها كما هي، وsalla-count-down يحلّلها بنفسه #}
-      {% if product.is_on_sale and product.discount_ends %}
-        <div class="sawab-pow__countdown">
-          <span class="sawab-pow__countdown-label">
-            <i class="sicon-clock" aria-hidden="true"></i>{{ t_ends_in }}
-          </span>
-          <salla-count-down date="{{ product.discount_ends }}" boxed labeled></salla-count-down>
-        </div>
-      {% endif %}
+      {# مجسّات مؤقّتة: تختبر وجود الحقول لا تطبع قيمها، فلا يمكن أن تُسقط
+         القسم. العدّاد معطّل حتى نعرف أي الحقول متاح فعلًا #}
+      <!-- sawab-pow sale=[{{ product.is_on_sale ? 'y' : 'n' }}] pct=[{{ product.discount_percentage ? 'y' : 'n' }}] ends=[{{ product.discount_ends ? 'y' : 'n' }}] reg=[{{ product.regular_price ? 'y' : 'n' }}] -->
 
       <div class="sawab-pow__actions">
         <salla-quantity-input max="{{ product.max_quantity }}" value="1" name="quantity"></salla-quantity-input>
