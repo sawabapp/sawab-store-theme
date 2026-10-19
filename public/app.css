@@ -12377,19 +12377,25 @@ salla-slider.sawab-cats__slider .sawab-cats__slide {
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   grid-gap: 32px;
   gap: 32px;
-  align-items: center;
+  align-items: stretch;
   background: #f3ebe0;
   border-radius: 24px;
   padding: 24px;
 }
 .sawab-pow__media {
   position: relative;
+  display: flex;
+  flex-direction: column;
   background: #fff;
   border-radius: 18px;
   padding: 24px;
 }
 .sawab-pow__image {
-  display: block;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .sawab-pow__image img {
   display: block;
@@ -12690,6 +12696,7 @@ salla-add-product-button.sawab-pow__add .s-button-element {
   filter: brightness(0.93);
 }
 .sawab-pow__trust {
+  flex: 0 0 auto;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-gap: 10px;
