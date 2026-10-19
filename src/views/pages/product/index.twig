@@ -77,13 +77,6 @@
 			{# العنوان انتقل إلى رأس التصنيف أعلى الصفحة، فيبقى شريط الترتيب في بداية
 			   السطر ملتصقًا بالقائمة لا معلّقًا في طرفها المقابل #}
 			<div class="sawab-list-toolbar">
-				{% if filters %}
-					<a data-testid="store-products-filters-mobile-trigger" href="#filters-menu" class="sawab-list-toolbar__filters lg:hidden">
-						<i class="sicon-filter" aria-hidden="true"></i>
-						<span>{{ trans('pages.categories.filter') }}</span>
-					</a>
-				{% endif %}
-
 				{% if sort_options|length %}
 					<div class="sawab-list-toolbar__sort">
 						<label for="product-filter">{{ trans('pages.categories.sorting') }}</label>
@@ -94,6 +87,15 @@
 						</select>
 						<i class="sicon-keyboard_arrow_down" aria-hidden="true"></i>
 					</div>
+				{% endif %}
+
+				{# زر التصفية بجانب الترتيب. على الحاسوب يقفز إلى اللوحة الجانبية،
+				   وعلى الجوال يفتحها (سلوك #filters-menu في products.js) #}
+				{% if filters %}
+					<a data-testid="store-products-filters-mobile-trigger" href="#filters-menu" class="sawab-list-toolbar__filters">
+						<i class="sicon-filter" aria-hidden="true"></i>
+						<span>{{ trans('pages.categories.filter') }}</span>
+					</a>
 				{% endif %}
 			</div>
 

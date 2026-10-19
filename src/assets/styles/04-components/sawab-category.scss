@@ -109,7 +109,6 @@ $sawab-cat-cream: #f8f1e7;
 .sawab-list-toolbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 22px;
@@ -132,6 +131,13 @@ $sawab-cat-cream: #f8f1e7;
   color: var(--main-text-color);
 
   i { font-size: 15px; }
+
+  transition: border-color 0.18s ease, color 0.18s ease;
+
+  &:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
 }
 
 // السهم مرسوم بأنفسنا وسهم المتصفّح مخفيّ، فيتناسق مع بقية الحقول
@@ -177,18 +183,14 @@ $sawab-cat-cream: #f8f1e7;
   }
 }
 
-// يدفع نفسه إلى طرف الشريط حين لا يكون زر الفلاتر ظاهرًا.
-// لا خصائص منطقية هنا: PostCSS يحوّلها متجاهلًا الاتجاه فتنعكس (CLAUDE.md)
+// موضع السهم اتجاهي. لا خصائص منطقية: PostCSS يحوّلها متجاهلًا الاتجاه
+// فتنعكس (انظر CLAUDE.md)
 [dir="rtl"] .sawab-list-toolbar__sort {
-  margin-left: auto;
-
   select { padding: 0 14px 0 34px; }
   i { left: 12px; }
 }
 
 [dir="ltr"] .sawab-list-toolbar__sort {
-  margin-right: auto;
-
   i { right: 12px; }
 }
 

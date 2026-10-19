@@ -11628,7 +11628,6 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
 .sawab-list-toolbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 22px;
@@ -11652,6 +11651,15 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
 }
 .sawab-list-toolbar__filters i {
   font-size: 15px;
+}
+.sawab-list-toolbar__filters {
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+.sawab-list-toolbar__filters:hover {
+  border-color: #c62127;
+  border-color: var(--color-primary);
+  color: #c62127;
+  color: var(--color-primary);
 }
 .sawab-list-toolbar__sort {
   position: relative;
@@ -11694,17 +11702,11 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
   font-size: 14px;
   color: #9a9a9a;
 }
-[dir=rtl] .sawab-list-toolbar__sort {
-  margin-left: auto;
-}
 [dir=rtl] .sawab-list-toolbar__sort select {
   padding: 0 14px 0 34px;
 }
 [dir=rtl] .sawab-list-toolbar__sort i {
   left: 12px;
-}
-[dir=ltr] .sawab-list-toolbar__sort {
-  margin-right: auto;
 }
 [dir=ltr] .sawab-list-toolbar__sort i {
   right: 12px;
