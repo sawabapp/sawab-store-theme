@@ -44,11 +44,10 @@
   <div class="sawab-pow__card">
 
     <div class="sawab-pow__media">
-      {# بلا replace/trim/round على discount_percentage: قيمة المنتقي قد لا
-         تكون نصًّا، والفلتر على نوع غير متوقّع يُسقط القسم كله #}
-      {% if product.is_on_sale %}
+      {# القيمة تُطبع خامًا: أي فلتر تحويل عليها أسقط القسم سابقًا #}
+      {% if product.is_on_sale and product.discount_percentage %}
         <span class="sawab-pow__badge sawab-pow__badge--sale">
-          {{ sawab_ar ? 'عرض خاص' : 'Special offer' }}
+          {{ sawab_ar ? 'خصم' : 'Save' }} {{ product.discount_percentage }}
         </span>
       {% endif %}
       {% if component.badge %}
@@ -80,14 +79,23 @@
 
       <div class="sawab-pow__prices">
         <h4 class="sawab-pow__price total-price">{{ product.price|money }}</h4>
-        {# السعر القديم معطّل في هذه الجولة أيضًا: product.price|money مُثبَت
-           لأن القسم عمل به قبل الخصم، أما regular_price فلم يُختبر قط #}
+        {% if product.is_on_sale and product.regular_price %}
+          <span class="sawab-pow__was before-price">{{ product.regular_price|money }}</span>
+        {% endif %}
         {% if show_tax %}<span class="sawab-pow__tax">{{ t_tax }}</span>{% endif %}
       </div>
 
-      {# مجسّات مؤقّتة: تختبر وجود الحقول لا تطبع قيمها، فلا يمكن أن تُسقط
-         القسم. العدّاد معطّل حتى نعرف أي الحقول متاح فعلًا #}
-      <!-- sawab-pow sale=[{{ product.is_on_sale ? 'y' : 'n' }}] pct=[{{ product.discount_percentage ? 'y' : 'n' }}] ends=[{{ product.discount_ends ? 'y' : 'n' }}] reg=[{{ product.regular_price ? 'y' : 'n' }}] -->
+      {# القيم خامًا في تعليق، لنضبط تنسيقها لاحقًا على شكلها الحقيقي #}
+      <!-- sawab-pow pct=[{{ product.discount_percentage }}] ends=[{{ product.discount_ends }}] reg=[{{ product.regular_price }}] -->
+
+      {% if product.is_on_sale and product.discount_ends %}
+        <div class="sawab-pow__countdown">
+          <span class="sawab-pow__countdown-label">
+            <i class="sicon-clock" aria-hidden="true"></i>{{ t_ends_in }}
+          </span>
+          <salla-count-down date="{{ product.discount_ends }}" boxed labeled></salla-count-down>
+        </div>
+      {% endif %}
 
       <div class="sawab-pow__actions">
         <salla-quantity-input max="{{ product.max_quantity }}" value="1" name="quantity"></salla-quantity-input>
