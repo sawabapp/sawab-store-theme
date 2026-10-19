@@ -112,7 +112,10 @@
     <div class="sawab-hero__side">
       {% if delivery_title or delivery_description %}
         <div class="sawab-hero__card sawab-hero__card--dark">
-          <h3 class="sawab-hero__card-title">{{ delivery_title }}</h3>
+          <h3 class="sawab-hero__card-title">
+            <svg class="sawab-hero__card-icon sawab-hero__card-icon--truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 17H9V5h6v12Z"/><path d="M15 8h3.5L21 11v6h-6"/><circle cx="7" cy="17.5" r="2"/><circle cx="17" cy="17.5" r="2"/><path d="M5 17H3V9h6"/></svg>
+            <span>{{ delivery_title }}</span>
+          </h3>
           <p class="sawab-hero__card-text">{{ delivery_description }}</p>
         </div>
       {% endif %}
@@ -120,8 +123,8 @@
       {% if warranty_title or warranty_description %}
         <div class="sawab-hero__card">
           <h3 class="sawab-hero__card-title sawab-hero__card-title--accent">
-            <i class="sicon-star2"></i>
-            {{ warranty_title }}
+            <svg class="sawab-hero__card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-3.6 7-9V5.8L12 3 5 5.8V12c0 5.4 7 9 7 9Z"/><path d="m9 11.8 2.1 2.1L15.2 9.8"/></svg>
+            <span>{{ warranty_title }}</span>
           </h3>
           <p class="sawab-hero__card-text">{{ warranty_description }}</p>
         </div>
@@ -131,7 +134,7 @@
         <div class="sawab-hero__card sawab-hero__card--rating">
           <div class="sawab-hero__rating-main">
             <div class="sawab-hero__rating-value">
-              <i class="sicon-star"></i>
+              <svg class="sawab-hero__card-icon sawab-hero__card-icon--star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="m12 3 2.6 5.3 5.9.9-4.3 4.1 1 5.9-5.2-2.8-5.2 2.8 1-5.9L3.5 9.2l5.9-.9L12 3Z"/></svg>
               <span>{{ rating_percentage }}</span>
             </div>
             {% if rating_count_text %}

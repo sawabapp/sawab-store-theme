@@ -224,6 +224,18 @@
   height: 44px;
   cursor: pointer;
   font-family: var(--font-main);
+  transition: background-color 0.18s ease, color 0.18s ease;
+
+  &:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 
   [dir="rtl"] & {
     margin-right: -1px;

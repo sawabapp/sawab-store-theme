@@ -118,19 +118,40 @@
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
 
+  // الزر يرتفع قليلًا ويطرح ظلًّا، ويغمق بـfilter فيصحّ مع أي لون
+  // يختاره التاجر (--color-primary) بلا الحاجة لتعريف لون hover لكل زر
   &:hover {
-    opacity: 0.9;
+    transform: translateY(-2px);
+    filter: brightness(0.93);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
   }
 
   &:active {
-    transform: scale(0.98);
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   }
 
   i {
     font-size: 18px;
   }
+}
+
+// البطاقات الثلاث تستجيب للمرور استجابة خفيفة
+.sawab-hero__card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+}
+
+.sawab-hero__card--dark:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
 }
 
 .sawab-hero__btn--whatsapp {
@@ -179,7 +200,7 @@
 .sawab-hero__side {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .sawab-hero__card {
@@ -187,10 +208,11 @@
   background: #fff;
   border: 1px solid var(--color-border, #e8e1d5);
   border-radius: 18px;
-  padding: 20px;
+  padding: 16px 18px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .sawab-hero__card--dark {
@@ -210,23 +232,38 @@
   font-size: 15px;
   font-weight: 700;
   color: #1a1a1a;
-  margin: 0 0 6px;
+  margin: 0 0 3px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
+  line-height: 1.4;
 }
 
 .sawab-hero__card-title--accent {
   color: var(--color-primary);
+}
 
-  i {
-    font-size: 16px;
-  }
+// أيقونات SVG بجانب عناوين البطاقات: ترث لون العنوان عبر currentColor
+.sawab-hero__card-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+// الشاحنة تتجه مع اتجاه القراءة
+[dir="rtl"] .sawab-hero__card-icon--truck {
+  transform: scaleX(-1);
+}
+
+.sawab-hero__card-icon--star {
+  width: 16px;
+  height: 16px;
+  color: #f5a623;
 }
 
 .sawab-hero__card-text {
   font-size: 13px;
-  line-height: 1.7;
+  line-height: 1.55;
   color: #6b6b6b;
   margin: 0;
 }
@@ -262,10 +299,24 @@
   text-decoration: none;
   white-space: nowrap;
   flex-shrink: 0;
+  transition: color 0.18s ease;
+
+  &:hover {
+    color: var(--color-primary);
+  }
 
   i {
     font-size: 12px;
+    transition: transform 0.18s ease;
   }
+
+  &:hover i {
+    transform: translateX(-3px);
+  }
+}
+
+[dir="ltr"] .sawab-hero__reviews-link:hover i {
+  transform: translateX(3px);
 }
 
 // ===== الجوّال والأجهزة اللوحية =====

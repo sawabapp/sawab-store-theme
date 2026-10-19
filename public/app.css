@@ -9435,6 +9435,19 @@ body.font-dinnextltarabic-regular .btn--add-to-cart {
   cursor: pointer;
   font-family: "IBM Plex Sans Arabic", sans-serif;
   font-family: var(--font-main);
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+.site-header__search-btn:hover {
+  background: #c62127;
+  background: var(--color-primary);
+  border-color: #c62127;
+  border-color: var(--color-primary);
+  color: #fff;
+}
+.site-header__search-btn:focus-visible {
+  outline: 2px solid #c62127;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 [dir=rtl] .site-header__search-btn {
   margin-right: -1px;
@@ -9952,16 +9965,32 @@ salla-cart-summary .s-cart-summary-count {
   -webkit-text-decoration: none;
   text-decoration: none;
   white-space: nowrap;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
 }
 .sawab-hero__btn:hover {
-  opacity: 0.9;
+  transform: translateY(-2px);
+  filter: brightness(0.93);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+}
+.sawab-hero__btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
 }
 .sawab-hero__btn:active {
-  transform: scale(0.98);
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 .sawab-hero__btn i {
   font-size: 18px;
+}
+.sawab-hero__card:hover {
+  transform: translateY(-2px);
+  border-color: #c62127;
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+}
+.sawab-hero__card--dark:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
 }
 .sawab-hero__btn--whatsapp {
   background: #25d366;
@@ -10001,7 +10030,7 @@ salla-cart-summary .s-cart-summary-count {
 .sawab-hero__side {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 .sawab-hero__card {
   flex: 1;
@@ -10009,10 +10038,11 @@ salla-cart-summary .s-cart-summary-count {
   border: 1px solid #f2ecdf;
   border: 1px solid var(--color-border, #e8e1d5);
   border-radius: 18px;
-  padding: 20px;
+  padding: 16px 18px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 .sawab-hero__card--dark {
   background: #17181a;
@@ -10028,21 +10058,32 @@ salla-cart-summary .s-cart-summary-count {
   font-size: 15px;
   font-weight: 700;
   color: #1a1a1a;
-  margin: 0 0 6px;
+  margin: 0 0 3px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
+  line-height: 1.4;
 }
 .sawab-hero__card-title--accent {
   color: #c62127;
   color: var(--color-primary);
 }
-.sawab-hero__card-title--accent i {
-  font-size: 16px;
+.sawab-hero__card-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+[dir=rtl] .sawab-hero__card-icon--truck {
+  transform: scaleX(-1);
+}
+.sawab-hero__card-icon--star {
+  width: 16px;
+  height: 16px;
+  color: #f5a623;
 }
 .sawab-hero__card-text {
   font-size: 13px;
-  line-height: 1.7;
+  line-height: 1.55;
   color: #6b6b6b;
   margin: 0;
 }
@@ -10076,9 +10117,21 @@ salla-cart-summary .s-cart-summary-count {
   text-decoration: none;
   white-space: nowrap;
   flex-shrink: 0;
+  transition: color 0.18s ease;
+}
+.sawab-hero__reviews-link:hover {
+  color: #c62127;
+  color: var(--color-primary);
 }
 .sawab-hero__reviews-link i {
   font-size: 12px;
+  transition: transform 0.18s ease;
+}
+.sawab-hero__reviews-link:hover i {
+  transform: translateX(-3px);
+}
+[dir=ltr] .sawab-hero__reviews-link:hover i {
+  transform: translateX(3px);
 }
 @media (max-width: 1024px) {
   .sawab-hero__grid {
@@ -11357,10 +11410,19 @@ salla-product-options .s-product-options-grid-mode .s-product-options-disabled {
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
 }
 .sawab-sticky-bar__btn:hover {
-  opacity: 0.9;
+  transform: translateY(-2px);
+  filter: brightness(0.93);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
+.sawab-sticky-bar__btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -4px;
+}
+.sawab-sticky-bar__btn:active {
+  transform: translateY(0) scale(0.98);
 }
 .sawab-sticky-bar__btn.is-loading {
   color: transparent;
