@@ -20,30 +20,34 @@
 {% block content %}
 	{% set sawab_ar = (language.code|default('ar')) == 'ar' %}
 	{% set t_shop_subcats = sawab_ar ? 'تسوّق حسب التصنيفات الفرعية' : 'Shop by subcategory' %}
-	{% if theme.settings.get('product_index_show_breadcrumbs', true) %}
-		<div
-			class="container container--breadcrumbs">
-			{# add breadcumbs container in pages to make a space in case breadcrumbs is off #}
-			<nav class="breadcrumbs w-full py-5">
-				<salla-breadcrumb></salla-breadcrumb>
-			</nav>
-		</div>
-	{% endif %}
-
-	{# رأس التصنيف: اسمه وعدد منتجاته. هذا القالب يخدم أيضًا صفحات الوسوم والبحث
-	   والتخفيضات حيث لا وجود لـ category، فكل وصول إليه يمرّ بـ default() — وإلا
-	   رمى Twig خطأً وظهرت الصفحة بيضاء. واسم التصنيف هو الـh1 لأن page.title
-	   يعيده سلة كعدد منتجات لا كاسم، ويبقى #page-main-title على سطر العدد لأن
-	   products.js يستبدل محتواه بعنوان الاستجابة عند كل ترتيب أو تصفية #}
+	{# رأس التصنيف: لوحة كريمية تضمّ مسار التنقّل والاسم وعدد المنتجات وصورة
+	   التصنيف. القالب يخدم أيضًا صفحات الوسوم والبحث والتخفيضات حيث لا وجود
+	   لـ category، فكل وصول إليه يمرّ بـ default() — وإلا رمى Twig وظهرت
+	   الصفحة بيضاء. واسم التصنيف هو الـh1 لأن page.title يعيده سلة كعدد
+	   منتجات لا كاسم، ويبقى #page-main-title على سطر العدد لأن products.js
+	   يستبدل محتواه بعنوان الاستجابة عند كل ترتيب أو تصفية #}
 	{% set sawab_cat_name = category.name|default('') %}
+	{% set sawab_cat_image = category.image|default('') %}
 	{% set sawab_subcats = category.sub_categories|default([]) %}
 
 	<div class="container sawab-cat-head">
-		<div class="sawab-cat-hero">
+		<div class="sawab-cat-hero{{ sawab_cat_image ? ' sawab-cat-hero--has-image' : '' }}">
 			<div class="sawab-cat-hero__body">
+				{% if theme.settings.get('product_index_show_breadcrumbs', true) %}
+					<nav class="sawab-cat-hero__crumbs">
+						<salla-breadcrumb></salla-breadcrumb>
+					</nav>
+				{% endif %}
+
 				<h1 class="sawab-cat-hero__title">{% if sawab_cat_name %}{{ sawab_cat_name }}{% else %}{{ page.title|raw }}{% endif %}</h1>
 				<p class="sawab-cat-hero__count" id="page-main-title">{% if sawab_cat_name and page.title != sawab_cat_name %}{{ page.title|raw }}{% endif %}</p>
 			</div>
+
+			{% if sawab_cat_image %}
+				<div class="sawab-cat-hero__media" aria-hidden="true">
+					<img src="{{ sawab_cat_image }}" alt="" loading="lazy" width="320" height="240">
+				</div>
+			{% endif %}
 		</div>
 
 		{% if sawab_subcats|length %}
@@ -79,24 +83,25 @@
 		<div class="main-content flex-1 w-full {{ filters ? 'ltr:lg:ml-8 rtl:lg:mr-8' : '' }}">
 			{# العنوان انتقل إلى رأس التصنيف أعلى الصفحة، فيبقى شريط الترتيب في بداية
 			   السطر ملتصقًا بالقائمة لا معلّقًا في طرفها المقابل #}
-			<div class="sawab-list-toolbar mb-4 sm:mb-6 flex items-center">
-				<div class="flex items-center space-x-2 rtl:space-x-reverse">
-					{% if filters %}
-						<a data-testid="store-products-filters-mobile-trigger" href="#filters-menu" class="filters-trigger bg-border-color text-primary lg:hidden mt-2">
-							<i class="sicon-filter text-gray-text text-2xl me-2.5"></i>
-						</a>
-					{% endif %}
-					{% if sort_options|length %}
-						<div class="flex items-center">
-							<label class="hidden sm:block rtl:ml-3 ltr:mr-3 whitespace-nowrap" for="product-filter">{{ trans('pages.categories.sorting') }}</label>
-							<select id="product-filter" class="form-input pt-0 pb-1 rtl:md:pl-10 ltr:md:pr-10">
-								{% for sort in sort_options %}
-									<option value="{{ sort.id }}" {{ sort.is_selected?'selected':'' }}>{{ sort.name }}</option>
-								{% endfor %}
-							</select>
-						</div>
-					{% endif %}
-				</div>
+			<div class="sawab-list-toolbar">
+				{% if filters %}
+					<a data-testid="store-products-filters-mobile-trigger" href="#filters-menu" class="sawab-list-toolbar__filters lg:hidden">
+						<i class="sicon-filter" aria-hidden="true"></i>
+						<span>{{ trans('pages.categories.filter') }}</span>
+					</a>
+				{% endif %}
+
+				{% if sort_options|length %}
+					<div class="sawab-list-toolbar__sort">
+						<label for="product-filter">{{ trans('pages.categories.sorting') }}</label>
+						<select id="product-filter">
+							{% for sort in sort_options %}
+								<option value="{{ sort.id }}" {{ sort.is_selected?'selected':'' }}>{{ sort.name }}</option>
+							{% endfor %}
+						</select>
+						<i class="sicon-keyboard_arrow_down" aria-hidden="true"></i>
+					</div>
+				{% endif %}
 			</div>
 
 			{% hook 'product:index.items.start' %}
