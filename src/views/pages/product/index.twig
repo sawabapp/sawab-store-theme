@@ -70,10 +70,10 @@
 	<div class="container container--products-list flex items-start flex-col md:flex-row">
 		{% if filters %}
 			<button class="btn--close-sm close-filters sicon-cancel hidden"></button>
-			<salla-filters data-testid="store-products-filters" class="md:w-72 lg:sticky lg:top-20 flex-none" id="filters-menu"></salla-filters>
+			<salla-filters data-testid="store-products-filters" class="sawab-filters-drawer" id="filters-menu"></salla-filters>
 		{% endif %}
 
-		<div class="main-content flex-1 w-full {{ filters ? 'ltr:lg:ml-8 rtl:lg:mr-8' : '' }}">
+		<div class="main-content flex-1 w-full">
 			{# العنوان انتقل إلى رأس التصنيف أعلى الصفحة، فيبقى شريط الترتيب في بداية
 			   السطر ملتصقًا بالقائمة لا معلّقًا في طرفها المقابل #}
 			<div class="sawab-list-toolbar">

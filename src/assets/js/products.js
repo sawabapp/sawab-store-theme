@@ -36,7 +36,9 @@ class Products extends BasePage {
         if (!filters) {
             return;
         }
-        filters = new MobileMenu(filters, "(max-width: 1024px)", "( slidingSubmenus: false)");
+        // "all" لا "(max-width: 1024px)": اللوحة الجانبية الثابتة أُلغيت،
+        // والفلاتر تُفتح بزر «تصفية» على كل المقاسات
+        filters = new MobileMenu(filters, "all", "( slidingSubmenus: false)");
         const drawer = filters.offcanvas({ position: salla.config.get('theme.is_rtl') ? "right" : 'left' });
         trigger.addEventListener('click', event => {
             document.body.classList.add('filters-opened');

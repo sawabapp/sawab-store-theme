@@ -13610,9 +13610,6 @@ a.sawab-bn__card:focus-visible {
     .md\:w-7\/12{
         width: 58.333333%;
     }
-    .md\:w-72{
-        width: 18rem;
-    }
     .md\:w-96{
         width: 24rem;
     }
@@ -13717,9 +13714,6 @@ a.sawab-bn__card:focus-visible {
     }
     .lg\:sticky{
         position: sticky;
-    }
-    .lg\:top-20{
-        top: 5rem;
     }
     .lg\:col-span-2{
         grid-column: span 2 / span 2;
