@@ -37,7 +37,9 @@ $sawab-ft-muted: #6b6b6b;
     border-top: 1px solid $sawab-ft-line;
   }
 
-  .store-footer__inner {
+  // قاعدة الثيم `.footer-is-light .store-footer .store-footer__inner`
+  // خصوصيّتها (0,3,0) فنطابقها بنفس السلسلة، وإلا فازت مهما كان الترتيب
+  .store-footer .store-footer__inner {
     background-color: transparent;
     border-bottom-color: $sawab-ft-line;
   }
@@ -60,7 +62,8 @@ $sawab-ft-muted: #6b6b6b;
 
 // ----- الوضع الداكن -----
 .footer-is-dark {
-  .store-footer__inner {
+  .store-footer .store-footer__inner {
+    background-color: transparent;
     border-bottom-color: rgba(255, 255, 255, 0.12);
   }
 

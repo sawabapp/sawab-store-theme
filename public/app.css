@@ -13768,7 +13768,7 @@ a.sawab-bn__card:focus-visible {
   background: #f8f1e7;
   border-top: 1px solid #e8e1d5;
 }
-.footer-is-light .store-footer__inner {
+.footer-is-light .store-footer .store-footer__inner {
   background-color: transparent;
   border-bottom-color: #e8e1d5;
 }
@@ -13785,7 +13785,8 @@ a.sawab-bn__card:focus-visible {
 .footer-is-light .store-footer .copyright-text p {
   color: #6b6b6b;
 }
-.footer-is-dark .store-footer__inner {
+.footer-is-dark .store-footer .store-footer__inner {
+  background-color: transparent;
   border-bottom-color: rgba(255, 255, 255, 0.12);
 }
 .footer-is-dark .store-footer salla-menu a,
