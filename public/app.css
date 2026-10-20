@@ -9849,18 +9849,20 @@ salla-cart-summary .s-cart-summary-count {
   color: var(--color-primary);
   font-weight: 600;
 }
+@media (max-width: 1023px) {
+  .site-header__mobile-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+}
 @media (max-width: 768px) {
   .site-header__row {
     display: flex;
     align-items: center;
     gap: 12px;
     padding: 12px 16px;
-  }
-  .site-header__mobile-toggle {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
   }
   .site-header__logo {
     flex-shrink: 0;
