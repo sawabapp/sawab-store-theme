@@ -20,10 +20,13 @@ $sawab-ft-muted: #6b6b6b;
   padding-left: 48px;
 }
 
+// الثيم يعطي اللوحة الداخلية خلفية خاصة بها (رمادية في الفاتح، داكنة في
+// الداكن) فتغطّي خلفية التذييل — نجعلها شفافة ليظهر لون واحد متّصل.
+// وحدّه السفلي متقطّع أبيض الشفافية، فنستبدله بخطّ هادئ.
 .store-footer__inner {
   padding-top: 52px;
   padding-bottom: 44px;
-  // الثيم يضع حدًّا متقطّعًا أبيض الشفافية — نستبدله بخطّ هادئ
+  background-color: transparent;
   border-bottom-style: solid;
 }
 
@@ -35,6 +38,7 @@ $sawab-ft-muted: #6b6b6b;
   }
 
   .store-footer__inner {
+    background-color: transparent;
     border-bottom-color: $sawab-ft-line;
   }
 

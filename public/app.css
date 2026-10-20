@@ -13781,6 +13781,7 @@ a.sawab-bn__card:focus-visible {
 .store-footer__inner {
   padding-top: 52px;
   padding-bottom: 44px;
+  background-color: transparent;
   border-bottom-style: solid;
 }
 .footer-is-light .store-footer {
@@ -13788,6 +13789,7 @@ a.sawab-bn__card:focus-visible {
   border-top: 1px solid #e8e1d5;
 }
 .footer-is-light .store-footer__inner {
+  background-color: transparent;
   border-bottom-color: #e8e1d5;
 }
 .footer-is-light .store-footer h3 {
