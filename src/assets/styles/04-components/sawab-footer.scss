@@ -76,6 +76,114 @@ $sawab-ft-muted: #6b6b6b;
   }
 }
 
+// ----- الشبكة -----
+.sawab-footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.4fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.sawab-footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 420px;
+  min-width: 0;
+}
+
+.sawab-footer__logo img {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+}
+
+.sawab-footer__logo-text {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--main-text-color, #1a1a1a);
+}
+
+.sawab-footer__about {
+  font-size: 14px;
+  line-height: 1.85;
+  color: $sawab-ft-muted;
+
+  p { margin: 0; }
+}
+
+.sawab-footer__col {
+  min-width: 0;
+}
+
+// شارات المتاجر تبدأ من بداية السطر لا من وسطه
+.sawab-footer__col--apps salla-apps-icons {
+  display: block;
+}
+
+// ----- بطاقة الثقة والرقم الضريبي -----
+.sawab-footer__trust {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 18px 28px;
+  margin-top: 40px;
+  padding: 18px 22px;
+  background: #fff;
+  border: 1px solid $sawab-ft-line;
+  border-radius: 18px;
+}
+
+.sawab-footer__tax {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sawab-footer__tax-img img {
+  width: 40px;
+  border-radius: 6px;
+  transition: opacity 0.18s ease;
+}
+
+.sawab-footer__tax-img:hover img { opacity: 0.8; }
+
+.sawab-footer__tax-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  span {
+    font-size: 12px;
+    color: $sawab-ft-muted;
+  }
+
+  b {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--main-text-color, #1a1a1a);
+  }
+}
+
+.footer-is-dark .sawab-footer__trust {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.footer-is-dark .sawab-footer__tax-text b { color: #fff; }
+
+// ----- الشريط السفلي -----
+.sawab-footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 // ----- عناوين الأعمدة -----
 .store-footer h3 {
   margin: 0 0 16px;
@@ -153,6 +261,16 @@ $sawab-ft-muted: #6b6b6b;
     padding-left: 24px;
   }
 
+  .sawab-footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  .sawab-footer__brand {
+    grid-column: 1 / -1;
+    max-width: none;
+  }
+
   .store-footer__inner {
     padding-top: 40px;
     padding-bottom: 32px;
@@ -163,6 +281,23 @@ $sawab-ft-muted: #6b6b6b;
   .store-footer .container {
     padding-right: 16px;
     padding-left: 16px;
+  }
+
+  .sawab-footer__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .sawab-footer__trust {
+    margin-top: 28px;
+    padding: 16px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .sawab-footer__bottom {
+    justify-content: center;
+    text-align: center;
   }
 
   .store-footer h3 {
