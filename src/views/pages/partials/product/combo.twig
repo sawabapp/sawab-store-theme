@@ -1,0 +1,109 @@
+{#
+قسم «يضيفها العملاء عادة مع هذا المنتج».
+
+الملحقات تُختار صراحةً من إعدادات الثيم بدل استنتاجها من الوسوم: فهرسة الوسوم
+عند سلة كانت تُرجع قائمة فارغة، والاختيار الصريح يعطي التاجر تحكّمًا كاملًا
+لكل منتج بلا فهرسة ولا تاريخ مبيعات.
+
+ست مجموعات، كل واحدة: منتج تُعرض فيه + منتجات تُقترح معه. والمنتقي في إعدادات
+الثيم يعيد `{"value": [ids], "source": "products"}` — كائن غلاف لا كائنات
+منتجات (انظر CLAUDE.md).
+
+الكتل مكتوبة صراحةً لا بحلقة على مصفوفة حرفية (غير مُثبَتة)، والرسم داخل
+الحلقة لأن `set` داخل `for` لا يبقى أثره خارجها.
+#}
+{% set sawab_combo_for = theme.settings.get('combo_1_for') %}
+{% set sawab_combo_items = theme.settings.get('combo_1_items') %}
+{% if sawab_combo_for and sawab_combo_items %}
+  {% for anchor_id in sawab_combo_for.value|default([]) %}
+    {% if anchor_id == product.id and sawab_combo_items.value|default([])|length %}
+      <div class="sawab-combo"
+           data-testid="store-product-combo"
+           data-product-id="{{ product.id }}"
+           data-ids="{{ sawab_combo_items.value|join(',') }}"
+           hidden>
+        <h2 class="sawab-combo__title">{{ t_combo }}</h2>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% set sawab_combo_for = theme.settings.get('combo_2_for') %}
+{% set sawab_combo_items = theme.settings.get('combo_2_items') %}
+{% if sawab_combo_for and sawab_combo_items %}
+  {% for anchor_id in sawab_combo_for.value|default([]) %}
+    {% if anchor_id == product.id and sawab_combo_items.value|default([])|length %}
+      <div class="sawab-combo"
+           data-testid="store-product-combo"
+           data-product-id="{{ product.id }}"
+           data-ids="{{ sawab_combo_items.value|join(',') }}"
+           hidden>
+        <h2 class="sawab-combo__title">{{ t_combo }}</h2>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% set sawab_combo_for = theme.settings.get('combo_3_for') %}
+{% set sawab_combo_items = theme.settings.get('combo_3_items') %}
+{% if sawab_combo_for and sawab_combo_items %}
+  {% for anchor_id in sawab_combo_for.value|default([]) %}
+    {% if anchor_id == product.id and sawab_combo_items.value|default([])|length %}
+      <div class="sawab-combo"
+           data-testid="store-product-combo"
+           data-product-id="{{ product.id }}"
+           data-ids="{{ sawab_combo_items.value|join(',') }}"
+           hidden>
+        <h2 class="sawab-combo__title">{{ t_combo }}</h2>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% set sawab_combo_for = theme.settings.get('combo_4_for') %}
+{% set sawab_combo_items = theme.settings.get('combo_4_items') %}
+{% if sawab_combo_for and sawab_combo_items %}
+  {% for anchor_id in sawab_combo_for.value|default([]) %}
+    {% if anchor_id == product.id and sawab_combo_items.value|default([])|length %}
+      <div class="sawab-combo"
+           data-testid="store-product-combo"
+           data-product-id="{{ product.id }}"
+           data-ids="{{ sawab_combo_items.value|join(',') }}"
+           hidden>
+        <h2 class="sawab-combo__title">{{ t_combo }}</h2>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% set sawab_combo_for = theme.settings.get('combo_5_for') %}
+{% set sawab_combo_items = theme.settings.get('combo_5_items') %}
+{% if sawab_combo_for and sawab_combo_items %}
+  {% for anchor_id in sawab_combo_for.value|default([]) %}
+    {% if anchor_id == product.id and sawab_combo_items.value|default([])|length %}
+      <div class="sawab-combo"
+           data-testid="store-product-combo"
+           data-product-id="{{ product.id }}"
+           data-ids="{{ sawab_combo_items.value|join(',') }}"
+           hidden>
+        <h2 class="sawab-combo__title">{{ t_combo }}</h2>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% set sawab_combo_for = theme.settings.get('combo_6_for') %}
+{% set sawab_combo_items = theme.settings.get('combo_6_items') %}
+{% if sawab_combo_for and sawab_combo_items %}
+  {% for anchor_id in sawab_combo_for.value|default([]) %}
+    {% if anchor_id == product.id and sawab_combo_items.value|default([])|length %}
+      <div class="sawab-combo"
+           data-testid="store-product-combo"
+           data-product-id="{{ product.id }}"
+           data-ids="{{ sawab_combo_items.value|join(',') }}"
+           hidden>
+        <h2 class="sawab-combo__title">{{ t_combo }}</h2>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}

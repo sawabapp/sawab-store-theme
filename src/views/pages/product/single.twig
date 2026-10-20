@@ -346,23 +346,9 @@
                         </section>
                     {% endif %}
 
-                    {# «يضيفها العملاء عادة مع الخزان» عبر الوسوم: ضع وسمًا يبدأ
-                       بـ«طقم» على المنتج وعلى ملحقاته، فتظهر هنا. الوسوم تُحرَّر
-                       لكل منتج من لوحة سلة، فلا حاجة لتاريخ مبيعات ولا لإعداد ثيم.
-                       product.js يقرأ الوسوم لأن بياناتها لا تحمل id #}
-                    {% if product.tags|length %}
-                        <div class="sawab-combo"
-                             data-testid="store-product-combo"
-                             data-product-id="{{ product.id }}"
-                             hidden>
-                            <h2 class="sawab-combo__title">{{ t_combo }}</h2>
-                            {# الوسوم كعناصر لا كـJSON في سمة: تسلسل المجموعات في
-                               Twig غير مضمون الشكل، والسمات يهرّبها Twig بأمان #}
-                            {% for tag in product.tags %}
-                                <span class="sawab-combo__tag" data-name="{{ tag.name }}" data-url="{{ tag.url }}" hidden></span>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
+                    {# «يضيفها العملاء عادة مع هذا المنتج»: الملحقات تُختار
+                       صراحةً من إعدادات الثيم لكل منتج — لا من الوسوم #}
+                    {% include 'pages.partials.product.combo' %}
 
                     <section class="sticky-product-bar sawab-actions">
                         {# الكمية وزر الإضافة في صف واحد، والسعر داخل الزر #}

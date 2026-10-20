@@ -85,8 +85,9 @@ class Product extends BasePage {
     }
 
     /**
-     * «يضيفها العملاء عادة مع المنتج» عبر الوسوم: التاجر يضع وسمًا يبدأ بـ«طقم»
-     * على المنتج وملحقاته، فنجلب منتجات ذلك الوسم ونستبعد المنتج الحالي.
+     * «يضيفها العملاء عادة مع المنتج»: التاجر يختار ملحقات كل منتج صراحةً من
+     * إعدادات الثيم، فتصل معرّفاتها في سمة data-ids ونجلبها بـsource=selected.
+     * (كانت تُستنتج من وسم يحتوي «طقم»، لكن فهرسة الوسوم عند سلة تُرجع فارغًا.)
      * ونرسم صفوفًا مصغّرة من البيانات نفسها لا بطاقات سلة الكاملة: البطاقة
      * الكاملة مبنية لشبكة عريضة فتبدو مشوّهة داخل صندوق ضيّق داخل الصفحة.
      */
@@ -101,29 +102,21 @@ class Product extends BasePage {
         return;
       }
 
-      const tags = Array.from(box.querySelectorAll('.sawab-combo__tag'))
-        .map(el => ({ name: el.dataset.name || '', url: el.dataset.url || '' }));
-      log('وسوم المنتج:', tags);
+      // المعرّفات تأتي من إعدادات الثيم عبر سمة data-ids: التاجر يختار
+      // ملحقات كل منتج صراحةً، فلا نستنتجها من الوسوم كما كنّا نفعل
+      const ids = (box.dataset.ids || '')
+        .split(',')
+        .map(id => Number(id.trim()))
+        .filter(Boolean);
+      log('الملحقات المختارة:', ids);
 
-      // اصطلاح المشروع: وسم المجموعة يحتوي «طقم»، وبقية الوسوم تسويقية
-      const combo = tags.find(tag => tag.name.trim().includes('طقم'));
-
-      if (!combo) {
-        log('لا وسم يحتوي كلمة «طقم»');
-        return;
-      }
-
-      // بيانات الوسم لا تحمل id، فنأخذ آخر رقم في رابطه
-      const tagId = (combo.url.match(/(\d+)(?!.*\d)/) || [])[1];
-      log('وسم المجموعة:', combo.name, '| الرابط:', combo.url, '| المعرّف:', tagId);
-
-      if (!tagId) {
-        log('تعذّر استخراج معرّف رقمي من رابط الوسم');
+      if (!ids.length) {
+        log('لا ملحقات مختارة لهذا المنتج في إعدادات الثيم');
         return;
       }
 
       // سلة تفرض مصفوفة لـ source_value في مصادر tags/categories/brands/selected
-      salla.api.withoutNotifier(() => salla.product.api.fetch({ source: 'tags', source_value: [Number(tagId)] }))
+      salla.api.withoutNotifier(() => salla.product.api.fetch({ source: 'selected', source_value: ids }))
         .then(res => {
           const products = (res?.data || [])
             .filter(item => Number(item.id) !== Number(box.dataset.productId))
