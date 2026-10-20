@@ -1,0 +1,173 @@
+// ===== التذييل — تصميم صواب =====
+// الثيم يضع على <body> إمّا `footer-is-light` أو `footer-is-dark` حسب إعداد
+// `footer_is_dark` (master.twig)، فنكتب الوضعين ولا نفرض لونًا على الاثنين.
+//
+// ومحدّدات مكوّنات سلة تبدأ باسم العنصر (salla-menu, salla-contacts…) كي لا
+// تخسر بفارق الخصوصية أمام قواعد سلة نفسها (انظر CLAUDE.md).
+
+$sawab-ft-line: #e8e1d5;
+$sawab-ft-cream: #f8f1e7;
+$sawab-ft-muted: #6b6b6b;
+
+.store-footer {
+  font-family: var(--font-main);
+}
+
+// عرض التذييل يطابق إيقاع بقية الأقسام (1400px بحشو 48px)
+.store-footer .container {
+  max-width: 1400px;
+  padding-right: 48px;
+  padding-left: 48px;
+}
+
+.store-footer__inner {
+  padding-top: 52px;
+  padding-bottom: 44px;
+  // الثيم يضع حدًّا متقطّعًا أبيض الشفافية — نستبدله بخطّ هادئ
+  border-bottom-style: solid;
+}
+
+// ----- الوضع الفاتح -----
+.footer-is-light {
+  .store-footer {
+    background: $sawab-ft-cream;
+    border-top: 1px solid $sawab-ft-line;
+  }
+
+  .store-footer__inner {
+    border-bottom-color: $sawab-ft-line;
+  }
+
+  .store-footer h3 {
+    color: var(--main-text-color, #1a1a1a);
+  }
+
+  .store-footer salla-menu a,
+  .store-footer salla-contacts a,
+  .store-footer salla-contacts span {
+    color: $sawab-ft-muted;
+  }
+
+  .store-footer .copyright-text,
+  .store-footer .copyright-text p {
+    color: $sawab-ft-muted;
+  }
+}
+
+// ----- الوضع الداكن -----
+.footer-is-dark {
+  .store-footer__inner {
+    border-bottom-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .store-footer salla-menu a,
+  .store-footer salla-contacts a,
+  .store-footer salla-contacts span {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .store-footer .copyright-text,
+  .store-footer .copyright-text p {
+    color: rgba(255, 255, 255, 0.55);
+  }
+}
+
+// ----- عناوين الأعمدة -----
+.store-footer h3 {
+  margin: 0 0 16px;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+// ----- الروابط -----
+.store-footer salla-menu a,
+.store-footer salla-contacts a {
+  font-size: 14px;
+  line-height: 1.9;
+  text-decoration: none;
+  transition: color 0.18s ease;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+}
+
+.store-footer salla-contacts {
+  font-size: 14px;
+}
+
+// ----- أيقونات التواصل -----
+// رقائق دائرية بحدّ، تأخذ لون العلامة عند المرور
+.store-footer salla-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid $sawab-ft-line;
+  background: #fff;
+  color: var(--main-text-color, #1a1a1a);
+  transition: border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease;
+
+  &:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+}
+
+.footer-is-dark .store-footer salla-social a {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+
+  &:hover {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+  }
+}
+
+// ----- الرقم الضريبي وشارات الثقة -----
+.store-footer salla-trust-badges {
+  display: block;
+}
+
+// ----- الشريط السفلي -----
+.store-footer .copyright-text,
+.store-footer .copyright-text p {
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+// ----- الشاشات الأصغر -----
+@media (max-width: 1024px) {
+  .store-footer .container {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .store-footer__inner {
+    padding-top: 40px;
+    padding-bottom: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .store-footer .container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .store-footer h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .store-footer salla-social a {
+    width: 34px;
+    height: 34px;
+  }
+}

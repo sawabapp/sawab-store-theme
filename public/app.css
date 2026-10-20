@@ -7338,6 +7338,23 @@ model-viewer[style*=width]:before{
         padding-right: 0.625rem;
     }
 }
+.store-footer .s-comments-product .s-comments-container {
+  max-width: 1400px;
+  padding-right: 48px;
+  padding-left: 48px;
+}
+@media (max-width: 1024px) {
+  .store-footer .s-comments-product .s-comments-container {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+}
+@media (max-width: 768px) {
+  .store-footer .s-comments-product .s-comments-container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+}
 .share-btns-list{
     position: absolute;
     top: 3rem;
@@ -13750,6 +13767,136 @@ a.sawab-bn__card:focus-visible {
   }
   .sawab-stat__sub {
     display: none;
+  }
+}
+.store-footer {
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-family: var(--font-main);
+}
+.store-footer .container {
+  max-width: 1400px;
+  padding-right: 48px;
+  padding-left: 48px;
+}
+.store-footer__inner {
+  padding-top: 52px;
+  padding-bottom: 44px;
+  border-bottom-style: solid;
+}
+.footer-is-light .store-footer {
+  background: #f8f1e7;
+  border-top: 1px solid #e8e1d5;
+}
+.footer-is-light .store-footer__inner {
+  border-bottom-color: #e8e1d5;
+}
+.footer-is-light .store-footer h3 {
+  color: #1c1b19;
+  color: var(--main-text-color, #1a1a1a);
+}
+.footer-is-light .store-footer salla-menu a,
+.footer-is-light .store-footer salla-contacts a,
+.footer-is-light .store-footer salla-contacts span {
+  color: #6b6b6b;
+}
+.footer-is-light .store-footer .copyright-text,
+.footer-is-light .store-footer .copyright-text p {
+  color: #6b6b6b;
+}
+.footer-is-dark .store-footer__inner {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+.footer-is-dark .store-footer salla-menu a,
+.footer-is-dark .store-footer salla-contacts a,
+.footer-is-dark .store-footer salla-contacts span {
+  color: rgba(255, 255, 255, 0.72);
+}
+.footer-is-dark .store-footer .copyright-text,
+.footer-is-dark .store-footer .copyright-text p {
+  color: rgba(255, 255, 255, 0.55);
+}
+.store-footer h3 {
+  margin: 0 0 16px;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+.store-footer salla-menu a,
+.store-footer salla-contacts a {
+  font-size: 14px;
+  line-height: 1.9;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+.store-footer salla-menu a:hover,
+.store-footer salla-contacts a:hover {
+  color: #c62127;
+  color: var(--color-primary);
+}
+.store-footer salla-contacts {
+  font-size: 14px;
+}
+.store-footer salla-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid #e8e1d5;
+  background: #fff;
+  color: #1c1b19;
+  color: var(--main-text-color, #1a1a1a);
+  transition: border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease;
+}
+.store-footer salla-social a:hover {
+  border-color: #c62127;
+  border-color: var(--color-primary);
+  color: #c62127;
+  color: var(--color-primary);
+}
+.footer-is-dark .store-footer salla-social a {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+.footer-is-dark .store-footer salla-social a:hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+.store-footer salla-trust-badges {
+  display: block;
+}
+.store-footer .copyright-text,
+.store-footer .copyright-text p {
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 0;
+}
+@media (max-width: 1024px) {
+  .store-footer .container {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+  .store-footer__inner {
+    padding-top: 40px;
+    padding-bottom: 32px;
+  }
+}
+@media (max-width: 768px) {
+  .store-footer .container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+  .store-footer h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  .store-footer salla-social a {
+    width: 34px;
+    height: 34px;
   }
 }
 .before\:text-orange-300::before{
