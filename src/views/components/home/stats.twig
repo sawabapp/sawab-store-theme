@@ -1,0 +1,73 @@
+{#
+| Variable           | Type       | Description                                          |
+|--------------------|------------|------------------------------------------------------|
+| component.eyebrow  | ?string    | شارة صغيرة فوق العنوان                                |
+| component.title    | ?string    | عنوان القسم                                          |
+| component.desc     | ?string    | نص توضيحي                                            |
+| component.link_text| ?string    | نص الزر                                              |
+| component.link_url | ?string    | رابط الزر — فارغ يعني إخفاءه                          |
+| component.stats    | Collection | الأرقام: أيقونة ورقم ووحدة وعنوان وسطر توضيحي          |
+
+الرقم حقل نصّي لا رقمي: يقبل «97» و«5000» و«1–4» معًا. و`home.js` يعدّ
+تصاعديًا ما كان رقمًا صرفًا وحده، ويترك ما عداه كما هو.
+
+الزر مكرّر مرّتين عمدًا: يظهر بجانب العنوان على الحاسوب وأسفل البطاقة على
+الجوال، والنسخة الظاهرة واحدة دائمًا (الأخرى `display: none`).
+#}
+{% set rows = component.stats|default([]) %}
+
+{% if rows|length %}
+<section data-testid="store-home-stats" class="s-block sawab-stats" aria-labelledby="sawab-stats-title-{{ position }}">
+  <div class="sawab-stats__card">
+
+    <div class="sawab-stats__head">
+      <div class="sawab-stats__intro">
+        {% if component.eyebrow %}
+          <span class="sawab-stats__eyebrow">{{ component.eyebrow }}</span>
+        {% endif %}
+        {% if component.title %}
+          <h2 class="sawab-stats__title" id="sawab-stats-title-{{ position }}">{{ component.title }}</h2>
+        {% endif %}
+        {% if component.desc %}
+          <p class="sawab-stats__desc">{{ component.desc }}</p>
+        {% endif %}
+      </div>
+
+      {% if component.link_url and component.link_text %}
+        <a class="sawab-stats__link" href="{{ component.link_url }}">
+          <span>{{ component.link_text }}</span>
+          <i class="sicon-arrow-left" aria-hidden="true"></i>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="sawab-stats__grid">
+      {% for row in rows %}
+        <div class="sawab-stat">
+          <span class="sawab-stat__icon" aria-hidden="true">
+            <i class="{{ row.icon|default('sicon-star') }}"></i>
+          </span>
+
+          <div class="sawab-stat__value">
+            <span class="sawab-stat__num">{{ row.num }}</span>
+            {% if row.unit %}<span class="sawab-stat__unit">{{ row.unit }}</span>{% endif %}
+          </div>
+
+          <div class="sawab-stat__text">
+            {% if row.label %}<span class="sawab-stat__label">{{ row.label }}</span>{% endif %}
+            {% if row.sub %}<span class="sawab-stat__sub">{{ row.sub }}</span>{% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if component.link_url and component.link_text %}
+      <a class="sawab-stats__link sawab-stats__link--mobile" href="{{ component.link_url }}">
+        <span>{{ component.link_text }}</span>
+        <i class="sicon-arrow-left" aria-hidden="true"></i>
+      </a>
+    {% endif %}
+
+  </div>
+</section>
+{% endif %}

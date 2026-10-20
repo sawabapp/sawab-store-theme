@@ -7,6 +7,52 @@ class Home extends BasePage {
     onReady() {
         this.initFeaturedTabs();
         this.initProductOfWeekPrice();
+        this.initStatsCounter();
+    }
+
+    /**
+     * «صواب بالأرقام»: عدّ تصاعدي يبدأ حين يظهر القسم على الشاشة، مرّة واحدة.
+     *
+     * الرقم حقل نصّي يقبل «1–4» و«5000» معًا، فلا نعدّ إلا ما كان أرقامًا
+     * صرفة (مع الفواصل) ونترك ما عداه كما كتبه التاجر. ومن يطلب تقليل الحركة
+     * يرى الأرقام نهائية فورًا.
+     */
+    initStatsCounter() {
+        const section = document.querySelector('.sawab-stats');
+        if (!section) return;
+
+        const nums = Array.from(section.querySelectorAll('.sawab-stat__num'))
+            .map(el => ({ el, target: Number((el.textContent || '').replace(/[,\s]/g, '')) }))
+            .filter(item => /^[\d,\s]+$/.test(item.el.textContent || '') && item.target > 0);
+
+        const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!nums.length || reduce || !('IntersectionObserver' in window)) return;
+
+        const format = n => n.toLocaleString('en-US');
+        nums.forEach(item => { item.el.textContent = '0'; });
+
+        const run = () => {
+            const start = performance.now();
+            const duration = 1400;
+            const tick = now => {
+                const t = Math.min(1, (now - start) / duration);
+                const eased = 1 - Math.pow(1 - t, 3);
+                nums.forEach(item => {
+                    item.el.textContent = format(Math.round(item.target * eased));
+                });
+                if (t < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+        };
+
+        const observer = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting) {
+                run();
+                observer.disconnect();
+            }
+        }, { threshold: 0.3 });
+
+        observer.observe(section);
     }
 
     /**

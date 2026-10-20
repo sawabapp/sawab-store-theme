@@ -1,0 +1,280 @@
+// ===== صواب بالأرقام =====
+// بطاقة بيضاء تضمّ ترويسة وصفًّا من الأرقام يفصلها خطّ رأسي.
+// لا خصائص منطقية (padding-inline / border-inline): PostCSS يحوّلها متجاهلًا
+// الاتجاه فتنعكس في RTL — نستعمل نمط [dir] كعادة المشروع (CLAUDE.md).
+
+$sawab-stats-line: #ecebe6;
+$sawab-stats-muted: #5e5a55;
+
+.sawab-stats {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 48px;
+  font-family: var(--font-main);
+}
+
+.sawab-stats__card {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  background: #fff;
+  border: 1px solid $sawab-stats-line;
+  border-radius: 26px;
+  padding: 40px 44px;
+}
+
+// ----- الترويسة -----
+.sawab-stats__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.sawab-stats__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  max-width: 640px;
+  min-width: 0;
+}
+
+.sawab-stats__eyebrow {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(198, 33, 39, 0.07);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--main-text-color, #1a1a1a);
+
+  &::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--color-primary);
+  }
+}
+
+.sawab-stats__title {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--main-text-color, #1a1a1a);
+}
+
+.sawab-stats__desc {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: $sawab-stats-muted;
+}
+
+.sawab-stats__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-shrink: 0;
+  min-height: 48px;
+  padding: 0 20px;
+  border: 1.5px solid $sawab-stats-line;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--main-text-color, #1a1a1a);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 0.2s ease, color 0.2s ease;
+
+  i {
+    font-size: 13px;
+    transition: transform 0.18s ease;
+  }
+
+  &:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  &:hover i { transform: translateX(-3px); }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+[dir="ltr"] .sawab-stats__link:hover i { transform: translateX(3px); }
+
+// النسخة الثانية من الزر للجوال وحده
+.sawab-stats__link--mobile { display: none; }
+
+// ----- شبكة الأرقام -----
+.sawab-stats__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.sawab-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 28px;
+  min-width: 0;
+}
+
+// الخطّ الفاصل والحشو الطرفي اتجاهيان: في RTL يبدأ الصفّ من اليمين
+[dir="rtl"] {
+  .sawab-stat:first-child { padding-right: 0; }
+  .sawab-stat:last-child { padding-left: 0; }
+  .sawab-stat + .sawab-stat { border-right: 1px solid $sawab-stats-line; }
+}
+
+[dir="ltr"] {
+  .sawab-stat:first-child { padding-left: 0; }
+  .sawab-stat:last-child { padding-right: 0; }
+  .sawab-stat + .sawab-stat { border-left: 1px solid $sawab-stats-line; }
+}
+
+.sawab-stat__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(198, 33, 39, 0.07);
+  color: var(--color-primary);
+
+  i { font-size: 21px; }
+}
+
+// الرقم ووحدته يُقرآن من اليسار دائمًا (أرقام لاتينية)، والصفّ كله يُحاذى
+// لبداية السطر في اتجاه الصفحة
+.sawab-stat__value {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  color: var(--color-primary);
+  font-weight: 800;
+}
+
+.sawab-stat__num {
+  font-size: 48px;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.sawab-stat__unit {
+  font-size: 23px;
+}
+
+.sawab-stat__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.sawab-stat__label {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--main-text-color, #1a1a1a);
+}
+
+.sawab-stat__sub {
+  font-size: 13px;
+  line-height: 1.5;
+  color: $sawab-stats-muted;
+}
+
+// ----- اللوحي -----
+@media (max-width: 1024px) {
+  .sawab-stats { padding: 28px 24px; }
+
+  .sawab-stats__card {
+    padding: 32px 28px;
+    gap: 28px;
+  }
+
+  .sawab-stats__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 30px;
+  }
+
+  .sawab-stat { padding: 0 24px; }
+
+  [dir="rtl"] .sawab-stat:nth-child(odd) {
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  [dir="ltr"] .sawab-stat:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .sawab-stat__num { font-size: 42px; }
+}
+
+// ----- الجوال -----
+// كل رقم بطاقة مستقلة: الخطوط الفاصلة تختفي في عمودين ضيّقين
+@media (max-width: 640px) {
+  .sawab-stats { padding: 24px 16px; }
+
+  .sawab-stats__card {
+    padding: 22px 18px;
+    border-radius: 22px;
+    gap: 18px;
+  }
+
+  .sawab-stats__head {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .sawab-stats__head .sawab-stats__link { display: none; }
+  .sawab-stats__link--mobile { display: inline-flex; }
+
+  .sawab-stats__title { font-size: 21px; line-height: 1.4; }
+  .sawab-stats__desc { font-size: 13px; }
+  .sawab-stats__eyebrow { font-size: 12px; padding: 5px 12px; }
+
+  .sawab-stats__grid {
+    gap: 10px;
+    row-gap: 10px;
+  }
+
+  .sawab-stat,
+  [dir="rtl"] .sawab-stat:first-child,
+  [dir="rtl"] .sawab-stat:last-child,
+  [dir="rtl"] .sawab-stat:nth-child(odd),
+  [dir="ltr"] .sawab-stat:first-child,
+  [dir="ltr"] .sawab-stat:last-child,
+  [dir="ltr"] .sawab-stat:nth-child(odd) {
+    padding: 15px 14px;
+    gap: 8px;
+    border: 1px solid $sawab-stats-line;
+    border-radius: 16px;
+  }
+
+  .sawab-stat__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+
+    i { font-size: 18px; }
+  }
+
+  .sawab-stat__num { font-size: 32px; line-height: 1.15; }
+  .sawab-stat__unit { font-size: 16px; }
+  .sawab-stat__label { font-size: 14px; }
+  .sawab-stat__sub { display: none; }
+}

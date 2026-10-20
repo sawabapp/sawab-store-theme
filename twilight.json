@@ -1,5 +1,5 @@
 {
-    "version": "1.0.169",
+    "version": "1.0.170",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -3717,6 +3717,260 @@
                                     "value": "custom"
                                 }
                             ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "71599280-f46d-44a4-8a63-77a69ca67e39",
+            "title": {
+                "ar": "صواب بالأرقام",
+                "en": "Store in numbers"
+            },
+            "icon": "sicon-chart-bar",
+            "path": "home.stats",
+            "fields": [
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "الشارة العلوية",
+                    "multilanguage": true,
+                    "id": "eyebrow",
+                    "value": "صواب بالأرقام",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": "صواب بالأرقام",
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 40
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "العنوان",
+                    "multilanguage": true,
+                    "id": "title",
+                    "value": "ثقة آلاف العملاء في كل مناطق المملكة",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": "اكتب العنوان هنا...",
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 80
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "نص توضيحي",
+                    "multilanguage": true,
+                    "id": "desc",
+                    "value": "أرقام من تقييمات عملائنا وتجربتهم معنا في التوصيل والتركيب.",
+                    "required": false,
+                    "format": "textarea",
+                    "placeholder": "سطر تعريفي قصير...",
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 160
+                },
+                {
+                    "type": "string",
+                    "icon": "sicon-format-text-alt",
+                    "label": "نص الزر",
+                    "multilanguage": true,
+                    "id": "link_text",
+                    "value": "اقرأ آراء العملاء",
+                    "required": false,
+                    "format": "text",
+                    "placeholder": "اقرأ آراء العملاء",
+                    "description": null,
+                    "minLength": 0,
+                    "maxLength": 40
+                },
+                {
+                    "type": "items",
+                    "icon": "sicon-link",
+                    "label": "رابط الزر",
+                    "id": "link_url",
+                    "value": [],
+                    "description": "اتركه فارغًا لإخفاء الزر",
+                    "required": false,
+                    "format": "variable-list",
+                    "searchable": true,
+                    "source": "custom",
+                    "sources": [
+                        {
+                            "label": "منتج",
+                            "key": "products",
+                            "value": "products"
+                        },
+                        {
+                            "label": "منتجات مع وسم",
+                            "key": "products_tags",
+                            "value": "products_tags"
+                        },
+                        {
+                            "label": "تصنيف",
+                            "key": "categories",
+                            "value": "categories"
+                        },
+                        {
+                            "label": "ماركة تجارية",
+                            "key": "brands",
+                            "value": "brands"
+                        },
+                        {
+                            "label": "صفحة تعريفية",
+                            "key": "pages",
+                            "value": "pages"
+                        },
+                        {
+                            "label": "مقالة",
+                            "key": "blog_articles",
+                            "value": "blog_articles"
+                        },
+                        {
+                            "label": "تصنيف ضمن المدونة",
+                            "key": "blog_categories",
+                            "value": "blog_categories"
+                        },
+                        {
+                            "label": "التخفيضات",
+                            "key": "offers_link",
+                            "value": "offers_link"
+                        },
+                        {
+                            "label": "الماركات التجارية",
+                            "key": "brands_link",
+                            "value": "brands_link"
+                        },
+                        {
+                            "label": "المدونة",
+                            "key": "blog_link",
+                            "value": "blog_link"
+                        },
+                        {
+                            "label": "رابط خارجي",
+                            "key": "custom",
+                            "value": "custom"
+                        }
+                    ]
+                },
+                {
+                    "id": "stats",
+                    "key": "ac21710a-7c08-4e01-87b7-5d5229901638",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "الأرقام",
+                    "item_label": "رقم",
+                    "icon": "sicon-list-add",
+                    "description": "اضغط + لإضافة رقم آخر. الأرقام الصرفة تُعدّ تصاعديًا عند ظهور القسم",
+                    "labelHTML": null,
+                    "required": false,
+                    "minLength": 1,
+                    "maxLength": 8,
+                    "value": [
+                        {
+                            "stats.icon": "sicon-star",
+                            "stats.num": "97",
+                            "stats.unit": "%",
+                            "stats.label": "رضا العملاء",
+                            "stats.sub": "من إجمالي التقييمات"
+                        },
+                        {
+                            "stats.icon": "sicon-users",
+                            "stats.num": "5000",
+                            "stats.unit": "+",
+                            "stats.label": "تقييم عميل",
+                            "stats.sub": "تقييمات موثّقة بعد الشراء"
+                        },
+                        {
+                            "stats.icon": "sicon-shield-check",
+                            "stats.num": "7",
+                            "stats.unit": "سنوات",
+                            "stats.label": "ضمان حتى",
+                            "stats.sub": "من موردين معتمدين"
+                        },
+                        {
+                            "stats.icon": "sicon-shipping-fast",
+                            "stats.num": "1–4",
+                            "stats.unit": "أيام",
+                            "stats.label": "توصيل وتركيب",
+                            "stats.sub": "لجميع مناطق المملكة"
+                        }
+                    ],
+                    "fields": [
+                        {
+                            "id": "stats.icon",
+                            "key": "57b7161f-0185-4989-8103-f3b572b0cda7",
+                            "type": "string",
+                            "format": "icon",
+                            "label": "الأيقونة",
+                            "value": "sicon-star",
+                            "required": false,
+                            "icon": "sicon-shapes",
+                            "class": "form--inline",
+                            "description": null
+                        },
+                        {
+                            "type": "string",
+                            "icon": "sicon-format-text-alt",
+                            "label": "الرقم",
+                            "multilanguage": false,
+                            "id": "stats.num",
+                            "value": "97",
+                            "required": false,
+                            "format": "text",
+                            "placeholder": "97",
+                            "description": "رقم صرف يُعدّ تصاعديًا. ونصّ مثل «1–4» يُعرض كما هو",
+                            "minLength": 0,
+                            "maxLength": 12,
+                            "key": "7d5e90e9-bb5f-45b6-bd5d-1b5425ce00f9"
+                        },
+                        {
+                            "type": "string",
+                            "icon": "sicon-format-text-alt",
+                            "label": "الوحدة",
+                            "multilanguage": true,
+                            "id": "stats.unit",
+                            "value": "%",
+                            "required": false,
+                            "format": "text",
+                            "placeholder": "% أو سنوات",
+                            "description": null,
+                            "minLength": 0,
+                            "maxLength": 12,
+                            "key": "58ea80a5-3770-44e7-b0b1-f1dd4e6b126e"
+                        },
+                        {
+                            "type": "string",
+                            "icon": "sicon-format-text-alt",
+                            "label": "العنوان",
+                            "multilanguage": true,
+                            "id": "stats.label",
+                            "value": "رضا العملاء",
+                            "required": false,
+                            "format": "text",
+                            "placeholder": "رضا العملاء",
+                            "description": null,
+                            "minLength": 0,
+                            "maxLength": 40,
+                            "key": "4d238a2d-2b0b-4d84-8db7-4fe419dc192e"
+                        },
+                        {
+                            "type": "string",
+                            "icon": "sicon-format-text-alt",
+                            "label": "سطر توضيحي",
+                            "multilanguage": true,
+                            "id": "stats.sub",
+                            "value": "من إجمالي التقييمات",
+                            "required": false,
+                            "format": "text",
+                            "placeholder": "سطر صغير تحته",
+                            "description": null,
+                            "minLength": 0,
+                            "maxLength": 60,
+                            "key": "34f01f5f-2c55-4eef-aeaa-cf3ed7d572d9"
                         }
                     ]
                 }
