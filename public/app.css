@@ -10220,8 +10220,11 @@ salla-cart-summary .s-cart-summary-count {
 .sawab-hero__reviews-link:hover i {
   transform: translateX(-3px);
 }
+[dir=ltr] .sawab-hero__reviews-link i {
+  transform: scaleX(-1);
+}
 [dir=ltr] .sawab-hero__reviews-link:hover i {
-  transform: translateX(3px);
+  transform: scaleX(-1) translateX(-3px);
 }
 @media (max-width: 1024px) {
   .sawab-hero__grid {
@@ -12473,8 +12476,11 @@ salla-slider.sawab-cats__slider .sawab-cats__slide {
 .sawab-block .s-block__display-all:hover i {
   transform: translateX(-3px);
 }
+[dir=ltr] .sawab-block .s-block__display-all i {
+  transform: scaleX(-1);
+}
 [dir=ltr] .sawab-block .s-block__display-all:hover i {
-  transform: translateX(3px);
+  transform: scaleX(-1) translateX(-3px);
 }
 @media (max-width: 1024px) {
   .sawab-block {
@@ -12568,8 +12574,11 @@ salla-slider.sawab-cats__slider .sawab-cats__slide {
 .sawab-pow__all:hover i {
   transform: translateX(-3px);
 }
+[dir=ltr] .sawab-pow__all i {
+  transform: scaleX(-1);
+}
 [dir=ltr] .sawab-pow__all:hover i {
-  transform: translateX(3px);
+  transform: scaleX(-1) translateX(-3px);
 }
 .sawab-pow__card {
   display: grid;
@@ -13034,8 +13043,11 @@ salla-add-product-button.sawab-pow__add .s-button-element {
 .sawab-tb__all:hover i {
   transform: translateX(-3px);
 }
+[dir=ltr] .sawab-tb__all i {
+  transform: scaleX(-1);
+}
 [dir=ltr] .sawab-tb__all:hover i {
-  transform: translateX(3px);
+  transform: scaleX(-1) translateX(-3px);
 }
 .sawab-tb__body {
   display: grid;
@@ -13205,8 +13217,11 @@ salla-add-product-button.sawab-pow__add .s-button-element {
 .sawab-tb__promise-btn:hover i {
   transform: translateX(-3px);
 }
+[dir=ltr] .sawab-tb__promise-btn i {
+  transform: scaleX(-1);
+}
 [dir=ltr] .sawab-tb__promise-btn:hover i {
-  transform: translateX(3px);
+  transform: scaleX(-1) translateX(-3px);
 }
 @media (max-width: 1024px) {
   .sawab-tb {
@@ -13555,8 +13570,11 @@ a.sawab-bn__card:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
+[dir=ltr] .sawab-stats__link i {
+  transform: scaleX(-1);
+}
 [dir=ltr] .sawab-stats__link:hover i {
-  transform: translateX(3px);
+  transform: scaleX(-1) translateX(-3px);
 }
 .sawab-stats__link--mobile {
   display: none;

@@ -110,7 +110,10 @@ $sawab-stats-muted: #5e5a55;
   }
 }
 
-[dir="ltr"] .sawab-stats__link:hover i { transform: translateX(3px); }
+// أيقونة sicon-arrow-left مرسومة لليسار: صحيحة في RTL، وتشير للخلف في
+// الإنجليزية. نقلبها في LTR، والإزاحة بعدها سالبة لأن القلب يعكس اتجاهها.
+[dir="ltr"] .sawab-stats__link i { transform: scaleX(-1); }
+[dir="ltr"] .sawab-stats__link:hover i { transform: scaleX(-1) translateX(-3px); }
 
 // النسخة الثانية من الزر للجوال وحده
 .sawab-stats__link--mobile { display: none; }

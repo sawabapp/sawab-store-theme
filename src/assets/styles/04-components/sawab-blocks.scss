@@ -57,9 +57,10 @@
   }
 }
 
-[dir="ltr"] .sawab-block .s-block__display-all:hover i {
-  transform: translateX(3px);
-}
+// أيقونة sicon-arrow-left مرسومة لليسار: صحيحة في RTL، وتشير للخلف في
+// الإنجليزية. نقلبها في LTR، والإزاحة بعدها سالبة لأن القلب يعكس اتجاهها.
+[dir="ltr"] .sawab-block .s-block__display-all i { transform: scaleX(-1); }
+[dir="ltr"] .sawab-block .s-block__display-all:hover i { transform: scaleX(-1) translateX(-3px); }
 
 @media (max-width: 1024px) {
   .sawab-block {
