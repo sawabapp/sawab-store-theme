@@ -106,3 +106,8 @@
     {% endif %}
   {% endfor %}
 {% endif %}
+
+{# مجسّ مؤقّت: شكل المجموعة في إعدادات الثيم. في المكوّنات تُجرَّد بادئة
+   المفتاح (`item.text` لحقل `items.text`)، وفي الإعدادات غير معروف — وقراءة
+   مفتاح جذري غير موجود تُسقط القالب. json_encode آمن على أي نوع #}
+<!-- sawab-probe-combos [{{ theme.settings.get('combos')|json_encode }}] -->
