@@ -1,5 +1,5 @@
 {
-    "version": "1.0.165",
+    "version": "1.0.166",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -1177,229 +1177,69 @@
             "variant": "title"
         },
         {
-            "id": "cat_banner_1_cat",
-            "type": "items",
-            "format": "dropdown-list",
-            "label": "بنر 1 — التصنيف",
-            "description": "اختر التصنيف الذي يظهر فيه هذا البنر. اتركه فارغًا لتعطيله",
+            "id": "cat_banners",
+            "key": "97db3413-61d4-4cc7-9514-15ff9dc9aa67",
+            "type": "collection",
+            "format": "collection",
+            "label": "بنرات التصنيفات",
+            "item_label": "بنر",
+            "icon": "sicon-list-add",
+            "description": "لكل بنر: تصنيف وصورتان. اضغط + لإضافة بنر لتصنيف آخر",
             "labelHTML": null,
-            "icon": "sicon-keyboard_arrow_down",
-            "selected": [],
-            "options": [],
-            "source": "categories",
-            "multichoice": true,
-            "searchable": true,
             "required": false,
             "minLength": 0,
-            "maxLength": 1
-        },
-        {
-            "type": "string",
-            "icon": "sicon-image",
-            "label": "بنر 1 — صورة الحاسوب",
-            "description": "* المقاس المناسب 1320×340 بكسل",
-            "id": "cat_banner_1_image",
-            "value": null,
-            "required": false,
-            "format": "image",
-            "settings": {
-                "width": 1320,
-                "height": 340
-            }
-        },
-        {
-            "type": "string",
-            "icon": "sicon-image",
-            "label": "بنر 1 — صورة الجوال",
-            "description": "* المقاس المناسب 700×480 بكسل. اتركها فارغة لاستعمال صورة الحاسوب",
-            "id": "cat_banner_1_mobile",
-            "value": null,
-            "required": false,
-            "format": "image",
-            "settings": {
-                "width": 700,
-                "height": 480
-            }
-        },
-        {
-            "id": "cat_banner_2_cat",
-            "type": "items",
-            "format": "dropdown-list",
-            "label": "بنر 2 — التصنيف",
-            "description": null,
-            "labelHTML": null,
-            "icon": "sicon-keyboard_arrow_down",
-            "selected": [],
-            "options": [],
-            "source": "categories",
-            "multichoice": true,
-            "searchable": true,
-            "required": false,
-            "minLength": 0,
-            "maxLength": 1
-        },
-        {
-            "type": "string",
-            "icon": "sicon-image",
-            "label": "بنر 2 — صورة الحاسوب",
-            "description": "* المقاس المناسب 1320×340 بكسل",
-            "id": "cat_banner_2_image",
-            "value": null,
-            "required": false,
-            "format": "image",
-            "settings": {
-                "width": 1320,
-                "height": 340
-            }
-        },
-        {
-            "type": "string",
-            "icon": "sicon-image",
-            "label": "بنر 2 — صورة الجوال",
-            "description": "* المقاس المناسب 700×480 بكسل. اتركها فارغة لاستعمال صورة الحاسوب",
-            "id": "cat_banner_2_mobile",
-            "value": null,
-            "required": false,
-            "format": "image",
-            "settings": {
-                "width": 700,
-                "height": 480
-            }
-        },
-        {
-            "id": "cat_banner_3_cat",
-            "type": "items",
-            "format": "dropdown-list",
-            "label": "بنر 3 — التصنيف",
-            "description": null,
-            "labelHTML": null,
-            "icon": "sicon-keyboard_arrow_down",
-            "selected": [],
-            "options": [],
-            "source": "categories",
-            "multichoice": true,
-            "searchable": true,
-            "required": false,
-            "minLength": 0,
-            "maxLength": 1
-        },
-        {
-            "type": "string",
-            "icon": "sicon-image",
-            "label": "بنر 3 — صورة الحاسوب",
-            "description": "* المقاس المناسب 1320×340 بكسل",
-            "id": "cat_banner_3_image",
-            "value": null,
-            "required": false,
-            "format": "image",
-            "settings": {
-                "width": 1320,
-                "height": 340
-            }
-        },
-        {
-            "type": "string",
-            "icon": "sicon-image",
-            "label": "بنر 3 — صورة الجوال",
-            "description": "* المقاس المناسب 700×480 بكسل. اتركها فارغة لاستعمال صورة الحاسوب",
-            "id": "cat_banner_3_mobile",
-            "value": null,
-            "required": false,
-            "format": "image",
-            "settings": {
-                "width": 700,
-                "height": 480
-            }
-        },
-        {
-            "id": "cat_banner_4_cat",
-            "type": "items",
-            "format": "dropdown-list",
-            "label": "بنر 4 — التصنيف",
-            "description": null,
-            "labelHTML": null,
-            "icon": "sicon-keyboard_arrow_down",
-            "selected": [],
-            "options": [],
-            "source": "categories",
-            "multichoice": true,
-            "searchable": true,
-            "required": false,
-            "minLength": 0,
-            "maxLength": 1
-        },
-        {
-            "type": "string",
-            "icon": "sicon-image",
-            "label": "بنر 4 — صورة الحاسوب",
-            "description": "* المقاس المناسب 1320×340 بكسل",
-            "id": "cat_banner_4_image",
-            "value": null,
-            "required": false,
-            "format": "image",
-            "settings": {
-                "width": 1320,
-                "height": 340
-            }
-        },
-        {
-            "type": "string",
-            "icon": "sicon-image",
-            "label": "بنر 4 — صورة الجوال",
-            "description": "* المقاس المناسب 700×480 بكسل. اتركها فارغة لاستعمال صورة الحاسوب",
-            "id": "cat_banner_4_mobile",
-            "value": null,
-            "required": false,
-            "format": "image",
-            "settings": {
-                "width": 700,
-                "height": 480
-            }
-        },
-        {
-            "id": "cat_banner_5_cat",
-            "type": "items",
-            "format": "dropdown-list",
-            "label": "بنر 5 — التصنيف",
-            "description": null,
-            "labelHTML": null,
-            "icon": "sicon-keyboard_arrow_down",
-            "selected": [],
-            "options": [],
-            "source": "categories",
-            "multichoice": true,
-            "searchable": true,
-            "required": false,
-            "minLength": 0,
-            "maxLength": 1
-        },
-        {
-            "type": "string",
-            "icon": "sicon-image",
-            "label": "بنر 5 — صورة الحاسوب",
-            "description": "* المقاس المناسب 1320×340 بكسل",
-            "id": "cat_banner_5_image",
-            "value": null,
-            "required": false,
-            "format": "image",
-            "settings": {
-                "width": 1320,
-                "height": 340
-            }
-        },
-        {
-            "type": "string",
-            "icon": "sicon-image",
-            "label": "بنر 5 — صورة الجوال",
-            "description": "* المقاس المناسب 700×480 بكسل. اتركها فارغة لاستعمال صورة الحاسوب",
-            "id": "cat_banner_5_mobile",
-            "value": null,
-            "required": false,
-            "format": "image",
-            "settings": {
-                "width": 700,
-                "height": 480
-            }
+            "maxLength": 50,
+            "value": [],
+            "fields": [
+                {
+                    "id": "cat_banners.cat",
+                    "key": "1359f49f-45ae-4f60-9eb2-9cfb8ddd3ebe",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "التصنيف",
+                    "description": null,
+                    "labelHTML": null,
+                    "icon": "sicon-keyboard_arrow_down",
+                    "selected": [],
+                    "options": [],
+                    "source": "categories",
+                    "multichoice": true,
+                    "searchable": true,
+                    "required": false,
+                    "minLength": 0,
+                    "maxLength": 1
+                },
+                {
+                    "id": "cat_banners.image",
+                    "key": "ad53712b-45cf-405f-8d70-b277f27ceef9",
+                    "type": "string",
+                    "format": "image",
+                    "label": "صورة الحاسوب",
+                    "description": "* المقاس المناسب 1320×340 بكسل",
+                    "icon": "sicon-image",
+                    "value": null,
+                    "required": false,
+                    "settings": {
+                        "width": 1320,
+                        "height": 340
+                    }
+                },
+                {
+                    "id": "cat_banners.mobile",
+                    "key": "5ee3d9ac-d0f3-46a5-ae0a-7074eee37e30",
+                    "type": "string",
+                    "format": "image",
+                    "label": "صورة الجوال",
+                    "description": "* 700×480. اتركها فارغة لاستعمال صورة الحاسوب",
+                    "icon": "sicon-image",
+                    "value": null,
+                    "required": false,
+                    "settings": {
+                        "width": 700,
+                        "height": 480
+                    }
+                }
+            ]
         },
         {
             "type": "static",
