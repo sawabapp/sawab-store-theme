@@ -90,10 +90,14 @@ salla-modal:has(.s-localization-modal-inner) {
 }
 
 // ----- كل خيار بطاقة كاملة -----
-// بنية سلة: <div class="item"><input radio><div class="label-slot">، فالبطاقة
-// هي الحاوية وحالة الاختيار تُقرأ بـ :has من الـinput — فيصير الصف كله هدف النقر
+// بنية سلة: <div class="item"><input radio><div class="label-slot"> — والحاوية
+// `div` لا `label`، فالنقر على البطاقة لا يصل الـinput. الحل: نمدّد الـinput
+// شفافًا فوق البطاقة كلها فيصير الصف كله هدف النقر، ونرسم دائرة الاختيار
+// بأنفسنا في ::before (الـinput لم يعد مرئيًا).
 .s-localization-modal-item {
   position: relative;
+  display: flex;
+  align-items: center;
   gap: 10px;
   padding: 10px 12px;
   border: 1.5px solid $sawab-loc-border;
@@ -111,12 +115,47 @@ salla-modal:has(.s-localization-modal-inner) {
     border-color: var(--color-primary);
     background: rgba(198, 33, 39, 0.05);
   }
+
+  // حلقة التركيز على البطاقة لأن الـinput شفاف لا يُرى
+  &:has(.s-localization-modal-input:focus-visible) {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  // دائرة الاختيار المرسومة: نقطة بيضاء داخل قرص بلون العلامة عند الاختيار
+  &::before {
+    content: "";
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    border: 1.5px solid $sawab-loc-border;
+    background: #fff;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  &:has(.s-localization-modal-input:checked)::before {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    box-shadow: inset 0 0 0 3.5px #fff;
+  }
 }
 
+// الـinput طبقة شفافة تغطّي البطاقة كاملةً فتلتقط النقر أينما وقع.
+// لا نستعمل inset المختصرة: نكتب الجهات الأربع صراحةً كعادة المشروع.
 .s-localization-modal-input {
-  flex-shrink: 0;
-  accent-color: var(--color-primary);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
   cursor: pointer;
+  z-index: 1;
 }
 
 .s-localization-modal-label,

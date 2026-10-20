@@ -12194,6 +12194,8 @@ salla-modal:has(.s-localization-modal-inner) .s-button-element {
 }
 .s-localization-modal-item {
   position: relative;
+  display: flex;
+  align-items: center;
   gap: 10px;
   padding: 10px 12px;
   border: 1.5px solid #e8e1d5;
@@ -12212,11 +12214,41 @@ salla-modal:has(.s-localization-modal-inner) .s-button-element {
   border-color: var(--color-primary);
   background: rgba(198, 33, 39, 0.05);
 }
-.s-localization-modal-input {
+.s-localization-modal-item:has(.s-localization-modal-input:focus-visible) {
+  outline: 2px solid #c62127;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+.s-localization-modal-item::before {
+  content: "";
   flex-shrink: 0;
-  accent-color: #c62127;
-  accent-color: var(--color-primary);
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 1.5px solid #e8e1d5;
+  background: #fff;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.s-localization-modal-item:has(.s-localization-modal-input:checked)::before {
+  border-color: #c62127;
+  border-color: var(--color-primary);
+  background: #c62127;
+  background: var(--color-primary);
+  box-shadow: inset 0 0 0 3.5px #fff;
+}
+.s-localization-modal-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
   cursor: pointer;
+  z-index: 1;
 }
 .s-localization-modal-label,
 .s-localization-modal-label-slot {
