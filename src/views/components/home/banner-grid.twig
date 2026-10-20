@@ -25,6 +25,9 @@
           <div class="sawab-bn__card sawab-bn__card--large" style="--bn-bg: {{ item.bg|default('#e63329') }};">
         {% endif %}
 
+          {# بلا كتلة نص فارغة: البنر قد يكون صورة وحدها، وعندها تأخذ
+             الصورة البطاقة كاملة عبر :only-child في الأنماط #}
+          {% if item.eyebrow or item.title or item.subtitle or item.btn %}
           <div class="sawab-bn__text">
             {% if item.eyebrow %}<span class="sawab-bn__eyebrow">{{ item.eyebrow }}</span>{% endif %}
             {% if item.title %}<h3 class="sawab-bn__title">{{ item.title }}</h3>{% endif %}
@@ -36,6 +39,7 @@
               </span>
             {% endif %}
           </div>
+          {% endif %}
 
           {% if item.image %}
             <span class="sawab-bn__media">
@@ -57,11 +61,13 @@
           <div class="sawab-bn__card sawab-bn__card--small" style="--bn-bg: {{ item.bg|default('#e63329') }};">
         {% endif %}
 
+          {% if item.eyebrow or item.title or item.subtitle %}
           <div class="sawab-bn__text">
             {% if item.eyebrow %}<span class="sawab-bn__eyebrow">{{ item.eyebrow }}</span>{% endif %}
             {% if item.title %}<h3 class="sawab-bn__title">{{ item.title }}</h3>{% endif %}
             {% if item.subtitle %}<p class="sawab-bn__subtitle">{{ item.subtitle }}</p>{% endif %}
           </div>
+          {% endif %}
 
           {% if item.image %}
             <span class="sawab-bn__media">

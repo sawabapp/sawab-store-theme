@@ -114,7 +114,9 @@ a.sawab-bn__card:focus-visible {
 [dir="rtl"] .sawab-bn__btn i { transform: scaleX(-1); }
 
 // ===== الصورة =====
-// contain لا cover: صور البنرات رسوم بخلفية شفافة، والاقتصاص يقطعها
+// contain لا cover: صور البنرات رسوم بخلفية شفافة، والاقتصاص يقطعها.
+// والهوامش السالبة تلغي حشو البطاقة فتمتدّ الصورة من حافتها إلى حافتها —
+// بلا ذلك يحصرها الحشو فتبدو صغيرة وسط مساحة فارغة.
 .sawab-bn__media {
   flex: 0 0 auto;
   display: flex;
@@ -129,8 +131,36 @@ a.sawab-bn__card:focus-visible {
   }
 }
 
-.sawab-bn__card--large .sawab-bn__media { width: 46%; }
-.sawab-bn__card--small .sawab-bn__media { width: 42%; }
+.sawab-bn__card--large .sawab-bn__media {
+  width: 52%;
+  margin-top: -30px;
+  margin-bottom: -30px;
+}
+
+.sawab-bn__card--small .sawab-bn__media {
+  width: 48%;
+  margin-top: -20px;
+  margin-bottom: -20px;
+}
+
+// بنر بلا نص: الصورة وحدها في البطاقة، فتأخذها كاملةً
+.sawab-bn__media:only-child {
+  width: 100%;
+  flex: 1 1 auto;
+}
+
+.sawab-bn__card--large .sawab-bn__media:only-child {
+  margin: -30px -32px;
+}
+
+.sawab-bn__card--small .sawab-bn__media:only-child {
+  margin: -20px -22px;
+}
+
+// الصورة وحدها تملأ البطاقة بالكامل بلا فراغ حولها
+.sawab-bn__media:only-child img {
+  object-fit: cover;
+}
 
 // ===== الشاشات الأصغر =====
 @media (max-width: 1024px) {

@@ -13373,10 +13373,28 @@ a.sawab-bn__card:focus-visible {
      object-fit: contain;
 }
 .sawab-bn__card--large .sawab-bn__media {
-  width: 46%;
+  width: 52%;
+  margin-top: -30px;
+  margin-bottom: -30px;
 }
 .sawab-bn__card--small .sawab-bn__media {
-  width: 42%;
+  width: 48%;
+  margin-top: -20px;
+  margin-bottom: -20px;
+}
+.sawab-bn__media:only-child {
+  width: 100%;
+  flex: 1 1 auto;
+}
+.sawab-bn__card--large .sawab-bn__media:only-child {
+  margin: -30px -32px;
+}
+.sawab-bn__card--small .sawab-bn__media:only-child {
+  margin: -20px -22px;
+}
+.sawab-bn__media:only-child img {
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 @media (max-width: 1024px) {
   .sawab-bn {
