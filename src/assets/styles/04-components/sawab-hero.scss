@@ -359,11 +359,17 @@
   }
 
   .sawab-hero__image {
+    // على الجوال لا نصّ بجانب الصورة، فلا داعي لحصرها في 220px:
+    // تأخذ عرض البطاقة كاملًا تقريبًا كما تفعل على الحاسوب
     position: static;
-    width: 60%;
-    max-width: 220px;
-    aspect-ratio: 1 / 1;
+    width: 100%;
+    max-width: none;
+    aspect-ratio: auto;
     height: auto;
+
+    img {
+      max-height: 300px;
+    }
   }
 
   .sawab-hero__title,
@@ -399,7 +405,7 @@
     padding: 6px 14px;
   }
 
-  .sawab-hero__image {
-    width: 70%;
+  .sawab-hero__image img {
+    max-height: 250px;
   }
 }
