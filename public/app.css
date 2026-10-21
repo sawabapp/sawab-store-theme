@@ -12525,6 +12525,10 @@ salla-slider.sawab-cats__slider .sawab-cats__slide {
   color: #1c1b19;
   color: var(--main-text-color, #1a1a1a);
 }
+.banner--fixed img,
+.banner-entry {
+  background-color: transparent;
+}
 .sawab-pow {
   max-width: 1400px;
   margin: 0 auto;
