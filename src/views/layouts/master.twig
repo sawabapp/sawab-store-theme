@@ -142,6 +142,8 @@
     </main>
     {% component 'footer.footer' %}
 </div>
+{% include 'components.side-cart' %}
+
 {% hook 'body:end' %}
 {% if theme.settings.get('enable_add_product_toast', true) %}
     <salla-add-product-toast data-testid="store-add-product-toast"></salla-add-product-toast>

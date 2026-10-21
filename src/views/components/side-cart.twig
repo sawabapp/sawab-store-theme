@@ -1,0 +1,56 @@
+{#
+السلة الجانبية — لوحة تنزلق عند الضغط على أيقونة السلة بدل الانتقال لصفحتها.
+
+القشرة فقط هنا؛ المحتوى يرسمه `partials/side-cart.js` من
+`salla.cart.api.details()`. ولا تُرسم إطلاقًا ما لم يفعّلها التاجر، فلا
+تكلّف شيئًا لمن لا يريدها.
+
+النصوص بلغتين بنمط المشروع (ترجمات سلة لا تشمل مفاتيحنا).
+#}
+{% if theme.settings.get('side_cart_enabled')|default(true) %}
+  {% set sc_ar = (language.code|default('ar')) == 'ar' %}
+  <div
+    class="sawab-cart"
+    data-free-shipping="{{ theme.settings.get('free_shipping_amount')|default('') }}"
+    hidden
+  >
+    <div class="sawab-cart__backdrop" data-sawab-cart-close></div>
+
+    <aside class="sawab-cart__panel" role="dialog" aria-modal="true"
+           aria-label="{{ sc_ar ? 'سلة التسوق' : 'Shopping cart' }}">
+
+      <header class="sawab-cart__head">
+        <h2 class="sawab-cart__heading">
+          {{ sc_ar ? 'سلة التسوق' : 'Shopping cart' }}
+          <span class="sawab-cart__count" data-sawab-cart-count>0</span>
+        </h2>
+        <button type="button" class="sawab-cart__close" data-sawab-cart-close
+                aria-label="{{ sc_ar ? 'إغلاق' : 'Close' }}">
+          <i class="sicon-cancel" aria-hidden="true"></i>
+        </button>
+      </header>
+
+      <div class="sawab-cart__ship" data-sawab-cart-ship hidden>
+        <p class="sawab-cart__ship-text" data-sawab-cart-ship-text></p>
+        <div class="sawab-cart__ship-bar"><span data-sawab-cart-ship-fill></span></div>
+      </div>
+
+      <div class="sawab-cart__body" data-sawab-cart-body aria-live="polite"></div>
+
+      <footer class="sawab-cart__foot" data-sawab-cart-foot hidden>
+        <dl class="sawab-cart__totals" data-sawab-cart-totals></dl>
+
+        <a class="sawab-cart__coupon" href="{{ link('cart') }}">
+          {{ sc_ar ? 'لديك كوبون خصم؟' : 'Have a coupon?' }}
+        </a>
+
+        <button type="button" class="sawab-cart__checkout" data-sawab-cart-checkout>
+          {{ sc_ar ? 'إتمام الطلب' : 'Checkout' }}
+        </button>
+
+        <salla-payments></salla-payments>
+      </footer>
+
+    </aside>
+  </div>
+{% endif %}

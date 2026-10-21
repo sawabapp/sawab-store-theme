@@ -1,0 +1,358 @@
+// ===== السلة الجانبية =====
+// لوحة تنزلق من حافة الصفحة في اتجاه القراءة. بلا خصائص منطقية: PostCSS
+// يحوّلها متجاهلًا الاتجاه فتنعكس (CLAUDE.md).
+
+$sawab-sc-line: #e8e1d5;
+$sawab-sc-muted: #8a8a8a;
+$sawab-sc-cream: #f8f1e7;
+
+body.sawab-cart-opened {
+  overflow: hidden;
+}
+
+.sawab-cart {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  font-family: var(--font-main);
+}
+
+.sawab-cart__backdrop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(17, 17, 17, 0.42);
+  opacity: 0;
+  transition: opacity 0.26s ease;
+}
+
+.sawab-cart.is-open .sawab-cart__backdrop { opacity: 1; }
+
+.sawab-cart__panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  width: min(420px, 100%);
+  background: #fff;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.18);
+  transition: transform 0.26s ease;
+}
+
+[dir="rtl"] .sawab-cart__panel { left: 0; transform: translateX(-100%); }
+[dir="ltr"] .sawab-cart__panel { right: 0; transform: translateX(100%); }
+.sawab-cart.is-open .sawab-cart__panel { transform: translateX(0); }
+
+// ----- الترويسة -----
+.sawab-cart__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+  border-bottom: 1px solid $sawab-sc-line;
+}
+
+.sawab-cart__heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--main-text-color, #1a1a1a);
+}
+
+.sawab-cart__count {
+  min-width: 24px;
+  height: 24px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: center;
+}
+
+.sawab-cart__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--main-text-color, #1a1a1a);
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.18s ease;
+
+  &:hover { background: $sawab-sc-cream; }
+}
+
+// ----- شريط الشحن المجاني -----
+.sawab-cart__ship {
+  padding: 14px 20px;
+  background: $sawab-sc-cream;
+  border-bottom: 1px solid $sawab-sc-line;
+}
+
+.sawab-cart__ship-text {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--main-text-color, #1a1a1a);
+
+  b { color: var(--color-primary); }
+}
+
+.sawab-cart__ship-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: #e6ddcd;
+  overflow: hidden;
+
+  span {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: 999px;
+    background: var(--color-primary);
+    transition: width 0.4s ease;
+  }
+}
+
+// ----- القائمة -----
+.sawab-cart__body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 6px 20px;
+
+  &.is-loading { opacity: 0.5; }
+}
+
+.sawab-cart__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid $sawab-sc-line;
+
+  &:last-child { border-bottom: 0; }
+
+  &.is-busy { opacity: 0.45; pointer-events: none; }
+}
+
+.sawab-cart__thumb {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  border: 1px solid $sawab-sc-line;
+  overflow: hidden;
+  background: #fff;
+
+  img { width: 100%; height: 100%; object-fit: contain; }
+}
+
+.sawab-cart__info {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sawab-cart__name {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--main-text-color, #1a1a1a);
+  text-decoration: none;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  &:hover { color: var(--color-primary); }
+}
+
+.sawab-cart__opts {
+  font-size: 12px;
+  color: $sawab-sc-muted;
+}
+
+.sawab-cart__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.sawab-cart__qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid $sawab-sc-line;
+  border-radius: 10px;
+  overflow: hidden;
+
+  button {
+    width: 28px;
+    height: 30px;
+    border: 0;
+    background: transparent;
+    color: var(--main-text-color, #1a1a1a);
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.18s ease;
+
+    &:hover { background: $sawab-sc-cream; }
+  }
+
+  span {
+    min-width: 28px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+  }
+}
+
+.sawab-cart__prices {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.sawab-cart__price {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.sawab-cart__was {
+  font-size: 12px;
+  color: $sawab-sc-muted;
+  text-decoration: line-through;
+}
+
+.sawab-cart__remove {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: $sawab-sc-muted;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.18s ease, background-color 0.18s ease;
+
+  &:hover { color: var(--color-primary); background: $sawab-sc-cream; }
+}
+
+// ----- السلة الفارغة -----
+.sawab-cart__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 60px 20px;
+  text-align: center;
+
+  i { font-size: 42px; color: $sawab-sc-line; }
+
+  p { margin: 0; font-size: 15px; font-weight: 700; color: var(--main-text-color, #1a1a1a); }
+}
+
+.sawab-cart__empty-link {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+
+  &:hover { text-decoration: underline; }
+}
+
+// ----- الأسفل -----
+.sawab-cart__foot {
+  flex: 0 0 auto;
+  padding: 16px 20px 18px;
+  border-top: 1px solid $sawab-sc-line;
+  background: #fff;
+}
+
+.sawab-cart__totals {
+  margin: 0 0 12px;
+}
+
+.sawab-cart__total-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0;
+  font-size: 13.5px;
+
+  dt { margin: 0; color: $sawab-sc-muted; }
+  dd { margin: 0; font-weight: 700; color: var(--main-text-color, #1a1a1a); }
+
+  &.is-grand {
+    margin-top: 6px;
+    padding-top: 10px;
+    border-top: 1px solid $sawab-sc-line;
+    font-size: 15px;
+
+    dt { color: var(--main-text-color, #1a1a1a); font-weight: 700; }
+    dd { color: var(--color-primary); font-size: 17px; font-weight: 800; }
+  }
+}
+
+.sawab-cart__coupon {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.sawab-cart__checkout {
+  display: block;
+  width: 100%;
+  height: 52px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--color-primary);
+  color: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter 0.18s ease;
+
+  &:hover { filter: brightness(0.93); }
+}
+
+.sawab-cart__foot salla-payments {
+  display: block;
+  margin-top: 12px;
+}
+
+@media (max-width: 480px) {
+  .sawab-cart__panel { width: 100%; }
+  .sawab-cart__body { padding: 4px 16px; }
+  .sawab-cart__head,
+  .sawab-cart__ship,
+  .sawab-cart__foot { padding-right: 16px; padding-left: 16px; }
+}

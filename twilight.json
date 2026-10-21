@@ -1,5 +1,5 @@
 {
-    "version": "1.0.176",
+    "version": "1.0.177",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -1088,6 +1088,38 @@
             "required": false,
             "value": true,
             "selected": true
+        },
+        {
+            "id": "side_cart_enabled",
+            "label": "سلة جانبية منزلقة",
+            "type": "boolean",
+            "description": "عند الضغط على أيقونة السلة تنزلق لوحة فيها محتوى السلة بدل الانتقال إلى صفحة السلة",
+            "icon": "sicon-toggle-off",
+            "format": "switch",
+            "required": false,
+            "value": true,
+            "selected": true
+        },
+        {
+            "type": "string",
+            "icon": "sicon-shipping-fast",
+            "label": "حدّ الشحن المجاني",
+            "description": "المبلغ الذي يصبح الشحن مجانيًا عنده (أرقام فقط). يُعرض شريط تقدّم في السلة الجانبية. اتركه فارغًا لإخفائه",
+            "multilanguage": false,
+            "id": "free_shipping_amount",
+            "value": null,
+            "required": false,
+            "format": "text",
+            "placeholder": "200",
+            "minLength": 0,
+            "maxLength": 10,
+            "conditions": [
+                {
+                    "id": "side_cart_enabled",
+                    "operation": "=",
+                    "value": true
+                }
+            ]
         },
         {
             "type": "boolean",

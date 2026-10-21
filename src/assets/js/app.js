@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import Anime from './partials/anime';
 import initTootTip from './partials/tooltip';
 import initProductCardEnhancer from './partials/product-card-enhancer';
+import initSideCart from './partials/side-cart';
 import AppHelpers from "./app-helpers";
 
 class App extends AppHelpers {
@@ -19,6 +20,7 @@ class App extends AppHelpers {
       this.initiateStickyMenu();
     }
     this.initAddToCart();
+    initSideCart();
     this.initiateDropdowns();
     this.initiateModals();
     this.initiateCollapse();
