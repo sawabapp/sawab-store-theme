@@ -10,6 +10,13 @@ body.sawab-cart-opened {
   overflow: hidden;
 }
 
+// سمة hidden تأتي من ورقة المتصفّح (display: none)، وأي قاعدة مؤلِّف تفوق
+// عليها — فكتل مثل حقل الكوبون ورقاقته تحمل display: flex فتظهر رغم إخفائها
+// من الجافاسكربت. نعيد لها الأولوية داخل اللوحة وحدها.
+.sawab-cart [hidden] {
+  display: none !important;
+}
+
 .sawab-cart {
   position: fixed;
   top: 0;

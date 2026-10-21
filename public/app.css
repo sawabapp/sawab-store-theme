@@ -14007,6 +14007,9 @@ a.sawab-bn__card:focus-visible {
 body.sawab-cart-opened {
   overflow: hidden;
 }
+.sawab-cart [hidden] {
+  display: none !important;
+}
 .sawab-cart {
   position: fixed;
   top: 0;

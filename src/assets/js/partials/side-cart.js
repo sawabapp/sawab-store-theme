@@ -97,12 +97,35 @@ export default function initSideCart() {
     shipBox.hidden = false;
   }
 
+  /**
+   * اسم الخيار المعروض يسكن في `details[].name` للخيار المختار — أما
+   * `option.value` فمعرّف رقمي. نفس منطق add-product-toast.js.
+   */
+  function optionLines(options) {
+    if (!options?.length) return [];
+
+    return options.reduce((lines, option) => {
+      if (option.type === 'splitter') return lines;
+
+      if (option.details?.length) {
+        const chosen = option.type === 'multiple-options'
+          ? option.details.filter(detail => detail.is_selected)
+          : [option.details.find(detail => detail.is_selected)].filter(Boolean);
+
+        if (chosen.length) {
+          lines.push(`${escape(option.name)}: ${escape(chosen.map(d => d.name).join('، '))}`);
+        }
+      } else if (option.value && !['image', 'file', 'map'].includes(option.type)) {
+        lines.push(`${escape(option.name)}: ${escape(option.value)}`);
+      }
+
+      return lines;
+    }, []);
+  }
+
   function renderItems(items) {
     body.innerHTML = items.map(item => {
-      const options = (item.options || [])
-        .map(opt => `${escape(opt.name)}: ${escape(opt.value?.name ?? opt.value ?? '')}`)
-        .filter(line => !line.endsWith(': '))
-        .join(' · ');
+      const options = optionLines(item.options).join(' · ');
 
       const was = item.has_discount || item.is_on_sale
         ? `<span class="sawab-cart__was">${money(item.original_price * item.quantity)}</span>`
