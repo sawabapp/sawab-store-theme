@@ -40,9 +40,25 @@
       <footer class="sawab-cart__foot" data-sawab-cart-foot hidden>
         <dl class="sawab-cart__totals" data-sawab-cart-totals></dl>
 
-        <a class="sawab-cart__coupon" href="{{ link('cart') }}">
-          {{ sc_ar ? 'لديك كوبون خصم؟' : 'Have a coupon?' }}
-        </a>
+        {# الكوبون داخل اللوحة لا برابط إلى صفحة السلة: الخصم يُطبّق ويُعرض
+           في المكان نفسه عبر salla.cart.addCoupon #}
+        <div class="sawab-cart__coupon" data-sawab-cart-coupon>
+          <button type="button" class="sawab-cart__coupon-toggle" data-sawab-coupon-toggle
+                  aria-expanded="false">
+            <i class="sicon-discount-coupon" aria-hidden="true"></i>
+            <span>{{ sc_ar ? 'لديك كوبون خصم؟' : 'Have a coupon?' }}</span>
+          </button>
+
+          <form class="sawab-cart__coupon-form" data-sawab-coupon-form hidden>
+            <input type="text" name="coupon" autocomplete="off" spellcheck="false"
+                   placeholder="{{ sc_ar ? 'أدخل كود الخصم' : 'Enter coupon code' }}"
+                   aria-label="{{ sc_ar ? 'كود الخصم' : 'Coupon code' }}">
+            <button type="submit">{{ sc_ar ? 'تطبيق' : 'Apply' }}</button>
+          </form>
+
+          <p class="sawab-cart__coupon-msg" data-sawab-coupon-msg hidden></p>
+          <div class="sawab-cart__coupon-applied" data-sawab-coupon-applied hidden></div>
+        </div>
 
         <button type="button" class="sawab-cart__checkout" data-sawab-cart-checkout>
           {{ sc_ar ? 'إتمام الطلب' : 'Checkout' }}

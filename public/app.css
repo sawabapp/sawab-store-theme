@@ -14341,14 +14341,117 @@ body.sawab-cart-opened {
   font-weight: 800;
 }
 .sawab-cart__coupon {
-  display: inline-block;
   margin-bottom: 12px;
+}
+.sawab-cart__coupon.is-busy {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.sawab-cart__coupon-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
   font-size: 13px;
   font-weight: 700;
   color: #c62127;
   color: var(--color-primary);
   -webkit-text-decoration: underline;
   text-decoration: underline;
+  cursor: pointer;
+}
+.sawab-cart__coupon-toggle i {
+  font-size: 14px;
+}
+.sawab-cart__coupon-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.sawab-cart__coupon-form input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 42px;
+  padding: 0 12px;
+  border: 1.5px solid #e8e1d5;
+  border-radius: 10px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  color: #1c1b19;
+  color: var(--main-text-color, #1a1a1a);
+}
+.sawab-cart__coupon-form input:focus {
+  outline: 0;
+  border-color: #c62127;
+  border-color: var(--color-primary);
+}
+.sawab-cart__coupon-form button {
+  flex: 0 0 auto;
+  height: 42px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 10px;
+  background: #1c1b19;
+  background: var(--main-text-color, #1a1a1a);
+  color: #fff;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter 0.18s ease;
+}
+.sawab-cart__coupon-form button:hover {
+  filter: brightness(1.25);
+}
+.sawab-cart__coupon-msg {
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.sawab-cart__coupon-msg.is-ok {
+  color: #1a7f45;
+}
+.sawab-cart__coupon-msg.is-bad {
+  color: #c62127;
+  color: var(--color-primary);
+}
+.sawab-cart__coupon-applied {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 9px 12px;
+  border: 1px solid #cfe9d8;
+  border-radius: 10px;
+  background: #f1f9f4;
+}
+.sawab-cart__coupon-applied button {
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #c62127;
+  color: var(--color-primary);
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+.sawab-cart__coupon-code {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1a7f45;
+}
+.sawab-cart__coupon-code i {
+  font-size: 14px;
 }
 .sawab-cart__checkout {
   display: block;

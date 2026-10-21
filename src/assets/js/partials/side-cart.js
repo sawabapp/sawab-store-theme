@@ -22,11 +22,13 @@ export default function initSideCart() {
     ? { empty: 'سلتك فارغة', browse: 'تصفّح المنتجات', sub: 'المجموع الفرعي',
         tax: 'ضريبة القيمة المضافة', total: 'الإجمالي', remove: 'حذف',
         free: 'شحن مجاني', left: n => `ينقصك ${n} للحصول على شحن مجاني`,
-        got: 'حصلت على شحن مجاني 🎉' }
+        got: 'حصلت على شحن مجاني 🎉', discount: 'الخصم',
+        couponOk: 'طُبّق الكوبون', couponBad: 'كود غير صالح', couponOff: 'إزالة' }
     : { empty: 'Your cart is empty', browse: 'Browse products', sub: 'Subtotal',
         tax: 'VAT', total: 'Total', remove: 'Remove',
         free: 'Free shipping', left: n => `${n} away from free shipping`,
-        got: 'You got free shipping 🎉' };
+        got: 'You got free shipping 🎉', discount: 'Discount',
+        couponOk: 'Coupon applied', couponBad: 'Invalid code', couponOff: 'Remove' };
 
   const $ = sel => root.querySelector(sel);
   const body = $('[data-sawab-cart-body]');
@@ -131,6 +133,7 @@ export default function initSideCart() {
     // أسماء الحقول تختلف بين نسخ سلة، فنأخذ أول موجود ونتجاهل الغائب
     const rows = [
       [TEXTS.sub, cart.sub_total ?? cart.subtotal],
+      [TEXTS.discount, cart.discount ?? cart.total_discount],
       [TEXTS.tax, cart.tax ?? cart.taxes ?? cart.total_tax],
       [TEXTS.total, cart.total],
     ].filter(([, value]) => value !== undefined && value !== null);
@@ -141,6 +144,80 @@ export default function initSideCart() {
       </div>`).join('');
     foot.hidden = false;
   }
+
+  // ----- الكوبون -----
+  const couponBox = $('[data-sawab-cart-coupon]');
+  const couponForm = $('[data-sawab-coupon-form]');
+  const couponMsg = $('[data-sawab-coupon-msg]');
+  const couponApplied = $('[data-sawab-coupon-applied]');
+
+  function say(text, ok) {
+    if (!couponMsg) return;
+    couponMsg.textContent = text;
+    couponMsg.classList.toggle('is-ok', !!ok);
+    couponMsg.classList.toggle('is-bad', !ok);
+    couponMsg.hidden = false;
+  }
+
+  function renderCoupon(cart) {
+    if (!couponApplied) return;
+    // اسم الحقل يختلف بين نسخ سلة، فنأخذ أول موجود
+    const code = cart.coupon?.code ?? cart.coupon ?? cart.coupon_code ?? '';
+
+    if (!code) {
+      couponApplied.hidden = true;
+      couponApplied.innerHTML = '';
+      return;
+    }
+
+    couponApplied.innerHTML = `
+      <span class="sawab-cart__coupon-code">
+        <i class="sicon-discount-coupon" aria-hidden="true"></i>${escape(code)}
+      </span>
+      <button type="button" data-sawab-coupon-remove>${TEXTS.couponOff}</button>`;
+    couponApplied.hidden = false;
+    if (couponForm) couponForm.hidden = true;
+    if (couponMsg) couponMsg.hidden = true;
+  }
+
+  $('[data-sawab-coupon-toggle]')?.addEventListener('click', event => {
+    const button = event.currentTarget;
+    const expanded = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!expanded));
+    if (couponForm) {
+      couponForm.hidden = expanded;
+      if (!expanded) couponForm.querySelector('input')?.focus();
+    }
+  });
+
+  couponForm?.addEventListener('submit', async event => {
+    event.preventDefault();
+    const input = couponForm.querySelector('input');
+    const code = (input?.value || '').trim();
+    if (!code) return;
+
+    couponBox.classList.add('is-busy');
+    try {
+      await salla.cart.addCoupon(code);
+      say(TEXTS.couponOk, true);
+      input.value = '';
+      load();
+    } catch (error) {
+      log('كوبون:', error);
+      // سلة تعيد رسالتها حين توجد، وإلا نستعمل نصّنا
+      say(error?.response?.data?.error?.message || error?.message || TEXTS.couponBad, false);
+    } finally {
+      couponBox.classList.remove('is-busy');
+    }
+  });
+
+  couponApplied?.addEventListener('click', async event => {
+    if (!event.target.closest('[data-sawab-coupon-remove]')) return;
+    couponBox.classList.add('is-busy');
+    await salla.cart.deleteCoupon().catch(error => log('حذف كوبون:', error));
+    couponBox.classList.remove('is-busy');
+    load();
+  });
 
   async function load() {
     if (loading) return;
@@ -162,6 +239,7 @@ export default function initSideCart() {
 
       renderItems(items);
       renderTotals(cart);
+      renderCoupon(cart);
       renderShipping(Number(cart.sub_total ?? cart.subtotal ?? cart.total) || 0);
     } catch (error) {
       log('تعذّر جلب السلة:', error);
