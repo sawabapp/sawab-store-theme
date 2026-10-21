@@ -1,5 +1,5 @@
 {
-    "version": "1.0.184",
+    "version": "1.0.185",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -139,6 +139,20 @@
             ],
             "source": "Manual",
             "required": false
+        },
+        {
+            "type": "string",
+            "icon": "sicon-link",
+            "label": "رابط «عرض الكل» — «منتجات ثابتة»",
+            "description": "الصق رابط التصنيف الذي يفتحه الزر. اتركه فارغًا لإخفاء الزر",
+            "multilanguage": false,
+            "id": "fixed_products_all_url",
+            "value": null,
+            "required": false,
+            "format": "text",
+            "placeholder": "https://store.salla.sa/category/...",
+            "minLength": 0,
+            "maxLength": 255
         },
         {
             "type": "boolean",
