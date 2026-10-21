@@ -14323,6 +14323,9 @@ body.sawab-cart-opened {
   color: #1c1b19;
   color: var(--main-text-color, #1a1a1a);
 }
+.sawab-cart__total-row.is-off dd {
+  color: #1a7f45;
+}
 .sawab-cart__total-row.is-grand {
   margin-top: 6px;
   padding-top: 10px;

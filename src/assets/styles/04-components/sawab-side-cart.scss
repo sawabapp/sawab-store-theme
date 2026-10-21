@@ -307,6 +307,9 @@ body.sawab-cart-opened {
   dt { margin: 0; color: $sawab-sc-muted; }
   dd { margin: 0; font-weight: 700; color: var(--main-text-color, #1a1a1a); }
 
+  // الخصم بالأخضر ليتميّز عن بقية السطور
+  &.is-off dd { color: #1a7f45; }
+
   &.is-grand {
     margin-top: 6px;
     padding-top: 10px;

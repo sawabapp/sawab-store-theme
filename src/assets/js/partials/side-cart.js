@@ -23,12 +23,14 @@ export default function initSideCart() {
         tax: 'ضريبة القيمة المضافة', total: 'الإجمالي', remove: 'حذف',
         free: 'شحن مجاني', left: n => `ينقصك ${n} للحصول على شحن مجاني`,
         got: 'حصلت على شحن مجاني 🎉', discount: 'الخصم',
-        couponOk: 'طُبّق الكوبون', couponBad: 'كود غير صالح', couponOff: 'إزالة' }
+        couponOk: 'طُبّق الكوبون', couponBad: 'كود غير صالح', couponOff: 'إزالة',
+        shipping: 'الشحن', freeShip: 'مجاني' }
     : { empty: 'Your cart is empty', browse: 'Browse products', sub: 'Subtotal',
         tax: 'VAT', total: 'Total', remove: 'Remove',
         free: 'Free shipping', left: n => `${n} away from free shipping`,
         got: 'You got free shipping 🎉', discount: 'Discount',
-        couponOk: 'Coupon applied', couponBad: 'Invalid code', couponOff: 'Remove' };
+        couponOk: 'Coupon applied', couponBad: 'Invalid code', couponOff: 'Remove',
+        shipping: 'Shipping', freeShip: 'Free' };
 
   const $ = sel => root.querySelector(sel);
   const body = $('[data-sawab-cart-body]');
@@ -130,17 +132,28 @@ export default function initSideCart() {
   }
 
   function renderTotals(cart) {
-    // أسماء الحقول تختلف بين نسخ سلة، فنأخذ أول موجود ونتجاهل الغائب
-    const rows = [
-      [TEXTS.sub, cart.sub_total ?? cart.subtotal],
-      [TEXTS.discount, cart.discount ?? cart.total_discount],
-      [TEXTS.tax, cart.tax ?? cart.taxes ?? cart.total_tax],
-      [TEXTS.total, cart.total],
-    ].filter(([, value]) => value !== undefined && value !== null);
+    // أسماء الحقول تختلف بين نسخ سلة، فنجرّب البدائل ونتجاهل الغائب.
+    // والأصفار تُخفى إلا المجموع الفرعي والإجمالي — سطر «الخصم: 0» ضوضاء.
+    const pick = (...keys) => keys.map(key => cart[key]).find(v => v !== undefined && v !== null);
 
-    totalsBox.innerHTML = rows.map(([label, value], index) => `
-      <div class="sawab-cart__total-row${index === rows.length - 1 ? ' is-grand' : ''}">
-        <dt>${label}</dt><dd>${money(value)}</dd>
+    const subtotal = pick('sub_total', 'subtotal');
+    const discount = pick('discount', 'total_discount', 'discounts');
+    const shipping = pick('shipping_cost', 'shipping', 'delivery_cost');
+    const tax = pick('tax', 'taxes', 'total_tax');
+    const total = pick('total', 'grand_total');
+
+    const rows = [];
+    if (subtotal !== undefined) rows.push([TEXTS.sub, money(subtotal)]);
+    if (Number(discount) > 0) rows.push([TEXTS.discount, `- ${money(discount)}`, 'is-off']);
+    if (shipping !== undefined) {
+      rows.push([TEXTS.shipping, Number(shipping) > 0 ? money(shipping) : TEXTS.freeShip]);
+    }
+    if (Number(tax) > 0) rows.push([TEXTS.tax, money(tax)]);
+    if (total !== undefined) rows.push([TEXTS.total, money(total), 'is-grand']);
+
+    totalsBox.innerHTML = rows.map(([label, value, modifier]) => `
+      <div class="sawab-cart__total-row${modifier ? ' ' + modifier : ''}">
+        <dt>${label}</dt><dd>${value}</dd>
       </div>`).join('');
     foot.hidden = false;
   }
@@ -161,8 +174,12 @@ export default function initSideCart() {
 
   function renderCoupon(cart) {
     if (!couponApplied) return;
-    // اسم الحقل يختلف بين نسخ سلة، فنأخذ أول موجود
-    const code = cart.coupon?.code ?? cart.coupon ?? cart.coupon_code ?? '';
+    // اسم الحقل يختلف بين نسخ سلة. ولا نقبل إلا نصًّا غير فارغ: الحقل قد
+    // يعود كائنًا فارغًا {} وهو قيمة صادقة، فكانت الرقاقة تظهر بلا كود
+    const raw = cart.coupon?.code
+      ?? cart.coupon_code
+      ?? (typeof cart.coupon === 'string' ? cart.coupon : '');
+    const code = typeof raw === 'string' ? raw.trim() : '';
 
     if (!code) {
       couponApplied.hidden = true;
