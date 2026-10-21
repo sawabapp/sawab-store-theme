@@ -10261,7 +10261,7 @@ salla-cart-summary .s-cart-summary-count {
     height: auto;
   }
   .sawab-hero__image img {
-    max-height: 300px;
+    max-height: 380px;
   }
   .sawab-hero__title,
   .sawab-hero__title--line2 {
@@ -10290,7 +10290,7 @@ salla-cart-summary .s-cart-summary-count {
     padding: 6px 14px;
   }
   .sawab-hero__image img {
-    max-height: 250px;
+    max-height: 320px;
   }
 }
 @keyframes sawab-promo-shine {
