@@ -54,6 +54,8 @@ export default function initSideCart() {
   function show() {
     if (open) return;
     open = true;
+    // إشعار «تمت الإضافة» قد يكون ظاهرًا، ولوحتان فوق بعضهما ضوضاء
+    document.querySelector('salla-add-product-toast')?.close?.();
     root.hidden = false;
     document.body.classList.add('sawab-cart-opened');
     requestAnimationFrame(() => root.classList.add('is-open'));
