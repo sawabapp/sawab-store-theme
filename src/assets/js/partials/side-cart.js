@@ -24,13 +24,13 @@ export default function initSideCart() {
         free: 'شحن مجاني', left: n => `ينقصك ${n} للحصول على شحن مجاني`,
         got: 'حصلت على شحن مجاني 🎉', discount: 'الخصم',
         couponOk: 'طُبّق الكوبون', couponBad: 'كود غير صالح', couponOff: 'إزالة',
-        shipping: 'الشحن', freeShip: 'مجاني' }
+        shipping: 'الشحن', freeShip: 'مجاني', edit: 'تعديل الخيارات' }
     : { empty: 'Your cart is empty', browse: 'Browse products', sub: 'Subtotal',
         tax: 'VAT', total: 'Total', remove: 'Remove',
         free: 'Free shipping', left: n => `${n} away from free shipping`,
         got: 'You got free shipping 🎉', discount: 'Discount',
         couponOk: 'Coupon applied', couponBad: 'Invalid code', couponOff: 'Remove',
-        shipping: 'Shipping', freeShip: 'Free' };
+        shipping: 'Shipping', freeShip: 'Free', edit: 'Edit options' };
 
   const $ = sel => root.querySelector(sel);
   const body = $('[data-sawab-cart-body]');
@@ -123,6 +123,44 @@ export default function initSideCart() {
     }, []);
   }
 
+  /**
+   * فورم تعديل خيارات عنصر السلة.
+   *
+   * نكرّر ما تفعله صفحة السلة حرفيًا: فورم بمعرّف `item-<id>` يستدعي
+   * `salla.form.onChange('cart.updateItem', …)` عند أي تغيير، وبداخله حقول
+   * `options[<optionId>]`. فالتحديث يمرّ من مسار سلة نفسه لا من نداء نخترعه.
+   *
+   * الخيارات متعدّدة الاختيار لا تُمثَّل بقائمة منسدلة، فنتركها لصفحة السلة.
+   */
+  function editForm(item) {
+    const editable = (item.options || []).filter(option =>
+      option.details?.length && option.type !== 'multiple-options' && option.type !== 'splitter');
+
+    if (!editable.length) return { button: '', form: '' };
+
+    const fields = editable.map(option => `
+      <label class="sawab-cart__edit-field">
+        <span>${escape(option.name)}</span>
+        <select name="options[${option.id}]">
+          ${option.details.map(detail => `
+            <option value="${detail.id}"${detail.is_selected ? ' selected' : ''}${detail.is_out ? ' disabled' : ''}>
+              ${escape(detail.name)}
+            </option>`).join('')}
+        </select>
+      </label>`).join('');
+
+    return {
+      button: `<button type="button" class="sawab-cart__edit-btn" data-edit
+                 aria-label="${TEXTS.edit}"><i class="sicon-pencil" aria-hidden="true"></i></button>`,
+      form: `
+        <form class="sawab-cart__edit" id="item-${item.id}" hidden>
+          <input type="hidden" name="id" value="${item.id}">
+          <input type="hidden" name="quantity" value="${item.quantity}">
+          ${fields}
+        </form>`,
+    };
+  }
+
   function renderItems(items) {
     body.innerHTML = items.map(item => {
       const options = optionLines(item.options).join(' · ');
@@ -131,6 +169,8 @@ export default function initSideCart() {
         ? `<span class="sawab-cart__was">${money(item.original_price * item.quantity)}</span>`
         : '';
 
+      const edit = editForm(item);
+
       return `
         <div class="sawab-cart__item" data-id="${item.id}">
           <a class="sawab-cart__thumb" href="${escape(item.url)}" tabindex="-1" aria-hidden="true">
@@ -138,7 +178,8 @@ export default function initSideCart() {
           </a>
           <div class="sawab-cart__info">
             <a class="sawab-cart__name" href="${escape(item.url)}">${escape(item.product_name)}</a>
-            ${options ? `<span class="sawab-cart__opts">${options}</span>` : ''}
+            ${options ? `<span class="sawab-cart__opts">${options}${edit.button}</span>` : ''}
+            ${edit.form}
             <div class="sawab-cart__row">
               <div class="sawab-cart__qty">
                 <button type="button" data-step="-1" aria-label="-">−</button>
@@ -312,7 +353,27 @@ export default function initSideCart() {
   });
 
   // ----- الكمية والحذف -----
+  // تغيير أي خيار يمرّ لسلة عبر مسارها المعتاد، ثم نعيد قراءة السلة
+  body.addEventListener('change', event => {
+    const form = event.target.closest('.sawab-cart__edit');
+    if (!form) return;
+    form.closest('.sawab-cart__item')?.classList.add('is-busy');
+    try {
+      salla.form.onChange('cart.updateItem', event);
+    } catch (error) {
+      log('تعديل الخيارات:', error);
+    }
+    setTimeout(load, 600);
+  });
+
   body.addEventListener('click', async event => {
+    const editToggle = event.target.closest('[data-edit]');
+    if (editToggle) {
+      const form = editToggle.closest('.sawab-cart__item')?.querySelector('.sawab-cart__edit');
+      if (form) form.hidden = !form.hidden;
+      return;
+    }
+
     const item = event.target.closest('.sawab-cart__item');
     if (!item) return;
     const id = item.dataset.id;
