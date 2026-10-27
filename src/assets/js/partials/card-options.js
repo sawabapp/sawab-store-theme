@@ -1,7 +1,7 @@
 /**
  * خيارات المنتج داخل البطاقة.
  *
- * يرسم خيارات المنتج (السعة، المقاس، اللون…) أزرارًا صغيرة داخل البطاقة نفسها
+ * يرسم خيارات المنتج (السعة، المقاس، اللون…) قوائم منسدلة داخل البطاقة نفسها
  * فوق زر «أضف للسلة»، فيختار العميل ويضيف دون الانتقال إلى صفحة المنتج.
  *
  * لماذا لا نكتفي بزر سلة؟ زر البطاقة يضيف بـ quick-add بمعرّف المنتج وحده،
@@ -12,19 +12,19 @@
  *
  * لا نرسم `salla-product-options` داخل البطاقة: هو مبني لصفحة واسعة، وزر سلة
  * يبحث عنه بـ document.querySelector بمعرّف المنتج في الصفحة كلها فيتداخل مع
- * صفحة المنتج و«منتج الأسبوع». نرسم أزرارنا من بيانات الخيارات نفسها.
+ * صفحة المنتج و«منتج الأسبوع». نرسم قوائمنا من بيانات الخيارات نفسها.
  *
- * ما لا يتّسع للبطاقة (نص، ملف، تاريخ، خريطة…) إن كان إلزاميًا، أو أكثر من
- * مجموعتي خيارات، يُترك لمسار سلة الأصلي — أي صفحة المنتج كما هو اليوم.
+ * القائمة المنسدلة تعبّر عن اختيار واحد فقط، فخيارات الاختيار المتعدّد —
+ * كبقية ما لا يتّسع للبطاقة (نص، ملف، تاريخ، خريطة…) — إن كانت إلزامية، أو
+ * وُجدت أكثر من مجموعتي خيارات، يُترك المنتج لمسار سلة الأصلي (صفحة المنتج).
  *
  * الإعداد `card_quick_options` يصل في `window.card_options_enabled`.
  * أضف `?sawab-debug` للرابط ليطبع كل خطوة في الـconsole.
  */
 import { getProductData } from './product-card-enhancer';
 
-// أنواع اختيار واحد / متعدّد تُرسم أزرارًا
+// أنواع الاختيار الواحد — وحدها تُرسم قائمة منسدلة
 const SINGLE_TYPES = ['single-option', 'radio', 'color', 'thumbnail'];
-const MULTIPLE_TYPES = ['multiple-options', 'checkbox'];
 // أنواع لها مسارات خاصة في زر سلة (حجز، تبرّع…) فلا نلمسها
 const SUPPORTED_PRODUCT_TYPES = ['product', 'service', 'digital', 'food', 'codes', undefined, ''];
 const MAX_GROUPS = 2;
@@ -37,17 +37,17 @@ export default function initCardOptions() {
 
   const isArabic = (document.documentElement.getAttribute('lang') || 'ar').startsWith('ar');
   const choose = name => (isArabic ? `اختر ${name}` : `Choose ${name}`);
+  const soldOut = isArabic ? 'نفدت الكمية' : 'Sold out';
 
   const escape = str => String(str ?? '').replace(/[&<>"']/g, c =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
   // معرّف المنتج ⇒ وعد بمجموعات الخيارات القابلة للرسم، أو null إن لم تصلح للبطاقة
   const cache = new Map();
-  let uid = 0;
 
   /**
    * يحوّل خيارات المنتج إلى مجموعات تُرسم في البطاقة، أو null إذا وُجد خيار
-   * إلزامي لا يُرسم أزرارًا (فالإضافة بدونه ستفشل حتمًا).
+   * إلزامي لا تعبّر عنه قائمة منسدلة (فالإضافة بدونه ستفشل حتمًا).
    */
   function toGroups(options) {
     const groups = [];
@@ -55,9 +55,8 @@ export default function initCardOptions() {
     for (const option of options) {
       if (option.type === 'splitter' || option.name === 'splitter') continue;
 
-      const isSingle = SINGLE_TYPES.includes(option.type);
-      const isMultiple = MULTIPLE_TYPES.includes(option.type);
-      const drawable = (isSingle || isMultiple) && option.details?.length && !option.visibility_condition;
+      const drawable = SINGLE_TYPES.includes(option.type)
+        && option.details?.length && !option.visibility_condition;
 
       if (!drawable) {
         if (option.required) return null;
@@ -67,7 +66,6 @@ export default function initCardOptions() {
       groups.push({
         id: option.id,
         name: option.name,
-        multiple: isMultiple,
         required: !!option.required,
         details: option.details,
       });
@@ -101,29 +99,18 @@ export default function initCardOptions() {
     box.dataset.productId = product.id;
 
     box.innerHTML = groups.map(group => {
-      const name = `options[${group.id}]${group.multiple ? '[]' : ''}`;
-      const inputType = group.multiple ? 'checkbox' : 'radio';
-      const groupKey = `sawab-opt-${++uid}`;
-
-      const chips = group.details.map(detail => {
+      const items = group.details.map(detail => {
         const out = detail.is_out || detail.is_available === false;
-        const swatch = detail.color
-          ? `<i class="sawab-opts__swatch" style="background:${escape(detail.color)}" aria-hidden="true"></i>`
-          : '';
-        return `
-          <label class="sawab-opts__chip${out ? ' is-out' : ''}">
-            <input type="${inputType}" name="${name}" value="${escape(detail.id)}"
-                   data-group="${groupKey}"${detail.is_selected ? ' checked' : ''}${out ? ' disabled' : ''}>
-            <span>${swatch}${escape(detail.name)}</span>
-          </label>`;
+        return `<option value="${escape(detail.id)}"${detail.is_selected && !out ? ' selected' : ''}${out ? ' disabled' : ''}>${
+          escape(detail.name)}${out ? ` — ${soldOut}` : ''}</option>`;
       }).join('');
 
       return `
-        <div class="sawab-opts__group" data-group="${groupKey}"
-             data-required="${group.required ? '1' : ''}" data-hint="${escape(choose(group.name))}">
-          <span class="sawab-opts__label">${escape(group.name)}</span>
-          <div class="sawab-opts__chips" role="${group.multiple ? 'group' : 'radiogroup'}"
-               aria-label="${escape(group.name)}">${chips}</div>
+        <div class="sawab-opts__group" data-required="${group.required ? '1' : ''}">
+          <select class="sawab-opts__select" name="options[${group.id}]" aria-label="${escape(group.name)}">
+            <option value="">${escape(choose(group.name))}</option>
+            ${items}
+          </select>
         </div>`;
     }).join('');
 
@@ -132,6 +119,7 @@ export default function initCardOptions() {
     const footer = card.querySelector('.s-product-card-content-footer');
     if (!footer) return null;
     footer.parentNode.insertBefore(box, footer);
+    box.querySelectorAll('select').forEach(select => select.classList.toggle('has-value', !!select.value));
     card.classList.add('sawab-has-opts');
     return box;
   }
@@ -238,13 +226,13 @@ export default function initCardOptions() {
     const data = new FormData();
     data.append('id', box.dataset.productId);
     data.append('quantity', '1');
-    box.querySelectorAll('input:checked').forEach(input => data.append(input.name, input.value));
+    box.querySelectorAll('select').forEach(select => select.value && data.append(select.name, select.value));
     return data;
   }
 
   function missingGroups(box) {
     return [...box.querySelectorAll('.sawab-opts__group[data-required="1"]')]
-      .filter(group => !group.querySelector('input:checked'));
+      .filter(group => !group.querySelector('select')?.value);
   }
 
   document.addEventListener('change', event => {
@@ -253,6 +241,7 @@ export default function initCardOptions() {
 
     const group = event.target.closest('.sawab-opts__group');
     group?.classList.remove('is-missing');
+    event.target.classList?.toggle('has-value', !!event.target.value);
 
     if (missingGroups(box).length) return;
 
@@ -304,7 +293,7 @@ export default function initCardOptions() {
         void group.offsetWidth; // نعيد تشغيل الاهتزاز عند كل محاولة
         group.classList.add('is-missing');
       });
-      missing[0].querySelector('input:not(:disabled)')?.focus({ preventScroll: true });
+      missing[0].querySelector('select')?.focus({ preventScroll: true });
       return;
     }
 

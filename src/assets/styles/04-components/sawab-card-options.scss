@@ -1,5 +1,5 @@
 // ===== خيارات المنتج داخل البطاقة =====
-// أزرار صغيرة فوق «أضف للسلة» يرسمها partials/card-options.js. بلا خصائص
+// قوائم منسدلة فوق «أضف للسلة» يرسمها partials/card-options.js. بلا خصائص
 // منطقية: PostCSS يحوّلها متجاهلًا الاتجاه فتنعكس (CLAUDE.md).
 
 $sawab-opts-line: #e8e1d5;
@@ -8,114 +8,79 @@ $sawab-opts-muted: #8a8a8a;
 .sawab-opts {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin: 10px 0 2px;
+  gap: 6px;
+  margin: 10px 0 4px;
 }
 
 .sawab-opts__group {
   display: flex;
   flex-direction: column;
-  gap: 5px;
 }
 
-.sawab-opts__label {
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1.3;
-  color: $sawab-opts-muted;
-}
-
-.sawab-opts__chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
-.sawab-opts__chip {
-  position: relative;
+// قائمة منسدلة أصلية: على الجوال يفتح المتصفّح منتقيه الكامل، وهو أنسب
+// للّمس من أي قائمة نرسمها. نخفي سهم المتصفّح ونرسم سهمنا لتتوحّد الأشكال.
+.sawab-opts__select {
+  width: 100%;
+  height: 38px;
   margin: 0;
+  border: 1.5px solid $sawab-opts-line;
+  border-radius: 10px;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%238a8a8a' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 10px 7px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: $sawab-opts-muted;
+  text-overflow: ellipsis;
   cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
 
-  // الـinput فوق الزر كاملًا وشفاف: النقر واللمس ولوحة المفاتيح تصله مباشرة
-  input {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    opacity: 0;
-    cursor: pointer;
+  [dir="rtl"] & {
+    padding: 0 12px 0 30px;
+    background-position: left 12px center;
   }
 
-  span {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    min-height: 28px;
-    padding: 4px 10px;
-    border: 1.5px solid $sawab-opts-line;
-    border-radius: 8px;
-    background: #fff;
-    font-size: 12px;
+  [dir="ltr"] & {
+    padding: 0 30px 0 12px;
+    background-position: right 12px center;
+  }
+
+  &:hover {
+    border-color: var(--color-primary);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(198, 33, 39, 0.12);
+  }
+
+  // بعد الاختيار: النص بلون العنوان وغامق، والحدّ بلون العلامة
+  &.has-value {
+    border-color: var(--color-primary);
     font-weight: 700;
-    line-height: 1.25;
     color: var(--main-text-color, #1a1a1a);
-    transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease;
   }
 
-  &:hover span {
-    border-color: var(--color-primary);
+  option {
+    font-weight: 600;
+    color: var(--main-text-color, #1a1a1a);
   }
-
-  input:checked + span {
-    border-color: var(--color-primary);
-    background: var(--color-primary);
-    color: #fff;
-  }
-
-  input:focus-visible + span {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-  }
-
-  &.is-out {
-    cursor: not-allowed;
-
-    input { cursor: not-allowed; }
-
-    span {
-      opacity: 0.45;
-      text-decoration: line-through;
-    }
-
-    &:hover span { border-color: $sawab-opts-line; }
-  }
-}
-
-.sawab-opts__swatch {
-  display: inline-block;
-  flex-shrink: 0;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
 }
 
 // العميل ضغط «أضف للسلة» قبل اختيار خيار إلزامي
 .sawab-opts__group.is-missing {
   animation: sawab-opts-shake 0.35s ease;
 
-  .sawab-opts__chip span {
+  .sawab-opts__select {
     border-color: var(--color-primary);
-  }
-
-  &::after {
-    content: attr(data-hint);
-    font-size: 11px;
-    font-weight: 700;
+    background-color: rgba(198, 33, 39, 0.04);
     color: var(--color-primary);
   }
 }
