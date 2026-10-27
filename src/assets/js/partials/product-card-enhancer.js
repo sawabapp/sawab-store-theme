@@ -34,7 +34,7 @@ function escapeHTML(str = '') {
  * عنصر DOM مطلقًا. وحين تمرّر القائمةُ المنتجَ ككائن تضبطه كخاصية لا كسمة،
  * فلا يُجدي قراءة getAttribute وحده — لذا نجرّب المصادر الثلاثة بالترتيب.
  */
-function getProductData(card) {
+export function getProductData(card) {
   const host = card.closest('salla-product-card, custom-salla-product-card') || card;
 
   const raw = host.product || host.productData || (host.getAttribute && host.getAttribute('product'));

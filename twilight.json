@@ -1,5 +1,5 @@
 {
-    "version": "1.0.185",
+    "version": "1.0.186",
     "theme_name": "Sawab Store",
     "repo_url": "https://github.com/sawabapp/sawab-store-theme",
     "support_url": "https://sawab.app",
@@ -1134,6 +1134,17 @@
                     "value": true
                 }
             ]
+        },
+        {
+            "id": "card_quick_options",
+            "label": "خيارات المنتج داخل البطاقة",
+            "type": "boolean",
+            "description": "تظهر خيارات المنتج (السعة، المقاس، اللون…) أزرارًا داخل بطاقته، فيختار العميل ويضيف للسلة مباشرةً دون دخول صفحة المنتج",
+            "icon": "sicon-toggle-off",
+            "format": "switch",
+            "required": false,
+            "value": true,
+            "selected": true
         },
         {
             "type": "boolean",

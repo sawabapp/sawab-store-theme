@@ -4,6 +4,7 @@ import Anime from './partials/anime';
 import initTootTip from './partials/tooltip';
 import initProductCardEnhancer from './partials/product-card-enhancer';
 import initSideCart from './partials/side-cart';
+import initCardOptions from './partials/card-options';
 import AppHelpers from "./app-helpers";
 
 class App extends AppHelpers {
@@ -21,6 +22,7 @@ class App extends AppHelpers {
     }
     this.initAddToCart();
     initSideCart();
+    initCardOptions();
     this.initiateDropdowns();
     this.initiateModals();
     this.initiateCollapse();
