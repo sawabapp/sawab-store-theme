@@ -63,6 +63,8 @@
   {{ theme.settings.get('topnav_is_dark') ? ' topnav-is-dark' : '' }}
   {{ theme.settings.get('sticky_add_to_cart') ? ' is-sticky-product-bar' : '' }}
   ">
+{# مجسّ مؤقت: هل يصل مفتاح ترجمة جديد من src/locales إلى trans()؟ يُحذف بعد الاختبار #}
+<!-- locale-probe [{{ trans('sawab.locale_probe') }}] -->
 {# شاشة التحميل: أول عنصر في body، وأنماطها الحرجة داخلية لتعمل قبل app.css.
    تبدأ مخفية ولا تظهر إلا إن مرّت 400ms دون أن تجهز الصفحة — كانت تغطّي
    الصفحة الجاهزة حتى 3.5 ثانية فيبدو المتجر أبطأ مما هو. وإخفاؤها بسكربت
