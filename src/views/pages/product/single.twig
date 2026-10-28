@@ -87,7 +87,9 @@
 	{# نصوص الثيم المخصصة بلغتين. لا نمرّرها بـtrans() لأن ترجمات سلة لا تشمل
 	   مفاتيحنا وهي تخدم ترجماتها لا ملفات locales في الثيم (انظر CLAUDE.md) #}
 	{% set sawab_ar = (language.code|default('ar')) == 'ar' %}
-	{% set t_warranty = sawab_ar ? 'ضمان معتمد من الوكيل' : 'Agent-approved warranty' %}
+	{# سطر تحت اسم الماركة يكتبه التاجر من الإعدادات (product_brand_note)، وتركه
+	   فارغًا يخفيه. كان نصًّا ثابتًا «ضمان معتمد من الوكيل» يخصّ متجرًا واحدًا #}
+	{% set t_warranty = theme.settings.get('product_brand_note', 'ضمان معتمد من الوكيل')|default('')|trim %}
 	{% set t_reviews  = sawab_ar ? 'تقييم' : 'reviews' %}
 	{% set t_in_stock = sawab_ar ? 'متوفر في المخزون' : 'In stock' %}
 	{% set t_save     = sawab_ar ? 'وفّر' : 'Save' %}
@@ -224,10 +226,12 @@
                             {% endif %}
                             <div class="sawab-brand__info">
                                 <a class="sawab-brand__name" href="{{ product.brand.url }}">{{ product.brand.name }}</a>
+                                {% if t_warranty %}
                                 <span class="sawab-brand__warranty">
                                     <i class="sicon-check-circle"></i>
                                     {{ t_warranty }}
                                 </span>
+                                {% endif %}
                             </div>
                         </div>
                     {% endif %}

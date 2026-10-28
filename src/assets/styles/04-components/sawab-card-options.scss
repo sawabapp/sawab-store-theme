@@ -79,6 +79,31 @@ $sawab-opts-muted: #8a8a8a;
   }
 }
 
+// القائمة المؤقتة: زرّ بشكل القائمة نفسها يحجز مكانها حتى تصل الخيارات عند
+// التفاعل. form.scss يفرض 16px على select وحده لا على button، فنطابقه يدويًا
+// على الجوال وإلا قفز حجم النص لحظة الاستبدال.
+.sawab-opts__placeholder {
+  display: block;
+  font-size: 16px;
+
+  [dir="rtl"] & { text-align: right; }
+  [dir="ltr"] & { text-align: left; }
+
+  @media (min-width: 769px) {
+    font-size: 13px;
+  }
+}
+
+.sawab-opts.is-loading .sawab-opts__placeholder {
+  cursor: progress;
+  animation: sawab-opts-wait 1s ease-in-out infinite alternate;
+}
+
+@keyframes sawab-opts-wait {
+  from { opacity: 1; }
+  to { opacity: 0.55; }
+}
+
 // ----- تخطيط البطاقة حين تحمل خيارات -----
 // محتوى البطاقة شبكة تمتدّ بطولها، فكانت المساحة الزائدة تتوزّع على كل الصفوف
 // فيطفو الاسم والسعر بارتفاع يختلف بعدد القوائم. نثبّت الاسم والسعر في الأعلى
@@ -135,5 +160,6 @@ $sawab-opts-muted: #8a8a8a;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sawab-opts__group.is-missing { animation: none; }
+  .sawab-opts__group.is-missing,
+  .sawab-opts.is-loading .sawab-opts__placeholder { animation: none; }
 }

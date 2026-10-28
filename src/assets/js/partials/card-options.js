@@ -14,6 +14,12 @@
  * يبحث عنه بـ document.querySelector بمعرّف المنتج في الصفحة كلها فيتداخل مع
  * صفحة المنتج و«منتج الأسبوع». نرسم قوائمنا من بيانات الخيارات نفسها.
  *
+ * متى نسأل سلة؟ لا عند ظهور البطاقة: شروط سوق الثيمات تمنع «طلبًا لكل منتج»
+ * (Technical Review 1.5)، وصفحة تصنيف فيها عشرات البطاقات. بيانات القائمة
+ * تقول مجانًا إن للمنتج خيارات (`has_options`)، فنرسم مكانها قائمة «اختر
+ * الخيارات» مؤقتة — فلا يقفز التخطيط لاحقًا — ولا نجلب الخيارات إلا حين
+ * يقترب العميل من البطاقة: مرور الماوس أو اللمس أو التركيز بلوحة المفاتيح.
+ *
  * القائمة المنسدلة تعبّر عن اختيار واحد فقط، فخيارات الاختيار المتعدّد —
  * كبقية ما لا يتّسع للبطاقة (نص، ملف، تاريخ، خريطة…) — إن كانت إلزامية، أو
  * وُجدت أكثر من مجموعتي خيارات، يُترك المنتج لمسار سلة الأصلي (صفحة المنتج).
@@ -38,6 +44,7 @@ export default function initCardOptions() {
   const isArabic = (document.documentElement.getAttribute('lang') || 'ar').startsWith('ar');
   const choose = name => (isArabic ? `اختر ${name}` : `Choose ${name}`);
   const soldOut = isArabic ? 'نفدت الكمية' : 'Sold out';
+  const chooseOptions = isArabic ? 'اختر الخيارات' : 'Choose options';
 
   const escape = str => String(str ?? '').replace(/[&<>"']/g, c =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -118,58 +125,127 @@ export default function initCardOptions() {
     // والضريبة)؛ الممنوع هو استبدال ما رسمته هي (CLAUDE.md)
     const footer = card.querySelector('.s-product-card-content-footer');
     if (!footer) return null;
+    card.querySelector('.sawab-opts')?.remove(); // القائمة المؤقتة
     footer.parentNode.insertBefore(box, footer);
     box.querySelectorAll('select').forEach(select => select.classList.toggle('has-value', !!select.value));
     card.classList.add('sawab-has-opts');
     return box;
   }
 
-  async function prepare(card) {
-    if (card.classList.contains('s-product-card-minimal')) return;
-    if (card.querySelector('.sawab-opts')) return;
-
+  /** المنتج إن صلح لخيارات البطاقة، أو null */
+  function eligible(card) {
+    if (card.classList.contains('s-product-card-minimal')) return null;
     const product = getProductData(card);
-    if (!product?.id) return; // لم يكتمل الترطيب ⇒ يعيد المراقب المحاولة
-    if (product.has_options === false) return;
-    if (product.status && product.status !== 'sale') return;
-    if (!SUPPORTED_PRODUCT_TYPES.includes(product.type)) return;
+    if (!product?.id) return null;
+    if (product.has_options === false) return null;
+    if (product.status && product.status !== 'sale') return null;
+    if (!SUPPORTED_PRODUCT_TYPES.includes(product.type)) return null;
+    return product;
+  }
 
+  /**
+   * قائمة «اختر الخيارات» مؤقتة بلا طلب: تحجز مكان القوائم الحقيقية فلا يقفز
+   * التخطيط حين تصل. زرّ لا select — فلا يفتح العميل قائمة فارغة.
+   */
+  function renderPlaceholder(card, product) {
+    const footer = card.querySelector('.s-product-card-content-footer');
+    if (!footer) return;
+    const box = document.createElement('div');
+    box.className = 'sawab-opts is-pending';
+    box.dataset.productId = product.id;
+    box.innerHTML = `
+      <div class="sawab-opts__group">
+        <button type="button" class="sawab-opts__select sawab-opts__placeholder" data-sawab-opts-open>${chooseOptions}</button>
+      </div>`;
+    footer.parentNode.insertBefore(box, footer);
+    card.classList.add('sawab-has-opts');
+  }
+
+  function dropPlaceholder(card) {
+    card.querySelector('.sawab-opts.is-pending')?.remove();
+    card.classList.remove('sawab-has-opts');
+  }
+
+  // البطاقة ⇒ وعد الجلب الجاري، فينتظره من يضغط والطلب لم يعد بعد
+  const inFlight = new WeakMap();
+
+  /** يجلب الخيارات (مرة لكل منتج) ويرسمها. يُستدعى عند التفاعل فقط */
+  function prepare(card) {
+    if (!card) return Promise.resolve();
+    if (inFlight.has(card)) return inFlight.get(card);
+    const state = card.dataset.sawabOpts;
+    if (state === 'none') return Promise.resolve();
+    if (state === 'ready' && card.querySelector('.sawab-opts:not(.is-pending)')) return Promise.resolve();
+
+    const product = eligible(card);
+    if (!product) return Promise.resolve();
+
+    const job = fetchAndRender(card, product).finally(() => inFlight.delete(card));
+    inFlight.set(card, job);
+    return job;
+  }
+
+  async function fetchAndRender(card, product) {
     card.dataset.sawabOpts = 'loading';
+    card.querySelector('.sawab-opts.is-pending')?.classList.add('is-loading');
     const groups = await load(product);
 
+    if (!card.isConnected) return;
     if (!groups) {
+      dropPlaceholder(card);
       card.dataset.sawabOpts = 'none';
       return;
     }
-    // قد تعيد سلة رسم البطاقة أثناء الانتظار
-    if (!card.isConnected || card.querySelector('.sawab-opts')) return;
 
     const box = render(card, product, groups);
     card.dataset.sawabOpts = box ? 'ready' : 'none';
   }
 
-  // ----- الجلب عند الاقتراب من الشاشة -----
-  // صفحة تصنيف فيها عشرات البطاقات؛ لا نسأل سلة إلا عمّا يوشك العميل أن يراه
-  const seen = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      seen.unobserve(entry.target);
-      prepare(entry.target);
-    });
-  }, { rootMargin: '300px 0px' });
-
   function watch(card) {
     if (card.dataset.sawabOptsWatched) {
-      // البطاقة مُراقَبة مسبقًا لكن سلة أعادت رسمها فمحت كتلتنا
-      if (card.dataset.sawabOpts === 'ready' && !card.querySelector('.sawab-opts')) {
+      // سلة أعادت رسم البطاقة فمحت كتلتنا ⇒ نعيدها (من الذاكرة، بلا طلب جديد)
+      if (card.querySelector('.sawab-opts')) return;
+      if (card.dataset.sawabOpts === 'ready') {
         delete card.dataset.sawabOpts;
         prepare(card);
+      } else if (card.dataset.sawabOpts === 'pending') {
+        const product = eligible(card);
+        if (product) renderPlaceholder(card, product);
       }
       return;
     }
+
+    const product = eligible(card);
+    if (!product) return; // قد لا تكون البيانات وصلت ⇒ يعيد المسح المحاولة
     card.dataset.sawabOptsWatched = '1';
-    seen.observe(card);
+
+    // المنتج المعروف أن له خيارات يأخذ مكانها الآن، والمجهول ينتظر التفاعل
+    if (product.has_options === true) {
+      card.dataset.sawabOpts = 'pending';
+      renderPlaceholder(card, product);
+    }
   }
+
+  // ----- الجلب عند التفاعل -----
+  const warm = event => {
+    const card = event.target.closest?.('.s-product-card-entry');
+    if (card?.dataset.sawabOptsWatched) prepare(card);
+  };
+  document.addEventListener('pointerover', warm, { passive: true });
+  document.addEventListener('touchstart', warm, { passive: true });
+  document.addEventListener('focusin', warm);
+
+  // ضغطة على القائمة المؤقتة ⇒ ننتظر الخيارات ونضع التركيز على أولها
+  document.addEventListener('click', async event => {
+    const opener = event.target.closest?.('[data-sawab-opts-open]');
+    if (!opener) return;
+    const card = opener.closest('.s-product-card-entry');
+    await prepare(card);
+    const select = card?.querySelector('.sawab-opts:not(.is-pending) select');
+    if (!select) return;
+    select.focus({ preventScroll: true });
+    try { select.showPicker?.(); } catch (e) { /* غير مدعوم في كل المتصفحات */ }
+  });
 
   const scan = () => document.querySelectorAll('.s-product-card-entry').forEach(watch);
   scan();
@@ -265,14 +341,13 @@ export default function initCardOptions() {
     const card = button?.closest('.s-product-card-entry');
     if (!card) return;
 
-    // البيانات ما زالت تُجلب ⇒ ننتظرها بدل أن تنقل سلة العميل لصفحة المنتج
-    if (card.dataset.sawabOpts === 'loading') {
+    // الخيارات لم تصل بعد ⇒ ننتظرها بدل أن تنقل سلة العميل لصفحة المنتج
+    const state = card.dataset.sawabOpts;
+    if (state === 'pending' || state === 'loading') {
       event.preventDefault();
       event.stopPropagation();
-      const product = getProductData(card);
-      await load(product);
-      await new Promise(resolve => setTimeout(resolve, 0));
-      if (!card.querySelector('.sawab-opts')) {
+      await prepare(card);
+      if (!card.querySelector('.sawab-opts:not(.is-pending)')) {
         // تبيّن أن الخيارات لا تتّسع للبطاقة ⇒ مسار سلة الأصلي
         card.dataset.sawabOpts = 'none';
         (button.querySelector('button') || button).click();
@@ -280,7 +355,7 @@ export default function initCardOptions() {
       return;
     }
 
-    const box = card.querySelector('.sawab-opts');
+    const box = card.querySelector('.sawab-opts:not(.is-pending)');
     if (!box) return;
 
     event.preventDefault();
