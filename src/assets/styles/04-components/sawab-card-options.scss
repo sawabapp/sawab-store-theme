@@ -30,8 +30,7 @@ $sawab-opts-muted: #8a8a8a;
   background-repeat: no-repeat;
   background-size: 10px 7px;
   font-family: inherit;
-  font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.2;
   color: $sawab-opts-muted;
   text-overflow: ellipsis;
@@ -40,6 +39,12 @@ $sawab-opts-muted: #8a8a8a;
   -moz-appearance: none;
   appearance: none;
   transition: border-color 0.18s ease, box-shadow 0.18s ease;
+
+  // form.scss يفرض 16px !important على كل select حتى لا يكبّر آيفون الصفحة
+  // عند لمس الحقل. نصغّره على الحاسوب وحده، ونُبقي الجوال على 16px لذلك السبب
+  @media (min-width: 769px) {
+    font-size: 13px !important;
+  }
 
   [dir="rtl"] & {
     padding: 0 12px 0 30px;
@@ -64,13 +69,46 @@ $sawab-opts-muted: #8a8a8a;
   // بعد الاختيار: النص بلون العنوان وغامق، والحدّ بلون العلامة
   &.has-value {
     border-color: var(--color-primary);
-    font-weight: 700;
+    font-weight: 600;
     color: var(--main-text-color, #1a1a1a);
   }
 
   option {
-    font-weight: 600;
+    font-weight: 500;
     color: var(--main-text-color, #1a1a1a);
+  }
+}
+
+// ----- تخطيط البطاقة حين تحمل خيارات -----
+// محتوى البطاقة شبكة تمتدّ بطولها، فكانت المساحة الزائدة تتوزّع على كل الصفوف
+// فيطفو الاسم والسعر بارتفاع يختلف بعدد القوائم. نثبّت الاسم والسعر في الأعلى
+// ونجعل الصف الثالث يبتلع الفراغ، فتنزل القوائم والزر إلى أسفل البطاقة —
+// وتصطفّ الأسماء والأسعار والأزرار عبر الصف مهما اختلف عدد القوائم.
+// ونفرد الزر بعرض كامل تحت القوائم: تخطيط «السعر بجانب الزر» في البطاقة
+// الواسعة لا يصلح والقوائم بينهما.
+.s-product-card-entry.sawab-has-opts .s-product-card-content {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr auto;
+  align-items: start;
+}
+
+.s-product-card-entry.sawab-has-opts .s-product-card-content-main { grid-column: 1 / -1; grid-row: 1; }
+.s-product-card-entry.sawab-has-opts .s-product-card-content-sub { grid-column: 1 / -1; grid-row: 2; }
+
+.s-product-card-entry.sawab-has-opts .sawab-opts {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  align-self: end;
+  margin: 4px 0 0;
+}
+
+.s-product-card-entry.sawab-has-opts .s-product-card-content-footer {
+  grid-column: 1 / -1;
+  grid-row: 4;
+
+  salla-add-product-button,
+  .s-button-element {
+    width: 100%;
   }
 }
 

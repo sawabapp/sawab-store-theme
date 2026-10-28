@@ -14,14 +14,23 @@
 ## الأوامر
 
 ```bash
-pnpm run development   # بناء (يجب تشغيله بعد أي تعديل على scss/js)
-pnpm run watch         # بناء مستمر
+pnpm run production    # بناء الإنتاج — هو ما يُرفع (إلزامي قبل كل commit)
+pnpm run development   # بناء تطوير سريع للفحص المحلي فقط — لا يُرفع
+pnpm run watch         # بناء تطوير مستمر (يشغّله preview تلقائيًا)
 salla theme preview    # معاينة حيّة (تفاعلي — يحتاج طرفية حقيقية)
 ```
 
 **مهم:** `public/*` ملفات مبنية **ومتتبَّعة في git**. أي تعديل على
-`src/assets/**` يجب أن يتبعه `pnpm run development` ثم رفع الملفات المبنية معه،
+`src/assets/**` يجب أن يتبعه `pnpm run production` ثم رفع الملفات المبنية معه،
 وإلا لن يظهر التغيير في المتجر.
+
+**لا ترفع بناء التطوير أبدًا** (حُسم 2026-10-28). كان `public/` يُرفع من
+`development` حتى 1.0.186: ملفات غير مضغوطة تعمل بـ`eval()` (أبطأ، وقد تحجبها
+سياسة CSP). بناء الإنتاج: `app.js` من 329KB إلى 131KB (gzip من 73KB إلى 38KB)،
+و`product.js` من 98KB إلى 50KB، و`app.css` من 416KB إلى 319KB. للتأكد قبل
+الـcommit: `grep -c "eval(" public/app.js` يجب أن يطبع `0`.
+وانتبه: `watch` أثناء `preview` يعيد كتابة `public/` ببناء تطوير — فشغّل
+`production` مجددًا قبل الـcommit إن عملت `preview` بعد آخر بناء.
 
 ## المعاينة — قواعد تعلّمناها بصعوبة
 
