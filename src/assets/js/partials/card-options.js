@@ -122,7 +122,7 @@ export default function initCardOptions() {
     }).join('');
 
     // فوق زر الإضافة مباشرة. إدراج عنصر بجانب أبناء سلة آمن (كالماركة
-    // والضريبة)؛ الممنوع هو استبدال ما رسمته هي (CLAUDE.md)
+    // والضريبة)؛ الممنوع هو استبدال ما رسمته هي (docs/DEVELOPMENT.md)
     const footer = card.querySelector('.s-product-card-content-footer');
     if (!footer) return null;
     card.querySelector('.sawab-opts')?.remove(); // القائمة المؤقتة

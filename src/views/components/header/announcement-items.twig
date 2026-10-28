@@ -1,6 +1,6 @@
 {# بنود الشريط الإعلاني — يُضمَّن مرّتين في header.twig لإغلاق دورة الحركة.
    كل إعلان حقلان مستقلّان في إعدادات الثيم (نص بترجمته + أيقونة)، لأن
-   collection في الإعدادات يُسقط القالب (انظر CLAUDE.md) #}
+   collection في الإعدادات يُسقط القالب (انظر docs/DEVELOPMENT.md) #}
 {% if theme.settings.get('announcement_text_1')|default('')|trim %}
   <span class="announcement-bar__item">
     <span class="announcement-bar__sep" aria-hidden="true">

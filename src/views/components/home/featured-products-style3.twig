@@ -1,18 +1,3 @@
-{#
-| Variable                      | Type      | Description                                                         |
-|-------------------------------|-----------|---------------------------------------------------------------------|
-| items                         | array     |                                                                     |
-| items[].title                 | string    | Section title                                                       |
-| items[].name                  | string    | Alias for title                                                     |
-| items[].type                  | string    | category,most_sales,latest_products,chosen_products                 |
-| items[].featured_product      | Product   |                                                                     |
-| items[].special_product.id    | string    | Product string id                                                   |
-| items[].special_product.title | string    | Product Name                                                        |
-| items[].products[]            | Product[] |                                                                     |
-| items[].limit                 | Int       | Number of products to be shown                                      |
-| items[].id                    | string    | Section id                                                          |
-| position                      | int       | Sorting number starts from zero                                     |
-#}
 <section data-testid="store-home-featured-products-grid" class="s-block s-block--features-products {% if items | length > 1 %}two-cols{% endif %} sawab-block">
     <div class="inner">
         {% for section in items %}

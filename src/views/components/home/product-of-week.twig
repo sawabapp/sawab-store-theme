@@ -1,13 +1,4 @@
 {#
-| Variable              | Type      | Description                                                      |
-|-----------------------|-----------|------------------------------------------------------------------|
-| component.title       | ?string   | عنوان القسم                                                      |
-| component.subtitle    | ?string   | نص توضيحي                                                        |
-| component.all_url     | ?string   | رابط «كل العروض» — فارغ يعني إخفاءه                              |
-| component.products    | Product[] | منتج واحد — كائن منتج كامل كما في صفحة المنتج                    |
-| component.badge       | ?string   | نص الشارة الداكنة فوق الصورة                                      |
-| component.whatsapp_*  | ?string   | رقم ونص زر واتساب                                                |
-| component.trustN_*    | ?string   | ثلاث مزايا أسفل البطاقة: عنوان ووصف وأيقونة                       |
 
 منتقي المنتجات يعيد كائن `Product` كاملًا (كما توثّقه `slider-products-with-header`)،
 فنقرأ منه الصورة والسعر والتقييم والخصم مباشرةً بلا أي طلب إضافي.
@@ -117,7 +108,7 @@
 
       {# فورم كفورم صفحة المنتج: بدونه لا تصل الخيارات المختارة إلى السلة.
          لا نمرّر سمة options — طباعة كائن غير مضمونة؛ والمكوّن يجلب الخيارات
-         بنفسه عبر getDetails(id, ['options']) كما هو موثّق في CLAUDE.md #}
+         بنفسه عبر getDetails(id, ['options']) كما هو موثّق في docs/DEVELOPMENT.md #}
       <form class="form product-form sawab-pow__form" enctype="multipart/form-data" method="post"
             onsubmit="return salla.form.onSubmit('cart.addItem', event)">
         <input type="hidden" name="id" value="{{ product.id }}">

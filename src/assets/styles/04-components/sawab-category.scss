@@ -205,7 +205,7 @@ $sawab-cat-cream: #f8f1e7;
 }
 
 // موضع السهم اتجاهي. لا خصائص منطقية: PostCSS يحوّلها متجاهلًا الاتجاه
-// فتنعكس (انظر CLAUDE.md)
+// فتنعكس (انظر docs/DEVELOPMENT.md)
 [dir="rtl"] .sawab-list-toolbar__sort {
   select { padding: 0 14px 0 34px; }
   i { left: 12px; }

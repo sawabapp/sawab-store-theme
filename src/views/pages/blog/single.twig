@@ -1,22 +1,3 @@
-{#
-| Variable                | Type           | Description |
-|-------------------------|----------------|-------------|
-| article.title           | string         |             |
-| article.body            | string *HTML   |             |
-| article.url             | string         |             |
-| article.has_image       | Bool           |             |
-| article.image           | object         |             |
-| article.image.url       | string         |             |
-| article.image.alt       | string         |             |
-| article.thumbnail       | string         |             |
-| article.created_at      | ?Date *Carbon  |             |
-| article.author.name     | string         |             |
-| article.author.url      | string         |             |
-| article.related         | Article[]      |             |
-| article.tags            | BlogTag[]      |             |
-| article.tags[].name     | string         |             |
-| article.tags[].url      | string         |             |
-#}
 {% extends "layouts.master" %}
 {% block content %}
     <div class="container mb-8 sm:mb-24">

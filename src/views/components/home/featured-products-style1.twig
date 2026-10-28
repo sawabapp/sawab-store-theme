@@ -1,21 +1,3 @@
-{#
-| Variable                 | Type      | Description                                                         |
-|--------------------------|-----------|---------------------------------------------------------------------|
-| items                    | array     |                                                                     |
-| items[].title            | string    | Section title                                                       |
-| items[].name             | string    | Alias for title                                                     |
-| items[].type             | string    | category,most_sales,latest_products,chosen_products                 |
-| items[].featured_product | Null      |                                                                     |
-| items[].products[]       | Product[] |                                                                     |
-| items[].limit            | Int       | Number of products to be shown                                      |
-| items[].id               | string    | Section id                                                          |
-| main_product             | array     |                                                                     |
-| main_product.id          | string    | string product id                                                   |
-| main_product.title       | string    | Offer title                                                         |
-| main_product.value       | string    | Product Name                                                        |
-| main_product.product     | Product   |                                                                     |
-| position                 | int       | sorting block                                                       |
-#}
 {% set component_id='featured-products-style1-' ~ position %}
 <section data-testid="store-home-featured-products" class="s-block s-block-tabs s-block--special-products sawab-block" id="{{ component_id }}">
     <div class="s-block__title"> 

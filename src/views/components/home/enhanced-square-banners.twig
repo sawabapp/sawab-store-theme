@@ -1,15 +1,3 @@
-{#
-| Variable                        | Type     | Description                                                                  |
-|---------------------------------|----------|------------------------------------------------------------------------------|
-| component                       | object   | Contains merchant settings for fields from twilight.json `component` section |
-| component.banners               | object[] | list of banners                                                              |
-| component.banners[].image       | string   |                                                                              |
-| component.banners[].url         | string   |                                                                              |
-| component.banners[].title       | ?string  |                                                                              |
-| component.banners[].description | ?string  |                                                                              |
-| position                        | int      | Sorting number start from zero                                               |
-#}
-
 <section data-testid="store-home-square-banners" class="s-block s-block--banners sawab-block">
     <div class="grid {{ component.banners|length <= 3 ? 'md:grid-cols-' ~ component.banners|length : 'md:grid-cols-3 two-row' }} grid-flow-row gap-3 sm:gap-8">
         {% for index, banner in component.banners %}

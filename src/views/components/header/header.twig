@@ -1,10 +1,3 @@
-{#
-| Variable          | Type   | Description                          |
-|--------------------|--------|---------------------------------------|
-| cart               | object |                                        |
-| cart.items_count   | int    |                                        |
-| cart.total         | string | Formatted total ex: "١٠٠ ر.س"        |
-#}
 {# يُعرض الشريط إن كان مفعّلًا وفيه إعلان واحد على الأقل #}
 {% set announcement_any = theme.settings.get('announcement_text_1')|default('')|trim or theme.settings.get('announcement_text_2')|default('')|trim or theme.settings.get('announcement_text_3')|default('')|trim or theme.settings.get('announcement_text_4')|default('')|trim or theme.settings.get('announcement_text_5')|default('')|trim %}
 {% set announcement_speed = theme.settings.get('announcement_speed')|default('normal') %}
@@ -19,7 +12,7 @@
 {% set sticky_header_enabled = theme.settings.get('sticky_header_enabled', true) %}
 
 {# نصوص الهيدر بلغتين. «السلة» من مفاتيح سلة نفسها فتُترجم عبر trans، وما دونها
-   لا مفتاح مؤكّدًا له فنشتقّه من لغة الصفحة (انظر CLAUDE.md) #}
+   لا مفتاح مؤكّدًا له فنشتقّه من لغة الصفحة (انظر docs/DEVELOPMENT.md) #}
 {% set sawab_ar = (language.code|default('ar')) == 'ar' %}
 {% set t_search = sawab_ar ? 'بحث' : 'Search' %}
 {% set t_account = sawab_ar ? 'حسابي' : 'My account' %}

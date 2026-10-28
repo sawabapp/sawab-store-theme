@@ -1,15 +1,3 @@
-{#
-| Variable                           | Type     | Description                                                                  |
-|------------------------------------|----------|------------------------------------------------------------------------------|
-| component                          | object   | Contains merchant settings for fields from twilight.json `component` section |
-| component.merge_with_top_component | bool     |                                                                              |
-| component.title                    | ?string  |                                                                              |
-| component.links                    | object[] | list of links                                                                |
-| component.links[].icon             | string   |                                                                              |
-| component.links[].title            | string   |                                                                              |
-| component.links[].url              | string   |                                                                              |
-| position                           | int      | Sorting number start from zero                                               |
-#}
 <section data-testid="store-home-main-links" class="s-block s-block--categories {{ component.merge_with_top_component and position ?'merge-with-top-component' : '' }} {{ not component.title and component.merge_with_top_component ? 'merged-has-no-title' : '' }}">
     <div class="container">
       <salla-slider  

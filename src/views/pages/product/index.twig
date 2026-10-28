@@ -1,21 +1,3 @@
-{#
-| Variable                   | Type        | Description                                                          |
-|----------------------------|-------------|----------------------------------------------------------------------|
-| page                       | object      |                                                                      |
-| page.title                 | string      | *could be html                                                       |
-| page.slug                  | string      | ex: "cat.show"                                                       |
-| category                   | ?Category   |                                                                      |
-| category.name              | string      |                                                                      |
-| category.url               | string      |                                                                      |
-| category.sub_categories    | ?Category[] |                                                                      |
-| category.image             | ?string     |                                                                      |
-| filters                     | bool        | is filters allowed here or not                                        |
-| sort_options[]             | SortList[]  |                                                                      |
-| sort_options[].id          | string      | ourSuggest, bestSell, topRated, priceFromTopToLow, priceFromLowToTop |
-| sort_options[].name        | string      |                                                                      |
-| sort_options[].is_selected | bool        | Is current page sorted by it                                         |
-| search_query               | ?string     |                                                                      |
-#}
 {% extends "layouts.master" %}
 {% block content %}
 	{% set sawab_ar = (language.code|default('ar')) == 'ar' %}

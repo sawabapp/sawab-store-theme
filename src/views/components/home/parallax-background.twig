@@ -1,14 +1,3 @@
-{#
-| Variable    | Type   | Description                                                      |
-|-------------|--------|------------------------------------------------------------------|
-| image       | string | Image url                                                        |
-| url         | string | Link url                                                         |
-| title       | string | Section title                                                    |
-| link_text   | String | Link title                                                       |
-| is_opacity  | Bool   | Should set overlay on the background or not                      |
-| position    | Int    | Sorting number start from zero                                   |
-#}
-
 <section data-testid="store-home-parallax-banner" class="s-block s-block--full-banner s-block--full-bg">
     <div class="full-banner-entry" style="background-image: url({{ image.url }});">
         <div class="overlay h-full w-full {{ is_opacity?'bg-black':'' }} opacity-60 absolute top-0 left-0"></div>

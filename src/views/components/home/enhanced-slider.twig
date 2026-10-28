@@ -1,13 +1,3 @@
-{#
-| Variable                       | Type     | Description                                                                  |
-|--------------------------------|----------|------------------------------------------------------------------------------|
-| component                      | object   | Contains merchant settings for fields from twilight.json `component` section |
-| component.slides[].image       | string   | Image url                                                                    |
-| component.slides[].title       | ?string  |                                                                              |
-| component.slides[].description | ?string  |                                                                              |
-| component.slides               | object[] | list of slides                                                               |
-| position                       | int      | Sorting number start from zero                                               |
-#}
 <section data-testid="store-home-slider" class="s-block s-block--hero-slider s-block--full-bg wide-placeholder"> 
     <salla-slider 
       id="main-slider-{{ position }}"

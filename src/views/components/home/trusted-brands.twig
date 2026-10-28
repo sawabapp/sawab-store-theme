@@ -1,15 +1,7 @@
 {#
-| Variable             | Type    | Description                                                     |
-|----------------------|---------|-----------------------------------------------------------------|
-| component.title      | ?string | عنوان القسم                                                     |
-| component.subtitle   | ?string | نص توضيحي أسفل العنوان                                          |
-| component.all_url    | ?string | رابط «كل الماركات» بجانب العنوان                                 |
-| component.brands     | Brand[] | الماركات المختارة — لكلٍّ name و logo و url                      |
-| component.columns    | ?string | عدد الماركات في الصف على الحاسوب: 3 أو 4 أو 5                    |
-| component.card_*     | ?string | بطاقة الضمان الداكنة: عنوان ونص وثلاث مزايا وزر                  |
 
 الماركات من منتقي سلة (`source: brands`) فلا نجلبها. والمتاح منها `name` و
-`logo` و`url` فقط — لا عدد منتجات (انظر القاعدة الذهبية في CLAUDE.md: خاصية
+`logo` و`url` فقط — لا عدد منتجات (انظر القاعدة الذهبية في docs/DEVELOPMENT.md: خاصية
 جذرية غائبة تُسقط القسم، فلا نلمس ما لم يثبت وجوده).
 #}
 {% set brands = component.brands|default([]) %}

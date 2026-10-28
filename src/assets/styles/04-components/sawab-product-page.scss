@@ -1045,7 +1045,7 @@ $sawab-btn-height: 52px;
 }
 
 // لا نضبط display على .price_is_on_sale هنا: كلاس hidden من tailwind يجب أن
-// يفوز عليه، وأنماطنا تأتي بعده في المخرجات (انظر مزالق البناء في CLAUDE.md)
+// يفوز عليه، وأنماطنا تأتي بعده في المخرجات (انظر مزالق البناء في docs/DEVELOPMENT.md)
 .sawab-sticky-bar__prices {
   flex-shrink: 0;
   display: flex;

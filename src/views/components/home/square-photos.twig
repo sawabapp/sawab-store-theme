@@ -1,15 +1,3 @@
-{#
-| Variable          | Type   | Description                                                      |
-|-------------------|--------|------------------------------------------------------------------|
-| title             | string | Section title                                                    |
-| items[]           | array  | List of images                                                   |
-| items[].url       | Bool   | Should set overlay on the background or not                      |
-| items[].link_type | string | category,product,offers,page,external_link,brand                 |
-| items[].image.url | string |                                                                  |
-| items[].image.alt | string |                                                                  |
-| items[].text      | string | Visible title for the photo                                      |
-| position          | Int    | Sorting number start from zero                                   |
-#}
 <section data-testid="store-home-square-photos" class="s-block s-block--banners sawab-block">
     {% if title %}
         <div class="s-block__title">
