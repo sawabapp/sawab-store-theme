@@ -353,6 +353,15 @@ string · boolean · collection · number · items · static
   `visitors` ولا `online`. المتاح: `sold_quantity` و`can_show_remained_quantity`.
   ("Realtime" في الـSDK تخصّ سياق التحليلات المُرسَل لا عدّادًا يُقرأ.)
 
+## الخط
+
+- **خط المتجر من سلة (`theme.font.path`) يجلب الوزن 400 وحده.** وتصميمنا يعتمد
+  على 500–800، فهي تُحمَّل من `<head>` في `master.twig` برابط Google مستقل،
+  مشروطًا بـ`theme.font.name starts with 'IBM Plex'`. **لا تحذفه** بحجّة أن
+  `--font-main` يُعاد تعريفه بخط المتجر: الخط نفسه، والأوزان العريضة لا تأتي
+  إلا من رابطنا (حُسم 2026-10-28 بفحص الطلبات الفعلية لا بقراءة الكود).
+- لا تُرجعه `@import` داخل SCSS: لا يكتشفه المتصفح إلا بعد تنزيل `app.css` كاملًا.
+
 ## مزالق البناء (PostCSS/Tailwind)
 
 - **لا تكتب `:not(.hidden)` في SCSS.** سلسلة PostCSS تفكّكها إلى ~25 قاعدة

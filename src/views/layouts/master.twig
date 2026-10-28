@@ -114,13 +114,14 @@
   {{ theme.settings.get('topnav_is_dark') ? ' topnav-is-dark' : '' }}
   {{ theme.settings.get('sticky_add_to_cart') ? ' is-sticky-product-bar' : '' }}
   ">
-{# شاشة التحميل: أول عنصر في body لتظهر قبل تحميل الأنماط الخارجية، ولذلك
-   تحمل أنماطها الحرجة داخليًا. وإخفاؤها بسكربت داخلي لا من حزمة app.js —
-   فلو فشل تحميل الحزمة لأي سبب لبقيت الشاشة معلّقة أمام العميل #}
-<div class="sawab-loader" id="sawab-loader" style="position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92)">
+{# شاشة التحميل: أول عنصر في body، وأنماطها الحرجة داخلية لتعمل قبل app.css.
+   تبدأ مخفية ولا تظهر إلا إن مرّت 400ms دون أن تجهز الصفحة — كانت تغطّي
+   الصفحة الجاهزة حتى 3.5 ثانية فيبدو المتجر أبطأ مما هو. وإخفاؤها بسكربت
+   داخلي لا من app.js، فلو فشل تحميل الحزمة لما بقيت معلّقة أمام العميل #}
+<div class="sawab-loader" id="sawab-loader" style="position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;background:rgba(255,255,255,.92)">
     <div class="sawab-loader__box">
         {% if store.logo %}
-            <img class="sawab-loader__logo" src="{{ store.logo|cdn(220) }}" alt="{{ store.name }}" width="140" height="40">
+            <img class="sawab-loader__logo" src="{{ store.logo|cdn(220) }}" alt="{{ store.name }}" width="140" height="40" loading="lazy">
         {% else %}
             <span class="sawab-loader__name">{{ store.name }}</span>
         {% endif %}
@@ -131,7 +132,15 @@
     (function () {
         var el = document.getElementById('sawab-loader');
         if (!el) return;
-        var hide = function () { el.classList.add('is-done'); };
+        var done = false;
+        var hide = function () {
+            if (done) return;
+            done = true;
+            // لم تظهر أصلًا ⇒ نزيلها بلا حركة خروج
+            if (el.style.display === 'none') { el.remove(); return; }
+            el.classList.add('is-done');
+        };
+        setTimeout(function () { if (!done) el.style.display = 'flex'; }, 400);
         // ثلاثة مسارات: جهوزية الثيم، حمل الصفحة، ومهلة قصوى تمنع أي تعليق
         document.addEventListener('theme::ready', hide);
         window.addEventListener('load', hide);
