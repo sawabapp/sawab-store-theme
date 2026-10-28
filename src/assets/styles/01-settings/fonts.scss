@@ -1,1 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700;800&display=swap');
+// أوزان IBM Plex Sans Arabic (400–800) تُحمَّل من <head> في layouts/master.twig
+// لا من هنا: ‎@import داخل CSS لا يكتشفه المتصفح إلا بعد تنزيل app.css كاملًا،
+// فيتأخّر الخط العريض. وهناك مشروطة بأن يكون خط المتجر IBM Plex.

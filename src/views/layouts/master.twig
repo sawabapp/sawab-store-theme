@@ -82,6 +82,15 @@
     {% hook 'head:start' %}
     {% hook head %}
     {% block styles %}{% endblock %}
+    {# خط المتجر من سلة يجلب الوزن 400 وحده، وتصميمنا يعتمد على 500–800
+       (العناوين والأسعار والأزرار). كانت الأوزان ‎@import داخل app.css فلا
+       تبدأ إلا بعد تنزيله؛ هنا تبدأ بالتوازي معه. ومشروطة بخط المتجر: لو
+       غيّره التاجر لا نحمّل IBM بلا داعٍ #}
+    {% if (theme.font.name|default('')) starts with 'IBM Plex' %}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700;800&display=swap">
+    {% endif %}
     <link rel="stylesheet" href="{{ 'app.css' | asset }}">
     <link rel="stylesheet" href="{{ theme.font.path|cdn }}"/>
     <link rel="stylesheet" href="{{ 'fonts/sallaicons.css'|cdn }}"/>
