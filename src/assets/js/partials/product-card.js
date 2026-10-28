@@ -1,4 +1,5 @@
 import BasePage from '../base-page';
+import t from './i18n';
 class ProductCard extends HTMLElement {
   constructor(){
     super()
@@ -102,7 +103,7 @@ class ProductCard extends HTMLElement {
       price = `<h4 class="s-product-card-price">${this.getPriceFormat(this.product?.price)}</h4>`
     }
 
-    return price + (this.taxIncluded ? `<span class="sawab-card__tax">شامل الضريبة</span>` : '');
+    return price + (this.taxIncluded ? `<span class="sawab-card__tax">${t('tax-included')}</span>` : '');
   }
 
   getAddButtonLabel() {

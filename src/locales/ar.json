@@ -1,8 +1,7 @@
 {
   "blocks": {
     "header": {
-      "cart": "السلة",
-      "search_placeholder": "ابحث عن خزان، فلتر، مضخة، غطاس"
+      "cart": "السلة"
     },
     "appBanner": {
       "download_now": "حمله الان"
@@ -26,6 +25,66 @@
     "bank_offer_sub_title_single": "ادفع قيمة مشترياتك عبر أحد بطاقات بنك :bank_name واحصل على خصم بنسبة "
   },
   "sawab": {
-    "locale_probe": "مفتاح-الثيم-يعمل"
+    "common": {
+      "close": "إغلاق",
+      "reviews": "تقييم",
+      "save": "وفّر",
+      "discount": "خصم",
+      "offer_ends_in": "ينتهي العرض خلال",
+      "whatsapp": "واتساب",
+      "send": "إرسال",
+      "sold_out": "نفدت الكمية"
+    },
+    "header": {
+      "search": "بحث",
+      "account": "حسابي",
+      "localization": "اللغة والعملة",
+      "menu": "القائمة",
+      "copy_code": "نسخ الكود",
+      "copied": "تم النسخ",
+      "copy_code_aria": "نسخ كود الخصم"
+    },
+    "home": {
+      "reviews_link": "آراء العملاء",
+      "whatsapp_cta": "استشرنا واتساب",
+      "all_offers": "كل العروض"
+    },
+    "cart": {
+      "page_title": "سلة المشتريات",
+      "item_one": "منتج",
+      "item_many": "منتجات",
+      "drawer_title": "سلة التسوق",
+      "coupon_prompt": "لديك كوبون خصم؟",
+      "coupon_placeholder": "أدخل كود الخصم",
+      "coupon_label": "كود الخصم",
+      "apply": "تطبيق",
+      "checkout": "إتمام الطلب",
+      "empty": "سلتك فارغة",
+      "browse": "تصفّح المنتجات",
+      "subtotal": "المجموع الفرعي",
+      "vat": "ضريبة القيمة المضافة",
+      "total": "الإجمالي",
+      "remove": "حذف",
+      "free_shipping_left": "ينقصك :amount للحصول على شحن مجاني",
+      "free_shipping_got": "حصلت على شحن مجاني 🎉",
+      "discount": "الخصم",
+      "shipping": "الشحن",
+      "free": "مجاني",
+      "coupon_ok": "طُبّق الكوبون",
+      "coupon_bad": "كود غير صالح",
+      "coupon_remove": "إزالة",
+      "edit_options": "تعديل الخيارات"
+    },
+    "product": {
+      "in_stock": "متوفر في المخزون",
+      "combo_title": "يضيفها العملاء عادة مع هذا المنتج",
+      "question_title": "هل لديك سؤال عن المنتج؟",
+      "question_hint": "اسأل عن المقاسات أو التوصيل أو التركيب، وسنجيبك في أسرع وقت.",
+      "question_placeholder": "اكتب سؤالك أو تعليقك هنا…",
+      "question_sent": "تم إرسال سؤالك، وسيظهر بعد مراجعته من المتجر",
+      "add_name_to_cart": "أضف :name للسلة",
+      "choose_option": "اختر :name",
+      "choose_options": "اختر الخيارات"
+    }
   }
 }

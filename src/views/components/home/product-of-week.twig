@@ -7,12 +7,11 @@
 أضفنا الخيارات لاحقًا تحدّث السعر معها. والعدّاد `salla-count-down` هو نفسه
 المستعمل في صفحة المنتج.
 #}
-{% set sawab_ar = (language.code|default('ar')) == 'ar' %}
-{% set t_save     = sawab_ar ? 'وفّر' : 'Save' %}
-{% set t_tax      = sawab_ar ? 'شامل الضريبة' : 'Tax included' %}
-{% set t_reviews  = sawab_ar ? 'تقييم' : 'reviews' %}
-{% set t_ends_in  = sawab_ar ? 'ينتهي العرض خلال' : 'Offer ends in' %}
-{% set t_all      = sawab_ar ? 'كل العروض' : 'All offers' %}
+{% set t_save     = trans('sawab.common.save') %}
+{% set t_tax      = trans('pages.products.tax_included') %}
+{% set t_reviews  = trans('sawab.common.reviews') %}
+{% set t_ends_in  = trans('sawab.common.offer_ends_in') %}
+{% set t_all      = trans('sawab.home.all_offers') %}
 {% set show_tax   = store.settings.tax.taxable_prices_enabled is not same as(false) %}
 
 {% for product in component.products %}
@@ -38,7 +37,7 @@
       {# القيمة تُطبع خامًا: أي فلتر تحويل عليها أسقط القسم سابقًا #}
       {% if product.is_on_sale and product.discount_percentage %}
         <span class="sawab-pow__badge sawab-pow__badge--sale">
-          {{ sawab_ar ? 'خصم' : 'Save' }} {{ product.discount_percentage|split('.')|first }}%
+          {{ trans('sawab.common.discount') }} {{ product.discount_percentage|split('.')|first }}%
         </span>
       {% endif %}
       {% if component.badge %}
@@ -144,7 +143,7 @@
         {% if component.whatsapp_number %}
           <a href="https://wa.me/{{ component.whatsapp_number }}" target="_blank" rel="noopener" class="sawab-pow__wa">
             <i class="sicon-whatsapp" aria-hidden="true"></i>
-            <span>{{ component.whatsapp_text|default('واتساب') }}</span>
+            <span>{{ component.whatsapp_text|default(trans('sawab.common.whatsapp')) }}</span>
           </a>
         {% endif %}
       </div>

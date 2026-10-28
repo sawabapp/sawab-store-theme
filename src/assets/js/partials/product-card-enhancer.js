@@ -1,3 +1,5 @@
+import t from './i18n';
+
 /**
  * يضيف اسم الماركة وملاحظة "شامل الضريبة" إلى بطاقات المنتجات.
  *
@@ -16,7 +18,7 @@
  */
 function taxLabel() {
   const label = salla.lang.get('pages.products.tax_included');
-  return !label || label.includes('pages.products') ? 'شامل الضريبة' : label;
+  return !label || label.includes('pages.products') ? t('tax-included') : label;
 }
 
 function escapeHTML(str = '') {

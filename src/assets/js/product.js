@@ -4,18 +4,13 @@ import Fslightbox from 'fslightbox';
 window.fslightbox = Fslightbox;
 import { zoom } from './partials/image-zoom';
 
-// نصوص ظاهرة للعميل: نقرأ اللغة من <html lang> التي يضبطها master.twig
-const LANG = (document.documentElement.lang || 'ar').startsWith('ar') ? 'ar' : 'en';
+import t from './partials/i18n';
+
+// نصوص ظاهرة للعميل من ملفات الترجمة (مفاتيح sawab.product.*) عبر partials/i18n.js
 const TEXTS = {
-  ar: {
-    addToCart: name => `أضف ${name} للسلة`,
-    questionSent: 'تم إرسال سؤالك، وسيظهر بعد مراجعته من المتجر',
-  },
-  en: {
-    addToCart: name => `Add ${name} to cart`,
-    questionSent: 'Your question has been sent and will appear once the store reviews it',
-  },
-}[LANG];
+  addToCart: name => t('add-name-to-cart', { name }),
+  questionSent: t('question-sent'),
+};
 
 function escapeHTML(value = '') {
   return String(value)

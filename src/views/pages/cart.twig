@@ -8,10 +8,10 @@
         {# رأس مرئي بنفس نمط رأس التصنيف: الاسم وتحته عدد المنتجات #}
         {% set sawab_ar = (language.code|default('ar')) == 'ar' %}
         <div class="sawab-cart-head">
-            <h1 class="sawab-cart-head__title">{{ sawab_ar ? 'سلة المشتريات' : 'Shopping cart' }}</h1>
+            <h1 class="sawab-cart-head__title">{{ trans('sawab.cart.page_title') }}</h1>
             {% if cart.items|length %}
                 {% set count = cart.items|length %}
-                <p class="sawab-cart-head__count">{{ count }} {{ sawab_ar ? (count > 2 ? 'منتجات' : 'منتج') : (count > 1 ? 'items' : 'item') }}</p>
+                <p class="sawab-cart-head__count">{{ count }} {{ count > (sawab_ar ? 2 : 1) ? trans('sawab.cart.item_many') : trans('sawab.cart.item_one') }}</p>
             {% endif %}
         </div>
         <salla-conditional-offer data-testid="store-cart-conditional-offer"></salla-conditional-offer>

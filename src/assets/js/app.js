@@ -6,6 +6,7 @@ import initProductCardEnhancer from './partials/product-card-enhancer';
 import initSideCart from './partials/side-cart';
 import initCardOptions from './partials/card-options';
 import AppHelpers from "./app-helpers";
+import t from './partials/i18n';
 
 class App extends AppHelpers {
   constructor() {
@@ -248,16 +249,14 @@ isElementLoaded(selector){
 
   /**
    * `<salla-search>` sets its input's placeholder from Salla's own hosted
-   * translation pack (blocks.header.search_placeholder), which theme-level
-   * locale overrides don't reach. Enforce our wording directly on the
-   * input(s) instead, and keep re-applying it since the component re-renders
-   * (and resets the attribute) whenever the user types.
+   * translation pack, which theme locale files don't reach. So the merchant's
+   * wording (setting search_placeholder, printed on #sawab-i18n) is enforced
+   * on the input(s) directly, and re-applied since the component resets the
+   * attribute whenever the user types. Left empty, Salla's default stays.
    */
   customizeSearchPlaceholder() {
-    // اللغة من <html lang> الذي يضبطه master.twig
-    const placeholderText = (document.documentElement.lang || 'ar').startsWith('ar')
-      ? 'ابحث عن خزان، فلتر، مضخة، غطاس'
-      : 'Search for tanks, filters, pumps or submersibles';
+    const placeholderText = t('search-placeholder');
+    if (!placeholderText) return;
 
     const watch = input => {
       const apply = () => {

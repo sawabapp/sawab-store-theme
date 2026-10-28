@@ -28,6 +28,7 @@
  * أضف `?sawab-debug` للرابط ليطبع كل خطوة في الـconsole.
  */
 import { getProductData } from './product-card-enhancer';
+import t from './i18n';
 
 // أنواع الاختيار الواحد — وحدها تُرسم قائمة منسدلة
 const SINGLE_TYPES = ['single-option', 'radio', 'color', 'thumbnail'];
@@ -41,10 +42,9 @@ export default function initCardOptions() {
   const debug = window.location.search.includes('sawab-debug');
   const log = (...args) => debug && console.info('[sawab-card-options]', ...args);
 
-  const isArabic = (document.documentElement.getAttribute('lang') || 'ar').startsWith('ar');
-  const choose = name => (isArabic ? `اختر ${name}` : `Choose ${name}`);
-  const soldOut = isArabic ? 'نفدت الكمية' : 'Sold out';
-  const chooseOptions = isArabic ? 'اختر الخيارات' : 'Choose options';
+  const choose = name => t('choose-option', { name });
+  const soldOut = t('sold-out');
+  const chooseOptions = t('choose-options');
 
   const escape = str => String(str ?? '').replace(/[&<>"']/g, c =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);

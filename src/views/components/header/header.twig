@@ -11,16 +11,14 @@
 {% set important_links = theme.settings.get('important_links') %}
 {% set sticky_header_enabled = theme.settings.get('sticky_header_enabled', true) %}
 
-{# نصوص الهيدر بلغتين. «السلة» من مفاتيح سلة نفسها فتُترجم عبر trans، وما دونها
-   لا مفتاح مؤكّدًا له فنشتقّه من لغة الصفحة (انظر docs/DEVELOPMENT.md) #}
-{% set sawab_ar = (language.code|default('ar')) == 'ar' %}
-{% set t_search = sawab_ar ? 'بحث' : 'Search' %}
-{% set t_account = sawab_ar ? 'حسابي' : 'My account' %}
-{% set t_localization = sawab_ar ? 'اللغة والعملة' : 'Language & currency' %}
-{% set t_menu = sawab_ar ? 'القائمة' : 'Menu' %}
-{% set t_copy_code = sawab_ar ? 'نسخ الكود' : 'Copy code' %}
-{% set t_copied = sawab_ar ? 'تم النسخ' : 'Copied' %}
-{% set t_copy_aria = sawab_ar ? 'نسخ كود الخصم' : 'Copy discount code' %}
+{# نصوص الهيدر من ملفات الترجمة (src/locales، مفاتيح sawab.header.*) #}
+{% set t_search = trans('sawab.header.search') %}
+{% set t_account = trans('sawab.header.account') %}
+{% set t_localization = trans('sawab.header.localization') %}
+{% set t_menu = trans('sawab.header.menu') %}
+{% set t_copy_code = trans('sawab.header.copy_code') %}
+{% set t_copied = trans('sawab.header.copied') %}
+{% set t_copy_aria = trans('sawab.header.copy_code_aria') %}
 
 {# الشريط الإعلاني: إعلانات متعدّدة تتحرّك في مسار واحد، يفصل بينها أيقونة داخل
    دائرة. المسار مكرّر مرّتين ليبدو الدوران متصلًا بلا قفزة عند نهايته، والنسخة

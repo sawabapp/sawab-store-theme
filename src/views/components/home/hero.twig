@@ -3,8 +3,7 @@
 مكوّن مسجّل في twilight.json بالمسار `home.hero`، فيُضاف ويُخفى ويُرتَّب من لوحة
 «عناصر الصفحة» كبقية المكوّنات. لا معرّفات ثابتة فيه، فإضافته أكثر من مرة آمنة.
 #}
-{% set sawab_ar = (language.code|default('ar')) == 'ar' %}
-{% set t_reviews_link = sawab_ar ? 'آراء العملاء' : 'Customer reviews' %}
+{% set t_reviews_link = trans('sawab.home.reviews_link') %}
 {% set badge_text = component.hero_badge_text %}
 {% set title = component.hero_title %}
 {% set title_highlight_prefix = component.hero_title_highlight_prefix %}
@@ -60,7 +59,7 @@
               class="sawab-hero__btn sawab-hero__btn--whatsapp"
             >
               <i class="sicon-whatsapp"></i>
-              <span>{{ whatsapp_button_text|default('استشرنا واتساب') }}</span>
+              <span>{{ whatsapp_button_text|default(trans('sawab.home.whatsapp_cta')) }}</span>
             </a>
           {% endif %}
 

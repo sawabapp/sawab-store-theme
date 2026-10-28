@@ -5,10 +5,9 @@
 `salla.cart.api.details()`. ولا تُرسم إطلاقًا ما لم يفعّلها التاجر، فلا
 تكلّف شيئًا لمن لا يريدها.
 
-النصوص بلغتين بنمط المشروع (ترجمات سلة لا تشمل مفاتيحنا).
+النصوص من ملفات الترجمة (src/locales، مفاتيح sawab.cart.*).
 #}
 {% if theme.settings.get('side_cart_enabled', true) %}
-  {% set sc_ar = (language.code|default('ar')) == 'ar' %}
   <div
     class="sawab-cart"
     data-free-shipping="{{ theme.settings.get('free_shipping_amount')|default('') }}"
@@ -17,15 +16,15 @@
     <div class="sawab-cart__backdrop" data-sawab-cart-close></div>
 
     <aside class="sawab-cart__panel" role="dialog" aria-modal="true"
-           aria-label="{{ sc_ar ? 'سلة التسوق' : 'Shopping cart' }}">
+           aria-label="{{ trans('sawab.cart.drawer_title') }}">
 
       <header class="sawab-cart__head">
         <h2 class="sawab-cart__heading">
-          {{ sc_ar ? 'سلة التسوق' : 'Shopping cart' }}
+          {{ trans('sawab.cart.drawer_title') }}
           <span class="sawab-cart__count" data-sawab-cart-count>0</span>
         </h2>
         <button type="button" class="sawab-cart__close" data-sawab-cart-close
-                aria-label="{{ sc_ar ? 'إغلاق' : 'Close' }}">
+                aria-label="{{ trans('sawab.common.close') }}">
           <i class="sicon-cancel" aria-hidden="true"></i>
         </button>
       </header>
@@ -46,14 +45,14 @@
           <button type="button" class="sawab-cart__coupon-toggle" data-sawab-coupon-toggle
                   aria-expanded="false">
             <i class="sicon-discount-coupon" aria-hidden="true"></i>
-            <span>{{ sc_ar ? 'لديك كوبون خصم؟' : 'Have a coupon?' }}</span>
+            <span>{{ trans('sawab.cart.coupon_prompt') }}</span>
           </button>
 
           <form class="sawab-cart__coupon-form" data-sawab-coupon-form hidden>
             <input type="text" name="coupon" autocomplete="off" spellcheck="false"
-                   placeholder="{{ sc_ar ? 'أدخل كود الخصم' : 'Enter coupon code' }}"
-                   aria-label="{{ sc_ar ? 'كود الخصم' : 'Coupon code' }}">
-            <button type="submit">{{ sc_ar ? 'تطبيق' : 'Apply' }}</button>
+                   placeholder="{{ trans('sawab.cart.coupon_placeholder') }}"
+                   aria-label="{{ trans('sawab.cart.coupon_label') }}">
+            <button type="submit">{{ trans('sawab.cart.apply') }}</button>
           </form>
 
           <p class="sawab-cart__coupon-msg" data-sawab-coupon-msg hidden></p>
@@ -61,7 +60,7 @@
         </div>
 
         <button type="button" class="sawab-cart__checkout" data-sawab-cart-checkout>
-          {{ sc_ar ? 'إتمام الطلب' : 'Checkout' }}
+          {{ trans('sawab.cart.checkout') }}
         </button>
 
         <salla-payments></salla-payments>

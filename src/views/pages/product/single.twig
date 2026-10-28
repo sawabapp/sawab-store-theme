@@ -1,21 +1,19 @@
 {% extends "layouts.master" %}
 {% block content %}
-	{# نصوص الثيم المخصصة بلغتين. لا نمرّرها بـtrans() لأن ترجمات سلة لا تشمل
-	   مفاتيحنا وهي تخدم ترجماتها لا ملفات locales في الثيم (انظر docs/DEVELOPMENT.md) #}
-	{% set sawab_ar = (language.code|default('ar')) == 'ar' %}
+	{# نصوص الثيم من ملفات الترجمة (src/locales، مفاتيح sawab.*) #}
 	{# سطر تحت اسم الماركة يكتبه التاجر من الإعدادات (product_brand_note)، وتركه
 	   فارغًا يخفيه. كان نصًّا ثابتًا «ضمان معتمد من الوكيل» يخصّ متجرًا واحدًا #}
 	{% set t_warranty = theme.settings.get('product_brand_note', 'ضمان معتمد من الوكيل')|default('')|trim %}
-	{% set t_reviews  = sawab_ar ? 'تقييم' : 'reviews' %}
-	{% set t_in_stock = sawab_ar ? 'متوفر في المخزون' : 'In stock' %}
-	{% set t_save     = sawab_ar ? 'وفّر' : 'Save' %}
-	{% set t_ends_in  = sawab_ar ? 'ينتهي العرض بعد' : 'Offer ends in' %}
-	{% set t_combo    = sawab_ar ? 'يضيفها العملاء عادة مع هذا المنتج' : 'Frequently bought with this product' %}
-	{% set t_q_title  = sawab_ar ? 'هل لديك سؤال عن المنتج؟' : 'Have a question about this product?' %}
-	{% set t_q_hint   = sawab_ar ? 'اسأل عن المقاسات أو التوصيل أو التركيب، وسنجيبك في أسرع وقت.' : 'Ask about sizes, delivery or installation — we will reply shortly.' %}
-	{% set t_q_ph     = sawab_ar ? 'اكتب سؤالك أو تعليقك هنا…' : 'Write your question or comment here…' %}
-	{% set t_q_send   = sawab_ar ? 'إرسال' : 'Send' %}
-	{% set t_sticky_add = sawab_ar ? 'أضف للسلة' : 'Add to cart' %}
+	{% set t_reviews  = trans('sawab.common.reviews') %}
+	{% set t_in_stock = trans('sawab.product.in_stock') %}
+	{% set t_save     = trans('sawab.common.save') %}
+	{% set t_ends_in  = trans('sawab.common.offer_ends_in') %}
+	{% set t_combo    = trans('sawab.product.combo_title') %}
+	{% set t_q_title  = trans('sawab.product.question_title') %}
+	{% set t_q_hint   = trans('sawab.product.question_hint') %}
+	{% set t_q_ph     = trans('sawab.product.question_placeholder') %}
+	{% set t_q_send   = trans('sawab.common.send') %}
+	{% set t_sticky_add = trans('pages.cart.add_to_cart') %}
     {% if theme.settings.get('product_show_breadcrumbs', true) %}
       <div class="container container--breadcrumbs">
           {# add breadcumbs container in pages to make a space in case breadcrumbs is off #}

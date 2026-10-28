@@ -10,6 +10,8 @@
  *
  * أضف `?sawab-debug` للرابط ليطبع كائن السلة كاملًا في الـconsole.
  */
+import t from './i18n';
+
 export default function initSideCart() {
   const root = document.querySelector('.sawab-cart');
   if (!root) return;
@@ -17,20 +19,15 @@ export default function initSideCart() {
   const debug = window.location.search.includes('sawab-debug');
   const log = (...args) => debug && console.info('[sawab-cart]', ...args);
 
-  const isArabic = (document.documentElement.getAttribute('lang') || 'ar').startsWith('ar');
-  const TEXTS = isArabic
-    ? { empty: 'سلتك فارغة', browse: 'تصفّح المنتجات', sub: 'المجموع الفرعي',
-        tax: 'ضريبة القيمة المضافة', total: 'الإجمالي', remove: 'حذف',
-        free: 'شحن مجاني', left: n => `ينقصك ${n} للحصول على شحن مجاني`,
-        got: 'حصلت على شحن مجاني 🎉', discount: 'الخصم',
-        couponOk: 'طُبّق الكوبون', couponBad: 'كود غير صالح', couponOff: 'إزالة',
-        shipping: 'الشحن', freeShip: 'مجاني', edit: 'تعديل الخيارات' }
-    : { empty: 'Your cart is empty', browse: 'Browse products', sub: 'Subtotal',
-        tax: 'VAT', total: 'Total', remove: 'Remove',
-        free: 'Free shipping', left: n => `${n} away from free shipping`,
-        got: 'You got free shipping 🎉', discount: 'Discount',
-        couponOk: 'Coupon applied', couponBad: 'Invalid code', couponOff: 'Remove',
-        shipping: 'Shipping', freeShip: 'Free', edit: 'Edit options' };
+  // النصوص من ملفات الترجمة (مفاتيح sawab.cart.*) عبر partials/i18n.js
+  const TEXTS = {
+    empty: t('cart-empty'), browse: t('cart-browse'), sub: t('cart-subtotal'),
+    tax: t('cart-vat'), total: t('cart-total'), remove: t('cart-remove'),
+    left: amount => t('cart-free-left', { amount }), got: t('cart-free-got'),
+    discount: t('cart-discount'), couponOk: t('cart-coupon-ok'), couponBad: t('cart-coupon-bad'),
+    couponOff: t('cart-coupon-remove'), shipping: t('cart-shipping'), freeShip: t('cart-free'),
+    edit: t('cart-edit'),
+  };
 
   const $ = sel => root.querySelector(sel);
   const body = $('[data-sawab-cart-body]');

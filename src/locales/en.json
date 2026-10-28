@@ -25,6 +25,66 @@
     "bank_offer_sub_title_single": "Pay for your purchases via :bank_name bank card and get discount"
   },
   "sawab": {
-    "locale_probe": "theme-key-works"
+    "common": {
+      "close": "Close",
+      "reviews": "reviews",
+      "save": "Save",
+      "discount": "Save",
+      "offer_ends_in": "Offer ends in",
+      "whatsapp": "WhatsApp",
+      "send": "Send",
+      "sold_out": "Sold out"
+    },
+    "header": {
+      "search": "Search",
+      "account": "My account",
+      "localization": "Language & currency",
+      "menu": "Menu",
+      "copy_code": "Copy code",
+      "copied": "Copied",
+      "copy_code_aria": "Copy discount code"
+    },
+    "home": {
+      "reviews_link": "Customer reviews",
+      "whatsapp_cta": "Ask us on WhatsApp",
+      "all_offers": "All offers"
+    },
+    "cart": {
+      "page_title": "Shopping cart",
+      "item_one": "item",
+      "item_many": "items",
+      "drawer_title": "Shopping cart",
+      "coupon_prompt": "Have a coupon?",
+      "coupon_placeholder": "Enter coupon code",
+      "coupon_label": "Coupon code",
+      "apply": "Apply",
+      "checkout": "Checkout",
+      "empty": "Your cart is empty",
+      "browse": "Browse products",
+      "subtotal": "Subtotal",
+      "vat": "VAT",
+      "total": "Total",
+      "remove": "Remove",
+      "free_shipping_left": ":amount away from free shipping",
+      "free_shipping_got": "You got free shipping 🎉",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "free": "Free",
+      "coupon_ok": "Coupon applied",
+      "coupon_bad": "Invalid code",
+      "coupon_remove": "Remove",
+      "edit_options": "Edit options"
+    },
+    "product": {
+      "in_stock": "In stock",
+      "combo_title": "Frequently bought with this product",
+      "question_title": "Have a question about this product?",
+      "question_hint": "Ask about sizes, delivery or installation — we will reply shortly.",
+      "question_placeholder": "Write your question or comment here…",
+      "question_sent": "Your question has been sent and will appear once the store reviews it",
+      "add_name_to_cart": "Add :name to cart",
+      "choose_option": "Choose :name",
+      "choose_options": "Choose options"
+    }
   }
 }

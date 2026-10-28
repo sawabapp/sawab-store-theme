@@ -63,8 +63,32 @@
   {{ theme.settings.get('topnav_is_dark') ? ' topnav-is-dark' : '' }}
   {{ theme.settings.get('sticky_add_to_cart') ? ' is-sticky-product-bar' : '' }}
   ">
-{# مجسّ مؤقت: هل يصل مفتاح ترجمة جديد من src/locales إلى trans()؟ يُحذف بعد الاختبار #}
-<!-- locale-probe [{{ trans('sawab.locale_probe') }}] -->
+{# نصوص الجافاسكربت: salla.lang لا يرى ملفات src/locales (اختُبر 2026-10-28)، أما
+   trans() فيراها. فيطبعها twig هنا مترجمةً وتقرؤها partials/i18n.js — كسمات لا
+   كـJSON حتى لا نحتاج |raw. و:name و:amount تستبدلها الدالة t() #}
+<div id="sawab-i18n" hidden
+     data-cart-empty="{{ trans('sawab.cart.empty') }}"
+     data-cart-browse="{{ trans('sawab.cart.browse') }}"
+     data-cart-subtotal="{{ trans('sawab.cart.subtotal') }}"
+     data-cart-vat="{{ trans('sawab.cart.vat') }}"
+     data-cart-total="{{ trans('sawab.cart.total') }}"
+     data-cart-remove="{{ trans('sawab.cart.remove') }}"
+     data-cart-free-left="{{ trans('sawab.cart.free_shipping_left') }}"
+     data-cart-free-got="{{ trans('sawab.cart.free_shipping_got') }}"
+     data-cart-discount="{{ trans('sawab.cart.discount') }}"
+     data-cart-shipping="{{ trans('sawab.cart.shipping') }}"
+     data-cart-free="{{ trans('sawab.cart.free') }}"
+     data-cart-coupon-ok="{{ trans('sawab.cart.coupon_ok') }}"
+     data-cart-coupon-bad="{{ trans('sawab.cart.coupon_bad') }}"
+     data-cart-coupon-remove="{{ trans('sawab.cart.coupon_remove') }}"
+     data-cart-edit="{{ trans('sawab.cart.edit_options') }}"
+     data-choose-option="{{ trans('sawab.product.choose_option') }}"
+     data-choose-options="{{ trans('sawab.product.choose_options') }}"
+     data-sold-out="{{ trans('sawab.common.sold_out') }}"
+     data-add-name-to-cart="{{ trans('sawab.product.add_name_to_cart') }}"
+     data-question-sent="{{ trans('sawab.product.question_sent') }}"
+     data-tax-included="{{ trans('pages.products.tax_included') }}"
+     data-search-placeholder="{{ theme.settings.get('search_placeholder')|default('')|trim }}"></div>
 {# شاشة التحميل: أول عنصر في body، وأنماطها الحرجة داخلية لتعمل قبل app.css.
    تبدأ مخفية ولا تظهر إلا إن مرّت 400ms دون أن تجهز الصفحة — كانت تغطّي
    الصفحة الجاهزة حتى 3.5 ثانية فيبدو المتجر أبطأ مما هو. وإخفاؤها بسكربت
