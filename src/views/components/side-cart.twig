@@ -7,7 +7,7 @@
 
 النصوص بلغتين بنمط المشروع (ترجمات سلة لا تشمل مفاتيحنا).
 #}
-{% if theme.settings.get('side_cart_enabled')|default(true) %}
+{% if theme.settings.get('side_cart_enabled', true) %}
   {% set sc_ar = (language.code|default('ar')) == 'ar' %}
   <div
     class="sawab-cart"

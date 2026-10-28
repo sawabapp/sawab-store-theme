@@ -16,7 +16,7 @@
 {% set announcement_copy_enabled = theme.settings.get('announcement_copy_code_enabled') %}
 {% set announcement_copy_code = theme.settings.get('announcement_copy_code') %}
 {% set important_links = theme.settings.get('important_links') %}
-{% set sticky_header_enabled = theme.settings.get('sticky_header_enabled')|default(true) %}
+{% set sticky_header_enabled = theme.settings.get('sticky_header_enabled', true) %}
 
 {# نصوص الهيدر بلغتين. «السلة» من مفاتيح سلة نفسها فتُترجم عبر trans، وما دونها
    لا مفتاح مؤكّدًا له فنشتقّه من لغة الصفحة (انظر CLAUDE.md) #}
