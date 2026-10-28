@@ -30,13 +30,7 @@ class App extends AppHelpers {
     this.initiateHeaderLocalization();
     this.initiateStickyHeader();
     
-    // Ensure #more-menu-dropdown exists before running changeMenuDirection
-    const menuDirInterval = setInterval(() => {
-      if (document.querySelector('#more-menu-dropdown')) {
-        this.changeMenuDirection();
-        clearInterval(menuDirInterval);
-      }
-    }, 100);
+    this.changeMenuDirection();
 
     initTootTip();
     initProductCardEnhancer();
@@ -54,22 +48,31 @@ class App extends AppHelpers {
     return this;
   }
 
+    /**
+     * يقلب اتجاه القوائم الفرعية لعنصر قائمة إن خرجت عن حافة الشاشة.
+     *
+     * كانت تنتظر ظهور قائمة «المزيد» بفحص كل 100ms، ثم تربط مستمعًا بكل عنصر.
+     * لكن «المزيد» لا تُرسم إلا إذا ضاقت الشاشة عن العناصر — فإن اتّسعت ظلّ
+     * الفحص يعمل بلا نهاية ولم يُصحَّح اتجاه أي عنصر. ومستمع واحد على الصفحة
+     * يفحص العنصر لحظة المرور عليه، فلا ينتظر رسم القائمة (custom-main-menu)
+     * ويشمل ما يُعاد رسمه عند تغيير حجم النافذة.
+     */
     changeMenuDirection() {
-      setTimeout(() => {
-        app.all('.root-level.has-children', item => {
-          if (item.classList.contains('change-menu-dir')) return;
-          app.on('mouseover', item, () => {
-            let allSubMenus = item.querySelectorAll('.sub-menu');
-            allSubMenus.forEach((submenu, idx) => {
-              if (idx === 0) return;
-              let rect = submenu.getBoundingClientRect();
-              if (rect.left < 10 || rect.right > window.innerWidth - 10) {
-                app.addClass(item, 'change-menu-dir');
-              }
-            });
-          });
+      document.addEventListener('mouseover', ({ target }) => {
+        const item = target.closest?.('.root-level.has-children');
+        if (!item || item.classList.contains('change-menu-dir')) return;
+
+        item.querySelectorAll('.sub-menu').forEach((submenu, idx) => {
+          if (idx === 0) return;
+          const rect = submenu.getBoundingClientRect();
+          // المخفي بـdisplay:none (أجزاء الميجا منيو) أبعاده أصفار فيبدو
+          // خارج الحافة اليسرى — لا يُحكم عليه
+          if (!rect.width) return;
+          if (rect.left < 10 || rect.right > window.innerWidth - 10) {
+            app.addClass(item, 'change-menu-dir');
+          }
         });
-      }, 1000);
+      });
     }
 
   loadModalImgOnclick(){
