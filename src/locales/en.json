@@ -47,7 +47,9 @@
     "home": {
       "reviews_link": "Customer reviews",
       "whatsapp_cta": "Ask us on WhatsApp",
-      "all_offers": "All offers"
+      "all_offers": "All offers",
+      "all_articles": "All articles",
+      "read_article": "Read article"
     },
     "cart": {
       "page_title": "Shopping cart",

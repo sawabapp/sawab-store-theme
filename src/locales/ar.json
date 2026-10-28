@@ -47,7 +47,9 @@
     "home": {
       "reviews_link": "آراء العملاء",
       "whatsapp_cta": "استشرنا واتساب",
-      "all_offers": "كل العروض"
+      "all_offers": "كل العروض",
+      "all_articles": "كل المقالات",
+      "read_article": "اقرأ المقال"
     },
     "cart": {
       "page_title": "سلة المشتريات",
