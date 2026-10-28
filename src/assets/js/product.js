@@ -251,9 +251,16 @@ class Product extends BasePage {
     /**
      * بطاقات الخيارات: سلة تكتب اسم الخيار ثم فرق السعر كنص بين قوسين
      * "1500 لتر (+400 ر.س)"، والتصميم يطلب السعر الكامل للخيار بسطر منفصل.
-     * نسأل نقطة سعر المنتج عن سعر كل خيار — مباشرةً عبر salla.api.request لا
-     * عبر salla.product.getPrice، لأن الأخير يبثّ حدث تحديث السعر فيغيّر سعر
-     * أعلى الصفحة مع كل استعلام.
+     *
+     * المصدر بطلب واحد على الأكثر — شروط سوق الثيمات تمنع «طلبًا لكل عنصر»
+     * (Technical Review 1.5)، وكنا نطلب سعر كل قيمة على حدة (ستة لخزان بست سعات):
+     * - منتج بمتغيّرات (مجموعة واحدة وفروق السعر كلها أصفار، فلكل قيمة سعرها):
+     *   `products/{id}/details` مع `with: ['skus']` يعيد كل النسخ بأسعارها، وكل نسخة
+     *   تحمل `related_option_values` = معرّفات قيم الخيار التي تخصّها.
+     * - غير ذلك: سعر المنتج + فرق سعر القيمة، بلا أي طلب. ومع أكثر من مجموعة
+     *   هو تقدير، لأن السعر الفعلي يتبع التركيبة كاملةً.
+     * لا نستعمل salla.api.product.getDetails: يبثّ حدثًا عامًا يلتقطه
+     * salla-product-options. ولا salla.product.getPrice: يغيّر سعر أعلى الصفحة.
      */
     initOptionCards() {
       const options = document.querySelector('salla-product-options');
@@ -278,29 +285,29 @@ class Product extends BasePage {
         additionalPrices[detail.id] = Number(detail.additional_price) || 0;
       }));
 
-      // مجموعة خيارات واحدة ⇒ نسأل سلة عن سعر كل خيار، وهو المصدر الموثوق:
-      // يعكس أسعار المتغيّرات والتخفيضات وأي تعديل في لوحة المنتج. أما مع أكثر
-      // من مجموعة فالاستعلام يفشل لنقص بقية الخيارات المطلوبة، فنكتفي حينها
-      // بـ (سعر المنتج + فرق سعر الخيار) وهو تقدير قد يخالف سعر المتغيّر.
       const soleOption = optionsData.length === 1 ? optionsData[0] : null;
-      const fetched = new Map();
+      const isVariant = soleOption && (soleOption.details || []).every(detail => !Number(detail.additional_price));
+
+      // قيمة الخيار ⇒ سعرها {amount, currency}؛ يُجلب مرة واحدة عند الحاجة
+      let skuPrices = null;
+      const loadSkuPrices = () => {
+        skuPrices = skuPrices || salla.api.request(`products/${productId}/details`, { params: { with: ['skus'] } }, 'get')
+          .then(res => {
+            const map = new Map();
+            (res?.data?.skus || []).forEach(sku => (sku.related_option_values || [])
+              .forEach(valueId => map.set(String(valueId), sku.price)));
+            return map;
+          })
+          .catch(() => new Map());
+        return skuPrices;
+      };
 
       const priceOf = (detailId) => {
-        if (!soleOption) {
-          return Promise.resolve(basePrice + (additionalPrices[detailId] || 0));
+        const estimate = basePrice + (additionalPrices[detailId] || 0);
+        if (!isVariant) {
+          return Promise.resolve(estimate);
         }
-
-        if (!fetched.has(detailId)) {
-          const payload = new FormData();
-          payload.append('id', productId);
-          payload.append(`options[${soleOption.id}]`, detailId);
-
-          fetched.set(detailId, salla.api.request(`products/${productId}/price`, payload, 'post')
-            .then(res => Number(res?.data?.price))
-            .catch(() => NaN));
-        }
-
-        return fetched.get(detailId);
+        return loadSkuPrices().then(map => map.get(String(detailId)) ?? estimate);
       };
 
       // لا نلمس أبناء البطاقة إطلاقًا: سلة (Stencil) تحتفظ بمرجع لعقدة النص
@@ -318,11 +325,13 @@ class Product extends BasePage {
           card.dataset.sawabDetail = detailId;
 
           priceOf(detailId).then(price => {
-            if (card.dataset.sawabDetail !== detailId || !Number.isFinite(price)) {
+            const amount = typeof price === 'object' ? Number(price?.amount) : price;
+            if (card.dataset.sawabDetail !== detailId || !Number.isFinite(amount)) {
               return;
             }
 
-            // money(price, false) نصّ صريح بلا وسوم — attr() لا يعرض HTML
+            // money(price, false) نصّ صريح بلا وسوم — attr() لا يعرض HTML. وسعر
+            // النسخة كائن {amount, currency} فيُعرض برمز عملته هو
             card.dataset.sawabPrice = salla.money(price, false);
           });
         });
