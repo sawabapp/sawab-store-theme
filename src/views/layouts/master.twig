@@ -31,17 +31,34 @@
     {% hook 'head:start' %}
     {% hook head %}
     {% block styles %}{% endblock %}
-    {# خط المتجر من سلة يجلب الوزن 400 وحده، وتصميمنا يعتمد على 500–800
-       (العناوين والأسعار والأزرار). كانت الأوزان ‎@import داخل app.css فلا
-       تبدأ إلا بعد تنزيله؛ هنا تبدأ بالتوازي معه. ومشروطة بخط المتجر: لو
-       غيّره التاجر لا نحمّل IBM بلا داعٍ #}
+    {# ملفّا الخط لا يوقفان رسم الصفحة: فيهما ‎@font-face بـswap فقط، فيظهر النص
+       فورًا بخط احتياطي ثم يتبدّل. كانا يؤخّران أول رسم (FCP) بانتظار خادمَي
+       Google على الجوال. preload يبدأ التنزيل مبكرًا، والسكربت يفعّله بلا حجب —
+       لا onload مضمّن حتى لا تحجبه سياسة CSP، والرابط في سمة لا داخل السكربت
+       لأن twig يهرّب & في النص.
+       ورابطنا لأوزان IBM: خط سلة يجلب 400 وحده وتصميمنا يعتمد على 500–800،
+       ومشروط بخط المتجر فلا نحمّله إن غيّره التاجر #}
     {% if (theme.font.name|default('')) starts with 'IBM Plex' %}
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700;800&display=swap">
+        <link rel="preload" as="style" data-sawab-font href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700;800&display=swap">
     {% endif %}
+    <link rel="preload" as="style" data-sawab-font href="{{ theme.font.path|cdn }}">
+    <script>
+        document.querySelectorAll('link[data-sawab-font]').forEach(function (preload) {
+            var sheet = document.createElement('link');
+            sheet.rel = 'stylesheet';
+            sheet.href = preload.href;
+            document.head.appendChild(sheet);
+        });
+    </script>
+    <noscript>
+        {% if (theme.font.name|default('')) starts with 'IBM Plex' %}
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700;800&display=swap">
+        {% endif %}
+        <link rel="stylesheet" href="{{ theme.font.path|cdn }}">
+    </noscript>
     <link rel="stylesheet" href="{{ 'app.css' | asset }}">
-    <link rel="stylesheet" href="{{ theme.font.path|cdn }}"/>
     <link rel="stylesheet" href="{{ 'fonts/sallaicons.css'|cdn }}"/>
     
     <style>
