@@ -195,11 +195,15 @@
                     </div>
                 {% endif %}
 
-                {% if product.sold_quantity %}
+                {# يُخفى عند الصفر، وحين يطفئ التاجر «عرض عدد مرات الشراء» فلا تصل القيمة.
+                   النص من ترجمات سلة لأن pluralize يضبط جمع العدد في اللغتين #}
+                {% if (product.sold_quantity|default(0)) > 0 %}
                     <div class="sawab-sold">
-                        <i class="sicon-fire"></i>
-                        {{ trans('pages.products.sold') }}
-                        <span>{{ pluralize('pages.products.sold_times', product.sold_quantity)|raw }}</span>
+                        <span class="sawab-sold__icon" aria-hidden="true"><i class="sicon-fire"></i></span>
+                        <span class="sawab-sold__text">
+                            {{ trans('pages.products.sold') }}
+                            <strong class="sawab-sold__count">{{ pluralize('pages.products.sold_times', product.sold_quantity)|raw }}</strong>
+                        </span>
                     </div>
                 {% endif %}
 

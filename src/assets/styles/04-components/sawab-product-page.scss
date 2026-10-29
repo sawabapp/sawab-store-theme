@@ -195,23 +195,68 @@ salla-slider.details-slider {
 }
 
 // ----- عدد مرات الشراء -----
+// شريط كريمي بحدّ بيج وأيقونة نار في دائرة بلون المتجر — نفس لغة شارة «وفّر».
+// اللون الأساسي عبر color-mix ليتبع أي --color-primary يختاره التاجر.
 .sawab-sold {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 14px;
-  font-size: 13px;
-  font-weight: 600;
-  color: $sawab-muted;
+  gap: 10px;
+  max-width: 100%;
+  margin-bottom: 16px;
+  background: $sawab-cream;
+  border: 1px solid $sawab-save-border;
+  border-radius: 999px;
+  font-size: 14px;
+  line-height: 1.4;
+
+  // الأيقونة في بداية السطر: حشوة ضيقة جهتها، وأوسع في الجهة الأخرى
+  [dir="rtl"] & { padding: 6px 6px 6px 16px; }
+  [dir="ltr"] & { padding: 6px 16px 6px 6px; }
+}
+
+.sawab-sold__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #fdeceb;
+  background: color-mix(in srgb, var(--color-primary) 12%, #fff);
+  color: var(--color-primary);
 
   i {
-    font-size: 15px;
-    color: var(--color-primary);
+    font-size: 16px;
+    animation: sawab-sold-flicker 2.4s ease-in-out infinite;
+    transform-origin: 50% 90%;
   }
+}
 
-  span {
-    color: var(--main-text-color);
-  }
+.sawab-sold__text {
+  color: $sawab-save-text;
+  font-weight: 500;
+}
+
+.sawab-sold__count {
+  color: var(--main-text-color, #1a1a1a);
+  font-weight: 800;
+}
+
+@keyframes sawab-sold-flicker {
+  0%, 100% { transform: scale(1) rotate(0); }
+  30% { transform: scale(1.12) rotate(-4deg); }
+  60% { transform: scale(0.96) rotate(3deg); }
+}
+
+@media (max-width: 480px) {
+  .sawab-sold { font-size: 13px; gap: 8px; }
+  .sawab-sold__icon { width: 26px; height: 26px; }
+  .sawab-sold__icon i { font-size: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sawab-sold__icon i { animation: none; }
 }
 
 // ----- السعر -----
