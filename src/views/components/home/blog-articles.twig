@@ -1,17 +1,13 @@
 {#
 
-لكل مقال: `image` و `title` و `summary` و `tag` و `date` و `url`.
-المقالات يكتبها التاجر في مجموعة: لا منتقي مقالات في Twilight، وواجهة
-`blog/articles` تُرجع 403 «الميزة غير متاحة» من الثيم. والتاريخ نصّ يُطبع كما
-كُتب — بلا `|date` (انظر القاعدة الذهبية في docs/DEVELOPMENT.md).
+المقالات تأتي من مدونة المتجر: `home.js` يطلب أحدث 4 من `blog/articles`
+ويملأ `<template>` لكلٍّ منها (نصوص بـ`textContent` فلا حقن HTML). ولا منتقي
+مقالات يصل القالب في Twilight (اختُبر: يعيد `[]`).
 
-الأول يُرسم كبيرًا والبقية قائمة بجانبه. والمقال بلا رابط صندوق لا يُنقر.
+القسم مخفيّ حتى تصل المقالات، ويبقى مخفيًا إن لم توجد أو أُغلقت المدونة.
+التاجر يكتب التصنيفات فقط، بالترتيب: الأول للمقال الأحدث.
 #}
-{% set articles = component.articles|default([]) %}
-<!-- probe [{{ component.articles_pick|json_encode }}] -->
-
-{% if articles|length %}
-<section data-testid="store-home-blog-articles" class="s-block sawab-blog{{ articles|length == 1 ? ' sawab-blog--single' : '' }}">
+<section data-testid="store-home-blog-articles" class="s-block sawab-blog" hidden>
 
   {% if component.title or component.subtitle or component.all_url %}
     <div class="sawab-blog__head">
@@ -28,63 +24,41 @@
     </div>
   {% endif %}
 
-  <div class="sawab-blog__grid">
-    {% for item in articles %}
-      {% set featured = loop.first %}
+  <div class="sawab-blog__grid"></div>
 
-      {% if item.url %}
-        <a href="{{ item.url }}" class="sawab-blog__card{{ featured ? ' sawab-blog__card--featured' : '' }}">
-      {% else %}
-        <div class="sawab-blog__card{{ featured ? ' sawab-blog__card--featured' : '' }}">
-      {% endif %}
+  <span hidden>
+    {% for item in component.labels|default([]) %}<span data-sawab-blog-label>{{ item.label }}</span>{% endfor %}
+  </span>
 
-        <span class="sawab-blog__media">
-          {% if item.image %}
-            <img src="{{ item.image|cdn(featured ? 800 : 400) }}" alt="{{ item.title|default('') }}" loading="lazy"
-                 width="{{ featured ? 800 : 300 }}" height="{{ featured ? 450 : 220 }}">
-          {% else %}
-            <i class="sicon-book-open sawab-blog__noimg" aria-hidden="true"></i>
-          {% endif %}
-          {% if featured and component.badge %}
-            <span class="sawab-blog__badge">
-              <i class="sicon-star2" aria-hidden="true"></i>
-              <span>{{ component.badge }}</span>
-            </span>
-          {% endif %}
+  <template class="sawab-blog__tpl">
+    <a class="sawab-blog__card">
+      <span class="sawab-blog__media">
+        <img alt="" loading="lazy" width="800" height="450">
+        <i class="sicon-book-open sawab-blog__noimg" aria-hidden="true"></i>
+        {% if component.badge %}
+          <span class="sawab-blog__badge">
+            <i class="sicon-star2" aria-hidden="true"></i>
+            <span>{{ component.badge }}</span>
+          </span>
+        {% endif %}
+      </span>
+
+      <span class="sawab-blog__body">
+        <span class="sawab-blog__meta">
+          <span class="sawab-blog__tag"></span>
+          <span class="sawab-blog__date">
+            <i class="sicon-calendar-date" aria-hidden="true"></i>
+            <span></span>
+          </span>
         </span>
-
-        <span class="sawab-blog__body">
-          {% if item.tag or item.date %}
-            <span class="sawab-blog__meta">
-              {% if item.tag %}<span class="sawab-blog__tag">{{ item.tag }}</span>{% endif %}
-              {% if item.date %}
-                <span class="sawab-blog__date">
-                  {% if featured %}<i class="sicon-calendar-date" aria-hidden="true"></i>{% endif %}
-                  <span>{{ item.date }}</span>
-                </span>
-              {% endif %}
-            </span>
-          {% endif %}
-
-          {% if item.title %}
-            <h3 class="sawab-blog__title">{{ item.title }}</h3>
-          {% endif %}
-
-          {% if featured and item.summary %}
-            <span class="sawab-blog__summary">{{ item.summary }}</span>
-          {% endif %}
-
-          {% if item.url %}
-            <span class="sawab-blog__more">
-              <span>{{ trans('sawab.home.read_article') }}</span>
-              <i class="sicon-arrow-left" aria-hidden="true"></i>
-            </span>
-          {% endif %}
+        <h3 class="sawab-blog__title"></h3>
+        <span class="sawab-blog__summary"></span>
+        <span class="sawab-blog__more">
+          <span>{{ trans('sawab.home.read_article') }}</span>
+          <i class="sicon-arrow-left" aria-hidden="true"></i>
         </span>
-
-      {% if item.url %}</a>{% else %}</div>{% endif %}
-    {% endfor %}
-  </div>
+      </span>
+    </a>
+  </template>
 
 </section>
-{% endif %}

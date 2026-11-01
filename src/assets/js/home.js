@@ -8,6 +8,73 @@ class Home extends BasePage {
         this.initFeaturedTabs();
         this.initProductOfWeekPrice();
         this.initStatsCounter();
+        this.initBlogArticles();
+    }
+
+    /**
+     * «من المدونة»: أحدث 4 مقالات من `blog/articles` في طلب واحد.
+     *
+     * المقال يصل بـ`name` و`summary` و`image` و`created_at` (منسّق جاهزًا)،
+     * و`id` هو مسار المقال بعد `blog/` (مثل `-/a-198806137`) — لا `url` فيه.
+     * التصنيفات يكتبها التاجر بالترتيب. والقسم يبقى مخفيًا بلا مقالات.
+     */
+    initBlogArticles() {
+        const section = document.querySelector('.sawab-blog');
+        const tpl = section && section.querySelector('.sawab-blog__tpl');
+        if (!tpl) return;
+
+        const labels = Array.from(section.querySelectorAll('[data-sawab-blog-label]'))
+            .map(el => el.textContent.trim());
+
+        salla.api.request('blog/articles', { params: { per_page: 4 } }, 'get')
+            .then(res => {
+                const articles = (Array.isArray(res && res.data) ? res.data : []).slice(0, 4);
+                if (!articles.length) return;
+
+                const grid = section.querySelector('.sawab-blog__grid');
+                articles.forEach((article, i) => grid.append(this.blogCard(tpl, article, labels[i], i === 0)));
+                section.classList.toggle('sawab-blog--single', articles.length === 1);
+                section.hidden = false;
+            })
+            .catch(() => {});
+    }
+
+    blogCard(tpl, article, label, featured) {
+        const card = tpl.content.firstElementChild.cloneNode(true);
+        const drop = selector => card.querySelector(selector)?.remove();
+        const fill = (selector, text) => {
+            const el = card.querySelector(selector);
+            if (text) el.textContent = text; else el.remove();
+        };
+
+        card.href = salla.url.get('blog/' + article.id);
+        card.classList.toggle('sawab-blog__card--featured', featured);
+
+        const img = card.querySelector('img');
+        if (article.image) {
+            img.src = article.image;
+            img.alt = article.name || '';
+            if (!featured) { img.width = 300; img.height = 220; }
+            drop('.sawab-blog__noimg');
+        } else {
+            img.remove();
+        }
+
+        fill('.sawab-blog__tag', label);
+        fill('.sawab-blog__date span', article.created_at);
+        if (!article.created_at) drop('.sawab-blog__date');
+        if (!label && !article.created_at) drop('.sawab-blog__meta');
+        fill('.sawab-blog__title', article.name);
+
+        if (featured) {
+            fill('.sawab-blog__summary', article.summary);
+        } else {
+            drop('.sawab-blog__summary');
+            drop('.sawab-blog__badge');
+            drop('.sawab-blog__date i');
+        }
+
+        return card;
     }
 
     /**
