@@ -167,6 +167,16 @@ $sawab-blog-border: #ece6dc;
   transition: color 0.2s ease;
 }
 
+.sawab-blog__summary {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #6b6b6b;
+}
+
 .sawab-blog__more {
   display: inline-flex;
   align-items: center;

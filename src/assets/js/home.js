@@ -61,6 +61,7 @@ class Home extends BasePage {
         fill('.sawab-blog__date', article.created_at);
         if (!card.querySelector('.sawab-blog__meta').children.length) card.querySelector('.sawab-blog__meta').remove();
         fill('.sawab-blog__title', article.name);
+        fill('.sawab-blog__summary', article.summary);
 
         return card;
     }
