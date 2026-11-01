@@ -39,7 +39,7 @@
 
         <span class="sawab-blog__media">
           {% if item.image %}
-            <img src="{{ item.image }}" alt="{{ item.title|default('') }}" loading="lazy"
+            <img src="{{ item.image|cdn(featured ? 800 : 400) }}" alt="{{ item.title|default('') }}" loading="lazy"
                  width="{{ featured ? 800 : 300 }}" height="{{ featured ? 450 : 220 }}">
           {% else %}
             <i class="sicon-book-open sawab-blog__noimg" aria-hidden="true"></i>

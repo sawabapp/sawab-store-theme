@@ -31,7 +31,7 @@
         <li class="sawab-tb__cell">
           <a href="{{ brand.url }}" class="sawab-tb__card">
             <span class="sawab-tb__logo">
-              <img src="{{ brand.logo }}" alt="{{ brand.name }}" loading="lazy" width="160" height="120">
+              <img src="{{ brand.logo ? brand.logo|cdn(320) : '' }}" alt="{{ brand.name }}" loading="lazy" width="160" height="120">
             </span>
             <span class="sawab-tb__name">{{ brand.name }}</span>
           </a>

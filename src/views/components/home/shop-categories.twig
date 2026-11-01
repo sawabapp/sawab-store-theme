@@ -39,7 +39,7 @@
           <a href="{{ cat.url }}" class="sawab-cats__card">
             <span class="sawab-cats__media">
               {% if cat.image %}
-                <img src="{{ cat.image }}" alt="{{ cat.name }}" width="96" height="96" loading="lazy">
+                <img src="{{ cat.image|cdn(200) }}" alt="{{ cat.name }}" width="96" height="96" loading="lazy">
               {% else %}
                 <i class="{{ cat.icon|default('sicon-shapes') }}" aria-hidden="true"></i>
               {% endif %}
