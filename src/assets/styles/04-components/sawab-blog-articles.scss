@@ -58,7 +58,7 @@ $sawab-blog-border: #ece6dc;
 // العمود الأول للمقال الكبير بكامل ارتفاع القائمة، والثاني للبقية
 .sawab-blog__grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   grid-auto-rows: auto;
   gap: 20px 32px;
 }
@@ -74,7 +74,7 @@ $sawab-blog-border: #ece6dc;
 // ===== البطاقة =====
 .sawab-blog__card {
   display: grid;
-  grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 170px) minmax(0, 1fr);
   align-items: center;
   gap: 20px;
   padding: 14px;
@@ -102,13 +102,13 @@ $sawab-blog-border: #ece6dc;
 }
 
 // ===== الصورة =====
-// صور المقالات صور حقيقية لا منتجات مفرّغة: تملأ الإطار (cover) بلا حشوة.
+// مربّعة بـcontain: الصورة كاملة بلا قصّ مهما كان مقاسها (صورة أو بنر عريض).
 .sawab-blog__media {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 1;
   overflow: hidden;
   background: $sawab-blog-cream;
   border-radius: 16px;
@@ -116,13 +116,12 @@ $sawab-blog-border: #ece6dc;
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     transition: transform 0.35s ease;
   }
 }
 
 .sawab-blog__card--featured .sawab-blog__media {
-  aspect-ratio: 16 / 9;
   border-radius: 18px;
 }
 
@@ -241,7 +240,7 @@ $sawab-blog-border: #ece6dc;
 // ===== الشاشات الأصغر =====
 @media (max-width: 1200px) {
   .sawab-blog__grid { gap: 20px 24px; }
-  .sawab-blog__card { grid-template-columns: minmax(0, 180px) minmax(0, 1fr); gap: 16px; }
+  .sawab-blog__card { grid-template-columns: minmax(0, 140px) minmax(0, 1fr); gap: 16px; }
   .sawab-blog__card--featured { grid-template-columns: minmax(0, 1fr); }
   .sawab-blog__title { font-size: 17px; }
   .sawab-blog__card--featured .sawab-blog__title { font-size: 22px; }
@@ -252,6 +251,7 @@ $sawab-blog-border: #ece6dc;
   .sawab-blog { padding: 28px 24px; }
   .sawab-blog__grid { grid-template-columns: minmax(0, 1fr); }
   .sawab-blog__card--featured { grid-row: auto; }
+  .sawab-blog__card--featured .sawab-blog__media { width: 100%; max-width: 460px; margin: 0 auto; }
 }
 
 @media (max-width: 768px) {
@@ -269,8 +269,7 @@ $sawab-blog-border: #ece6dc;
   }
 
   .sawab-blog__card--featured { grid-template-columns: minmax(0, 1fr); }
-  .sawab-blog__media { border-radius: 12px; aspect-ratio: 1; }
-  .sawab-blog__card--featured .sawab-blog__media { aspect-ratio: 16 / 9; }
+  .sawab-blog__media { border-radius: 12px; }
   .sawab-blog__body { gap: 8px; }
   .sawab-blog__card--featured .sawab-blog__body { gap: 12px; padding: 18px 6px 6px; }
   .sawab-blog__tag { font-size: 12px; padding: 3px 10px; }
