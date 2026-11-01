@@ -14,7 +14,7 @@ class Home extends BasePage {
     /**
      * «من المدونة»: أحدث 4 مقالات من `blog/articles` في طلب واحد.
      *
-     * المقال يصل بـ`name` و`summary` و`image` و`created_at` (منسّق جاهزًا)،
+     * المقال يصل بـ`name` و`image` و`created_at` (منسّق جاهزًا) و`summary`،
      * و`id` هو مسار المقال بعد `blog/` (مثل `-/a-198806137`) — لا `url` فيه.
      * التصنيفات يكتبها التاجر بالترتيب. والقسم يبقى مخفيًا بلا مقالات.
      */
@@ -33,46 +33,34 @@ class Home extends BasePage {
 
                 const grid = section.querySelector('.sawab-blog__grid');
                 articles.forEach((article, i) => grid.append(this.blogCard(tpl, article, labels[i], i === 0)));
-                section.classList.toggle('sawab-blog--single', articles.length === 1);
                 section.hidden = false;
             })
             .catch(() => {});
     }
 
-    blogCard(tpl, article, label, featured) {
+    blogCard(tpl, article, label, first) {
         const card = tpl.content.firstElementChild.cloneNode(true);
-        const drop = selector => card.querySelector(selector)?.remove();
         const fill = (selector, text) => {
             const el = card.querySelector(selector);
             if (text) el.textContent = text; else el.remove();
         };
 
         card.href = salla.url.get('blog/' + article.id);
-        card.classList.toggle('sawab-blog__card--featured', featured);
 
         const img = card.querySelector('img');
         if (article.image) {
             img.src = article.image;
             img.alt = article.name || '';
-            if (!featured) { img.width = 300; img.height = 220; }
-            drop('.sawab-blog__noimg');
+            card.querySelector('.sawab-blog__noimg').remove();
         } else {
             img.remove();
         }
 
+        if (!first) card.querySelector('.sawab-blog__badge')?.remove();
         fill('.sawab-blog__tag', label);
-        fill('.sawab-blog__date span', article.created_at);
-        if (!article.created_at) drop('.sawab-blog__date');
-        if (!label && !article.created_at) drop('.sawab-blog__meta');
+        fill('.sawab-blog__date', article.created_at);
+        if (!card.querySelector('.sawab-blog__meta').children.length) card.querySelector('.sawab-blog__meta').remove();
         fill('.sawab-blog__title', article.name);
-
-        if (featured) {
-            fill('.sawab-blog__summary', article.summary);
-        } else {
-            drop('.sawab-blog__summary');
-            drop('.sawab-blog__badge');
-            drop('.sawab-blog__date i');
-        }
 
         return card;
     }
