@@ -8,6 +8,7 @@
 الأول يُرسم كبيرًا والبقية قائمة بجانبه. والمقال بلا رابط صندوق لا يُنقر.
 #}
 {% set articles = component.articles|default([]) %}
+<!-- probe [{{ component.articles_pick|json_encode }}] -->
 
 {% if articles|length %}
 <section data-testid="store-home-blog-articles" class="s-block sawab-blog{{ articles|length == 1 ? ' sawab-blog--single' : '' }}">
