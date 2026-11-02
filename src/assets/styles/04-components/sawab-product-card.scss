@@ -160,6 +160,17 @@ $sawab-card-promo-ink: #1c1b19;
     margin: 0;
   }
 
+  // مكان ثابت للماركة: البطاقة بلا ماركة تحجز سطرها فارغًا بخطّ .sawab-card__brand
+  // نفسه، فلا يرتفع الاسم ولا السعر عن جاراتها. والمُحسِّن يضيف الماركة بعد
+  // الرسم فتحلّ محلّ السطر الفارغ بلا قفزة
+  .s-product-card-content-main:not(:has(.sawab-card__brand))::before {
+    content: '\00a0';
+    display: block;
+    margin-bottom: 4px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
   // اسم المنتج: سطران كحد أقصى ثم "..."
   .s-product-card-content-title {
     margin: 0;
@@ -167,7 +178,9 @@ $sawab-card-promo-ink: #1c1b19;
     font-weight: 700;
     line-height: 1.6;
 
+    // ارتفاع سطرين دائمًا (1.6 × 2) وإن قصر الاسم، فيبقى السعر في مكانه
     a {
+      min-height: 3.2em;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       line-clamp: 2;
