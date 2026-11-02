@@ -1014,6 +1014,27 @@ $sawab-btn-height: 52px;
       font-size: 15px;
     }
   }
+
+  // زر Apple Pay (أجهزة أبل فقط): سلة ترسمه تحت صف الزرين بارتفاع 40px وهامش
+  // 10px، وهو مكوّن أبل يُضبط بمتغيّراته وحدها. border-box ليكون 52px فعلًا
+  salla-quick-buy apple-pay-button {
+    --apple-pay-button-width: 100%;
+    --apple-pay-button-height: #{$sawab-btn-height};
+    --apple-pay-button-border-radius: 12px;
+    --apple-pay-button-box-sizing: border-box;
+  }
+
+  // الهامش نفسه بين الصفّين كما بين الزرين (12px). وعلى الجوال مع الشريط
+  // اللاصق تضعه سلة بجانب الزرين في الصف نفسه فلا هامش
+  .s-add-product-button-with-apple-pay salla-quick-buy apple-pay-button.s-quick-buy-apple-pay {
+    margin-top: 12px;
+  }
+
+  @media (max-width: 639px) {
+    .s-add-product-button-with-sticky-bar salla-quick-buy apple-pay-button.s-quick-buy-apple-pay {
+      margin-top: 0;
+    }
+  }
 }
 
 @media (max-width: 768px) {
