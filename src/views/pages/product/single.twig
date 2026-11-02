@@ -319,6 +319,25 @@
                     {% endif %}
                 </form>
 
+                {# بنر كود الخصم: تحت صف الأزرار بعرضه. بكود يصير زرًا ينسخه
+                   (app.copyToClipboard كزر الشريط الإعلاني) ويُظهر «تم النسخ» لحظة #}
+                {% set promo_banner = theme.settings.get('product_promo_banner') %}
+                {% set promo_code = theme.settings.get('product_promo_code')|trim %}
+                {% if promo_banner %}
+                    {% if promo_code %}
+                        <button type="button" class="sawab-promo" onclick="app.copyToClipboard(event)" data-content="{{ promo_code }}" aria-label="{{ trans('sawab.header.copy_code_aria') }}: {{ promo_code }}">
+                            <img src="{{ promo_banner|cdn(1000) }}" alt="" loading="lazy" width="1200" height="300">
+                            <span class="sawab-promo__copied" aria-live="polite">
+                                <i class="sicon-check" aria-hidden="true"></i>{{ trans('sawab.header.copied') }}
+                            </span>
+                        </button>
+                    {% else %}
+                        <div class="sawab-promo">
+                            <img src="{{ promo_banner|cdn(1000) }}" alt="" loading="lazy" width="1200" height="300">
+                        </div>
+                    {% endif %}
+                {% endif %}
+
                 {# الوصف نُقل أسفل قسم المنتج بعرض الصفحة الكامل #}
 
                 {% if product.tags|length and theme.settings.get('show_tags', true) %}
