@@ -244,9 +244,11 @@
   }
 
   .s-count-down-item-label {
+    margin-top: 2px; // هامش سلة 0.25rem يُبعد التسمية عن الرقم
     font-size: 10px;
     font-weight: 600;
     line-height: 1.3;
+    opacity: 1;
     white-space: nowrap;
     color: #8a8a8a;
   }

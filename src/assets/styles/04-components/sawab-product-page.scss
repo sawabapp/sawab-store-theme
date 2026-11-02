@@ -331,9 +331,13 @@ salla-slider.details-slider {
     justify-content: flex-start;
   }
 
+  // سلة تضع للعنصر حشوًا رأسيًا 0.5rem وللتسمية هامشًا علويًا وارتفاع سطر
+  // 20px على خط 10px، فيبتعد الرقم عن تسميته — نضمّهما في المنتصف
   .s-count-down-item {
+    justify-content: center;
+    gap: 3px;
     min-width: 46px;
-    padding: 5px 8px;
+    padding: 7px 8px;
     border-radius: 10px;
     background: #fff;
   }
@@ -341,14 +345,17 @@ salla-slider.details-slider {
   .s-count-down-item-value {
     font-size: 16px;
     font-weight: 800;
-    line-height: 1.2;
+    line-height: 1.1;
     color: var(--main-text-color);
   }
 
   .s-count-down-item-label {
+    margin-top: 0;
     font-size: 10px;
     font-weight: 600;
+    line-height: 1.2;
     color: $sawab-muted;
+    opacity: 1;
   }
 
   .s-count-down-end-text {
