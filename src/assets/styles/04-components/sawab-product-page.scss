@@ -1226,7 +1226,7 @@ $sawab-btn-height: 52px;
   padding: 8px 12px;
   color: var(--promo-fg);
   border: 2px solid transparent;
-  border-radius: 16px;
+  border-radius: 12px;
   --promo-angle: 0deg; // بلا @property يبقى التدرّج صالحًا ثابتًا
   // إطار مصمت بلون الإعداد، يدور عليه وميض فاتح: طبقة الخلفية تملأ الداخل
   // (padding-box) والتدرّج المخروطي يظهر في الإطار وحده (border-box)
@@ -1257,7 +1257,7 @@ $sawab-btn-height: 52px;
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: 10px;
+  border-radius: 9px;
   background: var(--promo-code-bg);
   color: var(--promo-code-fg);
   font-size: 18px;
@@ -1302,8 +1302,8 @@ $sawab-btn-height: 52px;
   padding: 5px 12px;
   background: var(--promo-code-bg);
   color: var(--promo-code-fg);
-  border: 1.5px dashed var(--promo-code-fg);
-  border-radius: 12px;
+  border: 1.5px dashed color-mix(in srgb, var(--promo-code-fg) 55%, transparent);
+  border-radius: 9px;
 }
 
 .sawab-promo__value {

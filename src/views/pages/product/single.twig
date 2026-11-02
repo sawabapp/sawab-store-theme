@@ -320,7 +320,7 @@
                 </form>
 
                 {# بطاقة كود الخصم: تحت صف الأزرار بعرضه، وألوانها الخمسة من الإعدادات
-                   عبر متغيّرات CSS. الضغط ينسخ الكود (app.copyToClipboard كالشريط
+                   عبر متغيّرات CSS، وفارغةً تتبع لون أزرار الشراء (--color-primary). الضغط ينسخ الكود (app.copyToClipboard كالشريط
                    الإعلاني) ويُبدّل «نسخ الكود» بـ«تم النسخ» ثانيةً (`.copied`) #}
                 {% set promo_code = theme.settings.get('product_promo_code')|trim %}
                 {% if promo_code %}
@@ -328,7 +328,7 @@
                     {% set promo_text = theme.settings.get('product_promo_text') %}
                     <button type="button" class="sawab-promo" onclick="app.copyToClipboard(event)" data-content="{{ promo_code }}"
                             aria-label="{{ trans('sawab.header.copy_code_aria') }}: {{ promo_code }}"
-                            style="--promo-bg: {{ theme.settings.get('product_promo_bg')|default('#fdf3f2') }}; --promo-fg: {{ theme.settings.get('product_promo_fg')|default('#1a1a1a') }}; --promo-border: {{ theme.settings.get('product_promo_border')|default('#c62127') }}; --promo-code-bg: {{ theme.settings.get('product_promo_code_bg')|default('#ffffff') }}; --promo-code-fg: {{ theme.settings.get('product_promo_code_fg')|default('#c62127') }};">
+                            style="--promo-bg: {{ theme.settings.get('product_promo_bg')|default('color-mix(in srgb, var(--color-primary) 6%, #fff)') }}; --promo-fg: {{ theme.settings.get('product_promo_fg')|default('var(--main-text-color, #1a1a1a)') }}; --promo-border: {{ theme.settings.get('product_promo_border')|default('var(--color-primary)') }}; --promo-code-bg: {{ theme.settings.get('product_promo_code_bg')|default('var(--color-primary)') }}; --promo-code-fg: {{ theme.settings.get('product_promo_code_fg')|default('var(--color-primary-reverse, #fff)') }};">
                         <span class="sawab-promo__icon" aria-hidden="true"><i class="sicon-discount-coupon"></i></span>
                         {% if promo_title or promo_text %}
                             <span class="sawab-promo__text">
