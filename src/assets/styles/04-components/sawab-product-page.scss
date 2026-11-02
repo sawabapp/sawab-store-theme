@@ -1224,10 +1224,21 @@ $sawab-btn-height: 52px;
   width: 100%;
   margin-top: 12px;
   padding: 8px 12px;
-  background: var(--promo-bg);
   color: var(--promo-fg);
-  border: 1.5px dashed var(--promo-border);
+  border: 2px solid transparent;
   border-radius: 16px;
+  --promo-angle: 0deg; // بلا @property يبقى التدرّج صالحًا ثابتًا
+  // إطار مصمت بلون الإعداد، يدور عليه وميض فاتح: طبقة الخلفية تملأ الداخل
+  // (padding-box) والتدرّج المخروطي يظهر في الإطار وحده (border-box)
+  background:
+    linear-gradient(var(--promo-bg), var(--promo-bg)) padding-box,
+    conic-gradient(
+      from var(--promo-angle),
+      var(--promo-border) 0 70%,
+      rgba(255, 255, 255, 0.95) 82%,
+      var(--promo-border) 94%
+    ) border-box;
+  animation: sawab-promo-spin 3.5s linear infinite;
   cursor: copy;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
@@ -1269,6 +1280,18 @@ $sawab-btn-height: 52px;
   font-size: 12.5px;
   line-height: 1.45;
   opacity: 0.75;
+}
+
+// زاوية الوميض متغيّر مسجَّل ليقبل الحركة؛ والمتصفح الذي لا يدعم @property
+// يرسم الإطار ثابتًا بلا حركة
+@property --promo-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes sawab-promo-spin {
+  to { --promo-angle: 360deg; }
 }
 
 // الكود في صندوق بإطار متقطّع، وبجانبه فعل النسخ في سطر واحد
@@ -1320,5 +1343,5 @@ $sawab-btn-height: 52px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sawab-promo { transition: none; }
+  .sawab-promo { transition: none; animation: none; }
 }
