@@ -38,7 +38,7 @@
             <div class="main-content sawab-art__main">
                 <article class="sawab-art__body">{{ article.body|replace({'&nbsp;': ' '})|raw }}</article>
 
-                {% if article.tags|length %}
+                {% if article.tags|length and theme.settings.get('show_tags', true) %}
                     <div class="sawab-art__tags">
                         {% for tag in article.tags %}
                             <a href="{{ tag.url }}"><i class="sicon-tag" aria-hidden="true"></i>{{ tag.name }}</a>
