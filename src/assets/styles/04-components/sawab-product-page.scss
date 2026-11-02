@@ -1213,58 +1213,115 @@ $sawab-btn-height: 52px;
   }
 }
 
-// ===== بنر كود الخصم تحت صف الأزرار =====
-// بعرض الصف كاملًا. بكود يصير زرًا: app.copyToClipboard يضيف `.copied` ثانيةً
-// فتظهر «تم النسخ» فوق البنر.
+// ===== بطاقة كود الخصم تحت صف الأزرار =====
+// بعرض الصف كاملًا. الألوان الخمسة متغيّرات CSS من الإعدادات على العنصر نفسه.
+// app.copyToClipboard يضيف `.copied` ثانيةً فيتبدّل «نسخ الكود» بـ«تم النسخ».
 .sawab-promo {
-  position: relative;
-  display: block;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
   width: 100%;
   margin-top: 14px;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
-  border-radius: 14px;
-  background: #f8f1e7;
-
-  img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-}
-
-button.sawab-promo {
+  padding: 12px 14px;
+  background: var(--promo-bg);
+  color: var(--promo-fg);
+  border: 1.5px dashed var(--promo-border);
+  border-radius: 16px;
   cursor: copy;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
+  [dir="rtl"] & { text-align: right; }
+  [dir="ltr"] & { text-align: left; }
+
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(26, 26, 26, 0.1);
+    box-shadow: 0 8px 22px rgba(26, 26, 26, 0.08);
   }
 }
 
-.sawab-promo__copied {
-  position: absolute;
-  inset: 0;
+.sawab-promo__icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  background: rgba(26, 26, 26, 0.72);
-  color: #fff;
-  font-size: 17px;
-  font-weight: 800;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-
-  i { font-size: 18px; color: #4ade80; }
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--promo-code-bg);
+  color: var(--promo-code-fg);
+  font-size: 22px;
 }
 
-.sawab-promo.copied .sawab-promo__copied { opacity: 1; }
+.sawab-promo__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.sawab-promo__title {
+  font-size: 15.5px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.sawab-promo__sub {
+  font-size: 13px;
+  line-height: 1.6;
+  opacity: 0.75;
+}
+
+// الكود في صندوق بإطار متقطّع، وتحته فعل النسخ
+.sawab-promo__code {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 112px;
+  padding: 8px 14px;
+  background: var(--promo-code-bg);
+  color: var(--promo-code-fg);
+  border: 1.5px dashed var(--promo-code-fg);
+  border-radius: 12px;
+}
+
+.sawab-promo__value {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+}
+
+.sawab-promo__action,
+.sawab-promo__done {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sawab-promo__done { display: none; }
+.sawab-promo.copied .sawab-promo__action { display: none; }
+.sawab-promo.copied .sawab-promo__done { display: inline-flex; }
+
+// الجوال: الكود ينزل سطرًا كاملًا تحت النص
+@media (max-width: 480px) {
+  .sawab-promo {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 10px 12px;
+    padding: 12px;
+  }
+
+  .sawab-promo__icon { width: 40px; height: 40px; font-size: 19px; }
+
+  .sawab-promo__code {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
-  button.sawab-promo,
-  .sawab-promo__copied { transition: none; }
+  .sawab-promo { transition: none; }
 }

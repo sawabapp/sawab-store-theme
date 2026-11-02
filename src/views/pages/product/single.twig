@@ -319,23 +319,32 @@
                     {% endif %}
                 </form>
 
-                {# بنر كود الخصم: تحت صف الأزرار بعرضه. بكود يصير زرًا ينسخه
-                   (app.copyToClipboard كزر الشريط الإعلاني) ويُظهر «تم النسخ» لحظة #}
-                {% set promo_banner = theme.settings.get('product_promo_banner') %}
+                {# بطاقة كود الخصم: تحت صف الأزرار بعرضه، وألوانها الخمسة من الإعدادات
+                   عبر متغيّرات CSS. الضغط ينسخ الكود (app.copyToClipboard كالشريط
+                   الإعلاني) ويُبدّل «نسخ الكود» بـ«تم النسخ» ثانيةً (`.copied`) #}
                 {% set promo_code = theme.settings.get('product_promo_code')|trim %}
-                {% if promo_banner %}
-                    {% if promo_code %}
-                        <button type="button" class="sawab-promo" onclick="app.copyToClipboard(event)" data-content="{{ promo_code }}" aria-label="{{ trans('sawab.header.copy_code_aria') }}: {{ promo_code }}">
-                            <img src="{{ promo_banner|cdn(1000) }}" alt="" loading="lazy" width="1200" height="300">
-                            <span class="sawab-promo__copied" aria-live="polite">
-                                <i class="sicon-check" aria-hidden="true"></i>{{ trans('sawab.header.copied') }}
+                {% if promo_code %}
+                    {% set promo_title = theme.settings.get('product_promo_title') %}
+                    {% set promo_text = theme.settings.get('product_promo_text') %}
+                    <button type="button" class="sawab-promo" onclick="app.copyToClipboard(event)" data-content="{{ promo_code }}"
+                            aria-label="{{ trans('sawab.header.copy_code_aria') }}: {{ promo_code }}"
+                            style="--promo-bg: {{ theme.settings.get('product_promo_bg')|default('#fdf3f2') }}; --promo-fg: {{ theme.settings.get('product_promo_fg')|default('#1a1a1a') }}; --promo-border: {{ theme.settings.get('product_promo_border')|default('#c62127') }}; --promo-code-bg: {{ theme.settings.get('product_promo_code_bg')|default('#ffffff') }}; --promo-code-fg: {{ theme.settings.get('product_promo_code_fg')|default('#c62127') }};">
+                        <span class="sawab-promo__icon" aria-hidden="true"><i class="sicon-discount-coupon"></i></span>
+                        {% if promo_title or promo_text %}
+                            <span class="sawab-promo__text">
+                                {% if promo_title %}<span class="sawab-promo__title">{{ promo_title }}</span>{% endif %}
+                                {% if promo_text %}<span class="sawab-promo__sub">{{ promo_text }}</span>{% endif %}
                             </span>
-                        </button>
-                    {% else %}
-                        <div class="sawab-promo">
-                            <img src="{{ promo_banner|cdn(1000) }}" alt="" loading="lazy" width="1200" height="300">
-                        </div>
-                    {% endif %}
+                        {% endif %}
+                        <span class="sawab-promo__code">
+                            <span class="sawab-promo__value" dir="ltr">{{ promo_code }}</span>
+                            <span class="sawab-promo__action">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
+                                {{ trans('sawab.header.copy_code') }}
+                            </span>
+                            <span class="sawab-promo__done" aria-live="polite"><i class="sicon-check" aria-hidden="true"></i>{{ trans('sawab.header.copied') }}</span>
+                        </span>
+                    </button>
                 {% endif %}
 
                 {# الوصف نُقل أسفل قسم المنتج بعرض الصفحة الكامل #}
