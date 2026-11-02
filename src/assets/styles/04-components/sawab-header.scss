@@ -519,7 +519,9 @@ salla-cart-summary {
 .site-nav__row {
   display: flex;
   align-items: center;
-  gap: 28px;
+  // بلا فجوة: «الروابط الهامة» تلي آخر رابط في القائمة كأنها منها، والمسافة
+  // بين الروابط من حشوها وحده (12px لكل جانب)
+  gap: 0;
   padding: 12px 48px;
   max-width: 1400px;
   margin: 0 auto;
