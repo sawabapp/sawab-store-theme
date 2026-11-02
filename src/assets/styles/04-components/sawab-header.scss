@@ -704,6 +704,24 @@ salla-cart-summary {
   }
 }
 
+// «الروابط الهامة» (salla-menu topnav، مثل المدونة) بخطّ روابط القائمة الرئيسية
+// نفسه: 14px بوزن 700 وحشوها، بلا فواصل رأسية وارتفاع سطر 1 من أنماط الشريط العلوي
+.site-nav__row salla-menu[topnav] {
+  display: flex;
+  align-items: center;
+
+  .s-menu-topnav-list { gap: 0; }
+
+  .s-menu-topnav-item,
+  .topnav-link-item {
+    padding: 8px 12px;
+    border: 0;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.25rem;
+  }
+}
+
 .site-nav__row a.active,
 .site-nav__row a:hover {
   color: var(--color-primary);
