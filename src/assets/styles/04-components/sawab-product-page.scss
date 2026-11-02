@@ -1220,10 +1220,10 @@ $sawab-btn-height: 52px;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   width: 100%;
-  margin-top: 14px;
-  padding: 12px 14px;
+  margin-top: 12px;
+  padding: 8px 12px;
   background: var(--promo-bg);
   color: var(--promo-fg);
   border: 1.5px dashed var(--promo-border);
@@ -1244,41 +1244,39 @@ $sawab-btn-height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   background: var(--promo-code-bg);
   color: var(--promo-code-fg);
-  font-size: 22px;
+  font-size: 18px;
 }
 
 .sawab-promo__text {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 0;
   min-width: 0;
 }
 
 .sawab-promo__title {
-  font-size: 15.5px;
+  font-size: 14.5px;
   font-weight: 800;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
 .sawab-promo__sub {
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 12.5px;
+  line-height: 1.45;
   opacity: 0.75;
 }
 
-// الكود في صندوق بإطار متقطّع، وتحته فعل النسخ
+// الكود في صندوق بإطار متقطّع، وبجانبه فعل النسخ في سطر واحد
 .sawab-promo__code {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 2px;
-  min-width: 112px;
-  padding: 8px 14px;
+  gap: 10px;
+  padding: 5px 12px;
   background: var(--promo-code-bg);
   color: var(--promo-code-fg);
   border: 1.5px dashed var(--promo-code-fg);
@@ -1286,7 +1284,7 @@ $sawab-btn-height: 52px;
 }
 
 .sawab-promo__value {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 800;
   letter-spacing: 0.08em;
   line-height: 1.4;
@@ -1309,15 +1307,14 @@ $sawab-btn-height: 52px;
 @media (max-width: 480px) {
   .sawab-promo {
     grid-template-columns: auto minmax(0, 1fr);
-    gap: 10px 12px;
-    padding: 12px;
+    gap: 8px 10px;
+    padding: 8px 10px;
   }
 
-  .sawab-promo__icon { width: 40px; height: 40px; font-size: 19px; }
+  .sawab-promo__icon { width: 32px; height: 32px; font-size: 16px; }
 
   .sawab-promo__code {
     grid-column: 1 / -1;
-    flex-direction: row;
     justify-content: space-between;
   }
 }
