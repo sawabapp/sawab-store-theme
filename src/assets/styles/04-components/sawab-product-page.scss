@@ -1225,7 +1225,7 @@ $sawab-btn-height: 52px;
   margin-top: 12px;
   padding: 8px 12px;
   color: var(--promo-fg);
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   border-radius: 12px;
   --promo-angle: 0deg; // بلا @property يبقى التدرّج صالحًا ثابتًا
   // إطار مصمت بلون الإعداد، يدور عليه وميض فاتح: طبقة الخلفية تملأ الداخل
