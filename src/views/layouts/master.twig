@@ -21,6 +21,7 @@
         window.imageZoom = "{{theme.settings.get('imageZoom')}}"
         window.can_access_wallet = {{ user.can_access_wallet | json_encode }}
         window.enable_more_menu = "{{ theme.settings.get('enable_more_menu', true) }}"
+        window.show_offers_link = {{ theme.settings.get('show_offers_link', true) ? 'true' : 'false' }}
         window.enable_add_product_toast = "{{ theme.settings.get('enable_add_product_toast', true) }}"
         window.card_options_enabled = {{ theme.settings.get('card_quick_options', true) ? 'true' : 'false' }}
         window.notify_when_available_in_card = "{{ theme.settings.get('notify_when_available_in_card', true) }}"

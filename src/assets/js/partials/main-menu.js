@@ -22,7 +22,8 @@ class NavigationMenu extends HTMLElement {
 
                 return salla.api.component.getMenus()
                 .then(({ data }) => {
-                    this.menus = data;
+                    // رابط «تخفيضات» تحقنه سلة في القائمة (id: offers) ولا يُحذف من اللوحة
+                    this.menus = window.show_offers_link === false ? data.filter(menu => menu.id !== 'offers') : data;
                     return this.render()
                 }).then(() => {
                     this.initializeResponsiveMenu();
