@@ -393,6 +393,14 @@
   .sawab-hero__side {
     flex-direction: column;
   }
+
+  // البطاقات بعرض كامل هنا، فيعود الرابط بجانب التقييم في الطرف المقابل
+  .sawab-hero__card--rating {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
 }
 
 @media (max-width: 480px) {
