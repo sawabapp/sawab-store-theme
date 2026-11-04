@@ -1,7 +1,11 @@
 {#
 
-لكل بنر: `image` و `eyebrow` و `title` و `subtitle` و `bg` و `btn` و `url`.
-لون الخلفية إعداد تاجر فيمرّ كمتغيّر CSS مضمّن لا كقيمة ثابتة في الأنماط.
+لكل بنر: `image` (حاسوب) و `mobile_image` (جوال، حتى 768px) و `eyebrow` و `title`
+و `subtitle` و `bg` و `btn` و `url`. لون الخلفية إعداد تاجر فيمرّ كمتغيّر CSS مضمّن.
+
+البنر بنسبة ثابتة (كبير 1300×600 / جوال 800×500 · صغير 640×350 / جوال 400×400)
+فالصورة بالمقاس المذكور تملؤه تمامًا. و`mobile_image` بـ`|default` لأن البنرات
+المحفوظة قبل إضافة الحقل لا تحمل مفتاحه.
 
 البنر رابط كامل حين يُملأ `url`، وإلا فصندوق غير قابل للنقر — فلا نرسم وسم
 `<a>` بلا وجهة.
@@ -15,15 +19,16 @@
   {% if large|length %}
     <div class="sawab-bn__row sawab-bn__row--large">
       {% for item in large %}
+        {% set has_text = item.eyebrow or item.title or item.subtitle or item.btn %}
+        {% set mobile_image = item.mobile_image|default('') %}
         {% if item.url %}
-          <a href="{{ item.url }}" class="sawab-bn__card sawab-bn__card--large" style="--bn-bg: {{ item.bg|default('#e63329') }};">
+          <a href="{{ item.url }}" class="sawab-bn__card sawab-bn__card--large{% if not has_text %} sawab-bn__card--image{% endif %}" style="--bn-bg: {{ item.bg|default('#e63329') }};">
         {% else %}
-          <div class="sawab-bn__card sawab-bn__card--large" style="--bn-bg: {{ item.bg|default('#e63329') }};">
+          <div class="sawab-bn__card sawab-bn__card--large{% if not has_text %} sawab-bn__card--image{% endif %}" style="--bn-bg: {{ item.bg|default('#e63329') }};">
         {% endif %}
 
-          {# بلا كتلة نص فارغة: البنر قد يكون صورة وحدها، وعندها تأخذ
-             الصورة البطاقة كاملة عبر :only-child في الأنماط #}
-          {% if item.eyebrow or item.title or item.subtitle or item.btn %}
+          {# بلا نص: الصورة وحدها تملأ البنر (sawab-bn__card--image) #}
+          {% if has_text %}
           <div class="sawab-bn__text">
             {% if item.eyebrow %}<span class="sawab-bn__eyebrow">{{ item.eyebrow }}</span>{% endif %}
             {% if item.title %}<h3 class="sawab-bn__title">{{ item.title }}</h3>{% endif %}
@@ -37,9 +42,12 @@
           </div>
           {% endif %}
 
-          {% if item.image %}
+          {% if item.image or mobile_image %}
             <span class="sawab-bn__media">
-              <img src="{{ item.image|cdn(800) }}" alt="{{ item.title|default('') }}" loading="lazy" width="520" height="360">
+              <picture>
+                {% if mobile_image %}<source media="(max-width: 768px)" srcset="{{ mobile_image|cdn(800) }}" width="800" height="500">{% endif %}
+                <img src="{{ item.image|default(mobile_image)|cdn(1300) }}" alt="{{ item.title|default('') }}" loading="lazy" width="1300" height="600">
+              </picture>
             </span>
           {% endif %}
 
@@ -51,13 +59,15 @@
   {% if small|length %}
     <div class="sawab-bn__row sawab-bn__row--small">
       {% for item in small %}
+        {% set has_text = item.eyebrow or item.title or item.subtitle %}
+        {% set mobile_image = item.mobile_image|default('') %}
         {% if item.url %}
-          <a href="{{ item.url }}" class="sawab-bn__card sawab-bn__card--small" style="--bn-bg: {{ item.bg|default('#e63329') }};">
+          <a href="{{ item.url }}" class="sawab-bn__card sawab-bn__card--small{% if not has_text %} sawab-bn__card--image{% endif %}" style="--bn-bg: {{ item.bg|default('#e63329') }};">
         {% else %}
-          <div class="sawab-bn__card sawab-bn__card--small" style="--bn-bg: {{ item.bg|default('#e63329') }};">
+          <div class="sawab-bn__card sawab-bn__card--small{% if not has_text %} sawab-bn__card--image{% endif %}" style="--bn-bg: {{ item.bg|default('#e63329') }};">
         {% endif %}
 
-          {% if item.eyebrow or item.title or item.subtitle %}
+          {% if has_text %}
           <div class="sawab-bn__text">
             {% if item.eyebrow %}<span class="sawab-bn__eyebrow">{{ item.eyebrow }}</span>{% endif %}
             {% if item.title %}<h3 class="sawab-bn__title">{{ item.title }}</h3>{% endif %}
@@ -65,9 +75,12 @@
           </div>
           {% endif %}
 
-          {% if item.image %}
+          {% if item.image or mobile_image %}
             <span class="sawab-bn__media">
-              <img src="{{ item.image|cdn(600) }}" alt="{{ item.title|default('') }}" loading="lazy" width="300" height="220">
+              <picture>
+                {% if mobile_image %}<source media="(max-width: 768px)" srcset="{{ mobile_image|cdn(400) }}" width="400" height="400">{% endif %}
+                <img src="{{ item.image|default(mobile_image)|cdn(640) }}" alt="{{ item.title|default('') }}" loading="lazy" width="640" height="350">
+              </picture>
             </span>
           {% endif %}
 

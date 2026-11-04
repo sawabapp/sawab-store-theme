@@ -32,6 +32,9 @@
   border-radius: 22px;
   color: #fff;
   text-decoration: none;
+  // نسبة ثابتة فتطابق الصورة المقاس المكتوب للتاجر. وبنر النص يطول إن احتاج
+  // نصّه (min-content) بدل أن يُقصّ تحت overflow: hidden
+  min-height: min-content;
   transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
@@ -46,13 +49,13 @@ a.sawab-bn__card:focus-visible {
 }
 
 .sawab-bn__card--large {
-  min-height: 300px;
+  aspect-ratio: 1300 / 600;
   padding: 30px 32px;
   border-radius: 26px;
 }
 
 .sawab-bn__card--small {
-  min-height: 170px;
+  aspect-ratio: 640 / 350;
   padding: 20px 22px;
 }
 
@@ -124,6 +127,8 @@ a.sawab-bn__card:focus-visible {
   justify-content: center;
   align-self: stretch;
 
+  picture { display: contents; }
+
   img {
     width: 100%;
     height: 100%;
@@ -143,23 +148,18 @@ a.sawab-bn__card:focus-visible {
   margin-bottom: -20px;
 }
 
-// بنر بلا نص: الصورة وحدها في البطاقة، فتأخذها كاملةً
-.sawab-bn__media:only-child {
-  width: 100%;
-  flex: 1 1 auto;
-}
+// بنر بلا نص: الصورة وحدها تملؤه بالنسبة الثابتة تمامًا، فلا يطول بطولها
+.sawab-bn__card.sawab-bn__card--image {
+  min-height: 0;
+  padding: 0;
 
-.sawab-bn__card--large .sawab-bn__media:only-child {
-  margin: -30px -32px;
-}
+  .sawab-bn__media {
+    width: 100%;
+    flex: 1 1 auto;
+    margin: 0;
+  }
 
-.sawab-bn__card--small .sawab-bn__media:only-child {
-  margin: -20px -22px;
-}
-
-// الصورة وحدها تملأ البطاقة بالكامل بلا فراغ حولها
-.sawab-bn__media:only-child img {
-  object-fit: cover;
+  img { object-fit: cover; }
 }
 
 // ===== الشاشات الأصغر =====
@@ -168,10 +168,7 @@ a.sawab-bn__card:focus-visible {
 
   .sawab-bn__row--small { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-  .sawab-bn__card--large {
-    min-height: 240px;
-    padding: 24px;
-  }
+  .sawab-bn__card--large { padding: 24px; }
 
   .sawab-bn__card--large .sawab-bn__title { font-size: 32px; }
 }
@@ -188,7 +185,7 @@ a.sawab-bn__card:focus-visible {
   .sawab-bn__row--large { grid-template-columns: minmax(0, 1fr); }
 
   .sawab-bn__card--large {
-    min-height: 210px;
+    aspect-ratio: 800 / 500;
     border-radius: 20px;
   }
 
@@ -196,7 +193,7 @@ a.sawab-bn__card:focus-visible {
   .sawab-bn__card--small .sawab-bn__title { font-size: 18px; }
 
   .sawab-bn__card--small {
-    min-height: 150px;
+    aspect-ratio: 1 / 1;
     padding: 16px 16px;
     border-radius: 18px;
   }
