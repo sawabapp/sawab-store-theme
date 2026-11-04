@@ -26,7 +26,8 @@ $sawab-stats-muted: #5e5a55;
 // ----- الترويسة -----
 .sawab-stats__head {
   display: flex;
-  align-items: flex-end;
+  // الزر في الزاوية العليا مقابل الشارة، لا محاذيًا لأسفل الوصف
+  align-items: flex-start;
   justify-content: space-between;
   gap: 32px;
 }
