@@ -745,6 +745,36 @@ salla-cart-summary {
   font-weight: 600;
 }
 
+// أول رابط في الشريط بلون المتجر ولمعة فاتحة تعبر النص. اللمعة على النص
+// وحده (background-clip) فيبقى سهم القائمة الفرعية بلون المتجر ثابتًا
+.site-nav__row .main-menu > li.sawab-menu__first > a {
+  color: var(--color-primary);
+
+  .sawab-menu__label > span:last-child {
+    background: linear-gradient(
+      90deg,
+      var(--color-primary) 0 40%,
+      color-mix(in srgb, var(--color-primary) 35%, #fff) 50%,
+      var(--color-primary) 60% 100%
+    ) 100% 0 / 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: sawab-menu-shine 2.8s ease-in-out infinite;
+  }
+}
+
+@keyframes sawab-menu-shine {
+  0%, 30% { background-position: 100% 0; }
+  100% { background-position: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav__row .main-menu > li.sawab-menu__first > a .sawab-menu__label > span:last-child {
+    animation: none;
+  }
+}
+
 // ===== نسخة الموبايل =====
 // ===== الهمبرغر حتى 1023px =====
 // قائمة سطح المكتب لا تظهر إلا من 1024px (قاعدة الثيم `.main-menu`)، وكان

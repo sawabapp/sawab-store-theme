@@ -131,9 +131,10 @@ class NavigationMenu extends HTMLElement {
     * @returns {String}
     */
     getMenus() {
-        return this.menus.map((menu) => `
+        // أول رابط في الشريط يُبرَز بلون المتجر ولمعة (sawab-header.scss)
+        return this.menus.map((menu, i) => `
             ${this.getMobileMenu(menu, this.displayAllText)}
-            ${this.getDesktopMenu(menu, true)}
+            ${this.getDesktopMenu(menu, true, i === 0 ? 'sawab-menu__first' : '')}
         `).join('\n');
     }
 
