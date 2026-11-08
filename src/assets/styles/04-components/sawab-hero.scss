@@ -9,72 +9,36 @@
   }
 }
 
-.sawab-hero__grid {
-  display: grid;
-  grid-template-columns: 2.1fr 1fr;
-  gap: 20px;
-  align-items: stretch;
-}
-
-// ===== البطاقة الرئيسية =====
-.sawab-hero__main {
+// ===== اللوحة =====
+// الحشو السفلي يترك خط الماء تحت الصورة، فلا تغطيه ولا تطفو فوقه
+.sawab-hero__panel {
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
   align-items: center;
-  gap: 32px;
+  gap: 28px;
+  padding: 46px 52px 116px;
   background: #f3ebe0;
   border-radius: 24px;
-  padding: 40px;
   overflow: hidden;
-  // نسبة صورة الخلفية، ويطول المربع إن احتاج النص بدل أن يُقصّ
-  aspect-ratio: 1740 / 920;
-  min-height: min-content;
-
-  // النص في الجهة اليمنى باللغتين: الصورة مصمَّمة على ذلك ولا تنعكس
-  [dir="ltr"] & { justify-content: flex-end; }
 }
 
-.sawab-hero__content {
+.sawab-hero__copy {
   position: relative;
-  z-index: 1;
-  flex: 1;
+  z-index: 2;
   min-width: 0;
-  // ينتهي عند 55% من عرض المربع: النسبة من صندوق المحتوى (ناقص حشو 80px)
-  max-width: calc(55% + 4px);
-
-  // حجاب متدرّج اختياري (حقل hero_text_scrim): معتم خلف النص ويتلاشى نحو
-  // الصورة، فيبقى النص مقروءًا مهما كانت الصورة فاتحة أو داكنة خلفه
-  .sawab-hero--scrim &::before {
-    content: '';
-    position: absolute;
-    top: -48px;
-    bottom: -48px;
-    width: 130%;
-    z-index: -1;
-    pointer-events: none;
-  }
-
-  [dir="rtl"] .sawab-hero--scrim &::before {
-    right: -48px;
-    background: linear-gradient(to left, #f3ebe0 60%, rgba(243, 235, 224, 0) 100%);
-  }
-
-  [dir="ltr"] .sawab-hero--scrim &::before {
-    right: -48px;
-    background: linear-gradient(to left, #f3ebe0 60%, rgba(243, 235, 224, 0) 100%);
-  }
 }
 
 .sawab-hero__badge {
   display: inline-flex;
   align-items: center;
-  background: #fff;
+  background: var(--hero-badge-bg);
   border-radius: 999px;
-  padding: 8px 18px;
+  padding: 7px 16px;
   font-size: 13px;
   font-weight: 600;
-  color: var(--main-text-color);
-  margin-bottom: 22px;
+  color: var(--hero-badge-fg);
+  margin-bottom: 18px;
   white-space: nowrap;
   max-width: 100%;
   overflow: hidden;
@@ -82,34 +46,34 @@
 }
 
 .sawab-hero__title {
-  font-size: 32px;
+  font-size: 44px;
   font-weight: 800;
-  line-height: 1.35;
-  color: #1a1a1a;
-  margin: 0 0 6px;
+  line-height: 1.28;
+  color: var(--hero-title);
+  margin: 0;
 
   &--line2 {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
   }
 }
 
 .sawab-hero__title-highlight {
-  color: var(--color-primary);
+  color: var(--hero-highlight);
 }
 
 .sawab-hero__description {
-  font-size: 15px;
+  font-size: 15.5px;
   line-height: 1.8;
-  color: var(--color-text-light, #6b6b6b);
+  color: var(--hero-desc);
   max-width: 360px;
-  margin: 0 0 28px;
+  margin: 0 0 24px;
 }
 
 .sawab-hero__actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .sawab-hero__btn {
@@ -130,8 +94,8 @@
   // يختاره التاجر (--color-primary) بلا الحاجة لتعريف لون hover لكل زر
   &:hover {
     transform: translateY(-2px);
-    filter: brightness(0.93);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+    filter: brightness(0.95);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
   }
 
   &:focus-visible {
@@ -149,149 +113,155 @@
   }
 }
 
-// البطاقات الثلاث تستجيب للمرور استجابة خفيفة
-.sawab-hero__card:hover {
-  transform: translateY(-2px);
-  border-color: var(--color-primary);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
-}
-
-.sawab-hero__card--dark:hover {
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-}
-
 .sawab-hero__btn--whatsapp {
-  background: #25d366;
-  color: #fff;
+  background: var(--hero-wa-bg);
+  color: var(--hero-wa-fg);
+
+  i { color: var(--hero-wa-icon); }
 }
 
 .sawab-hero__btn--shop {
-  background: var(--color-primary);
-  color: #fff;
+  background: var(--hero-shop-bg);
+  color: var(--hero-shop-fg);
 }
 
-// الصورة خلفية المربع كاملًا (cover) بالنسبة المكتوبة للتاجر 1740×920
+// ===== الصورة =====
+// حدّ للارتفاع لأن صورة أقرب للمربع تملأ العمود فتطيل القسم كله
 .sawab-hero__image {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 0;
-  pointer-events: none;
+  position: relative;
+  z-index: 2;
+  align-self: end;
+  min-width: 0;
 
   picture { display: contents; }
 
   img {
+    display: block;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    max-height: 340px;
+    object-fit: contain;
+    object-position: center bottom;
   }
 }
 
-// ألوان يختارها التاجر (متغيّرات مضمّنة في القالب، وفيها القيم الافتراضية)
-.sawab-hero__badge { background: var(--hero-badge-bg); color: var(--hero-badge-fg); }
-.sawab-hero__btn--whatsapp { background: var(--hero-wa-bg); color: var(--hero-wa-fg); }
-.sawab-hero__btn--shop { background: var(--hero-shop-bg); color: var(--hero-shop-fg); }
-
-// ألوان النص للحاسوب وحده: لون أبيض فوق صورة داكنة يختفي على بيج الجوال
-@media (min-width: 769px) {
-  .sawab-hero__title { color: var(--hero-title); }
-  .sawab-hero__title-highlight { color: var(--hero-highlight); }
-  .sawab-hero__description { color: var(--hero-desc); }
+// ===== خط الماء =====
+// كل موجة بعرض 200% ودورتها 300 وحدة، فإزاحة 50% (600 وحدة) تغلق الحلقة بلا قفزة
+.sawab-hero__water {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  height: 104px;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-// ===== البطاقات الجانبية =====
-.sawab-hero__side {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.sawab-hero__wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 200%;
+  max-width: none;
+  height: 100%;
+  fill: #ece2d3;
+  animation: sawab-hero-wave 16s linear infinite;
 }
 
-.sawab-hero__card {
-  flex: 1;
+.sawab-hero__wave--front {
+  height: 76%;
+  fill: #e6dac7;
+  animation-duration: 11s;
+  animation-direction: reverse;
+}
+
+@keyframes sawab-hero-wave {
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sawab-hero__wave { animation: none; }
+}
+
+// ===== شريط الضمانات =====
+// أعمدة بعدد ما يُملأ من البطاقات: التاجر قد يخفي أيًّا منها بتركه فارغًا
+.sawab-hero__trust {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  margin: -54px 28px 0;
   background: #fff;
-  border: 1px solid var(--color-border, #e8e1d5);
   border-radius: 18px;
-  padding: 16px 18px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 12px 28px rgba(23, 24, 26, 0.09);
+  overflow: hidden;
 }
 
-.sawab-hero__card--dark {
-  background: #17181a;
-  border-color: #17181a;
-
-  .sawab-hero__card-title {
-    color: #fff;
-  }
-
-  .sawab-hero__card-text {
-    color: #c9c9c9;
-  }
-}
-
-.sawab-hero__card-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin: 0 0 3px;
+.sawab-hero__fact {
   display: flex;
   align-items: center;
-  gap: 7px;
-  line-height: 1.4;
+  gap: 13px;
+  min-width: 0;
+  padding: 19px 22px;
+
+  [dir="rtl"] & + & { border-right: 1px solid var(--color-border, #e8e1d5); }
+  [dir="ltr"] & + & { border-left: 1px solid var(--color-border, #e8e1d5); }
 }
 
-.sawab-hero__card-title--accent {
+.sawab-hero__fact-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(198, 33, 39, 0.09);
   color: var(--color-primary);
-}
 
-// أيقونات SVG بجانب عناوين البطاقات: ترث لون العنوان عبر currentColor
-.sawab-hero__card-icon {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
+  svg {
+    width: 22px;
+    height: 22px;
+  }
 }
 
 // الشاحنة تتجه مع اتجاه القراءة
-[dir="rtl"] .sawab-hero__card-icon--truck {
+[dir="rtl"] .sawab-hero__fact-icon--truck svg {
   transform: scaleX(-1);
 }
 
-.sawab-hero__card-icon--star {
-  width: 16px;
-  height: 16px;
-  color: #f5a623;
+.sawab-hero__fact-body {
+  flex: 1;
+  min-width: 0;
 }
 
-.sawab-hero__card-text {
-  font-size: 13px;
-  line-height: 1.55;
-  color: #6b6b6b;
+.sawab-hero__fact-title {
   margin: 0;
-}
-
-.sawab-hero__card--rating {
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.sawab-hero__rating-value {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 18px;
-  font-weight: 800;
+  font-size: 15.5px;
+  font-weight: 700;
+  line-height: 1.4;
   color: #1a1a1a;
+}
 
-  i {
-    color: #f5a623;
-    font-size: 16px;
+.sawab-hero__fact-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #6b6b6b;
+}
+
+.sawab-hero__fact--dark {
+  background: #17181a;
+
+  .sawab-hero__fact-icon {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
   }
+
+  .sawab-hero__fact-title { color: #fff; }
+  .sawab-hero__fact-text { color: #c9c9c9; }
 }
 
 .sawab-hero__reviews-link {
@@ -299,7 +269,7 @@
   align-items: center;
   gap: 4px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--main-text-color);
   text-decoration: none;
   white-space: nowrap;
@@ -325,21 +295,20 @@
 [dir="ltr"] .sawab-hero__reviews-link i { transform: scaleX(-1); }
 [dir="ltr"] .sawab-hero__reviews-link:hover i { transform: scaleX(-1) translateX(-3px); }
 
-// ===== الجوّال والأجهزة اللوحية =====
+// ===== الشاشات الأصغر =====
+@media (max-width: 1200px) {
+  .sawab-hero__title { font-size: 36px; }
+}
+
 @media (max-width: 1024px) {
-  .sawab-hero__grid {
-    grid-template-columns: 1fr;
+  .sawab-hero__panel {
+    padding: 36px 32px 108px;
+    gap: 20px;
   }
 
-  .sawab-hero__side {
-    flex-direction: row;
-  }
+  .sawab-hero__title { font-size: 30px; }
 
-  .sawab-hero__card--rating {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
+  .sawab-hero__fact { padding: 16px; }
 }
 
 @media (max-width: 768px) {
@@ -347,78 +316,52 @@
     padding: 16px 16px 28px;
   }
 
-  .sawab-hero__main {
-    flex-direction: column-reverse;
-    padding: 24px;
-    gap: 20px;
-    border-radius: 18px;
-    aspect-ratio: auto;
-    min-height: 0;
+  .sawab-hero__panel {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    padding: 26px 22px 72px;
+    border-radius: 20px;
   }
 
-  .sawab-hero__content {
-    max-width: none;
-
-    .sawab-hero--scrim &::before {
-      content: none;
-    }
-  }
-
-  .sawab-hero__image {
-    // صورة بعرض المربع أعلاه بنسبة 800×500. الهامش السالب يلغي الحشو، و`left`
-    // لأن صورة الحاسوب حين تُستعمل بديلًا تكون جهتها الحرة من النص يسارًا
-    position: static;
-    width: calc(100% + 48px);
-    max-width: none;
-    margin: -24px -24px 0;
-    aspect-ratio: 800 / 500;
-
-    img { object-position: left center; }
-  }
-
-  .sawab-hero__title,
-  .sawab-hero__title--line2 {
-    font-size: 24px;
-  }
+  .sawab-hero__title { font-size: 27px; }
 
   .sawab-hero__description {
     max-width: none;
-  }
-
-  .sawab-hero__actions {
-    flex-direction: column;
-    align-items: stretch;
+    font-size: 14.5px;
+    margin-bottom: 18px;
   }
 
   .sawab-hero__btn {
-    width: 100%;
+    flex: 1 1 130px;
+    height: 48px;
+    padding: 0 14px;
+    font-size: 14.5px;
   }
 
-  .sawab-hero__side {
-    flex-direction: column;
+  .sawab-hero__image img { max-height: 240px; }
+
+  .sawab-hero__water { height: 66px; }
+
+  .sawab-hero__trust {
+    grid-auto-flow: row;
+    margin: -32px 10px 0;
   }
 
-  // البطاقات بعرض كامل هنا، فيعود الرابط بجانب التقييم في الطرف المقابل
-  .sawab-hero__card--rating {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+  .sawab-hero__fact {
+    padding: 14px 16px;
+
+    [dir="rtl"] & + &,
+    [dir="ltr"] & + & {
+      border-right: 0;
+      border-left: 0;
+      border-top: 1px solid var(--color-border, #e8e1d5);
+    }
   }
 }
 
 @media (max-width: 480px) {
-  .sawab-hero__main {
-    padding: 20px;
-  }
-
   .sawab-hero__badge {
     font-size: 12px;
-    padding: 6px 14px;
-  }
-
-  .sawab-hero__image {
-    width: calc(100% + 40px);
-    margin: -20px -20px 0;
+    padding: 6px 13px;
   }
 }

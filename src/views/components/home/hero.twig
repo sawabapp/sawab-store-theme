@@ -11,7 +11,6 @@
 {% set description = component.hero_description %}
 {% set hero_image = component.hero_image %}
 {% set hero_mobile_image = component.hero_mobile_image|default('') %}
-{% set text_scrim = component.hero_text_scrim is not same as(false) %}
 {% set whatsapp_number = component.hero_whatsapp_number %}
 {% set whatsapp_button_text = component.hero_whatsapp_button_text %}
 {% set shop_button_text = component.hero_shop_button_text %}
@@ -27,11 +26,9 @@
 {# إعدادات الهيرو تُضبط من لوحة التصميم، وقد تكون فارغة تمامًا في متجر جديد —
    فلا نرسم لوحة كريمية فارغة بلا محتوى #}
 {% if title or title_highlight or badge_text or hero_image or hero_mobile_image %}
-<section data-testid="store-home-hero" class="s-block sawab-hero{{ text_scrim ? ' sawab-hero--scrim' : '' }}">
-  <div class="sawab-hero__grid">
-
-    <div class="sawab-hero__main" style="--hero-title: {{ component.hero_color_title|default('#1a1a1a') }}; --hero-highlight: {{ component.hero_color_highlight|default('var(--color-primary)') }}; --hero-desc: {{ component.hero_color_description|default('var(--color-text-light, #6b6b6b)') }}; --hero-badge-bg: {{ component.hero_color_badge_bg|default('#fff') }}; --hero-badge-fg: {{ component.hero_color_badge_text|default('var(--main-text-color)') }}; --hero-wa-bg: {{ component.hero_color_whatsapp_bg|default('#25d366') }}; --hero-wa-fg: {{ component.hero_color_whatsapp_text|default('#fff') }}; --hero-shop-bg: {{ component.hero_color_shop_bg|default('var(--color-primary)') }}; --hero-shop-fg: {{ component.hero_color_shop_text|default('#fff') }};">
-      <div class="sawab-hero__content">
+<section data-testid="store-home-hero" class="s-block sawab-hero">
+  <div class="sawab-hero__panel" style="--hero-title: {{ component.hero_color_title|default('#1a1a1a') }}; --hero-highlight: {{ component.hero_color_highlight|default('var(--color-primary)') }}; --hero-desc: {{ component.hero_color_description|default('var(--color-text-light, #6b6b6b)') }}; --hero-badge-bg: {{ component.hero_color_badge_bg|default('#fff') }}; --hero-badge-fg: {{ component.hero_color_badge_text|default('var(--main-text-color)') }}; --hero-wa-bg: {{ component.hero_color_whatsapp_bg|default('#fff') }}; --hero-wa-fg: {{ component.hero_color_whatsapp_text|default('var(--main-text-color)') }}; --hero-shop-bg: {{ component.hero_color_shop_bg|default('var(--color-primary)') }}; --hero-shop-fg: {{ component.hero_color_shop_text|default('#fff') }}; --hero-wa-icon: {{ component.hero_color_whatsapp_bg ? 'currentColor' : '#1ea952' }};">
+    <div class="sawab-hero__copy">
         {% if badge_text %}
           <span class="sawab-hero__badge">{{ badge_text }}</span>
         {% endif %}
@@ -52,6 +49,15 @@
         {% endif %}
 
         <div class="sawab-hero__actions">
+          {% if shop_button_text %}
+            <a
+              href="{{ shop_button_link|default(store.url) }}"
+              class="sawab-hero__btn sawab-hero__btn--shop"
+            >
+              <span>{{ shop_button_text }}</span>
+            </a>
+          {% endif %}
+
           {% if whatsapp_number %}
             <a
               href="https://wa.me/{{ whatsapp_number }}"
@@ -63,70 +69,67 @@
               <span>{{ whatsapp_button_text|default(trans('sawab.home.whatsapp_cta')) }}</span>
             </a>
           {% endif %}
-
-          {% if shop_button_text %}
-            <a
-              href="{{ shop_button_link|default(store.url) }}"
-              class="sawab-hero__btn sawab-hero__btn--shop"
-            >
-              <span>{{ shop_button_text }}</span>
-            </a>
-          {% endif %}
         </div>
-      </div>
-
-      {# خلفية المربع: 1740×920، والنص في أول 55% من جهة اليمين باللغتين.
-         وعلى الجوال صورة 800×500 أعلى المربع فوق النص #}
-      {% if hero_image or hero_mobile_image %}
-        <div class="sawab-hero__image">
-          <picture>
-            <source media="(max-width: 768px)" srcset="{{ hero_mobile_image|default(hero_image)|cdn(800) }}" width="800" height="500">
-            <img
-              src="{{ hero_image|default(hero_mobile_image)|cdn(1740) }}"
-              width="1740"
-              height="920"
-              loading="eager"
-              fetchpriority="high"
-              alt="{{ title|default(store.name) }}"
-            >
-          </picture>
-        </div>
-      {% endif %}
     </div>
 
-    <div class="sawab-hero__side">
+    {# صورة منتجات شفافة 1200×640 تقف على خط الماء، والجوال 800×500 تحت النص #}
+    {% if hero_image or hero_mobile_image %}
+      <div class="sawab-hero__image">
+        <picture>
+          <source media="(max-width: 768px)" srcset="{{ hero_mobile_image|default(hero_image)|cdn(800) }}" width="800" height="500">
+          <img
+            src="{{ hero_image|default(hero_mobile_image)|cdn(1240) }}"
+            width="1200"
+            height="640"
+            loading="eager"
+            fetchpriority="high"
+            alt="{{ title|default(store.name) }}"
+          >
+        </picture>
+      </div>
+    {% endif %}
+
+    <div class="sawab-hero__water" aria-hidden="true">
+      <svg class="sawab-hero__wave" viewBox="0 0 1200 100" preserveAspectRatio="none" focusable="false"><path d="M0 40q75-34 150 0t150 0 150 0 150 0 150 0 150 0 150 0 150 0V100H0Z"/></svg>
+      <svg class="sawab-hero__wave sawab-hero__wave--front" viewBox="0 0 1200 100" preserveAspectRatio="none" focusable="false"><path d="M0 44q75 30 150 0t150 0 150 0 150 0 150 0 150 0 150 0 150 0V100H0Z"/></svg>
+    </div>
+  </div>
+
+  {% if delivery_title or delivery_description or warranty_title or warranty_description or rating_percentage or reviews_link %}
+    <div class="sawab-hero__trust">
       {% if delivery_title or delivery_description %}
-        <div class="sawab-hero__card sawab-hero__card--dark">
-          <h3 class="sawab-hero__card-title">
-            <svg class="sawab-hero__card-icon sawab-hero__card-icon--truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 17H9V5h6v12Z"/><path d="M15 8h3.5L21 11v6h-6"/><circle cx="7" cy="17.5" r="2"/><circle cx="17" cy="17.5" r="2"/><path d="M5 17H3V9h6"/></svg>
-            <span>{{ delivery_title }}</span>
-          </h3>
-          <p class="sawab-hero__card-text">{{ delivery_description }}</p>
+        <div class="sawab-hero__fact sawab-hero__fact--dark">
+          <span class="sawab-hero__fact-icon sawab-hero__fact-icon--truck">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 17H9V5h6v12Z"/><path d="M15 8h3.5L21 11v6h-6"/><circle cx="7" cy="17.5" r="2"/><circle cx="17" cy="17.5" r="2"/><path d="M5 17H3V9h6"/></svg>
+          </span>
+          <div class="sawab-hero__fact-body">
+            <h3 class="sawab-hero__fact-title">{{ delivery_title }}</h3>
+            <p class="sawab-hero__fact-text">{{ delivery_description }}</p>
+          </div>
         </div>
       {% endif %}
 
       {% if warranty_title or warranty_description %}
-        <div class="sawab-hero__card">
-          <h3 class="sawab-hero__card-title sawab-hero__card-title--accent">
-            <svg class="sawab-hero__card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-3.6 7-9V5.8L12 3 5 5.8V12c0 5.4 7 9 7 9Z"/><path d="m9 11.8 2.1 2.1L15.2 9.8"/></svg>
-            <span>{{ warranty_title }}</span>
-          </h3>
-          <p class="sawab-hero__card-text">{{ warranty_description }}</p>
+        <div class="sawab-hero__fact">
+          <span class="sawab-hero__fact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-3.6 7-9V5.8L12 3 5 5.8V12c0 5.4 7 9 7 9Z"/><path d="m9 11.8 2.1 2.1L15.2 9.8"/></svg>
+          </span>
+          <div class="sawab-hero__fact-body">
+            <h3 class="sawab-hero__fact-title">{{ warranty_title }}</h3>
+            <p class="sawab-hero__fact-text">{{ warranty_description }}</p>
+          </div>
         </div>
       {% endif %}
 
       {% if rating_percentage or reviews_link %}
-        <div class="sawab-hero__card sawab-hero__card--rating">
-          <div class="sawab-hero__rating-main">
-            <div class="sawab-hero__rating-value">
-              <svg class="sawab-hero__card-icon sawab-hero__card-icon--star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="m12 3 2.6 5.3 5.9.9-4.3 4.1 1 5.9-5.2-2.8-5.2 2.8 1-5.9L3.5 9.2l5.9-.9L12 3Z"/></svg>
-              <span>{{ rating_percentage }}</span>
-            </div>
-            {% if rating_count_text %}
-              <p class="sawab-hero__card-text">{{ rating_count_text }}</p>
-            {% endif %}
+        <div class="sawab-hero__fact">
+          <span class="sawab-hero__fact-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="m12 3 2.6 5.3 5.9.9-4.3 4.1 1 5.9-5.2-2.8-5.2 2.8 1-5.9L3.5 9.2l5.9-.9L12 3Z"/></svg>
+          </span>
+          <div class="sawab-hero__fact-body">
+            {% if rating_percentage %}<h3 class="sawab-hero__fact-title">{{ rating_percentage }}</h3>{% endif %}
+            {% if rating_count_text %}<p class="sawab-hero__fact-text">{{ rating_count_text }}</p>{% endif %}
           </div>
-
           {% if reviews_link %}
             <a href="{{ reviews_link }}" class="sawab-hero__reviews-link">
               <span>{{ t_reviews_link }}</span>
@@ -136,7 +139,6 @@
         </div>
       {% endif %}
     </div>
-
-  </div>
+  {% endif %}
 </section>
 {% endif %}
