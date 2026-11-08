@@ -196,6 +196,15 @@
   }
 }
 
+// بلا الحجاب لا شيء يحمي النص من الصورة، فيأخذ كلٌّ منهما نصيبه بلا تداخل:
+// النص 52% من صندوق المحتوى، والصورة ما بقي من البطاقة ناقص فاصل 16px
+@media (min-width: 769px) {
+  .sawab-hero:not(.sawab-hero--scrim) {
+    .sawab-hero__content { max-width: 52%; }
+    .sawab-hero__image { width: calc(48% - 16px); }
+  }
+}
+
 // ===== البطاقات الجانبية =====
 .sawab-hero__side {
   display: flex;
