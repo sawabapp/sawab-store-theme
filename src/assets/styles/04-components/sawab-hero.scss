@@ -14,7 +14,7 @@
 .sawab-hero__panel {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   align-items: center;
   gap: 28px;
   padding: 46px 52px 116px;
@@ -141,10 +141,21 @@
     display: block;
     width: 100%;
     height: auto;
-    max-height: 340px;
+    max-height: 440px;
     object-fit: contain;
     object-position: center bottom;
   }
+}
+
+// تتجاوز حشو اللوحة نحو حافتها لتكبر الصورة دون أن تضيق مساحة النص
+@media (min-width: 769px) {
+  [dir="rtl"] .sawab-hero__image { margin-left: -20px; }
+  [dir="ltr"] .sawab-hero__image { margin-right: -20px; }
+}
+
+@media (min-width: 1025px) {
+  [dir="rtl"] .sawab-hero__image { margin-left: -36px; }
+  [dir="ltr"] .sawab-hero__image { margin-right: -36px; }
 }
 
 // ===== خط الماء =====

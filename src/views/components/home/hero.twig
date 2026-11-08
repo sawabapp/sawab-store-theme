@@ -72,15 +72,15 @@
         </div>
     </div>
 
-    {# صورة منتجات شفافة 1200×640 تقف على خط الماء، والجوال 800×500 تحت النص #}
+    {# صورة منتجات شفافة 1500×800 تقف على خط الماء، والجوال 800×500 تحت النص #}
     {% if hero_image or hero_mobile_image %}
       <div class="sawab-hero__image">
         <picture>
           <source media="(max-width: 768px)" srcset="{{ hero_mobile_image|default(hero_image)|cdn(800) }}" width="800" height="500">
           <img
-            src="{{ hero_image|default(hero_mobile_image)|cdn(1240) }}"
-            width="1200"
-            height="640"
+            src="{{ hero_image|default(hero_mobile_image)|cdn(1500) }}"
+            width="1500"
+            height="800"
             loading="eager"
             fetchpriority="high"
             alt="{{ title|default(store.name) }}"
