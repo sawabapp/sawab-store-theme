@@ -189,6 +189,18 @@
   }
 }
 
+// ألوان يختارها التاجر (متغيّرات مضمّنة في القالب، وفيها القيم الافتراضية)
+.sawab-hero__badge { background: var(--hero-badge-bg); color: var(--hero-badge-fg); }
+.sawab-hero__btn--whatsapp { background: var(--hero-wa-bg); color: var(--hero-wa-fg); }
+.sawab-hero__btn--shop { background: var(--hero-shop-bg); color: var(--hero-shop-fg); }
+
+// ألوان النص للحاسوب وحده: لون أبيض فوق صورة داكنة يختفي على بيج الجوال
+@media (min-width: 769px) {
+  .sawab-hero__title { color: var(--hero-title); }
+  .sawab-hero__title-highlight { color: var(--hero-highlight); }
+  .sawab-hero__description { color: var(--hero-desc); }
+}
+
 // ===== البطاقات الجانبية =====
 .sawab-hero__side {
   display: flex;

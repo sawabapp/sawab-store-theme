@@ -30,7 +30,7 @@
 <section data-testid="store-home-hero" class="s-block sawab-hero{{ text_scrim ? ' sawab-hero--scrim' : '' }}">
   <div class="sawab-hero__grid">
 
-    <div class="sawab-hero__main">
+    <div class="sawab-hero__main" style="--hero-title: {{ component.hero_color_title|default('#1a1a1a') }}; --hero-highlight: {{ component.hero_color_highlight|default('var(--color-primary)') }}; --hero-desc: {{ component.hero_color_description|default('var(--color-text-light, #6b6b6b)') }}; --hero-badge-bg: {{ component.hero_color_badge_bg|default('#fff') }}; --hero-badge-fg: {{ component.hero_color_badge_text|default('var(--main-text-color)') }}; --hero-wa-bg: {{ component.hero_color_whatsapp_bg|default('#25d366') }}; --hero-wa-fg: {{ component.hero_color_whatsapp_text|default('#fff') }}; --hero-shop-bg: {{ component.hero_color_shop_bg|default('var(--color-primary)') }}; --hero-shop-fg: {{ component.hero_color_shop_text|default('#fff') }};">
       <div class="sawab-hero__content">
         {% if badge_text %}
           <span class="sawab-hero__badge">{{ badge_text }}</span>
