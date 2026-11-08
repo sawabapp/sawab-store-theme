@@ -351,9 +351,14 @@
     font-size: 14.5px;
   }
 
-  .sawab-hero__image { margin-bottom: -20px; }
+  // من حافة اللوحة إلى حافتها، وتكبير طفيف يأكل الهامش الشفاف حول الصورة
+  .sawab-hero__image { margin: 0 -22px -20px; }
 
-  .sawab-hero__image img { max-height: 240px; }
+  .sawab-hero__image img {
+    max-height: 300px;
+    transform: scale(1.08);
+    transform-origin: center bottom;
+  }
 
   .sawab-hero__water { height: 66px; }
 
