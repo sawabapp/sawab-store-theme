@@ -1,0 +1,117 @@
+// ===== بنر بعرض كامل =====
+// نسبة ثابتة تطابق المقاس المكتوب للتاجر. والتلاشي داخل كل شريحة لا فوق
+// القسم، حتى تبقى النقاط والأسهم فوقه ولا يحجب النقر على الرابط.
+$sawab-fs-page-bg: #f9fafb;
+$sawab-fs-fade: 20%;
+
+.sawab-fs {
+  position: relative;
+  overflow: hidden;
+
+  salla-slider {
+    position: relative;
+    display: block;
+  }
+
+  // صف الأسهم عند سلة فوق الشرائح، فنجعله طبقة لا تأخذ مساحة
+  salla-slider .s-slider-block__title-left,
+  salla-slider .s-slider-block__title-nav { position: static; }
+
+  salla-slider .s-slider-block__title {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+  }
+
+  salla-slider .s-slider-nav-arrow {
+    position: absolute;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    color: #1c1b19;
+    transform: translateY(-50%);
+    pointer-events: auto;
+    transition: background-color 0.18s ease;
+
+    &:hover { background: #fff; }
+
+    svg { fill: currentColor; }
+  }
+
+  // قبل ترطيب المكوّن: الشريحة الأولى وحدها وبلا هامش سلة السالب، فلا يقفز
+  // ارتفاع القسم عند التحميل
+  salla-slider[type]:not(.hydrated) > div { margin: 0; }
+  salla-slider:not(.hydrated) .swiper-slide:not(:first-child) { display: none; }
+
+  [dir="rtl"] & salla-slider .s-slider-prev,
+  [dir="ltr"] & salla-slider .s-slider-next { right: 28px; }
+
+  [dir="rtl"] & salla-slider .s-slider-next,
+  [dir="ltr"] & salla-slider .s-slider-prev { left: 28px; }
+
+  // فوق منطقة التلاشي، فالنقاط البيضاء تختفي على لون الصفحة
+  salla-slider .swiper-pagination-bullets.swiper-pagination-horizontal {
+    bottom: calc(#{$sawab-fs-fade} + 8px);
+  }
+
+  salla-slider .swiper-pagination-bullet:not(.swiper-pagination-bullet-active) {
+    opacity: 0.7;
+  }
+}
+
+.sawab-fs__slide {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1920 / 720;
+  // بعد 1920px لا يتضخّم الارتفاع بلا حدّ، وتُقصّ الصورة من أعلى وأسفل
+  max-height: 800px;
+  background: #1f2937;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: $sawab-fs-fade;
+    background: linear-gradient(to bottom, rgba(249, 250, 251, 0), $sawab-fs-page-bg);
+    pointer-events: none;
+  }
+}
+
+.sawab-fs__media {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  picture { display: contents; }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 768px) {
+  .sawab-fs__slide {
+    aspect-ratio: 800 / 1000;
+    max-height: none;
+  }
+
+  .sawab-fs salla-slider .s-slider-block__title { display: none; }
+}

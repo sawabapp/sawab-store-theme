@@ -1,0 +1,33 @@
+{#
+
+بنر بعرض الشاشة وبلا هامش علوي، فضعه أول عناصر الصفحة. شرائح صور فقط: لكل شريحة
+صورة حاسوب 1920×720 وجوال اختيارية 800×1000 (حتى 768px) ورابط، وأسفلها يتلاشى إلى
+لون الصفحة. بلا `s-block` لأن هامشه العلوي يفصله عن الهيدر.
+#}
+{% set slides = component.slides|default([]) %}
+
+{% if slides|length %}
+<section data-testid="store-home-full-slider" class="sawab-fs">
+  <salla-slider
+    id="sawab-fs-{{ position }}"
+    type="fullwidth"
+    auto-play
+    static-when-single
+    {% if slides|length > 1 %}loop pagination show-controls="true"{% else %}show-controls="false"{% endif %}
+  >
+    <div slot="items">
+      {% for slide in slides %}
+        {% set mobile_image = slide.mobile_image|default('') %}
+        <div class="swiper-slide sawab-fs__slide">
+          {% if slide.url %}<a href="{{ slide.url }}" class="sawab-fs__media">{% else %}<div class="sawab-fs__media">{% endif %}
+            <picture>
+              <source media="(max-width: 768px)" srcset="{{ mobile_image|default(slide.image)|cdn(800) }}" width="800" height="1000">
+              <img src="{{ slide.image|cdn(1920) }}" alt="{{ trans('sawab.home.banner') }}" width="1920" height="720" {% if loop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}>
+            </picture>
+          {% if slide.url %}</a>{% else %}</div>{% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </salla-slider>
+</section>
+{% endif %}
