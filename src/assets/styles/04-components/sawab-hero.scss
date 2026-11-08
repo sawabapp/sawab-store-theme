@@ -26,7 +26,12 @@
   border-radius: 24px;
   padding: 40px;
   overflow: hidden;
-  min-height: 460px;
+  // نسبة صورة الخلفية، ويطول المربع إن احتاج النص بدل أن يُقصّ
+  aspect-ratio: 1740 / 920;
+  min-height: min-content;
+
+  // النص في الجهة اليمنى باللغتين: الصورة مصمَّمة على ذلك ولا تنعكس
+  [dir="ltr"] & { justify-content: flex-end; }
 }
 
 .sawab-hero__content {
@@ -34,7 +39,8 @@
   z-index: 1;
   flex: 1;
   min-width: 0;
-  max-width: 56%;
+  // ينتهي عند 55% من عرض المربع: النسبة من صندوق المحتوى (ناقص حشو 80px)
+  max-width: calc(55% + 4px);
 
   // حجاب متدرّج اختياري (حقل hero_text_scrim): معتم خلف النص ويتلاشى نحو
   // الصورة، فيبقى النص مقروءًا مهما كانت الصورة فاتحة أو داكنة خلفه
@@ -43,19 +49,19 @@
     position: absolute;
     top: -48px;
     bottom: -48px;
-    width: 175%;
+    width: 130%;
     z-index: -1;
     pointer-events: none;
   }
 
   [dir="rtl"] .sawab-hero--scrim &::before {
     right: -48px;
-    background: linear-gradient(to left, #f3ebe0 48%, rgba(243, 235, 224, 0) 100%);
+    background: linear-gradient(to left, #f3ebe0 60%, rgba(243, 235, 224, 0) 100%);
   }
 
   [dir="ltr"] .sawab-hero--scrim &::before {
-    left: -48px;
-    background: linear-gradient(to right, #f3ebe0 48%, rgba(243, 235, 224, 0) 100%);
+    right: -48px;
+    background: linear-gradient(to left, #f3ebe0 60%, rgba(243, 235, 224, 0) 100%);
   }
 }
 
@@ -164,49 +170,22 @@
   color: #fff;
 }
 
-// الصورة طبقة خلفية تملأ ارتفاع البطاقة وتمتد خلف النص.
-// التموضع المطلق يُقاس من صندوق الحشو، فتصل الصورة إلى حافة البطاقة
-// متجاوزة الـ40px حشوًا — وهذا المقصود.
+// الصورة خلفية المربع كاملًا (cover) بالنسبة المكتوبة للتاجر 1740×920
 .sawab-hero__image {
   position: absolute;
   top: 0;
+  right: 0;
   bottom: 0;
+  left: 0;
   z-index: 0;
-  width: 72%;
-  max-width: none;
-  border-radius: 0;
-  overflow: visible;
   pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  [dir="rtl"] & {
-    left: 0;
-  }
-
-  [dir="ltr"] & {
-    right: 0;
-  }
+  picture { display: contents; }
 
   img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-  }
-}
-
-// بلا الحجاب تتلاشى الصورة نفسها نحو النص: معتمة في طرفها البعيد وشفافة
-// قبل أن تبلغ أطول سطر، فتبقى بعرضها الكامل ولا تزاحم النص
-@media (min-width: 769px) {
-  [dir="rtl"] .sawab-hero:not(.sawab-hero--scrim) .sawab-hero__image {
-    -webkit-mask-image: linear-gradient(to right, #000 42%, transparent 68%);
-    mask-image: linear-gradient(to right, #000 42%, transparent 68%);
-  }
-
-  [dir="ltr"] .sawab-hero:not(.sawab-hero--scrim) .sawab-hero__image {
-    -webkit-mask-image: linear-gradient(to left, #000 42%, transparent 68%);
-    mask-image: linear-gradient(to left, #000 42%, transparent 68%);
+    object-fit: cover;
   }
 }
 
@@ -361,6 +340,7 @@
     padding: 24px;
     gap: 20px;
     border-radius: 18px;
+    aspect-ratio: auto;
     min-height: 0;
   }
 
@@ -373,17 +353,15 @@
   }
 
   .sawab-hero__image {
-    // على الجوال لا نصّ بجانب الصورة، فلا داعي لحصرها في 220px:
-    // تأخذ عرض البطاقة كاملًا تقريبًا كما تفعل على الحاسوب
+    // صورة بعرض المربع أعلاه بنسبة 800×500. الهامش السالب يلغي الحشو، و`left`
+    // لأن صورة الحاسوب حين تُستعمل بديلًا تكون جهتها الحرة من النص يسارًا
     position: static;
-    width: 100%;
+    width: calc(100% + 48px);
     max-width: none;
-    aspect-ratio: auto;
-    height: auto;
+    margin: -24px -24px 0;
+    aspect-ratio: 800 / 500;
 
-    img {
-      max-height: 380px;
-    }
+    img { object-position: left center; }
   }
 
   .sawab-hero__title,
@@ -427,7 +405,8 @@
     padding: 6px 14px;
   }
 
-  .sawab-hero__image img {
-    max-height: 320px;
+  .sawab-hero__image {
+    width: calc(100% + 40px);
+    margin: -20px -20px 0;
   }
 }

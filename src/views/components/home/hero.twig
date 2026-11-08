@@ -10,6 +10,7 @@
 {% set title_highlight = component.hero_title_highlight %}
 {% set description = component.hero_description %}
 {% set hero_image = component.hero_image %}
+{% set hero_mobile_image = component.hero_mobile_image|default('') %}
 {% set text_scrim = component.hero_text_scrim is not same as(false) %}
 {% set whatsapp_number = component.hero_whatsapp_number %}
 {% set whatsapp_button_text = component.hero_whatsapp_button_text %}
@@ -25,7 +26,7 @@
 
 {# إعدادات الهيرو تُضبط من لوحة التصميم، وقد تكون فارغة تمامًا في متجر جديد —
    فلا نرسم لوحة كريمية فارغة بلا محتوى #}
-{% if title or title_highlight or badge_text or hero_image %}
+{% if title or title_highlight or badge_text or hero_image or hero_mobile_image %}
 <section data-testid="store-home-hero" class="s-block sawab-hero{{ text_scrim ? ' sawab-hero--scrim' : '' }}">
   <div class="sawab-hero__grid">
 
@@ -74,16 +75,21 @@
         </div>
       </div>
 
-      {% if hero_image %}
+      {# خلفية المربع: 1740×920، والنص في أول 55% من جهة اليمين باللغتين.
+         وعلى الجوال صورة 800×500 أعلى المربع فوق النص #}
+      {% if hero_image or hero_mobile_image %}
         <div class="sawab-hero__image">
-          <img
-            src="{{ hero_image|cdn(700) }}"
-            width="600"
-            height="600"
-            loading="eager"
-            fetchpriority="high"
-            alt="{{ title|default(store.name) }}"
-          >
+          <picture>
+            <source media="(max-width: 768px)" srcset="{{ hero_mobile_image|default(hero_image)|cdn(800) }}" width="800" height="500">
+            <img
+              src="{{ hero_image|default(hero_mobile_image)|cdn(1740) }}"
+              width="1740"
+              height="920"
+              loading="eager"
+              fetchpriority="high"
+              alt="{{ title|default(store.name) }}"
+            >
+          </picture>
         </div>
       {% endif %}
     </div>
