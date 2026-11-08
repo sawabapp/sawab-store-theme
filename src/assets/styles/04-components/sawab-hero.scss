@@ -10,7 +10,7 @@
 }
 
 // ===== اللوحة =====
-// الحشو السفلي يترك خط الماء تحت الصورة، فلا تغطيه ولا تطفو فوقه
+// الحشو السفلي يترك مكانًا لخط الماء وشريط الضمانات الداخل على الحافة
 .sawab-hero__panel {
   position: relative;
   display: grid;
@@ -132,6 +132,8 @@
   z-index: 2;
   align-self: end;
   min-width: 0;
+  // تنزل عن حدّ الحشو لتقف المنتجات على قمة الموجة لا فوقها في الهواء
+  margin-bottom: -44px;
 
   picture { display: contents; }
 
@@ -337,6 +339,8 @@
     padding: 0 14px;
     font-size: 14.5px;
   }
+
+  .sawab-hero__image { margin-bottom: -20px; }
 
   .sawab-hero__image img { max-height: 240px; }
 
