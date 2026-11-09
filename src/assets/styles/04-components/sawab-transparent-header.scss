@@ -1,0 +1,127 @@
+// ===== هيدر شفاف فوق البنر =====
+// يعمل بشرطين: الإعداد مفعّل (كلاس site-header--tr يُطبع في الرئيسية فقط)، و«بنر
+// بعرض كامل» أول عنصر فعلًا. فبدونهما يبقى الهيدر الأبيض، لأن نصًّا أبيض فوق
+// قسم فاتح لا يُقرأ. والارتفاعات ثابتة كي يُسحب البنر تحتها بلا قياس ولا قفزة.
+$sawab-tr-line: rgba(255, 255, 255, 0.2);
+$sawab-tr-glass: rgba(255, 255, 255, 0.14);
+$sawab-tr-edge: rgba(255, 255, 255, 0.32);
+
+.site-header__logo img.site-header__logo-alt { display: none; }
+
+#app:has(.site-header--tr):has(#main-content > .sawab-fs:first-child) {
+  --sawab-tr-header-h: 77px;
+  --sawab-tr-nav-h: 61px;
+
+  .site-header--tr { height: var(--sawab-tr-header-h); }
+
+  .site-nav--tr {
+    position: relative;
+    z-index: 39;
+    height: var(--sawab-tr-nav-h);
+    background: transparent;
+    border-bottom-color: $sawab-tr-line;
+  }
+
+  #main-content > .sawab-fs:first-child {
+    margin-top: calc(-1 * (var(--sawab-tr-header-h) + var(--sawab-tr-nav-h)));
+
+    // تدرّج داكن خلف الهيدر كي يبقى الأبيض مقروءًا على الصور الفاتحة
+    .sawab-fs__slide::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 1;
+      height: 260px;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+      pointer-events: none;
+    }
+  }
+
+  // الروابط الجذرية وحدها: القوائم المنسدلة تبقى بيضاء بنصها الداكن
+  .site-nav--tr .main-menu > li > a,
+  .site-nav--tr .main-menu > li > a:hover,
+  .site-nav--tr .main-menu > li > a.active,
+  .site-nav--tr salla-menu[topnav] .s-menu-topnav-item,
+  .site-nav--tr salla-menu[topnav] .topnav-link-item,
+  .site-nav--tr salla-menu[topnav] a {
+    color: #fff;
+  }
+
+  .site-nav--tr .main-menu > li > a:hover { opacity: 0.8; }
+
+  .site-nav--tr .main-menu > li.sawab-menu__first > a .sawab-menu__label > span:last-child {
+    background-image: linear-gradient(90deg, #fff 0 40%, rgba(255, 255, 255, 0.45) 50%, #fff 60% 100%);
+  }
+
+  // عند التمرير يعود كل شيء إلى الهيدر الزجاجي بألوانه وشعاره الأصليين
+  .site-header--tr:not(.is-scrolled) {
+    background: transparent;
+    border-bottom-color: $sawab-tr-line;
+
+    .site-header__logo img { filter: brightness(0) invert(1); }
+
+    .site-header__logo:has(.site-header__logo-alt) img {
+      display: none;
+      filter: none;
+    }
+
+    .site-header__logo img.site-header__logo-alt { display: block; }
+
+    .site-header__mobile-toggle { color: #fff; }
+
+    .site-header__search { background: transparent; }
+
+    .site-header__search .s-search-input {
+      background: $sawab-tr-glass;
+      border-color: $sawab-tr-edge;
+      color: #fff;
+
+      &::placeholder { color: rgba(255, 255, 255, 0.85); }
+    }
+
+    .site-header__search .s-search-icon { color: #fff; }
+    .site-header__search .s-search-icon svg { fill: #fff; }
+
+    .site-header__search-btn,
+    .site-header__cart {
+      background: #fff;
+      border-color: #fff;
+      color: var(--main-text-color);
+    }
+
+    .site-header__search-btn:hover {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #fff;
+    }
+
+    .site-header__cart i { color: var(--main-text-color); }
+
+    .site-header__lang,
+    .site-header__account,
+    .site-header__search-mobile-icon {
+      background: $sawab-tr-glass;
+      border-color: $sawab-tr-edge;
+      color: #fff;
+    }
+
+    .site-header__account-label,
+    .s-user-menu-login-btn,
+    .s-user-menu-trigger,
+    .s-user-menu-trigger-icon {
+      color: #fff;
+    }
+
+    .s-user-menu-login-btn svg,
+    .s-user-menu-trigger-icon svg {
+      fill: #fff;
+    }
+  }
+
+  @media (max-width: 768px) {
+    --sawab-tr-header-h: 65px;
+    --sawab-tr-nav-h: 0px;
+  }
+}

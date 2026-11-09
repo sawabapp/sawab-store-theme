@@ -10,6 +10,9 @@
 {% set announcement_copy_code = theme.settings.get('announcement_copy_code') %}
 {% set important_links = theme.settings.get('important_links') %}
 {% set sticky_header_enabled = theme.settings.get('sticky_header_enabled', true) %}
+{# الشفافية للرئيسية وحدها، وsawab-transparent-header.scss يتأكد أن البنر أول عنصر #}
+{% set transparent_header = is_page('index') and theme.settings.get('transparent_header', false) %}
+{% set transparent_logo = theme.settings.get('transparent_header_logo')|default('') %}
 
 {# نصوص الهيدر من ملفات الترجمة (src/locales، مفاتيح sawab.header.*) #}
 {% set t_search = trans('sawab.header.search') %}
@@ -63,7 +66,7 @@
 </div>
 {% endif %}
 
-<header data-testid="store-header" class="store-header site-header{{ sticky_header_enabled ? ' js-sticky-header' : '' }}">
+<header data-testid="store-header" class="store-header site-header{{ sticky_header_enabled ? ' js-sticky-header' : '' }}{{ transparent_header ? ' site-header--tr' : '' }}">
   <div class="site-header__row">
 
     <a data-testid="store-header-mobile-toggle" class="site-header__mobile-toggle lg:hidden mburger mburger--collapse leading-none" href="#mobile-menu" aria-label="{{ t_menu }}">
@@ -72,6 +75,9 @@
 
     <a data-testid="store-header-logo" class="site-header__logo" href="{{ store.url }}">
       <img fetchpriority="high" width="140" height="40" loading="eager" src="{{ store.logo|cdn(175) }}" alt="{{ store.name }}">
+      {% if transparent_header and transparent_logo %}
+        <img class="site-header__logo-alt" width="140" height="40" loading="lazy" src="{{ transparent_logo|cdn(350) }}" alt="{{ store.name }}">
+      {% endif %}
       {% if is_page('index') %}
         <h1 class="sr-only">{{ store.name }}</h1>
       {% else %}
@@ -113,7 +119,7 @@
   </div>
 </header>
 
-<div id="mainnav" class="main-nav-container site-nav">
+<div id="mainnav" class="main-nav-container site-nav{{ transparent_header ? ' site-nav--tr' : '' }}">
   <div class="site-nav__row">
     <custom-main-menu></custom-main-menu>
     {% if important_links %}
