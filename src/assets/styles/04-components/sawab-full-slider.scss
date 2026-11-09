@@ -3,11 +3,15 @@
 // والأقصر تملؤه بـcover. والتلاشي داخل كل شريحة لا فوق
 // القسم، حتى تبقى النقاط والأسهم فوقه ولا يحجب النقر على الرابط.
 $sawab-fs-page-bg: #f9fafb;
-$sawab-fs-fade: 20%;
+$sawab-fs-fade: 30%;
+$sawab-fs-dots: 20%;
 
 .sawab-fs {
   position: relative;
   overflow: hidden;
+  // يصعد القسم التالي داخل منطقة التلاشي. والهامش السالب هنا لا على التالي لأن
+  // سلة تحقن عناصر بينهما في المحرر، وهو يتجمّع مع هامش s-block العلوي (64px)
+  margin-bottom: -110px;
 
   salla-slider {
     position: relative;
@@ -65,13 +69,16 @@ $sawab-fs-fade: 20%;
 
   // فوق منطقة التلاشي، فالنقاط البيضاء تختفي على لون الصفحة
   salla-slider .swiper-pagination-bullets.swiper-pagination-horizontal {
-    bottom: calc(#{$sawab-fs-fade} + 8px);
+    bottom: calc(#{$sawab-fs-dots} + 8px);
   }
 
   salla-slider .swiper-pagination-bullet:not(.swiper-pagination-bullet-active) {
     opacity: 0.7;
   }
 }
+
+// لا طبقة للقسم بغير position: البنر مُموضَع فيرسم فوق أي قسم عادي يدخل عليه
+.sawab-fs ~ :not(span):not(salla-hook) { position: relative; }
 
 .sawab-fs .sawab-fs__slide {
   position: relative;
@@ -87,7 +94,19 @@ $sawab-fs-fade: 20%;
     bottom: 0;
     left: 0;
     height: $sawab-fs-fade;
-    background: linear-gradient(to bottom, rgba(249, 250, 251, 0), $sawab-fs-page-bg);
+    // منحنى متدرّج لا خطّي: التدرّج بنقطتين يترك حدًّا مرئيًّا عند بدايته ونهايته.
+    // ويكتمل قبل الطرف السفلي فلا يظهر فصل بين الصورة ولون الصفحة
+    background: linear-gradient(
+      to bottom,
+      rgba(249, 250, 251, 0) 0%,
+      rgba(249, 250, 251, 0.04) 14%,
+      rgba(249, 250, 251, 0.14) 28%,
+      rgba(249, 250, 251, 0.32) 42%,
+      rgba(249, 250, 251, 0.56) 56%,
+      rgba(249, 250, 251, 0.78) 70%,
+      rgba(249, 250, 251, 0.93) 84%,
+      $sawab-fs-page-bg 96%
+    );
     pointer-events: none;
   }
 }
@@ -108,5 +127,7 @@ $sawab-fs-fade: 20%;
 }
 
 @media (max-width: 768px) {
+  .sawab-fs { margin-bottom: -64px; }
+
   .sawab-fs salla-slider .s-slider-block__title { display: none; }
 }

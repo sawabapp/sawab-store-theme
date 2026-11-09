@@ -226,7 +226,14 @@ isElementLoaded(selector){
     // أيقونة البحث في الجوال: تفتح مودال سلة (لا حقل مدمج هناك)
     this.onClick('[data-open-search]', event => {
       event.preventDefault();
-      salla.event.emit('search::open');
+      // نسخة سلة الحالية تعطي الحقل المدمج نافذة أيضًا تنتقل إلى body، فالحدث
+      // search::open يفتح نافذتين فوق بعض. نفتح واحدة مباشرة
+      const modal = document.querySelector('salla-modal.s-search-modal');
+      if (!modal) {
+        salla.event.emit('search::open');
+        return;
+      }
+      modal.open().then(() => setTimeout(() => modal.querySelector('input.s-search-input')?.focus(), 300));
     });
 
     // زر "بحث" على الحاسوب يعمل كمفتاح Enter على الحقل المدمج لا كفاتح مودال:
