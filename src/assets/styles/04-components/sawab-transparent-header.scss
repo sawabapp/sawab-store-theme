@@ -2,13 +2,15 @@
 // يعمل بشرطين: الإعداد مفعّل (كلاس site-header--tr يُطبع في الرئيسية فقط)، و«بنر
 // بعرض كامل» أول عنصر فعلًا. فبدونهما يبقى الهيدر الأبيض، لأن نصًّا أبيض فوق
 // قسم فاتح لا يُقرأ. والارتفاعات ثابتة كي يُسحب البنر تحتها بلا قياس ولا قفزة.
-$sawab-tr-line: rgba(255, 255, 255, 0.2);
+// «أول عنصر» يعني لا شيء قبله سوى salla-hook و span.s-design-before اللذين تحقنهما
+// سلة في #main-content، فلا يصلح :first-child.
+$sawab-tr-banner: '#main-content > .sawab-fs:not(:not(salla-hook):not(span) ~ .sawab-fs)';
 $sawab-tr-glass: rgba(255, 255, 255, 0.14);
 $sawab-tr-edge: rgba(255, 255, 255, 0.32);
 
 .site-header__logo img.site-header__logo-alt { display: none; }
 
-#app:has(.site-header--tr):has(#main-content > .sawab-fs:first-child) {
+#app:has(.site-header--tr):has(#{$sawab-tr-banner}) {
   --sawab-tr-header-h: 77px;
   --sawab-tr-nav-h: 61px;
 
@@ -19,10 +21,10 @@ $sawab-tr-edge: rgba(255, 255, 255, 0.32);
     z-index: 39;
     height: var(--sawab-tr-nav-h);
     background: transparent;
-    border-bottom-color: $sawab-tr-line;
+    border-bottom-color: transparent;
   }
 
-  #main-content > .sawab-fs:first-child {
+  #{$sawab-tr-banner} {
     margin-top: calc(-1 * (var(--sawab-tr-header-h) + var(--sawab-tr-nav-h)));
 
     // تدرّج داكن خلف الهيدر كي يبقى الأبيض مقروءًا على الصور الفاتحة
@@ -58,7 +60,7 @@ $sawab-tr-edge: rgba(255, 255, 255, 0.32);
   // عند التمرير يعود كل شيء إلى الهيدر الزجاجي بألوانه وشعاره الأصليين
   .site-header--tr:not(.is-scrolled) {
     background: transparent;
-    border-bottom-color: $sawab-tr-line;
+    border-bottom-color: transparent;
 
     .site-header__logo img { filter: brightness(0) invert(1); }
 
@@ -77,6 +79,11 @@ $sawab-tr-edge: rgba(255, 255, 255, 0.32);
       background: $sawab-tr-glass;
       border-color: $sawab-tr-edge;
       color: #fff;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+
+      [dir="rtl"] & { border-radius: 0 999px 999px 0; }
+      [dir="ltr"] & { border-radius: 999px 0 0 999px; }
 
       &::placeholder { color: rgba(255, 255, 255, 0.85); }
     }
@@ -91,6 +98,13 @@ $sawab-tr-edge: rgba(255, 255, 255, 0.32);
       color: var(--main-text-color);
     }
 
+    .site-header__search-btn {
+      [dir="rtl"] & { border-radius: 999px 0 0 999px; }
+      [dir="ltr"] & { border-radius: 0 999px 999px 0; }
+    }
+
+    .site-header__cart { border-radius: 999px; }
+
     .site-header__search-btn:hover {
       background: var(--color-primary);
       border-color: var(--color-primary);
@@ -104,7 +118,10 @@ $sawab-tr-edge: rgba(255, 255, 255, 0.32);
     .site-header__search-mobile-icon {
       background: $sawab-tr-glass;
       border-color: $sawab-tr-edge;
+      border-radius: 999px;
       color: #fff;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
     }
 
     .site-header__account-label,

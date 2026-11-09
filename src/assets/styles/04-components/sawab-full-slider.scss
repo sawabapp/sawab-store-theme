@@ -1,5 +1,6 @@
 // ===== بنر بعرض كامل =====
-// نسبة ثابتة تطابق المقاس المكتوب للتاجر. والتلاشي داخل كل شريحة لا فوق
+// الارتفاع من الصورة نفسها، وأطول شريحة تحدّد ارتفاع القسم فلا يقفز مع التبديل
+// والأقصر تملؤه بـcover. والتلاشي داخل كل شريحة لا فوق
 // القسم، حتى تبقى النقاط والأسهم فوقه ولا يحجب النقر على الرابط.
 $sawab-fs-page-bg: #f9fafb;
 $sawab-fs-fade: 20%;
@@ -72,12 +73,11 @@ $sawab-fs-fade: 20%;
   }
 }
 
-.sawab-fs__slide {
+.sawab-fs .sawab-fs__slide {
   position: relative;
   width: 100%;
-  aspect-ratio: 1920 / 720;
-  // بعد 1920px لا يتضخّم الارتفاع بلا حدّ، وتُقصّ الصورة من أعلى وأسفل
-  max-height: 800px;
+  // auto لا 100% (افتراضي swiper): الشريحة تمتدّ مع صف الشرائح إلى ارتفاع أطولها
+  height: auto;
   background: #1f2937;
 
   &::after {
@@ -108,10 +108,5 @@ $sawab-fs-fade: 20%;
 }
 
 @media (max-width: 768px) {
-  .sawab-fs__slide {
-    aspect-ratio: 800 / 1000;
-    max-height: none;
-  }
-
   .sawab-fs salla-slider .s-slider-block__title { display: none; }
 }
