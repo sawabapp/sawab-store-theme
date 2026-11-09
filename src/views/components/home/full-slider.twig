@@ -5,9 +5,12 @@
 لون الصفحة. وسمتا width/height مجرّد حجز أولي للمساحة. بلا `s-block` لأن هامشه العلوي يفصله عن الهيدر.
 #}
 {% set slides = component.slides|default([]) %}
+{# |default لأن البنرات المحفوظة قبل إضافة الحقلين لا تحمل مفتاحيهما #}
+{% set transparent_header = component.transparent_header|default(false) %}
+{% set transparent_logo = component.transparent_header_logo|default('') %}
 
 {% if slides|length %}
-<section data-testid="store-home-full-slider" class="sawab-fs">
+<section data-testid="store-home-full-slider" class="sawab-fs{{ transparent_header ? ' sawab-fs--tr' : '' }}">
   <salla-slider
     id="sawab-fs-{{ position }}"
     type="fullwidth"
@@ -29,5 +32,11 @@
       {% endfor %}
     </div>
   </salla-slider>
+  {# الشعار يسكن الهيدر الذي لا يقرأ حقول العنصر، فيُنقل إليه فور قراءة هذا السطر.
+     والرابط في template لا داخل السكربت لأن twig يهرّب & #}
+  {% if transparent_header and transparent_logo %}
+    <template><img class="site-header__logo-alt" width="140" height="40" src="{{ transparent_logo|cdn(350) }}" alt="{{ store.name }}"></template>
+    <script>(function(t,l){if(l&&!l.querySelector('.site-header__logo-alt'))l.appendChild(t.content.firstElementChild)})(document.currentScript.previousElementSibling,document.querySelector('.site-header__logo'))</script>
+  {% endif %}
 </section>
 {% endif %}

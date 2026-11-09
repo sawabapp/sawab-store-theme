@@ -1,22 +1,22 @@
 // ===== هيدر شفاف فوق البنر =====
-// يعمل بشرطين: الإعداد مفعّل (كلاس site-header--tr يُطبع في الرئيسية فقط)، و«بنر
-// بعرض كامل» أول عنصر فعلًا. فبدونهما يبقى الهيدر الأبيض، لأن نصًّا أبيض فوق
-// قسم فاتح لا يُقرأ. والارتفاعات ثابتة كي يُسحب البنر تحتها بلا قياس ولا قفزة.
+// يعمل بشرطين: مفتاح «هيدر شفاف» داخل عنصر البنر (كلاس sawab-fs--tr)، وأن يكون
+// البنر أول عنصر فعلًا. فبدونهما يبقى الهيدر الأبيض، لأن نصًّا أبيض فوق قسم فاتح
+// لا يُقرأ. والارتفاعات ثابتة كي يُسحب البنر تحتها بلا قياس ولا قفزة.
 // «أول عنصر» يعني لا شيء قبله سوى salla-hook و span.s-design-before اللذين تحقنهما
 // سلة في #main-content، فلا يصلح :first-child.
-$sawab-tr-banner: '#main-content > .sawab-fs:not(:not(salla-hook):not(span) ~ .sawab-fs)';
+$sawab-tr-banner: '#main-content > .sawab-fs.sawab-fs--tr:not(:not(salla-hook):not(span) ~ .sawab-fs)';
 $sawab-tr-glass: rgba(255, 255, 255, 0.14);
 $sawab-tr-edge: rgba(255, 255, 255, 0.32);
 
 .site-header__logo img.site-header__logo-alt { display: none; }
 
-#app:has(.site-header--tr):has(#{$sawab-tr-banner}) {
+#app:has(#{$sawab-tr-banner}) {
   --sawab-tr-header-h: 77px;
   --sawab-tr-nav-h: 61px;
 
-  .site-header--tr { height: var(--sawab-tr-header-h); }
+  .site-header { height: var(--sawab-tr-header-h); }
 
-  .site-nav--tr {
+  .site-nav {
     position: relative;
     z-index: 39;
     height: var(--sawab-tr-nav-h);
@@ -42,23 +42,23 @@ $sawab-tr-edge: rgba(255, 255, 255, 0.32);
   }
 
   // الروابط الجذرية وحدها: القوائم المنسدلة تبقى بيضاء بنصها الداكن
-  .site-nav--tr .main-menu > li > a,
-  .site-nav--tr .main-menu > li > a:hover,
-  .site-nav--tr .main-menu > li > a.active,
-  .site-nav--tr salla-menu[topnav] .s-menu-topnav-item,
-  .site-nav--tr salla-menu[topnav] .topnav-link-item,
-  .site-nav--tr salla-menu[topnav] a {
+  .site-nav .main-menu > li > a,
+  .site-nav .main-menu > li > a:hover,
+  .site-nav .main-menu > li > a.active,
+  .site-nav salla-menu[topnav] .s-menu-topnav-item,
+  .site-nav salla-menu[topnav] .topnav-link-item,
+  .site-nav salla-menu[topnav] a {
     color: #fff;
   }
 
-  .site-nav--tr .main-menu > li > a:hover { opacity: 0.8; }
+  .site-nav .main-menu > li > a:hover { opacity: 0.8; }
 
-  .site-nav--tr .main-menu > li.sawab-menu__first > a .sawab-menu__label > span:last-child {
+  .site-nav .main-menu > li.sawab-menu__first > a .sawab-menu__label > span:last-child {
     background-image: linear-gradient(90deg, #fff 0 40%, rgba(255, 255, 255, 0.45) 50%, #fff 60% 100%);
   }
 
   // عند التمرير يعود كل شيء إلى الهيدر الزجاجي بألوانه وشعاره الأصليين
-  .site-header--tr:not(.is-scrolled) {
+  .site-header:not(.is-scrolled) {
     background: transparent;
     border-bottom-color: transparent;
 
